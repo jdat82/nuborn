@@ -1,0 +1,21 @@
+#splashscreen-page 
+{
+	z-index: 100;
+	width: 100%; 
+	height: 100%; 
+	background: white;
+
+	[data-role=content]
+	{
+		position: relative;
+		width: 100%;
+		top: 26%;
+		text-align: center;
+	}
+
+	.loading-title
+	{
+		margin-top: 0.4em;
+		font-size: 1.2em;
+	}
+}

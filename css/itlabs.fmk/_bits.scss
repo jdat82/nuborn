@@ -1,0 +1,103 @@
+$appleGrey: #f2f3f4;
+$softBlack: #333;
+$ultraLightGrey: #EEE;
+
+$padding: 10px;
+$radius: 3px;
+
+.pa {position:absolute}
+.pr {position:relative}
+.fr {float:right}
+.fl {float:left}
+.cb {clear:both}
+.dib {display:inline-block}
+.ovhid {overflow:hidden}
+.w100p {width:100%}
+.h100p {height:100%}
+.c9c   {color:#9C9C9C}
+.vam {vertical-align: middle;}
+.tac {
+	text-align: center;
+}
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin linear-gradient($orientation, $from, $to) {
+	background-image: -moz-linear-gradient($orientation, $from, $to);
+	background-image: -ms-linear-gradient($orientation, $from, $to);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from($from), to($to));
+	background-image: -webkit-linear-gradient($orientation, $from, $to);
+	background-image: -o-linear-gradient($orientation, $from, $to);
+	background-image: linear-gradient($orientation, $from, $to);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}', GradientType=0);
+}
+
+@mixin box-shadow($inset, $x, $y, $blur, $spread, $color, $ieDirection) {
+	-moz-box-shadow: $inset $x $y $blur $spread $color;
+	-webkit-box-shadow: $inset $x $y $blur $spread $color;
+	-o-box-shadow: $inset $x $y $blur $spread $color;
+	box-shadow: $inset $x $y $blur $spread $color;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#{$color}, Direction=#{$ieDirection}, Strength=#{$spread});
+}
+
+@mixin vendorize($property, $value) {
+	-webkit-#{$property}: #{$value};
+	-moz-#{$property}: #{$value};
+	-ms-#{$property}: #{$value};
+	-o-#{$property}: #{$value};
+	#{$property}: #{$value};
+
+	// inefficace je pense car doit-être positionné lorsque la valeur change
+	// @if $property == transition {
+	// 	-webkit-transform: transform3d(0,0,0);
+	// 	-moz-transform: transform3d(0,0,0);
+	// 	-ms-transform: transform3d(0,0,0);
+	// 	-o-transform: transform3d(0,0,0);
+	// 	transform: transform3d(0,0,0);
+	// }	
+}
+
+@mixin clear() {
+	&:before, &:after {
+		content: "\0020";
+		display: block;
+		height: 0;
+		overflow: hidden;
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+@mixin squeeze-effect() {
+	@include vendorize(transition, all 0.3s);
+    &:active {
+    	@include vendorize(transform, scale(1.05));
+    }
+}
+.squeeze-effect {
+	@include squeeze-effect();
+}
+
+
+// les scrollbars ne fonctionnent pas bien dans safari mobile
+// pour qu'elles n'apparaissent que s'il faut scroller, on ne les affiche
+// que si la classe .show-scrollbar est présente
+// c'est la responsabilité du développeur d'ajouter cette classe au DOM au besoin
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 6px;
+    right: 5px;
+}
+::-webkit-scrollbar-track {
+    background-color: rgba(156, 156, 156, .6);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(57,57,57, .6);
+}
+

@@ -1,0 +1,97 @@
+[id^=overlay] {
+	background-color: rgba(0,0,0,0.4);
+	position: fixed;
+	top: 0px;
+	left:0px;
+	z-index: 5000;
+	width: 100%;
+	height: 100%;
+	
+	.container {
+		display: table-cell;
+		vertical-align: middle;
+	}
+	
+	.spinner-container {
+		width: 150px;
+		background-color: rgba(33, 33, 33, 0.8);
+		border-radius: 15px;
+		margin: auto;
+		
+		.spinner{
+			margin:auto;
+			top: 5px;
+		}
+
+		.title {
+			font-size: 1.1em;
+			text-align: center;
+			padding: 0 0 2px 0;
+			color: #EEE;
+			text-shadow: none;
+		}
+
+		.message{
+			color: #999;
+			text-align: center;
+			padding: 0 0 5px 0;
+			font-size: 0.7em;
+			text-shadow: none;
+		}
+	}
+
+	@import "_loader-page";
+}	
+
+.old-android [id^=overlay] {
+	.spinner {
+		top: 10px;
+	}
+	.title {
+		margin-top: 15px;
+	}
+}
+
+[id^=element-overlay] {
+	background-color: rgba(0,0,0,0.4);
+	position: absolute;
+	z-index: 5000;
+
+	.container {
+		padding: 0;
+		text-align: center;
+		vertical-align: middle;
+		display: table-cell;
+		background-color: rgba(33, 33, 33, 0.6);
+	}
+
+	.spinner-container {
+		
+		display: inline-block;
+
+		.spinner{
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		.title {
+			font-size: 0.8em;
+			text-align: center;
+			color: #EEE;
+			text-shadow: none;
+			display: inline-block;
+			margin-left: 5px;
+		}
+	}
+
+	@import "_loader-element";
+}
+
+@import "_loader-animation";
+
+
+
+
+
+
+

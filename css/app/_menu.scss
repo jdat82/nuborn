@@ -1,0 +1,34 @@
+
+#menu
+{
+	border-right: 1px solid $ultraLightGrey;
+	@include box-shadow(inset, -2px, 0px, 5px, 0px, $ultraLightGrey, 180);
+	li 
+	{
+		border-bottom: 2px solid $ultraLightGrey;
+		padding: $padding*2 $padding;
+	}
+	li:first-child
+	{
+		border-top: 2px solid $ultraLightGrey;
+	}
+}
+
+.menu-button
+{
+	color: white;
+}
+
+[data-role=header]
+{
+	.menu-button {
+		top: 12px;
+	}
+}
+
+.menu-title
+{
+	font-size: 2em;
+	margin: $padding*2 $padding;
+	text-align: center;
+}

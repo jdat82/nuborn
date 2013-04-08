@@ -1,0 +1,26 @@
+<!-- redirection si l'on est pas passé par l'accueil -->
+<script type="text/javascript">if(!window.$||!window.$.it){window.location.href = "index.html";};</script>
+
+<div data-role="page" id="home-page">
+
+	<div data-role="header">
+		<!-- bouton affichant un menu latéral -->
+		<a href="#menu" class="menu-button" data-icon="&#x65;" data-role="none"></a>
+		<h1 data-wording-key="app-name"></h1>
+	</div>
+
+	<div data-role="content" class="page-content">	
+		<h2 data-wording-key="welcome"></h2>
+	</div>
+
+	<div data-role="footer">
+		
+	</div>
+
+	<!-- menu pour la home
+	attention, le composant panel de jquery mobile pour l'instant est propre à chaque page
+	il n'est pas possible d'avoir un menu général à l'application -->
+	<div data-role="panel" id="menu" data-swipe-close="false" data-position-fixed="true" data-display="push">
+
+	</div>
+</div>
