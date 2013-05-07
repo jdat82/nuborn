@@ -30,7 +30,7 @@ module.exports = function(grunt) {
 				 */
 				targets:{
 					"android": true,
-					"ios": false,
+					"ios": true,
 					"web": true
 				},
 				/**
@@ -218,7 +218,68 @@ module.exports = function(grunt) {
 				 * HTML Configuration
 				 */
 				html:{
+					/**
+					 * Application Configuration
+					 */
+					app: {
+						templatesFolderName : "templates",
 
+						patterns: [
+							"src/**/*.html",
+							"!src/**/<%= nuborn.classic.html.app.templatesFolderName %>/*.html"
+						],
+
+						android: {
+							output: "assets/www/"
+
+						},
+
+						ios: {
+							output: "www/"
+						},
+
+						web: {
+
+						}
+					},
+					/**
+					 * Libraries Configuration
+					 */
+					libs: {
+
+					}
+
+				}
+			}
+		},
+		/**
+		 * Documentation
+		 */
+		jsduck:{
+			/**
+			 * App Documentation
+			 */
+			app: {
+				src: [
+					"src/"
+				],
+				dest: "docs/App",
+				options:{
+					"title": "Nuborn Application",
+					"footer": "IT&L@bs Toulouse - Mobile team"
+				}
+			},
+			/**
+			 * Nuborn Documentation
+			 */
+			nuborn: {
+				src: [
+					"libs/Nuborn/"
+				],
+				dest: "docs/Nuborn",
+				options:{
+					"title": "Nuborn - framework for hybrid & web mobile apps",
+					"footer": "IT&L@bs Toulouse - Mobile team"
 				}
 			}
 		}
