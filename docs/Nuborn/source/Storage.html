@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/* -- Provider -- */
+goog.provide(&quot;nu.Storage&quot;);
+
+/* -- Imports -- */
+goog.require(&quot;nu&quot;);
+
+<span id='nu-Storage'>/**
+</span> * @class nu.Storage
+ * Help for saving objects into the local storage memory.
+ * @singleton
+ */
+nu.Storage = {};
+
+<span id='nu-Storage-method-set'>/**
+</span> * Saves the object with the specified key.
+ * @param {String} key    The key for the saved object 
+ * @param {Object|String|Number} object The object to save
+ */
+nu.Storage.set = function(key, object){
+	// stringifying the object as JSON
+	var string = JSON.stringify(object);
+	// saving the stringify result into local storage
+	localStorage.setItem(key, string);
+};
+
+<span id='nu-Storage-method-get'>/**
+</span> * Gets the previously saved object with the specified key.
+ * @param  {String} key The key for the saved object
+ * @return {Object|String|Number}     The previously saved object with the specified key
+ */
+nu.Storage.get = function(key){
+	// getting previously saved object with the specified key from local storage
+	var string = localStorage.getItem(key);
+	// if string is not null, proceed
+	if(string){
+		// declaring the resulting object
+		var object = null;
+		try{
+			// parsing the string as JSON to get the object
+			object = JSON.parse(string);
+		} catch(error){
+			// if an error occured during parsing JSON, set result object as the string
+			object = string;
+		}
+		// returning the object
+		return object;
+	}
+	return null;
+};
+</pre>
+</body>
+</html>

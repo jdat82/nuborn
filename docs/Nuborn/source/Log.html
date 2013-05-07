@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/* -- Provider -- */
+goog.provide(&quot;nu.debug.Log&quot;);
+
+/* -- Imports -- */
+goog.require(&quot;nu&quot;);
+goog.require(&quot;nu.Storage&quot;);
+
+<span id='nu-debug-LogLevel'>/**
+</span> * @enum
+ * Enumeration of log levels.
+ */
+nu.debug.LogLevel = {
+<span id='nu-debug-LogLevel-property-ALL'>	ALL: &quot;ALL&quot;,
+</span><span id='nu-debug-LogLevel-property-INFO'>	INFO: &quot;INFO&quot;,
+</span><span id='nu-debug-LogLevel-property-ERROR'>	ERROR: &quot;ERROR&quot;,
+</span><span id='nu-debug-LogLevel-property-WARN'>	WARN: &quot;WARN&quot;
+</span>};
+
+<span id='nu-debug-Log'>/**
+</span> * @class nu.debug.Log
+ * @singleton
+ */
+nu.debug.Log = {};
+
+<span id='nu-debug-Log-method-log'>/**
+</span> * Log the value parameter with the level specified.
+ * @param  {String} value The value to log
+ * @param  {String} level The level of the log
+ */
+nu.debug.Log.log = function(value, level){
+	// if no value is specified, log error and stop the process
+	if(!value){
+		nu.debug.Log.e(&quot;nu.debug.Log called without parameter&quot;);
+		return;
+	}
+	// getting the value as a string
+	var val = value.toString();
+	// declaring the method of the console to call
+	var method = null;
+	// declaring the value to save in storage
+	var storage = val;
+	// checking the level, default is INFO
+	switch(level){
+		case nu.debug.LogLevel.ERROR:
+			// if it is an error, we save the error with its stack trace
+			storage = new Error(val).stack;
+			// calling console.error if it is an error
+			method = &quot;error&quot;;
+			break;
+		case nu.debug.LogLevel.WARN:
+			// calling console.warn if it is a warning
+			method = &quot;warn&quot;;
+			break;
+		default:
+			// setting the level to INFO by default
+			level = nu.debug.LogLevel.INFO;
+			// calling console.info if it is an info
+			method = &quot;info&quot;;
+			break;
+	}
+	// if the level is activated
+	if(nu.debug.Log.level === nu.debug.LogLevel.ALL || nu.debug.Log.level.contains(level)){
+		// if console is activated for logs
+		if(nu.debug.Log.console){
+			// call the correct method on the console object
+			console[method](val);
+		}
+
+		// if storage is activated for logs
+		if(nu.debug.Log.storage){
+			// getting the log object
+			var log = nu.debug.Log.get();
+			// unshifting the correct value into the correct array member with the date
+			log[level].unshift(storage+&quot; -- &quot;+new Date().toLocaleString());
+			// saving log object into the storage
+			nu.debug.Log.set(log);
+		}
+	}
+};
+
+<span id='nu-debug-Log-method-info'>/**
+</span> * Logs informations.
+ * @param  {String} value The information to log
+ */
+nu.debug.Log.info = function(value){
+	nu.debug.Log.log(value, nu.debug.LogLevel.INFO);
+};
+
+<span id='nu-debug-Log-method-i'>/**
+</span> * @method i
+ * @inheritdoc #info
+ */
+nu.debug.Log.i = nu.debug.Log.info;
+
+<span id='nu-debug-Log-method-error'>/**
+</span> * Logs errors.
+ * @param  {String} value The error to log
+ */
+nu.debug.Log.error = function(value){
+	nu.debug.Log.log(value, nu.debug.LogLevel.ERROR);
+};
+
+<span id='nu-debug-Log-method-e'>/**
+</span> * @method e
+ * @inheritdoc #error
+ */
+nu.debug.Log.e = nu.debug.Log.error;
+
+<span id='nu-debug-Log-method-warn'>/**
+</span> * Logs warnings.
+ * @param  {String} value The warning to log
+ */
+nu.debug.Log.warn = function(value){
+	nu.debug.Log.log(value, nu.debug.LogLevel.WARN);
+};
+
+<span id='nu-debug-Log-method-w'>/**
+</span> * @method w
+ * @inheritdoc #warn
+ */
+nu.debug.Log.w = nu.debug.Log.warn;
+
+<span id='nu-debug-Log-method-get'>/**
+</span> * Gets the saved logs object or a new one.
+ * @return {Object} The saved object containing infos, errors and warnings logs, or a new one
+ */
+nu.debug.Log.get = function(){
+	// getting logs from object storage
+	var log = nu.Storage.get(nu.debug.Log.STORAGE_KEY);
+	// if log is null, create a new one and save it
+	if(!log){
+		// creating the new log object
+		log = {};
+		// array containing informative logs
+		log[nu.debug.LogLevel.INFO] = [];
+		// array containing error logs
+		log[nu.debug.LogLevel.ERROR] = [];
+		//array containing warning logs
+		log[nu.debug.LogLevel.WARN] = [];
+		// saving the object to the object storage
+		nu.debug.Log.set(log);
+	}
+	// return the log object
+	return log;
+};
+
+<span id='nu-debug-Log-method-set'>/**
+</span> * Saves the log parameter into storage.
+ * @param {Object} log The log object to save
+ */
+nu.debug.Log.set = function(log){
+	nu.Storage.set(nu.debug.Log.STORAGE_KEY, log);
+};
+
+<span id='nu-debug-Log-method-list'>/**
+</span> * List log of type.
+ * @param  {String} type The type of log to list
+ */
+nu.debug.Log.list = function(type){
+	if(type === nu.debug.LogLevel.INFO || type === nu.debug.LogLevel.ERROR || type === nu.debug.LogLevel.WARN){
+		var log = nu.debug.Log.get();
+		var array = log[type];
+		
+		if(array.length === 0){
+			console.log(&quot;There is no logs with type&quot;+type);
+			return;
+		}
+
+		console.log(&quot;List of logs with type &quot;+type+&quot; :&quot;);
+		for(var i = 0, len = array.length; i &lt; len; i++){
+			console.log(&quot;    * &quot;+array[i]);
+		}
+		console.log(&quot;End of logs with type &quot;+type);
+	} else {
+		nu.debug.Log.list(nu.debug.LogLevel.INFO);
+		nu.debug.Log.list(nu.debug.LogLevel.WARN);
+		nu.debug.Log.list(nu.debug.LogLevel.ERROR);
+	}
+};
+
+<span id='nu-debug-Log-method-clear'>/**
+</span> * Clear logs of type.
+ * @param  {String} type The type of log to clear
+ */
+nu.debug.Log.clear = function(type){
+	// getting the log object
+	var log = nu.debug.Log.get();
+	// check if the type is specified and correct
+	if(type === nu.debug.LogLevel.INFO || type === nu.debug.LogLevel.ERROR || type === nu.debug.LogLevel.WARN){
+		log[type] = [];
+	} 
+	// if no type is specified or is incorrect, clear all
+	else {
+		log[nu.debug.LogLevel.INFO] = [];
+		log[nu.debug.LogLevel.WARN] = [];
+		log[nu.debug.LogLevel.ERROR] = [];
+	}
+	nu.debug.Log.set(log);
+};
+
+<span id='nu-debug-Log-property-STORAGE_KEY'>/**
+</span> * Const Key for saving logs into object storage.
+ * @type {String}
+ */
+nu.debug.Log.STORAGE_KEY = &quot;nuborn.log&quot;;
+
+<span id='nu-debug-Log-property-console'>/**
+</span> * Defines if the logs should be sent to console.
+ * @type {Boolean}
+ */
+nu.debug.Log.console = true;
+
+<span id='nu-debug-Log-property-storage'>/**
+</span> * Defines if the logs should be saved to storage.
+ * @type {Boolean}
+ */
+nu.debug.Log.storage = true;
+
+<span id='nu-debug-Log-property-level'>/**
+</span> * Defines the level of the logs : can be a combination of different levels separated by | (pipe).
+ * @type {String}
+ */
+nu.debug.Log.level = nu.debug.LogLevel.ALL;
+</pre>
+</body>
+</html>

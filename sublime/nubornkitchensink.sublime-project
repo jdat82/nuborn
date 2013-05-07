@@ -1,0 +1,41 @@
+{
+	"folders":
+	[
+		{
+			"name": "App Sources",
+			"path": "/Users/jrob/Developer/Projects/Mobile/PhoneGap/Nuborn Kitchen Sink/src",
+			"folder_exclude_patterns":
+			[
+				"images"
+			]
+		},
+		{
+			"name": "Nuborn Sources",
+			"path": "/Users/jrob/Developer/Projects/Mobile/PhoneGap/Nuborn Kitchen Sink/libs/Nuborn"
+		}
+	],
+	"build_systems":
+	[
+		{
+			"name": "grunt",
+			"encoding": "UTF-8",
+			"osx":
+			{
+				"cmd":
+				[
+					"sh",
+					"$project_path/../scripts/grunt.sh",
+					"$file_extension"
+				]
+			},
+			"windows":
+			{
+				"cmd":
+				[
+					"dir"
+				]
+			},
+			"path": "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin"
+		}
+	]
+}

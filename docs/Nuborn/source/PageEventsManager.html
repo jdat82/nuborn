@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/* -- Provider -- */
+goog.provide(&quot;nu.pages.PageEventsManager&quot;);
+
+/* -- Imports -- */
+goog.require(&quot;nu&quot;);
+
+<span id='nu-pages-PageEventsManager'>/**
+</span> * @class nu.pages.PageEventsManager
+ * Page events manager Class. &lt;br/&gt;
+ * Used to dispatch jQuery Mobile page events.
+ */
+nu.pages.PageEventsManager = Object.subClass(
+{
+<span id='nu-pages-PageEventsManager-method-init'>	/**
+</span>	 * Constructor.
+	 */
+	init: function()
+	{
+		// initializing members
+		this.pageHandlers = {};
+		this.currentPageHandler = null;
+		this.previousPageHandler = null;
+
+		// binding page events to the manager
+		this.bindPageEvents();
+	},
+
+<span id='nu-pages-PageEventsManager-method-bindPageEvents'>	/**
+</span>	 * Bind page events.
+	 */
+	bindPageEvents: function()
+	{
+		// Declaring page selector string
+		var pageSelector = &quot;[data-role=page]&quot;;
+		// Binding all jQuery Mobile page events
+		$(document).on(&quot;pagebeforecreate&quot;, pageSelector, this.pageBeforeCreate);
+		$(document).on(&quot;pageinit&quot;, pageSelector, this.pageInit);
+		$(document).on(&quot;pagecreate&quot;, pageSelector, this.pageCreate);
+		$(document).on(&quot;pagebeforechange&quot;, pageSelector, this.pageBeforeChange);
+		$(document).on(&quot;pagechange&quot;, pageSelector, this.pageChange);
+		$(document).on(&quot;pagebeforeload&quot;, pageSelector, this.pageBeforeLoad);
+		$(document).on(&quot;pageload&quot;, pageSelector, this.pageLoad);
+		$(document).on(&quot;pagebeforehide&quot;, pageSelector, this.pageBeforeHide);
+		$(document).on(&quot;pagebeforeshow&quot;, pageSelector, this.pageBeforeShow);
+		$(document).on(&quot;pageremove&quot;, pageSelector, this.pageRemove);
+		$(document).on(&quot;pagehide&quot;, pageSelector, this.pageHide);
+		$(document).on(&quot;pageshow&quot;, pageSelector, this.pageShow);
+	},
+
+<span id='nu-pages-PageEventsManager-method-unbindPageEvent'>	/**
+</span>	 * Unbind page events.
+	 */
+	unbindPageEvent: function(){
+		// Unbinding all jQuery Mobile page events
+		$(document).off(&quot;pagebeforecreate&quot;);
+		$(document).off(&quot;pageinit&quot;);
+		$(document).off(&quot;pagecreate&quot;);
+		$(document).off(&quot;pagebeforechange&quot;);
+		$(document).off(&quot;pagebeforeload&quot;);
+		$(document).off(&quot;pagebeforehide&quot;);
+		$(document).off(&quot;pagebeforeshow&quot;);
+		$(document).off(&quot;pageremove&quot;);
+		$(document).off(&quot;pagehide&quot;);
+		$(document).off(&quot;pageshow&quot;);
+	},
+
+<span id='nu-pages-PageEventsManager-method-registerPageHandler'>	/**
+</span>	 * Page handlers have to register to the page events manager to be notified when jQuery Mobile page events are triggered.
+	 * @param  {nu.pages.PageHandler} pageHandler
+	 */
+	registerPageHandler: function(pageHandler)
+	{
+		this.pageHandlers[pageHandler.settings.ID] = pageHandler;
+	},
+
+<span id='nu-pages-PageEventsManager-method-getPageHandler'>	/**
+</span>	 * Returns the page handler from the given ID.
+	 * @param  {String} id
+	 * @return {nu.pages.PageHandler}
+	 */
+	getPageHandler: function(id)
+	{
+		var pageHandler = this.pageHandlers[id];
+		if(!pageHandler){
+			console.log(&quot;-- Warning : no page handler for page '&quot; + id + &quot;' !&quot;);
+		}
+		return pageHandler;
+	},
+
+<span id='nu-pages-PageEventsManager-method-getPageHandlerFromEvent'>	/**
+</span>	 * Returns the page handler from a page event.
+	 * @param  {Event} event
+	 * @return {nu.pages.PageHandler}
+	 */
+	getPageHandlerFromEvent: function(event)
+	{
+		// getting the page on which the event has been triggered
+		var page = event.currentTarget;
+		// getting the page handler
+		return this.getPageHandler(page.id);
+	},
+
+<span id='nu-pages-PageEventsManager-method-pageBeforeCreate'>	/**
+</span>	 * Called for pagebeforecreate event.
+	 * @param {Object} event
+	 * @param {Object} data
+	 */
+	pageBeforeCreate: function(event, data)
+	{
+		// getting page handler from the event
+		var pageHandler = this.getPageHandlerFromEvent(event);
+		// stop process if no page handler has been found
+		if(!pageHandler) {
+			return;
+		}
+
+		// registering the current active page handler as the previous one
+		this.previousPageHandler = this.currentPageHandler;
+		// registering new active page handler
+		this.currentPageHandler = pageHandler;
+
+		// dispatching the event to current active page handler
+		pageHandler.pageBeforeCreate(event, data);
+	},
+
+<span id='nu-pages-PageEventsManager-method-pageInit'>	/**
+</span>	 * Called for pageinit event.
+	 * @param {Object} event
+	 * @param {Object} data
+	 */
+	pageInit: function(event, data)
+	{
+		// getting page handler from the event
+		var pageHandler = this.getPageHandlerFromEvent(event);
+		// stop process if no page handler has been found
+		if(!pageHandler) {
+			return;
+		}
+
+		// dispatching the event to current active page handler
+		pageHandler.pageInit(event, data);
+	},
+
+<span id='nu-pages-PageEventsManager-method-pageCreate'>	/**
+</span>	 * Called for pagecreate event.
+	 * @param {Object} event
+	 * @param {Object} data
+	 */
+	pageCreate: function(event, data)
+	{
+		// getting page handler from the event
+		var pageHandler = this.getPageHandlerFromEvent(event);
+		// stop process if no page handler has been found
+		if(!pageHandler) {
+			return;
+		}
+
+		// dispatching the event to current active page handler
+		pageHandler.pageCreate(event, data);
+	},
+
+<span id='nu-pages-PageEventsManager-method-pageHide'>	/**
+</span>	 * Called for pagehide event.
+	 * @param {Object} event
+	 * @param {Object} data
+	 */
+	pageHide: function(event, data)
+	{
+		// getting page handler from the event
+		var pageHandler = this.getPageHandlerFromEvent(event);
+		// stop process if no page handler has been found
+		if(!pageHandler) {
+			return;
+		}
+
+		// dispatching the event to current active page handler
+		pageHandler.pageHide(event, data);
+	},
+
+<span id='nu-pages-PageEventsManager-method-pageRemove'>	/**
+</span>	 * Called for pageremove event.
+	 * @param {Object} event
+	 * @param {Object} data
+	 */
+	pageRemove: function(event, data)
+	{
+		// getting page handler from the event
+		var pageHandler = this.getPageHandlerFromEvent(event);
+		// stop process if no page handler has been found
+		if(!pageHandler) {
+			return;
+		}
+
+		// dispatching the event to current active page handler
+		pageHandler.pageRemove(event, data);
+	},
+
+<span id='nu-pages-PageEventsManager-method-pageBeforeShow'>	/**
+</span>	 * Called for pagebeforeshow event.
+	 * @param {Object} event
+	 * @param {Object} data
+	 */
+	pageBeforeShow: function(event, data)
+	{
+		// getting page handler from the event
+		var pageHandler = this.getPageHandlerFromEvent(event);
+		// stop process if no page handler has been found
+		if(!pageHandler) {
+			return;
+		}
+
+		var u = $.mobile.path.parseUrl(page.baseURI);
+		if (u.search)
+		{
+			if(!data.options)
+			{
+				data.options = {};
+			}
+			if (!data.options.dataUrl)
+			{
+				data.options.dataUrl = u.hrefNoSearch;
+			}
+			data.options.pageData = $.it.toolbox.getUrlParams(u.search);
+		}
+
+		// dispatching the event to current active page handler
+		pageHandler.pageBeforeShow(event, data);
+	},
+
+<span id='nu-pages-PageEventsManager-method-pageBeforeChange'>	/**
+</span>	 * Called for pagebeforechange event.
+	 * @param {Object} event
+	 * @param {Object} data
+	 */
+	pageBeforeChange: function(event, data)
+	{
+		// getting page handler from the event
+		var pageHandler = this.getPageHandlerFromEvent(event);
+		// stop process if no page handler has been found
+		if(!pageHandler) {
+			return;
+		}
+
+		// dispatching the event to current active page handler
+		pageHandler.pageBeforeChange(event, data);
+	},
+
+<span id='nu-pages-PageEventsManager-method-pageChange'>	/**
+</span>	 * Called for pagechange event.
+	 * @param {Object} event
+	 * @param {Object} data
+	 */
+	pageChange: function(event, data)
+	{
+		// getting page handler from the event
+		var pageHandler = this.getPageHandlerFromEvent(event);
+		// stop process if no page handler has been found
+		if(!pageHandler) {
+			return;
+		}
+
+		// dispatching the event to current active page handler
+		pageHandler.pageChange(event, data);
+	},
+
+<span id='nu-pages-PageEventsManager-method-pageBeforeLoad'>	/**
+</span>	 * Called for pagebeforeload event.
+	 * @param {Object} event
+	 * @param {Object} data
+	 */
+	pageBeforeLoad: function(event, data)
+	{
+		// getting page handler from the event
+		var pageHandler = this.getPageHandlerFromEvent(event);
+		// stop process if no page handler has been found
+		if(!pageHandler) {
+			return;
+		}
+
+		// dispatching the event to current active page handler
+		pageHandler.pageBeforeLoad(event, data);
+	},
+
+<span id='nu-pages-PageEventsManager-method-pageLoad'>	/**
+</span>	 * Called for pageload event.
+	 * @param {Object} event
+	 * @param {Object} data
+	 */
+	pageLoad: function(event, data)
+	{
+		// getting page handler from the event
+		var pageHandler = this.getPageHandlerFromEvent(event);
+		// stop process if no page handler has been found
+		if(!pageHandler) {
+			return;
+		}
+
+		// dispatching the event to current active page handler
+		pageHandler.pageLoad(event, data);
+	},
+
+<span id='nu-pages-PageEventsManager-method-pageShow'>	/**
+</span>	 * Called for pageshow event.
+	 * @param {Object} event
+	 * @param {Object} data
+	 */
+	pageShow: function(event, data)
+	{
+		// getting page handler from the event
+		var pageHandler = this.getPageHandlerFromEvent(event);
+		// stop process if no page handler has been found
+		if(!pageHandler) {
+			return;
+		}
+
+		// dispatching the event to current active page handler
+		pageHandler.pageShow(event, data);
+	},
+
+<span id='nu-pages-PageEventsManager-method-pageBeforeHide'>	/**
+</span>	 * Called for pagebeforehide event.
+	 * @param {Object} event
+	 * @param {Object} data
+	 */
+	pageBeforeHide: function(event, data)
+	{
+		// getting page handler from the event
+		var pageHandler = this.getPageHandlerFromEvent(event);
+		// stop process if no page handler has been found
+		if(!pageHandler) {
+			return;
+		}
+
+		// dispatching the event to current active page handler
+		pageHandler.pageBeforeHide(event, data);
+	}
+
+});
+
+// Declaring the page events manager into the Nuborn namespace.
+nu.pages.pageEventsManager = new nu.pages.PageEventsManager();
+</pre>
+</body>
+</html>
