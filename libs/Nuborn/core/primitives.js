@@ -27,7 +27,7 @@ String.prototype.contains = function(value, caseInsensitive){
 		return false;
 	}
 	// registering this and value parameter as local variables
-	var self = this;
+	var self = this.toString();
 	var val = value.toString();
 	// if case insensitive search is asked, transform values to lower case
 	if(caseInsensitive){

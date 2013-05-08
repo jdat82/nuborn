@@ -3,7 +3,7 @@
 	[
 		{
 			"name": "App Sources",
-			"path": "/Users/jrob/Developer/Projects/Mobile/PhoneGap/Nuborn Kitchen Sink/src",
+			"path": "../src",
 			"folder_exclude_patterns":
 			[
 				"images"
@@ -11,7 +11,7 @@
 		},
 		{
 			"name": "Nuborn Sources",
-			"path": "/Users/jrob/Developer/Projects/Mobile/PhoneGap/Nuborn Kitchen Sink/libs/Nuborn"
+			"path": "../libs/Nuborn"
 		}
 	],
 	"build_systems":

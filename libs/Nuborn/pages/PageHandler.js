@@ -2,7 +2,7 @@
 goog.provide("nu.pages.PageHandler");
 
 /* -- Imports -- */
-goog.require("nu.PageEventsManager");
+goog.require("nu.pages.PageEventsManager");
 
 /**
  * @class nu.pages.PageHandler
