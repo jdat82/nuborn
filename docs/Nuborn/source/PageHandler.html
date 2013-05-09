@@ -19,7 +19,7 @@
 goog.provide(&quot;nu.pages.PageHandler&quot;);
 
 /* -- Imports -- */
-goog.require(&quot;nu.PageEventsManager&quot;);
+goog.require(&quot;nu.pages.PageEventsManager&quot;);
 
 <span id='nu-pages-PageHandler'>/**
 </span> * @class nu.pages.PageHandler
@@ -28,9 +28,10 @@ goog.require(&quot;nu.PageEventsManager&quot;);
 nu.pages.PageHandler = Object.subClass(
 {
 
-<span id='nu-pages-PageHandler-method-init'>	/**
-</span>	 * Constructor.
-	 * @param  {Object} settings
+<span id='nu-pages-PageHandler-method-constructor'>	/**
+</span>	 * @constructor
+	 * Creates a new Page Handler.
+	 * @param  {Object} settings    The settings of the page handler (ID, URL, ...).
 	 */
 	init: function(settings)
 	{

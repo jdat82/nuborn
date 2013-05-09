@@ -1,17 +1,6 @@
 /* -- Provider -- */
 goog.provide("primitives");
 
-/* -- Object -- */
-
-/**
- * @ignore
- * Clone the calling object.
- * @return {Object} The brand new object cloned
- */
-Object.prototype.clone = function(){
-	return $.extend({}, this);
-}
-
 /* -- String -- */
 
 /**

@@ -6,20 +6,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-jsduck');
 
 	grunt.initConfig({
-		jsduck:{
-			nuborn: {
-				src: [
-					"libs/Nuborn/"
-				],
-				dest: [
-					"docs/Nuborn"
-				],
-				options:{
-					"title": "Nuborn - framework for hybrid & web mobile apps",
-					"footer": "IT&L@bs Toulouse - Mobile team"
-				}
-			}
-		},
 		/**
 		 * Nuborn Configuration
 		 */
@@ -29,7 +15,7 @@ module.exports = function(grunt) {
 				 * Targets configuration
 				 */
 				targets:{
-					"android": true,
+					// "android": false,
 					"ios": true,
 					"web": true
 				},
@@ -48,7 +34,8 @@ module.exports = function(grunt) {
 						 * http://gruntjs.com/configuring-tasks#globbing-patterns
 						 */
 						patterns:[
-							"src/**/*.js"
+							"src/**/*.js",
+							"!src/app/mobileinit.js"
 						],
 
 						/**
@@ -96,11 +83,16 @@ module.exports = function(grunt) {
 						 */
 						patterns:[
 							"libs/jQuery/*.js", /** jQuery is required **/
+							"src/app/mobileinit.js", 
 							"libs/jQueryMobile/*.js", /** jQuery Mobile is required **/
 							"libs/Inheritance/*.js", /** Inheritance is required **/
 							"libs/jQueryJSON/*.js", /** jQueryJSON is required for old browser **/
 							"libs/Nuborn/*.js" /** Nuborn is required **/
 						],
+
+						options: {
+							"formatting": "PRETTY_PRINT"
+						},
 						/**
 						 * Android Specific Configuration
 						 */
@@ -155,7 +147,7 @@ module.exports = function(grunt) {
 						 *  -- noCache : true
 						 */
 						options: {
-							
+
 						},
 
 						/**
@@ -261,10 +253,12 @@ module.exports = function(grunt) {
 			 */
 			app: {
 				src: [
-					"src/"
+					"src/",
+					"libs/Nuborn/"
 				],
 				dest: "docs/App",
 				options:{
+					// 'builtin-classes': true,
 					"title": "Nuborn Application",
 					"footer": "IT&L@bs Toulouse - Mobile team"
 				}

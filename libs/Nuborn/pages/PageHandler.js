@@ -12,8 +12,9 @@ nu.pages.PageHandler = Object.subClass(
 {
 
 	/**
-	 * Constructor.
-	 * @param  {Object} settings
+	 * @constructor
+	 * Creates a new Page Handler.
+	 * @param  {Object} settings    The settings of the page handler (ID, URL, ...).
 	 */
 	init: function(settings)
 	{
@@ -26,7 +27,7 @@ nu.pages.PageHandler = Object.subClass(
 		this.data = {};
 
 		// Regitsering 
-		nu.pages.pageEventsManager.registerPageHandler(this);
+		nu.pages.PageEventsManager.sharedManager().registerPageHandler(this);
 	},
 
 	/**
@@ -59,7 +60,7 @@ nu.pages.PageHandler = Object.subClass(
 	{
 		console.log("page init of " + event.currentTarget.id);
 
-		// Calling #createHtmElements
+		// Calling #createHtmlElements
 		this.createHtmlElements();
 
 		// Calling #createDataElements if exists
@@ -170,6 +171,22 @@ nu.pages.PageHandler = Object.subClass(
 		// Cleaning references to HTML elements & data objects
 		this.deleteHtmlElements();
 		this.deleteDataElements();
+	},
+
+	/**
+	 * Create all references to HTML elements.
+	 */
+	createHtmlElements: function()
+	{
+		nu.debug.Log.w("This method should be overriden");
+	},
+
+	/**
+	 * Create all references to data objects.
+	 */
+	createDataElements: function()
+	{
+		nu.debug.Log.w("This method should be overriden");
 	},
 
 	/**

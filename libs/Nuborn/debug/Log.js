@@ -3,18 +3,9 @@ goog.provide("nu.debug.Log");
 
 /* -- Imports -- */
 goog.require("nu");
+goog.require("nu.debug.LogLevel");
+goog.require("nu.debug.LogItem");
 goog.require("nu.Storage");
-
-/**
- * @enum
- * Enumeration of log levels.
- */
-nu.debug.LogLevel = {
-	ALL: "ALL",
-	INFO: "INFO",
-	ERROR: "ERROR",
-	WARN: "WARN"
-};
 
 /**
  * @class nu.debug.Log
@@ -42,7 +33,7 @@ nu.debug.Log.log = function(value, level){
 	// declaring the value to save to the stack memory
 	var stack = val;
 	// declaring date of the current log action
-	var date = new Date().toLocaleString();
+	var date = new Date();
 	// checking the level, default is INFO
 	switch(level){
 		case nu.debug.LogLevel.ERROR:
@@ -62,6 +53,7 @@ nu.debug.Log.log = function(value, level){
 			method = "info";
 			break;
 	}
+	var logItem = new nu.debug.LogItem(level, val, date);
 	// if the level is activated
 	if(nu.debug.Log.level === nu.debug.LogLevel.ALL || nu.debug.Log.level.contains(level)){
 		// if console is activated for logs
@@ -76,15 +68,15 @@ nu.debug.Log.log = function(value, level){
 			// if log is null, initialize it
 			if(!log){
 				log = {};
-				log[nu.LogLevel.INFO] = [];
-				log[nu.LogLevel.WARN] = [];
-				log[nu.LogLevel.ERROR] = [];
-				log[nu.LogLevel.ALL] = [];
+				log[nu.debug.LogLevel.INFO] = [];
+				log[nu.debug.LogLevel.WARN] = [];
+				log[nu.debug.LogLevel.ERROR] = [];
+				log[nu.debug.LogLevel.ALL] = [];
 				nu.debug.Log.stack = log;
 			}
 			// unshifting the log into the stack memory with the date
-			log[level].unshift(stack+" -- "+date);
-			log[nu.LogLevel.ALL].unshift(stack+" -- "+date);
+			log[level].unshift(logItem);
+			log[nu.debug.LogLevel.ALL].unshift(logItem);
 		}
 
 		// if storage is activated for logs
@@ -92,8 +84,8 @@ nu.debug.Log.log = function(value, level){
 			// getting the log object
 			var log = nu.debug.Log.getStoraged();
 			// unshifting the correct value into the correct array member with the date
-			log[level].unshift(storage+" -- "+date);
-			log[nu.LogLevel.ALL].unshift(storage+" -- "+date);
+			log[level].unshift(logItem);
+			log[nu.debug.LogLevel.ALL].unshift(logItem);
 			// saving log object into the storage
 			nu.debug.Log.setStoraged(log);
 		}
@@ -160,7 +152,7 @@ nu.debug.Log.getStoraged = function(){
 		// array containing warning logs
 		log[nu.debug.LogLevel.WARN] = [];
 		// array containing all logs
-		log[nu.LogLevel.ALL] = [];
+		log[nu.debug.LogLevel.ALL] = [];
 		// saving the object to the object storage
 		nu.debug.Log.setStoraged(log);
 	}
@@ -211,6 +203,7 @@ nu.debug.Log.listStacked = function(type){
 		console.log("There is no logs in the stack memory");
 		return;
 	}
+	type = type || nu.debug.LogLevel.ALL;
 	var log = nu.debug.Log.stack;
 	var array = log[type];
 	
@@ -221,7 +214,7 @@ nu.debug.Log.listStacked = function(type){
 
 	type !== nu.debug.LogLevel.ALL && console.log("List of logs with type "+type+" :");
 	for(var i = 0, len = array.length; i < len; i++){
-		console.log("    * "+array[i]);
+		console.log(" >> "+array[i]);
 	}
 	type !== nu.debug.LogLevel.ALL && console.log("End of logs with type "+type);
 };

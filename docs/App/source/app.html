@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/* -- Provider --*/
+goog.provide(&quot;app&quot;);
+
+// Create Shortcuts
+var utils = nu.Utils;
+var log = nu.debug.Log;
+
+var PH = nu.pages.PageHandler;
+
+<span id='app'>/**
+</span> * @class app
+ * The App namespace.
+ * @singleton
+ */
+
+<span id='app-property-version'>/**
+</span> * The version of the application.
+ * @type {String}
+ */
+app.version = &quot;0.1.0&quot;;
+
+<span id='app-property-name'>/**
+</span> * The name of the application.
+ * @type {String}
+ */
+app.name = &quot;Nuborn Application&quot;;
+
+<span id='app-method-ready'>/**
+</span> * Callback function called when the DOM is ready.
+ */
+app.ready = function(){
+	app.splash = new nu.widgets.SplashScreen({
+		id: &quot;splash&quot;
+	});
+	app.splash.show();
+	
+	if(!utils.isCordova()) {
+		log.i(&quot;Used as a Web App&quot;);
+		app.init();
+	}
+	else {
+		log.i(&quot;Used as a Hybrid App&quot;);
+		$.mobile.defaultHomeScroll = 0;
+		document.addEventListener(&quot;deviceready&quot;, app.init, false);
+	}
+};
+
+<span id='app-method-init'>/**
+</span> * Initialize the appllication when DOM &amp; Device (PhoneGap) are ready.
+ */
+app.init = function(){
+
+};
+
+// When the Document is Ready, call app.ready
+$(app.ready);
+</pre>
+</body>
+</html>

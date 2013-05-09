@@ -12,7 +12,8 @@ goog.require("nu");
 nu.pages.PageEventsManager = Object.subClass(
 {
 	/**
-	 * Constructor.
+	 * @constructor
+	 * Creates a new Page Events Manager.
 	 */
 	init: function()
 	{
@@ -33,18 +34,18 @@ nu.pages.PageEventsManager = Object.subClass(
 		// Declaring page selector string
 		var pageSelector = "[data-role=page]";
 		// Binding all jQuery Mobile page events
-		$(document).on("pagebeforecreate", pageSelector, this.pageBeforeCreate);
-		$(document).on("pageinit", pageSelector, this.pageInit);
-		$(document).on("pagecreate", pageSelector, this.pageCreate);
-		$(document).on("pagebeforechange", pageSelector, this.pageBeforeChange);
-		$(document).on("pagechange", pageSelector, this.pageChange);
-		$(document).on("pagebeforeload", pageSelector, this.pageBeforeLoad);
-		$(document).on("pageload", pageSelector, this.pageLoad);
-		$(document).on("pagebeforehide", pageSelector, this.pageBeforeHide);
-		$(document).on("pagebeforeshow", pageSelector, this.pageBeforeShow);
-		$(document).on("pageremove", pageSelector, this.pageRemove);
-		$(document).on("pagehide", pageSelector, this.pageHide);
-		$(document).on("pageshow", pageSelector, this.pageShow);
+		$(document).on("pagebeforecreate", pageSelector, $.proxy(this, "pageBeforeCreate"));
+		$(document).on("pageinit", pageSelector, $.proxy(this, "pageInit"));
+		$(document).on("pagecreate", pageSelector, $.proxy(this, "pageCreate"));
+		$(document).on("pagebeforechange", pageSelector, $.proxy(this, "pageBeforeChange"));
+		$(document).on("pagechange", pageSelector, $.proxy(this, "pageChange"));
+		$(document).on("pagebeforeload", pageSelector, $.proxy(this, "pageBeforeLoad"));
+		$(document).on("pageload", pageSelector, $.proxy(this, "pageLoad"));
+		$(document).on("pagebeforehide", pageSelector, $.proxy(this, "pageBeforeHide"));
+		$(document).on("pagebeforeshow", pageSelector, $.proxy(this, "pageBeforeShow"));
+		$(document).on("pageremove", pageSelector, $.proxy(this, "pageRemove"));
+		$(document).on("pagehide", pageSelector, $.proxy(this, "pageHide"));
+		$(document).on("pageshow", pageSelector, $.proxy(this, "pageShow"));
 	},
 
 	/**
@@ -70,11 +71,11 @@ nu.pages.PageEventsManager = Object.subClass(
 	 */
 	registerPageHandler: function(pageHandler)
 	{
-		this.pageHandlers[pageHandler.settings.ID] = pageHandler;
+		this.pageHandlers[pageHandler.settings.id] = pageHandler;
 	},
 
 	/**
-	 * Returns the page handler from the given ID.
+	 * Returns the page handler from the given id.
 	 * @param  {String} id
 	 * @return {nu.pages.PageHandler}
 	 */
@@ -209,20 +210,6 @@ nu.pages.PageEventsManager = Object.subClass(
 			return;
 		}
 
-		var u = $.mobile.path.parseUrl(page.baseURI);
-		if (u.search)
-		{
-			if(!data.options)
-			{
-				data.options = {};
-			}
-			if (!data.options.dataUrl)
-			{
-				data.options.dataUrl = u.hrefNoSearch;
-			}
-			data.options.pageData = $.it.toolbox.getUrlParams(u.search);
-		}
-
 		// dispatching the event to current active page handler
 		pageHandler.pageBeforeShow(event, data);
 	},
@@ -337,5 +324,14 @@ nu.pages.PageEventsManager = Object.subClass(
 
 });
 
-// Declaring the page events manager into the Nuborn namespace.
-nu.pages.pageEventsManager = new nu.pages.PageEventsManager();
+/**
+ * Gets the shared instance of Page Events Manager
+ * @return {nu.pages.PageEventsManager} The shared instance of Page Events Manager
+ * @static
+ */
+nu.pages.PageEventsManager.sharedManager = function(){
+	if(!nu.pages.PageEventsManager.SINGLETON_INSTANCE){
+		nu.pages.PageEventsManager.SINGLETON_INSTANCE = new nu.pages.PageEventsManager();
+	}
+	return nu.pages.PageEventsManager.SINGLETON_INSTANCE;
+};

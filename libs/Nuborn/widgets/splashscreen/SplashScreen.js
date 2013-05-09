@@ -11,7 +11,7 @@ goog.require("nu.widgets");
 nu.widgets.SplashScreen = Object.subClass({
 
 	/**
-	 * Constructor.
+	 * @constructor
 	 * @param  {Object} settings 
 	 */
 	init: function(settings){
@@ -84,7 +84,7 @@ nu.widgets.SplashScreen = Object.subClass({
 		// if a splashscreen with the same id exists, remove it
 		var existing = $("#"+this.settings.id);
 		if(existing.length > 0){
-			existing.remove();
+			this.element = existing;
 		}
 		// getting the element member as a local variable
 		var element = this.element;
