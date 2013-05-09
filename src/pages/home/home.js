@@ -20,7 +20,7 @@ var HomePageHandler = PH.subClass({
 			}, 2000);
 		}
 		if(utils.isCordova() && utils.isIOS()){
-			alert("coucou");//navigator.splashscreen.hide();
+			navigator.splashscreen.hide();
 		}
 	}
 });
