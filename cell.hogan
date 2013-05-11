@@ -1,1 +1,0 @@
-{{#cards}}<div><div class="card" style="background-image:url('{{image}}')"><div class="title">{{title}}</div></div></div>{{/cards}}

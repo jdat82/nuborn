@@ -30,7 +30,7 @@
     <access origin=".*"/>
 
     <!-- <content src="http://mysite.com/myapp.html" /> for external pages -->
-    <content src="http://cubiq.org/dropbox/iscroll4/examples/pull-to-refresh/" />
+    <content src="app.html" />
 
     <log level="DEBUG"/>
     <preference name="useBrowserHistory" value="true" />
