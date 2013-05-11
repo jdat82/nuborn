@@ -136,6 +136,18 @@ nu.Utils.loadLazyLib = function(library){
 	});
 };
 
+nu.Utils.blockEvent = function(event){
+	return false;
+};
+
+nu.Utils.disableScroll = function(){
+	$(document).on("touchmove", nu.Utils.blockEvent);
+};
+
+nu.Utils.enableScroll = function(){
+	$(document).off("touchmove", nu.Utils.blockEvent);
+};
+
 // handle old browsers when JSON object is missing
 if(!JSON || !JSON.stringify || !JSON.parse){
 	// creating JSON object

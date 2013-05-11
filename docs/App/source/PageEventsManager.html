@@ -88,11 +88,11 @@ nu.pages.PageEventsManager = Object.subClass(
 	 */
 	registerPageHandler: function(pageHandler)
 	{
-		this.pageHandlers[pageHandler.settings.ID] = pageHandler;
+		this.pageHandlers[pageHandler.settings.id] = pageHandler;
 	},
 
 <span id='nu-pages-PageEventsManager-method-getPageHandler'>	/**
-</span>	 * Returns the page handler from the given ID.
+</span>	 * Returns the page handler from the given id.
 	 * @param  {String} id
 	 * @return {nu.pages.PageHandler}
 	 */
@@ -225,20 +225,6 @@ nu.pages.PageEventsManager = Object.subClass(
 		// stop process if no page handler has been found
 		if(!pageHandler) {
 			return;
-		}
-
-		var u = $.mobile.path.parseUrl(page.baseURI);
-		if (u.search)
-		{
-			if(!data.options)
-			{
-				data.options = {};
-			}
-			if (!data.options.dataUrl)
-			{
-				data.options.dataUrl = u.hrefNoSearch;
-			}
-			data.options.pageData = $.it.toolbox.getUrlParams(u.search);
 		}
 
 		// dispatching the event to current active page handler

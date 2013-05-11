@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='HomePageHandler'>/**
+</span> * @class HomePageHandler
+ * The Page Handler of the home page
+ * @extends nu.pages.PageHandler
+ */
+var HomePageHandler = PH.subClass({
+	
+<span id='HomePageHandler-method-constructor'>	/**
+</span>	 * @constructor
+	 * @override
+	 * @inheritdoc
+	 */
+	init: function(){
+		this._super({
+			id: &quot;home&quot;,
+			url: &quot;home.html&quot;
+		});
+	},
+
+<span id='HomePageHandler-method-createHtmlElements'>	/**
+</span>	 * @override
+	 * @inheritdoc
+	 */
+	createHtmlElements: function()
+	{
+		var page = this.html.page;
+		this.html.menuButton = page.find(&quot;div.menu-button&quot;);
+	},
+
+<span id='HomePageHandler-method-createDataElements'>	/**
+</span>	 * @override
+	 * @inheritdoc
+	 */
+	createDataElements: function()
+	{
+		
+	},
+
+<span id='HomePageHandler-method-pageBeforeShow'>	/**
+</span>	 * @override
+	 * @inheritdoc
+	 */
+	pageBeforeShow: function(event, data){
+		this.handleMenuButton();
+	},
+
+<span id='HomePageHandler-method-pageShow'>	/**
+</span>	 * @override
+	 * @inheritdoc
+	 */
+	pageShow: function(event, data){
+		if(app.splash){
+			setTimeout(function(){
+				app.splash.hide(true);
+			}, 2000);
+		}
+		if(utils.isCordova() &amp;&amp; utils.isIOS()){
+			navigator.splashscreen.hide();
+		}
+	},
+
+	handleMenuButton: function(){
+		var menuButton = this.html.menuButton;
+		menuButton.on(&quot;vmousedown&quot;, function(){
+			menuButton.addClass(&quot;active&quot;);
+			menuButton.one(&quot;vmouseup&quot;, function(){
+				menuButton.removeClass(&quot;active&quot;);
+			});
+			menuButton.one(&quot;vmousemove&quot;, function(){
+				menuButton.removeClass(&quot;active&quot;);
+			});
+		});
+		menuButton.on(&quot;tap&quot;, function(){
+			log.i(&quot;Menu is not implemented yet&quot;);
+			return false;
+		});
+	}
+});
+
+app.home = new HomePageHandler();
+
+HomePageHandler.insertHTML = function(){
+	log.i(app.home.settings.url);
+	var deferred = $.Deferred();
+	$.ajax({
+		async: false,
+		url: app.home.settings.url
+	}).done(function(data){
+		log.i(data);
+		$(&quot;body&quot;).prepend(data);
+		deferred.resolve();
+	}).fail(function(){
+		log.e(&quot;There was an error while inserting HTML of Home page.&quot;);
+		deferred.reject();
+	});
+	return deferred.promise();
+};</pre>
+</body>
+</html>

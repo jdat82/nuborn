@@ -1,0 +1,5 @@
+this["Templates"] = this["Templates"] || {};
+
+this["Templates"]["home_card"] = new Hogan.Template(function(c,p,i){var _=this;_.b(i=i||"");if(_.s(_.f("cards",c,p,1),c,p,0,10,145,"{{ }}")){_.rs(c,p,function(c,p,_){_.b("<div>");_.b("\n" + i);_.b("<div class=\"card\" style=\"background-image:url('");_.b(_.v(_.f("image",c,p,0)));_.b("')\">");_.b("\n" + i);_.b("<div class=\"title\">");_.b("\n" + i);_.b("");_.b(_.v(_.f("title",c,p,0)));_.b("\n" + i);_.b("</div>");_.b("\n" + i);_.b("</div>");_.b("\n" + i);_.b("</div>");_.b("\n");});c.pop();}return _.fl();;});
+
+this["Templates"]["home_cell"] = new Hogan.Template(function(c,p,i){var _=this;_.b(i=i||"");if(_.s(_.f("cards",c,p,1),c,p,0,10,145,"{{ }}")){_.rs(c,p,function(c,p,_){_.b("<div>");_.b("\n" + i);_.b("<div class=\"card\" style=\"background-image:url('");_.b(_.v(_.f("image",c,p,0)));_.b("')\">");_.b("\n" + i);_.b("<div class=\"title\">");_.b("\n" + i);_.b("");_.b(_.v(_.f("title",c,p,0)));_.b("\n" + i);_.b("</div>");_.b("\n" + i);_.b("</div>");_.b("\n" + i);_.b("</div>");_.b("\n");});c.pop();}return _.fl();;});

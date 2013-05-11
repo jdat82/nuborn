@@ -16,44 +16,10 @@
 	</head>
 
 	<body>
-		<div data-role="page" style="background-color:blue;">
-		</div>
 
 		<!-- Loading libraries : jQuery, PhoneGap, Inheritance, jQuery Mobile, Mobile Init -->
 		<script src="js/libs.min.js"></script>
 		<!-- Loading application scripts -->
 		<script src="js/app.min.js"></script>
-		<!-- Ready Script -->
-		<script type="text/javascript">
-			// When document is ready, execute app.ready
-			$(app.ready);
-			/*var splashscreen = {};
-			splashscreen.show = function(animated){
-				$("#splashscreen").remove();
-				var splash = $("<div>");
-				splash.prop("id", "splashscreen");
-				if(animated){
-					splash.css("display","none");
-				} else {
-
-				}
-			};
-
-			splashscreen.hide = function(){
-
-			};
-
-			$(function(){
-				splashscreen.show();
-				$.ajax({
-					url: "home.html"
-				}).done(function(data){
-					$("body").prepend(data);
-					$.mobile.initializePage();
-				}).fail(function(data){
-					console.log("fail");
-				});
-		 	});*/
-		</script>
 	</body>
 </html>

@@ -4,8 +4,19 @@
 module.exports = function(grunt) {
 
 	grunt.loadNpmTasks('grunt-jsduck');
-
+	grunt.loadNpmTasks('grunt-contrib-htmlmin');
 	grunt.initConfig({
+		 htmlmin: { 
+			dist: {
+				options: {
+					removeComments: true,
+					collapseWhitespace: true
+				},
+				files: {
+					'cell.hogan': 'src/pages/home/templates/cell.hogan'
+				}
+			}
+		},
 		/**
 		 * Nuborn Configuration
 		 */
@@ -15,7 +26,7 @@ module.exports = function(grunt) {
 				 * Targets configuration
 				 */
 				targets:{
-					// "android": false,
+					"android": true,
 					"ios": true,
 					"web": true
 				},
@@ -46,7 +57,7 @@ module.exports = function(grunt) {
 						 *  -- compilation_level : SIMPLE_OPTIMIZATIONS
 						 */
 						options: {
-							
+							"formatting": "PRETTY_PRINT"
 						},
 
 						/**
@@ -82,12 +93,14 @@ module.exports = function(grunt) {
 						 * Files to compile for the libs
 						 */
 						patterns:[
+							"libs/Hogan/*.js",
 							"libs/jQuery/*.js", /** jQuery is required **/
 							"src/app/mobileinit.js", 
 							"libs/jQueryMobile/*.js", /** jQuery Mobile is required **/
 							"libs/Inheritance/*.js", /** Inheritance is required **/
 							"libs/jQueryJSON/*.js", /** jQueryJSON is required for old browser **/
-							"libs/Nuborn/*.js" /** Nuborn is required **/
+							"libs/Nuborn/*.js", /** Nuborn is required **/
+							"libs/SwipeJS/*.js"
 						],
 
 						options: {
@@ -135,6 +148,7 @@ module.exports = function(grunt) {
 						 * http://gruntjs.com/configuring-tasks#globbing-patterns
 						 */
 						patterns:[
+							"libs/Nuborn/sass/mixins.scss",
 							"src/**/*.scss"
 						],
 
@@ -147,7 +161,7 @@ module.exports = function(grunt) {
 						 *  -- noCache : true
 						 */
 						options: {
-
+							style : "expanded"
 						},
 
 						/**
@@ -184,7 +198,8 @@ module.exports = function(grunt) {
 						 */
 						patterns:[
 							"libs/jQueryMobile/*.css", /** jQuery Mobile is required **/
-							"libs/Nuborn/*.css" /** Nuborn is required **/
+							"libs/Nuborn/*.css", /** Nuborn is required **/
+							"libs/SwipeJS/*.scss"
 						],
 						/**
 						 * Android Specific Configuration
@@ -214,11 +229,10 @@ module.exports = function(grunt) {
 					 * Application Configuration
 					 */
 					app: {
-						templatesFolderName : "templates",
 
 						patterns: [
 							"src/**/*.html",
-							"!src/**/<%= nuborn.classic.html.app.templatesFolderName %>/*.html"
+							"!src/**/templates/*.html"
 						],
 
 						android: {
@@ -240,7 +254,31 @@ module.exports = function(grunt) {
 					libs: {
 
 					}
+				},
+				/**
+				 * Templates Configuration
+				 */
+				templates: {	
+					/**
+					 * Application Configuration
+					 */
+					app: {
 
+						patterns: [
+							"src/**/templates/*.hogan"
+						],
+
+						options : {
+
+						}
+
+					},
+					/**
+					 * Libraries Configuration
+					 */
+					libs: {
+
+					}
 				}
 			}
 		},

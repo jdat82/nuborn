@@ -1,7 +1,6 @@
 #splash {
 	background-color: #293541;
+	@include background("splashscreen.logo", 0, 0, 223px, 64px);
 	background-position: center;
-	background-repeat: no-repeat;
-	background-size: 160px 210px;
-	background-image: url("../images/splashscreen.logo@2x.png");
+	z-index:2000;
 }

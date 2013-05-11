@@ -1,0 +1,49 @@
+#home-menu{
+	background-color: rgb(236,235,230);
+
+	li {
+		height: 44px;
+		line-height: 44px;
+		border-bottom: 1px solid;
+		border-bottom-color: rgb(177,176,172);
+		padding: 0 10px;
+		color: rgb(73,73,73);
+	}
+
+	.ui-panel-inner{
+		padding: 0;
+	}
+}
+
+#carousel{
+	width: 100%;
+	height: 150px;
+
+	.card{
+		overflow: hidden;
+		position: relative;
+		width:100%;
+		height: 100%;
+		border-radius: 5px;
+		box-shadow: #333 0px 0px 5px;
+		background-color: $background;
+		background-position: center;
+		background-size: cover;
+	}
+
+	.title{
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+		color: white;
+		background-color: rgba(0,0,0, 0.6);
+		padding: 10px;
+		border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;
+		
+	}
+}
+
+#carousel-wrapper > div {
+	padding : 5px;
+}
