@@ -1,0 +1,7 @@
+<ul>
+	{{#items}}
+		<li class="{{icon}}">
+			{{title}}
+		</li>
+	{{/items}}
+</ul>

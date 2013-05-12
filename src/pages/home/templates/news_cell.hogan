@@ -1,0 +1,9 @@
+<ul>
+	{{#items}}
+		<li>
+			<div class="thumbnail" style="background-image:url('{{image}}')"></div>
+			<div class="title">{{title}}</div>
+			<div class="subtitle">{{date}} - {{author}}</div>
+		</li>
+	{{/items}}
+</ul>

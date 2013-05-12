@@ -27,7 +27,7 @@ li {
 [data-role=header] {
   height: 44px;
   border-color: #111;
-  border-bottom: 2px solid;
+  border-bottom: 1px solid;
   background: #293541;
   /* Old browsers */
   background: -moz-linear-gradient(top, #293541 0%, #171d22 100%);
@@ -62,7 +62,7 @@ li {
   background-repeat: no-repeat;
   background-image: url("../images/menu-button.png");
 }
-[data-role=header] .menu-button.active {
+[data-role=header] .menu-button.pressed {
   background-color: #171d22;
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 1.3) and (min-width: 320px), only screen and (min--moz-device-pixel-ratio: 1.3) and (min-width: 320px), only screen and (-o-min-device-pixel-ratio: 2.6 / 2) and (min-width: 320px), only screen and (min-device-pixel-ratio: 1.3) and (min-width: 320px), only screen and (min-resolution: 200dpi) and (min-width: 320px), only screen and (min-resolution: 1.3dppx) and (min-width: 320px) {
@@ -71,18 +71,34 @@ li {
     background-image: url("../images/menu-button@2x.png");
   }
 }
+[data-role=header] .back-button {
+  float: left;
+  height: 100%;
+  width: 44px;
+  border-color: #111;
+  border-right: 1px solid;
+  background-size: 40px 44px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url("../images/back-button.png");
+}
+[data-role=header] .back-button.pressed {
+  background-color: #171d22;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.3) and (min-width: 320px), only screen and (min--moz-device-pixel-ratio: 1.3) and (min-width: 320px), only screen and (-o-min-device-pixel-ratio: 2.6 / 2) and (min-width: 320px), only screen and (min-device-pixel-ratio: 1.3) and (min-width: 320px), only screen and (min-resolution: 200dpi) and (min-width: 320px), only screen and (min-resolution: 1.3dppx) and (min-width: 320px) {
+  [data-role=header] .back-button {
+    /* Small screen, retina, stuff to override above media query */
+    background-image: url("../images/back-button@2x.png");
+  }
+}
 
 [data-role=content] {
   background-color: white;
   padding: 0px;
 }
 
-#detail {
-  background-color: blue;
-}
-
 #home-menu {
-  background-color: #ecebe6;
+  background-color: #f3f3f3;
 }
 #home-menu li {
   height: 44px;
@@ -91,6 +107,50 @@ li {
   border-bottom-color: #b1b0ac;
   padding: 0 10px;
   color: #494949;
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: 25px 25px;
+  background-origin: content-box;
+  text-indent: 30px;
+}
+#home-menu li.pressed {
+  background-color: rgba(130, 170, 209, 0.5);
+}
+#home-menu li.home {
+  background-image: url("../images/home.png");
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.3) and (min-width: 320px), only screen and (min--moz-device-pixel-ratio: 1.3) and (min-width: 320px), only screen and (-o-min-device-pixel-ratio: 2.6 / 2) and (min-width: 320px), only screen and (min-device-pixel-ratio: 1.3) and (min-width: 320px), only screen and (min-resolution: 200dpi) and (min-width: 320px), only screen and (min-resolution: 1.3dppx) and (min-width: 320px) {
+  #home-menu li.home {
+    /* Small screen, retina, stuff to override above media query */
+    background-image: url("../images/home@2x.png");
+  }
+}
+#home-menu li.profile {
+  background-image: url("../images/profile.png");
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.3) and (min-width: 320px), only screen and (min--moz-device-pixel-ratio: 1.3) and (min-width: 320px), only screen and (-o-min-device-pixel-ratio: 2.6 / 2) and (min-width: 320px), only screen and (min-device-pixel-ratio: 1.3) and (min-width: 320px), only screen and (min-resolution: 200dpi) and (min-width: 320px), only screen and (min-resolution: 1.3dppx) and (min-width: 320px) {
+  #home-menu li.profile {
+    /* Small screen, retina, stuff to override above media query */
+    background-image: url("../images/profile@2x.png");
+  }
+}
+#home-menu li.settings {
+  background-image: url("../images/settings.png");
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.3) and (min-width: 320px), only screen and (min--moz-device-pixel-ratio: 1.3) and (min-width: 320px), only screen and (-o-min-device-pixel-ratio: 2.6 / 2) and (min-width: 320px), only screen and (min-device-pixel-ratio: 1.3) and (min-width: 320px), only screen and (min-resolution: 200dpi) and (min-width: 320px), only screen and (min-resolution: 1.3dppx) and (min-width: 320px) {
+  #home-menu li.settings {
+    /* Small screen, retina, stuff to override above media query */
+    background-image: url("../images/settings@2x.png");
+  }
+}
+#home-menu li.help {
+  background-image: url("../images/help.png");
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.3) and (min-width: 320px), only screen and (min--moz-device-pixel-ratio: 1.3) and (min-width: 320px), only screen and (-o-min-device-pixel-ratio: 2.6 / 2) and (min-width: 320px), only screen and (min-device-pixel-ratio: 1.3) and (min-width: 320px), only screen and (min-resolution: 200dpi) and (min-width: 320px), only screen and (min-resolution: 1.3dppx) and (min-width: 320px) {
+  #home-menu li.help {
+    /* Small screen, retina, stuff to override above media query */
+    background-image: url("../images/help@2x.png");
+  }
 }
 #home-menu .ui-panel-inner {
   padding: 0;
@@ -124,6 +184,88 @@ li {
 
 #carousel-wrapper > div {
   padding: 5px;
+}
+
+#news div.header {
+  color: #333;
+  text-shadow: #EEE 0px 1px;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding: 1px;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  border-color: #969696;
+  background: #e8e8e8;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #e8e8e8 0%, #a7a7a7 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e8e8e8), color-stop(100%, #a7a7a7));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #e8e8e8 0%, #a7a7a7 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #e8e8e8 0%, #a7a7a7 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #e8e8e8 0%, #a7a7a7 100%);
+  /* IE10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e8e8e8', endColorstr='#a7a7a7',GradientType=0 );
+  /* IE6-9 */
+  background: linear-gradient(to bottom, #e8e8e8 0%, #a7a7a7 100%);
+  /* W3C */
+}
+#news li {
+  padding: 5px;
+  background-color: #f3f3f3;
+  padding: 5px;
+  overflow: hidden;
+  border-bottom: 1px solid;
+  border-color: #BBB;
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 25px 20px;
+  background-image: url("../images/list-arrow.png");
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.3) and (min-width: 320px), only screen and (min--moz-device-pixel-ratio: 1.3) and (min-width: 320px), only screen and (-o-min-device-pixel-ratio: 2.6 / 2) and (min-width: 320px), only screen and (min-device-pixel-ratio: 1.3) and (min-width: 320px), only screen and (min-resolution: 200dpi) and (min-width: 320px), only screen and (min-resolution: 1.3dppx) and (min-width: 320px) {
+  #news li {
+    /* Small screen, retina, stuff to override above media query */
+    background-image: url("../images/list-arrow@2x.png");
+  }
+}
+#news li.pressed {
+  background-color: rgba(130, 170, 209, 0.5);
+}
+#news li div {
+  padding-left: 5px;
+  padding-right: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#news li div.thumbnail {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  border: 1px solid;
+  border-color: #a7a7a7;
+  background-size: cover;
+  background-position: center;
+  float: left;
+  background-color: #293541;
+}
+#news li div.title {
+  color: #333;
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+#news li div.subtitle {
+  color: #63615f;
+  font-size: 0.8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 #splash {

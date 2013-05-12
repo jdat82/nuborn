@@ -5,10 +5,11 @@ window.onerror = function(message, url, line){
 	log.e(message);
 };
 
-// Create Shortcuts
+// Create Shortcuts for singletons
 var utils = nu.Utils;
 var log = nu.debug.Log;
 
+// Create Shortcuts for Classes
 var PH = nu.pages.PageHandler;
 
 /**
@@ -53,6 +54,13 @@ app.init = function(){
 			id: "splash"
 		});
 		app.splash.show();
+	}
+
+	if(utils.isOldAndroid()) {
+		$.mobile.defaultPageTransition = "none";
+	}
+	else {
+		$.mobile.defaultPageTransition = "slide";
 	}
 
 	HomePageHandler.insertHTML().done(function(){

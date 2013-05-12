@@ -1,5 +1,8 @@
+$cell-pressed: rgba(130, 170, 209, 0.5);
+$soft-white: #F3F3F3;
+
 #home-menu{
-	background-color: rgb(236,235,230);
+	background-color: $soft-white;
 
 	li {
 		height: 44px;
@@ -8,6 +11,45 @@
 		border-bottom-color: rgb(177,176,172);
 		padding: 0 10px;
 		color: rgb(73,73,73);
+
+		&.pressed{
+			background-color: $cell-pressed;
+		}
+
+		background-position: left center;
+		background-repeat: no-repeat;
+		background-size: 25px 25px;
+		background-origin: content-box;
+		text-indent: 30px;
+
+		&.home{
+			background-image: url("../images/home.png");
+			@include mq(retina){
+				background-image: url("../images/home@2x.png");
+			};
+		}
+
+		&.profile{
+			background-image: url("../images/profile.png");
+			@include mq(retina){
+				background-image: url("../images/profile@2x.png");
+			};
+		}
+
+		&.settings{
+			background-image: url("../images/settings.png");
+			@include mq(retina){
+				background-image: url("../images/settings@2x.png");
+			};
+		}
+
+		&.help{
+			background-image: url("../images/help.png");
+			@include mq(retina){
+				background-image: url("../images/help@2x.png");
+			};
+		}
+
 	}
 
 	.ui-panel-inner{
@@ -46,4 +88,80 @@
 
 #carousel-wrapper > div {
 	padding : 5px;
+}
+
+#news {
+	div.header {
+		color: #333;
+		text-shadow: #EEE 0px 1px;
+		text-align: center;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+		padding-left: 10px;
+		padding-right: 10px;
+		padding: 1px;
+		border-top: 1px solid;
+		border-bottom: 1px solid;
+		border-color: #969696;
+		@include linear-gradient(#e8e8e8, #a7a7a7);
+	}
+
+	li {
+		padding: 5px;
+		background-color: $soft-white;
+		padding: 5px;
+		overflow: hidden;
+		border-bottom: 1px solid;
+		border-color: #BBB;
+		background-position: right center;
+		background-repeat: no-repeat;
+		background-size: 25px 20px;
+
+		background-image: url("../images/list-arrow.png");
+		@include mq(retina){
+			background-image: url("../images/list-arrow@2x.png");
+		};
+
+		&.pressed {
+			background-color: $cell-pressed;
+		}
+
+		div {
+			padding-left: 5px;
+			padding-right: 25px;
+
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+
+			&.thumbnail {
+				width: 50px;
+				height: 50px;
+				border-radius: 5px;
+				border: 1px solid;
+				border-color: #a7a7a7;
+				background-size: cover;
+				background-position: center;
+				float: left;
+
+				background-color: $background;
+			}
+
+			&.title {
+				color: #333;
+				font-size: 1.1em;
+				line-height: 1.7em;
+			}
+
+			&.subtitle {
+				color: rgb(99, 97, 95);
+				font-size: 0.8em;
+
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+		}
+	}
 }

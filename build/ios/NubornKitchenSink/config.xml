@@ -33,7 +33,7 @@
     <preference name="KeyboardShrinksView" value="false" />
     <preference name="MediaPlaybackRequiresUserAction" value="false" />
     <preference name="ShowSplashScreenSpinner" value="false" />
-    <preference name="SuppressesIncrementalRendering" value="false" />
+    <preference name="SuppressesIncrementalRendering" value="true" />
     <preference name="TopActivityIndicator" value="gray" />
 
     <content src="app.html" />
