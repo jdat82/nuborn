@@ -44,7 +44,7 @@ nu.pages.PageHandler = Object.subClass(
 		this.data = {};
 
 		// Regitsering 
-		nu.pages.pageEventsManager.registerPageHandler(this);
+		nu.pages.PageEventsManager.sharedManager().registerPageHandler(this);
 	},
 
 <span id='nu-pages-PageHandler-method-pageBeforeCreate'>	/**
@@ -77,7 +77,7 @@ nu.pages.PageHandler = Object.subClass(
 	{
 		console.log(&quot;page init of &quot; + event.currentTarget.id);
 
-		// Calling #createHtmElements
+		// Calling #createHtmlElements
 		this.createHtmlElements();
 
 		// Calling #createDataElements if exists
@@ -188,6 +188,22 @@ nu.pages.PageHandler = Object.subClass(
 		// Cleaning references to HTML elements &amp; data objects
 		this.deleteHtmlElements();
 		this.deleteDataElements();
+	},
+
+<span id='nu-pages-PageHandler-method-createHtmlElements'>	/**
+</span>	 * Create all references to HTML elements.
+	 */
+	createHtmlElements: function()
+	{
+		nu.debug.Log.w(&quot;This method should be overriden&quot;);
+	},
+
+<span id='nu-pages-PageHandler-method-createDataElements'>	/**
+</span>	 * Create all references to data objects.
+	 */
+	createDataElements: function()
+	{
+		nu.debug.Log.w(&quot;This method should be overriden&quot;);
 	},
 
 <span id='nu-pages-PageHandler-method-deleteHtmlElements'>	/**

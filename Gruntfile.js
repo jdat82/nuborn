@@ -6,17 +6,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-jsduck');
 	grunt.loadNpmTasks('grunt-contrib-htmlmin');
 	grunt.initConfig({
-		 htmlmin: { 
-			dist: {
-				options: {
-					removeComments: true,
-					collapseWhitespace: true
-				},
-				files: {
-					'cell.hogan': 'src/pages/home/templates/cell.hogan'
-				}
-			}
-		},
 		/**
 		 * Nuborn Configuration
 		 */
@@ -102,7 +91,13 @@ module.exports = function(grunt) {
 							"libs/Nuborn/*.js", /** Nuborn is required **/
 							"libs/SwipeJS/*.js"
 						],
-
+						/**
+						 * Override Grunt Closure Compiler Options
+						 * https://github.com/gmarty/grunt-closure-compiler#options-properties
+						 *
+						 * Default options are :
+						 *  -- compilation_level : WHITESPACE_ONLY
+						 */
 						options: {
 							"formatting": "PRETTY_PRINT"
 						},
@@ -326,10 +321,6 @@ module.exports = function(grunt) {
 	 * Registering Default Task
 	 */
 	grunt.registerTask("default", function() {
-		var path = require("path");
-		for(var key in path){
-			grunt.log.writeln(key);
-		}
 		//grunt.task.run("nuborn");
 	});
 
