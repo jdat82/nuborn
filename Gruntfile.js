@@ -6,6 +6,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-jsduck');
 	grunt.loadNpmTasks('grunt-contrib-htmlmin');
 	grunt.initConfig({
+
 		/**
 		 * Nuborn Configuration
 		 */
@@ -14,7 +15,7 @@ module.exports = function(grunt) {
 				/**
 				 * Targets configuration
 				 */
-				targets:{
+				targets: {
 					"android": true,
 					"ios": true,
 					"web": true
@@ -26,16 +27,16 @@ module.exports = function(grunt) {
 					/**
 					 * Application Configuration
 					 */
-					app:{
+					app: {
 
 						/**
 						 * Files to compile for the app
 						 * Support Globbing Patterns of Grunt
 						 * http://gruntjs.com/configuring-tasks#globbing-patterns
 						 */
-						patterns:[
-							"src/**/*.js",
-							"!src/app/mobileinit.js"
+						patterns: [
+								"src/**/*.js",
+								"!src/app/mobileinit.js"
 						],
 
 						/**
@@ -45,35 +46,35 @@ module.exports = function(grunt) {
 						 * Default options are :
 						 *  -- compilation_level : SIMPLE_OPTIMIZATIONS
 						 */
-						options: {
+						options:  {
 							"formatting": "PRETTY_PRINT"
 						},
 
 						/**
 						 * Android Specific configuration
 						 */
-						android:{
-							output:"assets/www/js/app.min.js"
+						android: {
+							output: "assets/www/js/app.min.js"
 						},
 
 						/**
 						 * iOS Specific configuration
 						 */
-						ios:{
-							output:"www/js/app.min.js"
+						ios: {
+							output: "www/js/app.min.js"
 						},
 
 						/**
 						 * Web Specific configuration
 						 */
-						web:{
-							output:"js/app.min.js"
+						web: {
+							output: "js/app.min.js"
 						}
 					},
 					/**
 					 * Libraries Configurations
 					 */
-					libs:{
+					libs: {
 						/**
 						 * Tells if a build of Nuborn is Needed
 						 */
@@ -81,15 +82,15 @@ module.exports = function(grunt) {
 						/**
 						 * Files to compile for the libs
 						 */
-						patterns:[
-							"libs/Hogan/*.js",
-							"libs/jQuery/*.js", /** jQuery is required **/
-							"src/app/mobileinit.js", 
-							"libs/jQueryMobile/*.js", /** jQuery Mobile is required **/
-							"libs/Inheritance/*.js", /** Inheritance is required **/
-							"libs/jQueryJSON/*.js", /** jQueryJSON is required for old browser **/
-							"libs/Nuborn/*.js", /** Nuborn is required **/
-							"libs/SwipeJS/*.js"
+						patterns: [
+								"libs/Hogan/*.js",
+								"libs/jQuery/*.js", /** jQuery is required **/
+								"src/app/mobileinit.js",
+								"libs/jQueryMobile/*.js", /** jQuery Mobile is required **/
+								"libs/Inheritance/*.js", /** Inheritance is required **/
+								"libs/jQueryJSON/*.js", /** jQueryJSON is required for old browser **/
+								"libs/Nuborn/*.js", /** Nuborn is required **/
+								"libs/SwipeJS/*.js"
 						],
 						/**
 						 * Override Grunt Closure Compiler Options
@@ -98,92 +99,92 @@ module.exports = function(grunt) {
 						 * Default options are :
 						 *  -- compilation_level : WHITESPACE_ONLY
 						 */
-						options: {
+						options:  {
 							"formatting": "PRETTY_PRINT"
 						},
 						/**
 						 * Android Specific Configuration
 						 */
-						android:{
-							output:"assets/www/js/libs.min.js",
-							patterns:[
-								"libs/Cordova/cordova.android.js" /** Include Cordova for Android **/
+						android: {
+							output: "assets/www/js/libs.min.js",
+							patterns: [
+									"libs/Cordova/cordova.android.js" /** Include Cordova for Android **/
 							]
 						},
 						/**
 						 * iOS Specific Configuration
 						 */
-						ios:{
-							output:"www/js/libs.min.js",
-							patterns:[
-								"libs/Cordova/cordova.ios.js" /** Include Cordova for iOS **/
+						ios: {
+							output: "www/js/libs.min.js",
+							patterns: [
+									"libs/Cordova/cordova.ios.js" /** Include Cordova for iOS **/
 							]
 						},
 						/**
 						 * Web Specific Configuration
 						 */
-						web:{
-							output:"js/libs.min.js"
+						web: {
+							output: "js/libs.min.js"
 						}
 					}
 				},
 				/**
 				 * CSS (SASS) Configuration
 				 */
-				css:{
+				css: {
 					/**
 					 * Application Configuration
 					 */
-					app:{
+					app: {
 
 						/**
 						 * Files to compile for the app
-						 * 
+						 *
 						 * Support Globbing Patterns of Grunt
 						 * http://gruntjs.com/configuring-tasks#globbing-patterns
 						 */
-						patterns:[
-							"libs/Nuborn/sass/mixins.scss",
-							"src/**/*.scss"
+						patterns: [
+								"libs/Nuborn/sass/mixins.scss",
+								"src/**/*.scss"
 						],
 
 						/**
 						 * Override Grunt SASS Options
 						 * https://github.com/gmarty/grunt-closure-compiler#options-properties
-						 * 
+						 *
 						 * Default Options are :
-						 *  -- style : compressed 
+						 *  -- style : compressed
 						 *  -- noCache : true
 						 */
-						options: {
-							style : "expanded"
+						options:  {
+							style: "expanded"
 						},
 
 						/**
 						 * Android Specific configuration
 						 */
-						android:{
-							output:"assets/www/css/app.min.css"
+						android: {
+							output: "assets/www/css/app.min.css"
 						},
 
 						/**
 						 * iOS Specific configuration
 						 */
-						ios:{
-							output:"www/css/app.min.css"
+						ios: {
+							output: "www/css/app.min.css"
 						},
 
 						/**
 						 * Web Specific configuration
 						 */
-						web:{
-							output:"css/app.min.css"
+						web: {
+							output: "css/app.min.css"
 						}
 					},
 					/**
 					 * Libraries Configurations
 					 */
-					libs:{
+					libs: {
 						/**
 						 * Tells if a build of Nuborn is Needed
 						 */
@@ -191,43 +192,43 @@ module.exports = function(grunt) {
 						/**
 						 * Files to compile for the libs
 						 */
-						patterns:[
-							"libs/jQueryMobile/*.css", /** jQuery Mobile is required **/
-							"libs/Nuborn/*.css", /** Nuborn is required **/
-							"libs/SwipeJS/*.scss"
+						patterns: [
+								"libs/jQueryMobile/*.css", /** jQuery Mobile is required **/
+								"libs/Nuborn/*.css", /** Nuborn is required **/
+								"libs/SwipeJS/*.scss"
 						],
 						/**
 						 * Android Specific Configuration
 						 */
-						android:{
-							output:"assets/www/css/libs.min.css"
+						android: {
+							output: "assets/www/css/libs.min.css"
 						},
 						/**
 						 * iOS Specific Configuration
 						 */
-						ios:{
-							output:"www/css/libs.min.css",
+						ios: {
+							output: "www/css/libs.min.css",
 						},
 						/**
 						 * Web Specific Configuration
 						 */
-						web:{
-							output:"css/libs.min.css",
+						web: {
+							output: "css/libs.min.css",
 						}
 					}
 				},
 				/**
 				 * HTML Configuration
 				 */
-				html:{
+				html: {
 					/**
 					 * Application Configuration
 					 */
 					app: {
 
 						patterns: [
-							"src/**/*.html",
-							"!src/**/templates/*.html"
+								"src/**/*.html",
+								"!src/**/templates/*.html"
 						],
 
 						android: {
@@ -253,17 +254,17 @@ module.exports = function(grunt) {
 				/**
 				 * Templates Configuration
 				 */
-				templates: {	
+				templates: {
 					/**
 					 * Application Configuration
 					 */
 					app: {
 
 						patterns: [
-							"src/**/templates/*.hogan"
+								"src/**/templates/*.hogan"
 						],
 
-						options : {
+						options: {
 
 						}
 
@@ -274,38 +275,63 @@ module.exports = function(grunt) {
 					libs: {
 
 					}
+				},
+
+				/**
+				 * Static resources copied without modification in an output folder
+				 */
+				resources: {
+					/**
+					 * Set of resources configuration.
+					 * Each set is composed of :
+					 * - a list of patterns which will defined files and folders included in set
+					 * - a target specific configuration which will define a destination folder
+					 */
+					fileset: [{
+							patterns: [
+									"fonts/**"
+							],
+							android: {
+								output: "assets/www/"
+							},
+							ios: {
+								output: "www/"
+							},
+							web: {
+								output: ""
+							}
+						}, {
+							patterns: [
+									"images/**",
+									"src/**/images/**"
+							],
+							android: {
+								output: "assets/www/images/"
+							},
+							ios: {
+								output: "www/images/"
+							},
+							web: {
+								output: "images/"
+							}
+						}
+					]
 				}
 			}
 		},
 		/**
 		 * Documentation
 		 */
-		jsduck:{
-			/**
-			 * App Documentation
-			 */
+		jsduck: {
 			app: {
 				src: [
-					"src/",
-					"libs/Nuborn/"
+					"src/", // app documentation
+					"libs/Nuborn/" // Nuborn documentation
 				],
 				dest: "docs/App",
-				options:{
+				options: {
 					// 'builtin-classes': true,
-					"title": "Nuborn Application",
-					"footer": "IT&L@bs Toulouse - Mobile team"
-				}
-			},
-			/**
-			 * Nuborn Documentation
-			 */
-			nuborn: {
-				src: [
-					"libs/Nuborn/"
-				],
-				dest: "docs/Nuborn",
-				options:{
-					"title": "Nuborn - framework for hybrid & web mobile apps",
+					"title": "Nuborn documentation",
 					"footer": "IT&L@bs Toulouse - Mobile team"
 				}
 			}
@@ -321,7 +347,7 @@ module.exports = function(grunt) {
 	 * Registering Default Task
 	 */
 	grunt.registerTask("default", function() {
-		//grunt.task.run("nuborn");
+		grunt.task.run("nuborn");
 	});
 
 };

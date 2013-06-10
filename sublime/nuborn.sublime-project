@@ -2,7 +2,7 @@
 	"folders":
 	[
 		{
-			"name": "App Sources",
+			"name": "View: App Sources",
 			"path": "../src",
 			"folder_exclude_patterns":
 			[
@@ -10,8 +10,12 @@
 			]
 		},
 		{
-			"name": "Nuborn Sources",
+			"name": "View: Nuborn Sources",
 			"path": "../libs/Nuborn"
+		},
+		{
+			"name": "View: Project",
+			"path": ".."
 		}
 	],
 	"build_systems":
