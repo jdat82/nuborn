@@ -7,3 +7,4 @@ build/android/assets/www/*
 build/ios/www/*
 build/web/*
 build/ios/**/xcuserdata/
+docs/**

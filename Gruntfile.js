@@ -334,6 +334,17 @@ module.exports = function(grunt) {
 					"title": "Nuborn documentation",
 					"footer": "IT&L@bs Toulouse - Mobile team"
 				}
+			},
+			"grunt-nuborn": {
+				src: [
+					"node_modules/grunt-nuborn/tasks"  // grunt nuborn plugin
+				],
+				dest: "docs/grunt-nuborn",
+				options: {
+					// 'builtin-classes': true,
+					"title": "Nuborn Grunt Plugin Documentation",
+					"footer": "IT&L@bs Toulouse - Mobile team"
+				}
 			}
 		}
 	});
