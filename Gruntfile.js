@@ -289,21 +289,21 @@ module.exports = function(grunt) {
 					 */
 					fileset: [{
 							patterns: [
-									"fonts/**"
+									"fonts/*"
 							],
 							android: {
-								output: "assets/www/"
+								output: "assets/www/fonts/"
 							},
 							ios: {
-								output: "www/"
+								output: "www/fonts/"
 							},
 							web: {
-								output: ""
+								output: "fonts/"
 							}
 						}, {
 							patterns: [
-									"images/**",
-									"src/**/images/**"
+									"images/*",
+									"src/**/images/*"
 							],
 							android: {
 								output: "assets/www/images/"
