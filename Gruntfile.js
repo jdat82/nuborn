@@ -16,8 +16,8 @@ module.exports = function(grunt) {
 				 * Targets configuration
 				 */
 				targets: {
-					"android": true,
-					"ios": true,
+					"android": false,
+					"ios": false,
 					"web": true
 				},
 				/**
