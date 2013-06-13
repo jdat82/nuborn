@@ -2,15 +2,13 @@
 
 if [[ "$1" == js ]]
 then
-	grunt uglify --profile=$2;
-fi
-
-if [[ "$1" == scss || "$1" == css ]]
+	grunt uglify:$3 --profile=$2;
+elif [[ "$1" == scss || "$1" == css ]]
 then
-	grunt sass --profile=$2;
-fi
-
-if [[ "$1" == html ]]
+	grunt sass:$3 --profile=$2;
+elif [[ "$1" == html ]]
 then
-	grunt htmlmin --profile=$2;
+	grunt htmlmin:$3 --profile=$2;
+else
+	grunt $3 --profile=$2
 fi

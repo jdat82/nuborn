@@ -30,7 +30,8 @@
 					"sh",
 					"$project_path/../scripts/grunt.sh",
 					"$file_extension",
-					"dev"
+					"dev",
+					"web"
 				]
 			},
 			"windows":
