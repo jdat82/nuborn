@@ -6,4 +6,4 @@ build/ios/www/*
 build/web/*
 build/ios/**/xcuserdata/
 docs/**
-node_modules/**
+node_modules/
