@@ -1,11 +1,16 @@
 #!/bin/bash
 
-if [[ "$2" == *src/* ]]
+if [[ "$1" == js ]]
 then
-	grunt nuborn --extension=$1 --scope=app --no-color;
+	grunt uglify --profile=$2;
 fi
 
-if [[ "$2" == *libs/Nuborn* ]]
+if [[ "$1" == scss || "$1" == css ]]
 then
-	grunt nuborn --extension=$1 --scope=libs --no-color;
+	grunt sass --profile=$2;
+fi
+
+if [[ "$1" == html ]]
+then
+	grunt htmlmin --profile=$2;
 fi

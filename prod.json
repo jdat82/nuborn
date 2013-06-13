@@ -1,0 +1,11 @@
+{
+	"js": {
+		"compress": true,
+		"beautify": false,
+		"report": "min"
+	},
+	"css": {
+		"style": "compressed",
+		"noCache": true
+	}
+}

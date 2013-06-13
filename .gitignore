@@ -1,10 +1,9 @@
 .DS_Store
 *.sublime-workspace
 .sass-cache/
-node_modules/*
-!node_modules/grunt-nuborn
 build/android/assets/www/*
 build/ios/www/*
 build/web/*
 build/ios/**/xcuserdata/
 docs/**
+node_modules/**
