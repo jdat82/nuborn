@@ -10,13 +10,29 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 
 		/**
-		 * Definition of build targets
+		 * Definition of build targets. 
 		 */
 		targets: {
-			android: "build/android/assets/www",
-			ios: "build/ios/www",
-			web: "build/web"
+			android: {
+				folder: "build/android/assets/www",
+				active: false
+			},
+			ios: {
+				folder: "build/ios/www",
+				active: false
+			},
+			web: {
+				folder: "build/web",
+				active: true
+			}
 		},
+
+		/**
+		 * If true, will compile only this target instead all of them.
+		 * Authorized values are one of targets property or empty string to build all targets.
+		 * Reused by other tasks.
+		 */
+		// singleTarget: "",
 
 		/**
 		 * Common javascript files for all  targets
@@ -36,7 +52,7 @@ module.exports = function(grunt) {
 		/**
 		 * Javascript compilation
 		 */
-		"uglify": {
+		uglify: {
 			options: {
 				compress: options.js.compress,
 				beautify: options.js.beautify,
@@ -44,17 +60,17 @@ module.exports = function(grunt) {
 			},
 			web: {
 				files: {
-					"<%= targets.web %>/js/app.min.js": ["<%= js %>"]
+					"<%= targets.web.folder %>/js/app.min.js": ["<%= js %>"]
 				}
 			},
 			android: {
 				files: {
-					"<%= targets.android %>/js/app.min.js": ["libs/Cordova/cordova.android.js", "<%= js %>"]
+					"<%= targets.android.folder %>/js/app.min.js": ["libs/Cordova/cordova.android.js", "<%= js %>"]
 				}
 			},
 			ios: {
 				files: {
-					"<%= targets.ios %>/js/app.min.js": ["libs/Cordova/cordova.ios.js", "<%= js %>"]
+					"<%= targets.ios.folder %>/js/app.min.js": ["libs/Cordova/cordova.ios.js", "<%= js %>"]
 				}
 			}
 		},
@@ -72,24 +88,24 @@ module.exports = function(grunt) {
 		/**
 		 * CSS compilation
 		 */
-		"sass": {
+		sass: {
 			options: {
 				style: options.css.style,
 				noCache: options.css.noCache
 			},
 			android: {
 				files: {
-					"<%= targets.android %>/css/app.min.css": ["<%= css %>"]
+					"<%= targets.android.folder %>/css/app.min.css": ["<%= css %>"]
 				}
 			},
 			ios: {
 				files: {
-					"<%= targets.ios %>/css/app.min.css": ["<%= css %>"]
+					"<%= targets.ios.folder %>/css/app.min.css": ["<%= css %>"]
 				}
 			},
 			web: {
 				files: {
-					"<%= targets.web %>/css/app.min.css": ["<%= css %>"]
+					"<%= targets.web.folder %>/css/app.min.css": ["<%= css %>"]
 				}
 			}
 		},
@@ -113,17 +129,17 @@ module.exports = function(grunt) {
 			},
 			android: {
 				files: [
-					{ dest: "<%= targets.android %>/", src: ["<%= html %>"], expand: true, flatten: true }
+					{ dest: "<%= targets.android.folder %>/", src: ["<%= html %>"], expand: true, flatten: true }
 				]
 			},
 			ios: {
 				files: [
-					{ dest: "<%= targets.ios %>/", src: ["<%= html %>"], expand: true, flatten: true }
+					{ dest: "<%= targets.ios.folder %>/", src: ["<%= html %>"], expand: true, flatten: true }
 				]
 			},
 			web: {
 				files: [
-					{ dest: "<%= targets.web %>/", src: ["<%= html %>"], expand: true, flatten: true }
+					{ dest: "<%= targets.web.folder %>/", src: ["<%= html %>"], expand: true, flatten: true }
 				]
 			}
 		},
@@ -144,17 +160,17 @@ module.exports = function(grunt) {
 			},
 			android: {
 				files: [
-					{ dest: "<%= targets.android %>/images/", src: ["<%= img %>"], expand: true, flatten: true }
+					{ dest: "<%= targets.android.folder %>/images/", src: ["<%= img %>"], expand: true, flatten: true }
 				]
 			},
 			ios: {
 				files: [
-					{ dest: "<%= targets.ios %>/images/", src: ["<%= img %>"], expand: true, flatten: true }
+					{ dest: "<%= targets.ios.folder %>/images/", src: ["<%= img %>"], expand: true, flatten: true }
 				]
 			},
 			web: {
 				files: [
-					{ dest: "<%= targets.web %>/images/", src: ["<%= img %>"], expand: true, flatten: true }
+					{ dest: "<%= targets.web.folder %>/images/", src: ["<%= img %>"], expand: true, flatten: true }
 				]
 			}
 		},
@@ -172,22 +188,22 @@ module.exports = function(grunt) {
 		copy: {
 			android: {
 				files: [
-					{ dest: "<%= targets.android %>/", src: ["<%= fonts %>"], expand: true }
+					{ dest: "<%= targets.android.folder %>/", src: ["<%= fonts %>"], expand: true }
 				]
 			},
 			ios: {
 				files: [
-					{ dest: "<%= targets.ios %>/", src: ["<%= fonts %>"], expand: true }
+					{ dest: "<%= targets.ios.folder %>/", src: ["<%= fonts %>"], expand: true }
 				]
 			},
 			web: {
 				files: [
-					{ dest: "<%= targets.web %>/", src: ["<%= fonts %>"], expand: true }
+					{ dest: "<%= targets.web.folder %>/", src: ["<%= fonts %>"], expand: true }
 				]
 			}	
 		},
 
-		/**
+		/*
 		 * Documentation
 		 */
 		jsduck: {
@@ -202,19 +218,46 @@ module.exports = function(grunt) {
 			}
 		},
 
+		/*
+		 * Empty the build folder
+		 */
 		clean: {
 			android: {
-				src: [ "<%= targets.android %>/*" ]
+				src: [ "<%= targets.android.folder %>/*" ]
 			},
 			ios: {
-				src: [ "<%= targets.ios %>/*" ]
+				src: [ "<%= targets.ios.folder %>/*" ]
 			},
 			web: {
-				src: [ "<%= targets.web %>/*" ]
+				src: [ "<%= targets.web.folder %>/*" ]
+			}
+		},
+
+		/*
+		 * Rebuild on every save.
+		 * If property "singleTarget" is setted, rebuild only for that target.
+		 */
+		watch: {
+			options: {
+				nospawn: true,
+				livereload: true
+			},
+			scss: {
+				files: grunt.config("css"),
+				tasks: createDynamicTasks("sass")
+			},
+			js: {
+				files: grunt.config("js"),
+				tasks: createDynamicTasks("uglify")
+			},
+			htmlmin: {
+				files: grunt.config("html"),
+				tasks: createDynamicTasks("htmlmin")
 			}
 		}
 	});
 
+	// Loading grunt plugins
 	grunt.loadNpmTasks('grunt-jsduck');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-sass');
@@ -222,6 +265,27 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-watch');
+
+
+	/*
+	 * Typing grunt will execute these tasks for the active targets.
+	 * See targets property at the beginning of the file.
+	 */
+	// grunt.registerTask("default", "default action", function()
+	// {
+	// 	var defaultTasks = [ "uglify", "sass", "htmlmin", "imagemin", "copy" ];
+	// 	var singleTarget = grunt.config("singleTarget");
+	// 	if(singleTarget)
+	// 	{
+	// 		grunt.log.writeln("Building target: " + singleTarget);
+	// 		var tasks = [];
+	// 		defaultTasks.forEach(function(task){
+	// 			tasks.push(task + ":" + singleTarget)
+	// 		});
+	// 	}
+	// 	grunt.task.run(tasks ? tasks : defaultTasks);
+	// });
 
 	// Registering Default Task
 	grunt.registerTask("default", [ "uglify", "sass", "htmlmin", "imagemin", "copy" ]);
@@ -231,4 +295,26 @@ module.exports = function(grunt) {
 	grunt.registerTask("ios", [ "uglify:ios", "sass:ios", "htmlmin:ios", "imagemin:ios", "copy:ios" ]);
 	grunt.registerTask("web", [ "uglify:web", "sass:web", "htmlmin:web", "imagemin:web", "copy:web" ]);
 
+	/**
+	 * Create a dynamic array of tasks based on the current active targets.
+	 * So, calling createDynamicTasks("sass") with android and ios as active targets, will return :
+	 * [ "sass:android", "sass:ios" ]
+	 */
+	function createDynamicTasks(task)
+	{
+		var tasks = [];
+		var targets = grunt.config("targets");
+		if(!targets) return [ task ];
+
+		for(var target in targets)
+		{
+			if(target.active) {
+				tasks.push(task + ":" + target);
+			}
+		}
+
+		var result = tasks ? tasks : [ task ];
+		grunt.log.writeln("watch result: " + JSON.stringify(result));
+		return result;
+	}	
 };
