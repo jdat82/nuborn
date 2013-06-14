@@ -4,8 +4,8 @@
 module.exports = function(grunt) {
 
 	// externals options which can be context dependent
-	var profile = grunt.option("profile") || "prod";
-	var options = grunt.file.readJSON(profile + ".json");
+	var profile = grunt.option("profile") || "dev";
+	var options = grunt.file.readJSON("conf/" + profile + ".json");
 
 	grunt.initConfig({
 
@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 			},
 			ios: {
 				folder: "build/ios/www",
-				active: false
+				active: true
 			},
 			web: {
 				folder: "build/web",
@@ -80,7 +80,7 @@ module.exports = function(grunt) {
 		 */
 		css: [
 				"libs/jQueryMobile/*.css", /** jQuery Mobile is required **/
-				"libs/Nuborn/sass/*.scss",
+				"libs/Nuborn/sass/mixins.scss",
 				"libs/SwipeJS/*.scss",
 				"src/**/*.scss"
 		],
@@ -223,13 +223,13 @@ module.exports = function(grunt) {
 		 */
 		clean: {
 			android: {
-				src: [ "<%= targets.android.folder %>/*" ]
+				src: ["<%= targets.android.folder %>/*"]
 			},
 			ios: {
-				src: [ "<%= targets.ios.folder %>/*" ]
+				src: ["<%= targets.ios.folder %>/*"]
 			},
 			web: {
-				src: [ "<%= targets.web.folder %>/*" ]
+				src: ["<%= targets.web.folder %>/*"]
 			}
 		},
 
@@ -243,18 +243,19 @@ module.exports = function(grunt) {
 				livereload: true
 			},
 			scss: {
-				files: grunt.config("css"),
-				tasks: createDynamicTasks("sass")
+				files: "<%= css %>",
+				tasks: ["sass"]
 			},
 			js: {
-				files: grunt.config("js"),
-				tasks: createDynamicTasks("uglify")
+				files: "<%= js %>",
+				tasks: ["uglify"]
 			},
 			htmlmin: {
-				files: grunt.config("html"),
-				tasks: createDynamicTasks("htmlmin")
+				files: "<%= html %>",
+				tasks: ["htmlmin"]
 			}
 		}
+
 	});
 
 	// Loading grunt plugins
@@ -267,26 +268,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
-
-	/*
-	 * Typing grunt will execute these tasks for the active targets.
-	 * See targets property at the beginning of the file.
-	 */
-	// grunt.registerTask("default", "default action", function()
-	// {
-	// 	var defaultTasks = [ "uglify", "sass", "htmlmin", "imagemin", "copy" ];
-	// 	var singleTarget = grunt.config("singleTarget");
-	// 	if(singleTarget)
-	// 	{
-	// 		grunt.log.writeln("Building target: " + singleTarget);
-	// 		var tasks = [];
-	// 		defaultTasks.forEach(function(task){
-	// 			tasks.push(task + ":" + singleTarget)
-	// 		});
-	// 	}
-	// 	grunt.task.run(tasks ? tasks : defaultTasks);
-	// });
-
 	// Registering Default Task
 	grunt.registerTask("default", [ "uglify", "sass", "htmlmin", "imagemin", "copy" ]);
 
@@ -295,26 +276,6 @@ module.exports = function(grunt) {
 	grunt.registerTask("ios", [ "uglify:ios", "sass:ios", "htmlmin:ios", "imagemin:ios", "copy:ios" ]);
 	grunt.registerTask("web", [ "uglify:web", "sass:web", "htmlmin:web", "imagemin:web", "copy:web" ]);
 
-	/**
-	 * Create a dynamic array of tasks based on the current active targets.
-	 * So, calling createDynamicTasks("sass") with android and ios as active targets, will return :
-	 * [ "sass:android", "sass:ios" ]
-	 */
-	function createDynamicTasks(task)
-	{
-		var tasks = [];
-		var targets = grunt.config("targets");
-		if(!targets) return [ task ];
+	require("./OptimizeGruntConfig").optimize(grunt);
 
-		for(var target in targets)
-		{
-			if(target.active) {
-				tasks.push(task + ":" + target);
-			}
-		}
-
-		var result = tasks ? tasks : [ task ];
-		grunt.log.writeln("watch result: " + JSON.stringify(result));
-		return result;
-	}	
 };
