@@ -12,7 +12,7 @@ module.exports = function(grunt) {
 		/**
 		 * Definition of build targets. 
 		 */
-		targets: {
+		platforms: {
 			android: {
 				folder: "build/android/assets/www",
 				active: false
@@ -28,14 +28,7 @@ module.exports = function(grunt) {
 		},
 
 		/**
-		 * If true, will compile only this target instead all of them.
-		 * Authorized values are one of targets property or empty string to build all targets.
-		 * Reused by other tasks.
-		 */
-		// singleTarget: "",
-
-		/**
-		 * Common javascript files for all  targets
+		 * Common javascript files for all  platforms
 		 */
 		js: [
 				"libs/Hogan/*.js",
@@ -60,23 +53,23 @@ module.exports = function(grunt) {
 			},
 			web: {
 				files: {
-					"<%= targets.web.folder %>/js/app.min.js": ["<%= js %>"]
+					"<%= platforms.web.folder %>/js/app.min.js": ["<%= js %>"]
 				}
 			},
 			android: {
 				files: {
-					"<%= targets.android.folder %>/js/app.min.js": ["libs/Cordova/cordova.android.js", "<%= js %>"]
+					"<%= platforms.android.folder %>/js/app.min.js": ["libs/Cordova/cordova.android.js", "<%= js %>"]
 				}
 			},
 			ios: {
 				files: {
-					"<%= targets.ios.folder %>/js/app.min.js": ["libs/Cordova/cordova.ios.js", "<%= js %>"]
+					"<%= platforms.ios.folder %>/js/app.min.js": ["libs/Cordova/cordova.ios.js", "<%= js %>"]
 				}
 			}
 		},
 
 		/**
-		 * Common css files for all targets
+		 * Common css files for all platforms
 		 */
 		css: [
 				"libs/jQueryMobile/*.css", /** jQuery Mobile is required **/
@@ -95,23 +88,23 @@ module.exports = function(grunt) {
 			},
 			android: {
 				files: {
-					"<%= targets.android.folder %>/css/app.min.css": ["<%= css %>"]
+					"<%= platforms.android.folder %>/css/app.min.css": ["<%= css %>"]
 				}
 			},
 			ios: {
 				files: {
-					"<%= targets.ios.folder %>/css/app.min.css": ["<%= css %>"]
+					"<%= platforms.ios.folder %>/css/app.min.css": ["<%= css %>"]
 				}
 			},
 			web: {
 				files: {
-					"<%= targets.web.folder %>/css/app.min.css": ["<%= css %>"]
+					"<%= platforms.web.folder %>/css/app.min.css": ["<%= css %>"]
 				}
 			}
 		},
 
 		/**
-		 * HTML files common to all targets.
+		 * HTML files common to all platforms.
 		 */
 		html: [
 			"src/**/*.html",
@@ -129,23 +122,23 @@ module.exports = function(grunt) {
 			},
 			android: {
 				files: [
-					{ dest: "<%= targets.android.folder %>/", src: ["<%= html %>"], expand: true, flatten: true }
+					{ dest: "<%= platforms.android.folder %>/", src: ["<%= html %>"], expand: true, flatten: true }
 				]
 			},
 			ios: {
 				files: [
-					{ dest: "<%= targets.ios.folder %>/", src: ["<%= html %>"], expand: true, flatten: true }
+					{ dest: "<%= platforms.ios.folder %>/", src: ["<%= html %>"], expand: true, flatten: true }
 				]
 			},
 			web: {
 				files: [
-					{ dest: "<%= targets.web.folder %>/", src: ["<%= html %>"], expand: true, flatten: true }
+					{ dest: "<%= platforms.web.folder %>/", src: ["<%= html %>"], expand: true, flatten: true }
 				]
 			}
 		},
 
 		/**
-		 * Image files common to all targets.
+		 * Image files common to all platforms.
 		 */
 		img: [
 			"src/**/images/*"
@@ -160,23 +153,23 @@ module.exports = function(grunt) {
 			},
 			android: {
 				files: [
-					{ dest: "<%= targets.android.folder %>/images/", src: ["<%= img %>"], expand: true, flatten: true }
+					{ dest: "<%= platforms.android.folder %>/images/", src: ["<%= img %>"], expand: true, flatten: true }
 				]
 			},
 			ios: {
 				files: [
-					{ dest: "<%= targets.ios.folder %>/images/", src: ["<%= img %>"], expand: true, flatten: true }
+					{ dest: "<%= platforms.ios.folder %>/images/", src: ["<%= img %>"], expand: true, flatten: true }
 				]
 			},
 			web: {
 				files: [
-					{ dest: "<%= targets.web.folder %>/images/", src: ["<%= img %>"], expand: true, flatten: true }
+					{ dest: "<%= platforms.web.folder %>/images/", src: ["<%= img %>"], expand: true, flatten: true }
 				]
 			}
 		},
 
 		/**
-		 * Finally static resources common to all targets.
+		 * Finally static resources common to all platforms.
 		 */
 		fonts: [
 			"fonts/*",
@@ -188,17 +181,17 @@ module.exports = function(grunt) {
 		copy: {
 			android: {
 				files: [
-					{ dest: "<%= targets.android.folder %>/", src: ["<%= fonts %>"], expand: true }
+					{ dest: "<%= platforms.android.folder %>/", src: ["<%= fonts %>"], expand: true }
 				]
 			},
 			ios: {
 				files: [
-					{ dest: "<%= targets.ios.folder %>/", src: ["<%= fonts %>"], expand: true }
+					{ dest: "<%= platforms.ios.folder %>/", src: ["<%= fonts %>"], expand: true }
 				]
 			},
 			web: {
 				files: [
-					{ dest: "<%= targets.web.folder %>/", src: ["<%= fonts %>"], expand: true }
+					{ dest: "<%= platforms.web.folder %>/", src: ["<%= fonts %>"], expand: true }
 				]
 			}	
 		},
@@ -223,13 +216,13 @@ module.exports = function(grunt) {
 		 */
 		clean: {
 			android: {
-				src: ["<%= targets.android.folder %>/*"]
+				src: ["<%= platforms.android.folder %>/*"]
 			},
 			ios: {
-				src: ["<%= targets.ios.folder %>/*"]
+				src: ["<%= platforms.ios.folder %>/*"]
 			},
 			web: {
-				src: ["<%= targets.web.folder %>/*"]
+				src: ["<%= platforms.web.folder %>/*"]
 			}
 		},
 
@@ -244,15 +237,15 @@ module.exports = function(grunt) {
 			},
 			scss: {
 				files: "<%= css %>",
-				tasks: ["sass"]
+				tasks: ["n:sass"]
 			},
 			js: {
 				files: "<%= js %>",
-				tasks: ["uglify"]
+				tasks: ["n:uglify"]
 			},
 			htmlmin: {
 				files: "<%= html %>",
-				tasks: ["htmlmin"]
+				tasks: ["n:htmlmin"]
 			}
 		}
 
@@ -270,13 +263,51 @@ module.exports = function(grunt) {
 	//grunt.loadNpmTasks('grunt-devtools');
 
 	// Registering Default Task
-	grunt.registerTask("default", [ "uglify", "sass", "htmlmin", "imagemin", "copy" ]);
+	grunt.registerTask("default", [ "n:uglify", "n:sass", "n:htmlmin", "n:imagemin", "n:copy" ]);
 
 	// Registering one alias per target to allow compiling only one target
 	grunt.registerTask("android", [ "uglify:android", "sass:android", "htmlmin:android", "imagemin:android", "copy:android" ]);
 	grunt.registerTask("ios", [ "uglify:ios", "sass:ios", "htmlmin:ios", "imagemin:ios", "copy:ios" ]);
 	grunt.registerTask("web", [ "uglify:web", "sass:web", "htmlmin:web", "imagemin:web", "copy:web" ]);
 
-	require("./OptimizeGruntConfig").optimize(grunt);
+	/**
+	 * Wrapper for task runs. When invoking it with a task as a target, will run that task for 
+	 * active platforms (android, ios, web, ...) only.
+	 */
+	grunt.registerTask("n", "Wrapper for tasks run. Run only active platforms", function(task) 
+	{
+		var platforms = activeTargets(grunt);
+
+		if (!platforms || !platforms.length) {
+			var res = grunt.task.run("task");
+			grunt.log.writeln("res: " + res);
+			return true;
+		}
+
+		platforms.forEach(function(targetName) {
+			grunt.task.run(task + ":" + targetName);
+		});
+
+		return true;
+	});
+
+	/**
+	 * Compute an array of active target names.
+	 */
+
+	function activeTargets(grunt) 
+	{
+		var platforms = grunt.config("platforms");
+		var result = [];
+
+		if (!platforms)
+			return result;
+
+		for (var targetName in platforms)
+			if (platforms[targetName].active)
+				result.push(targetName);
+
+		return result;
+	}
 
 };
