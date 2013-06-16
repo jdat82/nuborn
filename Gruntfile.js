@@ -237,15 +237,15 @@ module.exports = function(grunt) {
 			},
 			scss: {
 				files: "<%= css %>",
-				tasks: ["n:sass"]
+				tasks: ["sass"]
 			},
 			js: {
 				files: "<%= js %>",
-				tasks: ["n:uglify"]
+				tasks: ["uglify"]
 			},
 			htmlmin: {
 				files: "<%= html %>",
-				tasks: ["n:htmlmin"]
+				tasks: ["htmlmin"]
 			}
 		}
 
@@ -263,7 +263,7 @@ module.exports = function(grunt) {
 	//grunt.loadNpmTasks('grunt-devtools');
 
 	// Registering Default Task
-	grunt.registerTask("default", [ "n:uglify", "n:sass", "n:htmlmin", "n:imagemin", "n:copy" ]);
+	grunt.registerTask("default", [ "uglify", "sass", "htmlmin", "imagemin", "copy" ]);
 
 	// Registering one alias per target to allow compiling only one target
 	grunt.registerTask("android", [ "uglify:android", "sass:android", "htmlmin:android", "imagemin:android", "copy:android" ]);
@@ -271,10 +271,9 @@ module.exports = function(grunt) {
 	grunt.registerTask("web", [ "uglify:web", "sass:web", "htmlmin:web", "imagemin:web", "copy:web" ]);
 
 	/**
-	 * Wrapper for task runs. When invoking it with a task as a target, will run that task for 
-	 * active platforms (android, ios, web, ...) only.
+	 * Receive a task name and if no target specified find active targets and execute the task for the active ones only.
 	 */
-	grunt.registerTask("n", "Wrapper for tasks run. Run only active platforms", function(task) 
+	function executeTaskForActiveTargetsOnly(task)
 	{
 		var platforms = activeTargets(grunt);
 
@@ -284,12 +283,20 @@ module.exports = function(grunt) {
 			return true;
 		}
 
-		platforms.forEach(function(targetName) {
-			grunt.task.run(task + ":" + targetName);
+		var taskConfiguration = grunt.config(task);
+		platforms.forEach(function(platformName) {
+			// if we found a configuration for that platform, we use it
+			if(taskConfiguration && taskConfiguration[platformName]) {
+				grunt.task.run(task + ":" + platformName);
+			}
+			else {
+				// same effect has task alone without : but will bypass grunt.task.run hook.
+				grunt.task.run(task + ":");
+			}
 		});
 
 		return true;
-	});
+	}
 
 	/**
 	 * Compute an array of active target names.
@@ -309,5 +316,19 @@ module.exports = function(grunt) {
 
 		return result;
 	}
+
+	/**
+	 * Hook that intercept calls to grunt.task.run so as to execute the task for active platforms only.
+	 */
+	grunt.util.hooker.hook(grunt.task, "run", {
+		pre: function(task) {
+
+			// if there is already a target specified, no hook
+			if(task.match(/:/g))
+				return true;
+
+			return grunt.util.hooker.preempt(executeTaskForActiveTargetsOnly(task));
+		}
+	});
 
 };
