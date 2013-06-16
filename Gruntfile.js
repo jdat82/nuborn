@@ -228,7 +228,6 @@ module.exports = function(grunt) {
 
 		/*
 		 * Rebuild on every save.
-		 * If property "singleTarget" is setted, rebuild only for that target.
 		 */
 		watch: {
 			options: {
