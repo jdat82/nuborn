@@ -267,6 +267,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	//grunt.loadNpmTasks('grunt-devtools');
 
 	// Registering Default Task
 	grunt.registerTask("default", [ "uglify", "sass", "htmlmin", "imagemin", "copy" ]);
