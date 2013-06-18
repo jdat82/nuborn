@@ -1,9 +1,11 @@
 .DS_Store
 *.sublime-workspace
 .sass-cache/
-build/android/assets/www/*
-build/ios/www/*
-build/web/*
-build/ios/**/xcuserdata/
-docs/**
+build/android/assets/www/
+build/ios/www/
+build/web/
+docs/
 node_modules/
+build/ios/CordovaLib/CordovaLib.xcodeproj/xcuserdata/
+build/ios/NubornKitchenSink.xcodeproj/project.xcworkspace/xcuserdata/
+build/ios/NubornKitchenSink.xcodeproj/xcuserdata/

@@ -350,7 +350,7 @@
 	function isPlatformDependent(task)
 	{
 		var platforms = grunt.config("platforms")
-		var taskConfiguration = grunt.config(task);
+		var taskConfiguration = grunt.config(task)
 
 		if(!taskConfiguration || !platforms || !Object.keys(platforms).length)
 			return false
