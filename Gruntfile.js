@@ -42,20 +42,6 @@
 		 "src/**/*.js"
 		 ],
 
-		 "concat-js": {
-			test: {
-				files: {
-					"build": [ "<%=js%>" ],
-					".": [ "Gruntfile.js" ]
-				}
-			}
-			// ios: {
-			// 	options: {
-			// 		toto: true
-			// 	}
-			// }
-		 },
-
 		/**
 		 * Javascript compilation
 		 */
@@ -378,15 +364,6 @@
 			if(executeTaskForActiveTargetsOnly(task)) 
 				return grunt.util.hooker.preempt(true)
 		}
-	})
-
-	grunt.registerMultiTask("concat-js", "", function(){
-		grunt.log.writeln("this: " + JSON.stringify(this))
-		grunt.log.writeln("")
-		grunt.log.writeln("arguments: " + JSON.stringify(arguments))
-		grunt.log.writeln("")
-		grunt.log.writeln("this.options(): " + JSON.stringify(this.options()))
-		grunt.log.writeln("")
 	})
 
 }
