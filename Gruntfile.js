@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 			},
 			ios: {
 				folder: "build/ios/www",
-				active: true
+				active: false
 			},
 			web: {
 				folder: "build/web",
@@ -316,10 +316,13 @@ module.exports = function(grunt) {
 		return result;
 	}
 
+
+	var hooker = grunt.util.hooker;
+
 	/**
 	 * Hook that intercept calls to grunt.task.run so as to execute the task for active platforms only.
 	 */
-	grunt.util.hooker.hook(grunt.task, "run", {
+	hooker.hook(grunt.task, "run", {
 		pre: function(task) {
 
 			// if there is already a target specified, no hook
@@ -327,6 +330,25 @@ module.exports = function(grunt) {
 				return true;
 
 			return grunt.util.hooker.preempt(executeTaskForActiveTargetsOnly(task));
+		}
+	});
+
+	hooker.hook(grunt.task, "run", {
+		pre: function(task) {
+
+			grunt.log.writeln("this: " + JSON.stringify(this));
+			grunt.log.writeln("arguments: " + JSON.stringify(arguments));
+
+			if(task.match(/:/g)){
+				grunt.log.writeln("task: " + task);
+				task = task.replace(":", ".");
+				grunt.log.writeln("task: " + task);
+			}
+			var conf = grunt.config(task);
+			grunt.log.writeln("conf: " + JSON.stringify(conf));
+			var options = grunt.option(task);
+			grunt.log.writeln("options: " + JSON.stringify(options));
+
 		}
 	});
 
