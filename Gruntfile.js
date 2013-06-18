@@ -48,10 +48,12 @@
 					"build": [ "<%=js%>" ],
 					".": [ "Gruntfile.js" ]
 				}
-			},
-			ios: {
-
 			}
+			// ios: {
+			// 	options: {
+			// 		toto: true
+			// 	}
+			// }
 		 },
 
 		/**
@@ -150,14 +152,14 @@
 		 },
 
 		/**
-		 * Image files common to all platforms.
+		 * Image files common to all platforms
 		 */
 		 img: [
 		 "src/**/images/*"
 		 ],
 
 		/**
-		 * Images optimisationq
+		 * Images optimisations
 		 */
 		 imagemin: {
 			options: {
@@ -262,7 +264,10 @@
 
 	})
 
-	// Loading grunt plugins
+
+	/**
+	 * Loading grunt plugins
+	 */
 	grunt.loadNpmTasks('grunt-jsduck')
 	grunt.loadNpmTasks('grunt-contrib-uglify')
 	grunt.loadNpmTasks('grunt-contrib-sass')
@@ -273,13 +278,20 @@
 	grunt.loadNpmTasks('grunt-contrib-watch')
 	//grunt.loadNpmTasks('grunt-devtools')
 
-	// Registering Default Task
+
+	/**
+	 * Registering Default Task
+	 */
 	grunt.registerTask("default", [ "uglify", "sass", "htmlmin", "imagemin", "copy" ])
 
-	// Registering one alias per target to allow compiling only one target
+
+	/**
+	 * Registering one alias per target to allow compiling only one target
+	 */
 	grunt.registerTask("android", [ "uglify:android", "sass:android", "htmlmin:android", "imagemin:android", "copy:android" ])
 	grunt.registerTask("ios", [ "uglify:ios", "sass:ios", "htmlmin:ios", "imagemin:ios", "copy:ios" ])
 	grunt.registerTask("web", [ "uglify:web", "sass:web", "htmlmin:web", "imagemin:web", "copy:web" ])
+
 
 	/**
 	 * Receive a task name and if no target specified find active targets and execute the active ones.
@@ -294,7 +306,7 @@
 	 */
 	 function executeTaskForActiveTargetsOnly(task)
 	 {
-		var platforms = activeTargets(grunt)
+		var activePlatforms = activeTargets(grunt)
 
 		// if task isn't related to any platform, no preempting
 		if (!isPlatformDependent(task))
@@ -304,10 +316,10 @@
 
 		// if a configuration exists for each active platform, preempts the default behavior by executing only
 		// these ones
-		platforms.forEach(function(platformName) {
+		activePlatforms.forEach(function(platform) {
 			// if we found a configuration for that platform, we use it
-			if(taskConfiguration[platformName])
-				grunt.task.run(task + ":" + platformName)
+			if(taskConfiguration[platform])
+				grunt.task.run(task + ":" + platform)
 		})
 
 		// task is platform dependent so it is preempted
@@ -340,13 +352,13 @@
 		var platforms = grunt.config("platforms")
 		var taskConfiguration = grunt.config(task);
 
-		if(!taskConfiguration || !platforms || !platforms.length)
+		if(!taskConfiguration || !platforms || !Object.keys(platforms).length)
 			return false
 
-		platforms.forEach(function(platform) {
+		for(var platform in platforms) {
 			if(taskConfiguration[platform])
 				return true
-		})
+		}
 
 		return false
 	}
@@ -367,25 +379,6 @@
 				return grunt.util.hooker.preempt(true)
 		}
 	})
-
-	// hooker.hook(grunt.task, "run", {
-	// 	pre: function(task) {
-
-	// 		grunt.log.writeln("this: " + JSON.stringify(this))
-	// 		grunt.log.writeln("arguments: " + JSON.stringify(arguments))
-
-	// 		if(task.match(/:/g)){
-	// 			grunt.log.writeln("task: " + task)
-	// 			task = task.replace(":", ".")
-	// 			grunt.log.writeln("task: " + task)
-	// 		}
-	// 		var conf = grunt.config(task)
-	// 		grunt.log.writeln("conf: " + JSON.stringify(conf))
-	// 		var options = grunt.option(task)
-	// 		grunt.log.writeln("options: " + JSON.stringify(options))
-
-	// 	}
-	// })
 
 	grunt.registerMultiTask("concat-js", "", function(){
 		grunt.log.writeln("this: " + JSON.stringify(this))
