@@ -1,3 +1,5 @@
+var GruntUtils = require("./GruntUtils")
+
 /**
  * Grunt Configuration
  */
@@ -81,7 +83,7 @@
 		/**
 		 * CSS compilation
 		 */
-		 sass: {
+		 nsass: {
 			options: {
 				style: options.css.style,
 				noCache: options.css.noCache
@@ -236,7 +238,7 @@
 			},
 			scss: {
 				files: "<%= css %>",
-				tasks: ["sass"]
+				tasks: ["nsass"]
 			},
 			js: {
 				files: "<%= js %>",
@@ -268,15 +270,15 @@
 	/**
 	 * Registering Default Task
 	 */
-	grunt.registerTask("default", [ "uglify", "sass", "htmlmin", "imagemin", "copy" ])
+	grunt.registerTask("default", [ "uglify", "nsass", "htmlmin", "imagemin", "copy" ])
 
 
 	/**
 	 * Registering one alias per target to allow compiling only one target
 	 */
-	grunt.registerTask("android", [ "uglify:android", "sass:android", "htmlmin:android", "imagemin:android", "copy:android" ])
-	grunt.registerTask("ios", [ "uglify:ios", "sass:ios", "htmlmin:ios", "imagemin:ios", "copy:ios" ])
-	grunt.registerTask("web", [ "uglify:web", "sass:web", "htmlmin:web", "imagemin:web", "copy:web" ])
+	grunt.registerTask("android", [ "uglify:android", "nsass:android", "htmlmin:android", "imagemin:android", "copy:android" ])
+	grunt.registerTask("ios", [ "uglify:ios", "nsass:ios", "htmlmin:ios", "imagemin:ios", "copy:ios" ])
+	grunt.registerTask("web", [ "uglify:web", "nsass:web", "htmlmin:web", "imagemin:web", "copy:web" ])
 
 
 	/**
@@ -298,14 +300,19 @@
 		if (!isPlatformDependent(task))
 			return false
 
-		var taskConfiguration = grunt.config(task)
-
 		// if a configuration exists for each active platform, preempts the default behavior by executing only
 		// these ones
-		activePlatforms.forEach(function(platform) {
+		activePlatforms.forEach(function(platform) 
+		{
+			// getting task and target configuration
+			var conf = grunt.config.get(task + "." + platform)
+
 			// if we found a configuration for that platform, we use it
-			if(taskConfiguration[platform])
+			if(conf) 
+			{
+				// executing task with correct target
 				grunt.task.run(task + ":" + platform)
+			}
 		})
 
 		// task is platform dependent so it is preempted
@@ -354,7 +361,7 @@
 	/**
 	 * Hook that intercept calls to grunt.task.run so as to execute the task for active platforms only.
 	 */
-	 hooker.hook(grunt.task, "run", {
+	hooker.hook(grunt.task, "run", {
 		pre: function(task) {
 
 			// if there is already a target specified, no hook
@@ -364,6 +371,38 @@
 			if(executeTaskForActiveTargetsOnly(task)) 
 				return grunt.util.hooker.preempt(true)
 		}
+	})
+
+	/**
+	 * Booster for sass configuration. Automagically sorts files according to their dependencies.
+	 * Strictly identical to grunt-contrib-sass configuration as it is a wrapper for it.
+	 * Will compute and create an explicit and sorted files attribute for each target. 
+	 */
+	grunt.registerMultiTask("nsass", "wrapper for grunt-contrib-sass", function() 
+	{
+		// sass config for the current target
+		var sass = {
+			options: this.options(),
+			target: {
+				files: []
+			}
+		}
+
+		// grunt.log.writeln("sass: " + JSON.stringify(this.files))
+
+		// resolving patterns and then dependencies order
+		this.files.forEach(function(files) {
+			sass.target.files.push({
+				src: GruntUtils.resolveDependencies(files.src),
+				dest: files.dest
+			})
+		})
+
+		// grunt.log.writeln("sass: " + JSON.stringify(sass.target.files))
+
+		// registering the sass config for execution
+		grunt.config("sass", sass)
+		grunt.task.run("sass:")
 	})
 
 }
