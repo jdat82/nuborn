@@ -1,5 +1,6 @@
-/* -- Provider -- */
-goog.provide("primitives");
+/**
+ * @provide primitives
+ */
 
 /* -- String -- */
 

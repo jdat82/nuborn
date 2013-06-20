@@ -47,7 +47,7 @@ var GruntUtils = require("./GruntUtils")
 		/**
 		 * Javascript compilation
 		 */
-		 uglify: {
+		 nuglify: {
 			options: {
 				compress: options.js.compress,
 				beautify: options.js.beautify,
@@ -75,8 +75,7 @@ var GruntUtils = require("./GruntUtils")
 		 */
 		 css: [
 		 "libs/jQueryMobile/*.css", /** jQuery Mobile is required **/
-		 "libs/Nuborn/sass/mixins.scss",
-		 "libs/SwipeJS/*.scss",
+		 "libs/**/*.scss",
 		 "src/**/*.scss"
 		 ],
 
@@ -270,15 +269,15 @@ var GruntUtils = require("./GruntUtils")
 	/**
 	 * Registering Default Task
 	 */
-	grunt.registerTask("default", [ "uglify", "nsass", "htmlmin", "imagemin", "copy" ])
+	grunt.registerTask("default", [ "nuglify", "nsass", "htmlmin", "imagemin", "copy" ])
 
 
 	/**
 	 * Registering one alias per target to allow compiling only one target
 	 */
-	grunt.registerTask("android", [ "uglify:android", "nsass:android", "htmlmin:android", "imagemin:android", "copy:android" ])
-	grunt.registerTask("ios", [ "uglify:ios", "nsass:ios", "htmlmin:ios", "imagemin:ios", "copy:ios" ])
-	grunt.registerTask("web", [ "uglify:web", "nsass:web", "htmlmin:web", "imagemin:web", "copy:web" ])
+	grunt.registerTask("android", [ "nuglify:android", "nsass:android", "htmlmin:android", "imagemin:android", "copy:android" ])
+	grunt.registerTask("ios", [ "nuglify:ios", "nsass:ios", "htmlmin:ios", "imagemin:ios", "copy:ios" ])
+	grunt.registerTask("web", [ "nuglify:web", "nsass:web", "htmlmin:web", "imagemin:web", "copy:web" ])
 
 
 	/**
@@ -356,18 +355,18 @@ var GruntUtils = require("./GruntUtils")
 		return false
 	}
 
-	var hooker = grunt.util.hooker
-
 	/**
 	 * Hook that intercept calls to grunt.task.run so as to execute the task for active platforms only.
 	 */
-	hooker.hook(grunt.task, "run", {
+	grunt.util.hooker.hook(grunt.task, "run", {
 		pre: function(task) {
 
 			// if there is already a target specified, no hook
+			// specifyng <task>: is also a way to bypass the hook without having target
 			if(task.match(/:/g))
-				return;
+				return
 
+			// if task is platform dependent and has active targets : preempt
 			if(executeTaskForActiveTargetsOnly(task)) 
 				return grunt.util.hooker.preempt(true)
 		}
@@ -376,7 +375,9 @@ var GruntUtils = require("./GruntUtils")
 	/**
 	 * Booster for sass configuration. Automagically sorts files according to their dependencies.
 	 * Strictly identical to grunt-contrib-sass configuration as it is a wrapper for it.
-	 * Will compute and create an explicit and sorted files attribute for each target. 
+	 * Will create a sass/target configuration and compute the final sorted "files" attribute.
+	 * The task is invoked by the above hook for each active platform. Each time, a sass.target
+	 * configuration is created.
 	 */
 	grunt.registerMultiTask("nsass", "wrapper for grunt-contrib-sass", function() 
 	{
@@ -388,21 +389,58 @@ var GruntUtils = require("./GruntUtils")
 			}
 		}
 
-		// grunt.log.writeln("sass: " + JSON.stringify(this.files))
-
 		// resolving patterns and then dependencies order
 		this.files.forEach(function(files) {
+			grunt.log.writeln()
+			grunt.log.writeln("sass: " + files.src.join("\n"))
+			grunt.log.writeln()
+			var resolved = GruntUtils.resolveDependencies(files.src)
+			grunt.log.writeln("sass: " + resolved.join("\n"))
 			sass.target.files.push({
-				src: GruntUtils.resolveDependencies(files.src),
+				src: resolved,
 				dest: files.dest
 			})
 		})
-
-		// grunt.log.writeln("sass: " + JSON.stringify(sass.target.files))
 
 		// registering the sass config for execution
 		grunt.config("sass", sass)
 		grunt.task.run("sass:")
 	})
+
+	/**
+	 * Booster for uglify configuration. Automagically sorts files according to their dependencies.
+	 * Strictly identical to grunt-contrib-uglify configuration as it is a wrapper for it.
+	 * Will create a uglify/target configuration and compute the final sorted "files" attribute.
+	 * The task is invoked by the above hook for each active platform. Each time, a uglify.target
+	 * configuration is created.
+	 */
+	grunt.registerMultiTask("nuglify", "wrapper for grunt-contrib-uglify", function() 
+	{
+		// uglify config for the current target
+		var uglify = {
+			options: this.options(),
+			target: {
+				files: []
+			}
+		}
+
+		// resolving patterns and then dependencies order
+		this.files.forEach(function(files) {
+			grunt.log.writeln()
+			grunt.log.writeln("uglify: " + files.src.join("\n"))
+			grunt.log.writeln()
+			var resolved = GruntUtils.resolveDependencies(files.src)
+			grunt.log.writeln("uglify: " + resolved.join("\n"))
+			uglify.target.files.push({
+				src: resolved,
+				dest: files.dest
+			})
+		})
+
+		// registering the uglify config for execution
+		grunt.config("uglify", uglify)
+		grunt.task.run("uglify:")
+	})
+
 
 }

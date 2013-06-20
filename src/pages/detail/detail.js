@@ -2,6 +2,9 @@
  * @class DetailPageHandler
  * The Page Handler of the detail page
  * @extends nu.pages.PageHandler
+ *
+ * @provide app.detail
+ * @require app
  */
 var DetailPageHandler = PH.subClass({
 	

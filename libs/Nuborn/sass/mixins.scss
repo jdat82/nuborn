@@ -1,3 +1,7 @@
+/**
+ * @provide mixins
+ */
+
 @mixin linear-gradient($from, $to) {
 	background: $from; /* Old browsers */
 	background: -moz-linear-gradient(top,  $from 0%, $to 100%); /* FF3.6+ */

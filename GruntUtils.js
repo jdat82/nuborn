@@ -93,7 +93,7 @@ var Util = {
     },
 
     /**
-     * -- An utility function that sorts JavaScript files acording to their dependencies
+     * -- An utility function that sorts files acording to their dependencies
      * -- @provide & @require
      */
     resolveDependencies: function(patterns)

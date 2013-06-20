@@ -1,14 +1,12 @@
-/* -- Provider -- */
-goog.provide("nu.Utils");
-
-/* -- Imports -- */
-goog.require("nu");
-
 /**
  * @class nu.Utils
  * Utilities class.
  * @singleton
+ *
+ * @provide nu.Utils
+ * @require nu
  */
+nu.Utils = {}
 
 /**
  * Checks if Internet is reachable.

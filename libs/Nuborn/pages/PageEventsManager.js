@@ -1,13 +1,11 @@
-/* -- Provider -- */
-goog.provide("nu.pages.PageEventsManager");
-
-/* -- Imports -- */
-goog.require("nu");
-
 /**
  * @class nu.pages.PageEventsManager
  * Page events manager Class. <br/>
  * Used to dispatch jQuery Mobile page events.
+ *
+ * @provide nu.pages.PageEventsManager
+ *
+ * @require nu
  */
 nu.pages.PageEventsManager = Object.subClass(
 {

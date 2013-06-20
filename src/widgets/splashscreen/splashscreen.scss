@@ -1,3 +1,8 @@
+/**
+ * @provide splashscreen
+ * @require mixins
+ */
+
 #splash {
 	background-color: #293541;
 	@include background("splashscreen.logo", 0, 0, 223px, 64px);

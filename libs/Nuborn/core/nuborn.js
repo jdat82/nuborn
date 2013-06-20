@@ -1,13 +1,12 @@
-/* -- Provider -- */
-goog.provide("nu");
-
-/* -- Imports -- */
-goog.require("primitives");
 
 /**
  * @class nu
  * @singleton 
+ *
+ * @provide nu
+ * @require primitives
  */
+ var nu = {}
 
 /**
  * Current version of Nuborn.

@@ -1,13 +1,9 @@
-/* -- Provider -- */
-goog.provide("nu.Storage");
-
-/* -- Imports -- */
-goog.require("nu");
-
 /**
  * @class nu.Storage
  * Help for saving objects into the local storage memory.
  * @singleton
+ * @provide nu.Storage
+ * @require nu
  */
 nu.Storage = {};
 

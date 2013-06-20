@@ -1,5 +1,9 @@
-/* -- Provider -- */
-goog.provide("nu.debug");
-
-/* -- Imports -- */
-goog.require("nu");
+/**
+ * @class nu.debug
+ * @singleton
+ *
+ * @provide nu.debug
+ *
+ * @require nu
+ */
+ nu.debug = {}

@@ -1,5 +1,6 @@
-/* -- Provider -- */
-goog.provide("nu.pages");
-
-/* -- Imports -- */
-goog.require("nu");
+/**
+ * @provide nu.pages
+ *
+ * @require nu
+ */
+nu.pages = {}

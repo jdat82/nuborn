@@ -1,5 +1,12 @@
-/* -- Provider --*/
-goog.provide("app");
+/**
+ * @class app
+ * Application entry point.
+ * @singleton
+ * 
+ * @provide app
+ * @require nu
+ */
+var app = {}
 
 window.onerror = function(message, url, line){
 	log.e(message);

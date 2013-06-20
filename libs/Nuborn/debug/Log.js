@@ -1,15 +1,12 @@
-/* -- Provider -- */
-goog.provide("nu.debug.Log");
-
-/* -- Imports -- */
-goog.require("nu");
-goog.require("nu.debug.LogLevel");
-goog.require("nu.debug.LogItem");
-goog.require("nu.Storage");
-
 /**
  * @class nu.debug.Log
  * @singleton
+ *
+ * @provide nu.debug.Log
+ *
+ * @require nu.debug.LogLevel
+ * @require nu.debug.LogItem
+ * @require nu.Storage
  */
 nu.debug.Log = {};
 

@@ -1,13 +1,10 @@
-/* -- Provider --*/
-goog.provide("nu.debug.LogItem");
-
-/* -- Imports --*/
-goog.require("nu.debug");
-goog.require("nu.debug.LogLevel");
-
 /**
  * @class nu.debug.LogItem
  * A log item represented by a message, a level and a date
+ *
+ * @provide nu.debug.LogItem
+ *
+ * @require nu.debug.LogLevel
  */
 nu.debug.LogItem = Object.subClass({
 

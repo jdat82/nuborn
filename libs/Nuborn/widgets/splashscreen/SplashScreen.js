@@ -1,13 +1,12 @@
-/* -- Provider -- */
-goog.provide("nu.widgets.SplashScreen");
-
-/* -- Imports -- */
-goog.require("nu.widgets");
-
 /**
  * @class nu.widgets.SplashScreen
  * Controls the splashscreen of the application.
+ *
+ * @provide nu.widgets.SplashScreen
+ *
+ * @require nu.widgets
  */
+
 nu.widgets.SplashScreen = Object.subClass({
 
 	/**

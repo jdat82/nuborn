@@ -2,6 +2,9 @@
  * @class HomePageHandler
  * The Page Handler of the home page
  * @extends nu.pages.PageHandler
+ * 
+ * @provide app.home
+ * @require app
  */
 var HomePageHandler = PH.subClass({
 	

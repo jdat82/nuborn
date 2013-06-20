@@ -1,12 +1,10 @@
-/* -- Provider -- */
-goog.provide("nu.debug.LogLevel");
-
-/* -- Provider -- */
-goog.require("nu.debug");
-
 /**
  * @enum
  * Enumeration of log levels.
+ * 
+ * @provide nu.debug.LogLevel
+ *
+ * @require nu.debug
  */
 nu.debug.LogLevel = {
 	ALL: "ALL",

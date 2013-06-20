@@ -1,12 +1,10 @@
-/* -- Provider -- */
-goog.provide("nu.pages.PageHandler");
-
-/* -- Imports -- */
-goog.require("nu.pages.PageEventsManager");
-
 /**
  * @class nu.pages.PageHandler
  * Handle lifecycle of jQuery Mobile pages.
+ *
+ * @provide nu.pages.PageHandler
+ *
+ * @require nu.pages.PageEventsManager
  */
 nu.pages.PageHandler = Object.subClass(
 {
