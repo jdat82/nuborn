@@ -391,13 +391,8 @@ var GruntUtils = require("./GruntUtils")
 
 		// resolving patterns and then dependencies order
 		this.files.forEach(function(files) {
-			grunt.log.writeln()
-			grunt.log.writeln("sass: " + files.src.join("\n"))
-			grunt.log.writeln()
-			var resolved = GruntUtils.resolveDependencies(files.src)
-			grunt.log.writeln("sass: " + resolved.join("\n"))
 			sass.target.files.push({
-				src: resolved,
+				src: GruntUtils.resolveDependencies(files.src),
 				dest: files.dest
 			})
 		})
@@ -426,13 +421,8 @@ var GruntUtils = require("./GruntUtils")
 
 		// resolving patterns and then dependencies order
 		this.files.forEach(function(files) {
-			grunt.log.writeln()
-			grunt.log.writeln("uglify: " + files.src.join("\n"))
-			grunt.log.writeln()
-			var resolved = GruntUtils.resolveDependencies(files.src)
-			grunt.log.writeln("uglify: " + resolved.join("\n"))
 			uglify.target.files.push({
-				src: resolved,
+				src: GruntUtils.resolveDependencies(files.src),
 				dest: files.dest
 			})
 		})
