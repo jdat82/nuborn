@@ -16,9 +16,6 @@ window.onerror = function(message, url, line){
 var utils = nu.Utils;
 var log = nu.debug.Log;
 
-// Create Shortcuts for Classes
-var PH = nu.pages.PageHandler;
-
 /**
  * @class app
  * The App namespace.

@@ -6,7 +6,7 @@
  * @provide app.detail
  * @require app
  */
-var DetailPageHandler = PH.subClass({
+var DetailPageHandler = nu.pages.PageHandler.subClass({
 	
 	/**
 	 * @constructor

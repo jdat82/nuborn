@@ -6,7 +6,7 @@
  * @provide app.home
  * @require app
  */
-var HomePageHandler = PH.subClass({
+var HomePageHandler = nu.pages.PageHandler.subClass({
 	
 	/**
 	 * @constructor
