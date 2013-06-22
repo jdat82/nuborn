@@ -6,6 +6,6 @@ build/ios/www/
 build/web/
 docs/
 node_modules/
-build/ios/CordovaLib/CordovaLib.xcodeproj/xcuserdata/
-build/ios/NubornKitchenSink.xcodeproj/project.xcworkspace/xcuserdata/
-build/ios/NubornKitchenSink.xcodeproj/xcuserdata/
+build/ios/CordovaLib/CordovaLib.xcodeproj/
+build/ios/NubornKitchenSink.xcodeproj/
+build/ios/build/
