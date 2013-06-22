@@ -189,7 +189,7 @@ var Util = {
         // }
 
         nodes.forEach(function(node){
-            var reqNodes = []
+            node.edges = []
             node.requires.forEach(function(require){
 
                 // first, let's see if every require has a provide
@@ -199,7 +199,7 @@ var Util = {
                 }
 
                 // second, let's change requires form from a string (provide) to an object node
-                reqNodes.push(providerMap[require])
+                node.edges.push(providerMap[require])
             })
         })
 
@@ -216,17 +216,17 @@ var Util = {
         // final list of nodes in order
         var resolved=[]
         grunt.log.writeln("\n NODES: \n" + Util.toJSON(nodes))
+        
         // searching leafs nodes which are at the bottom of the tree
-        var leafs = JSON.parse(JSON.stringify(nodes))
-        grunt.log.writeln("\n\nleafs before: " + leafs.length)
-        for(idx in leafs) {
-            grunt.log.writeln("current ("+idx+"): " + leafs[idx].source)
+        var leafs = []
+        nodes.forEach(function(node){
             // removing until there is only the leafs one
-            if(!leafs[idx].requires.length || !leafs[idx].provide) {
-                leafs.splice(idx, 1)
-                resolved.push(leafs[idx])
-            }
-        }
+            if(!node.edges.length || !node.provide)
+                resolved.push(node)
+            else 
+                leafs.push(node)
+        })
+
         grunt.log.writeln("\n LEAFS NODES: \n" + leafs.length)
         grunt.log.writeln("\n LEAFS NODES: \n" + Util.toJSON(leafs))
         grunt.log.writeln("\n ALREADY RESOLVED NODES: \n" + Util.toJSON(nodes))
@@ -235,13 +235,13 @@ var Util = {
             grunt.log.writeln("πππππππππππππππππππππππππππππππππππππππππππππππππππππππ")
             unresolved.push(node)
             grunt.log.writeln(node.source + ": " + Util.toJSON(node.requires))
-            node.requires.forEach(function(requirement){
-                if(resolved.indexOf(requirement) < 0)
+            node.edges.forEach(function(edge){
+                if(resolved.indexOf(edge) < 0)
                     // checking cyclic dependencies
-                    if(unresolved.indexOf(requirement) >= 0)
+                    if(unresolved.indexOf(edge) >= 0)
                         grunt.fail.fatal("Error : " + node.source + " raised cyclic dependencies !")
                     // digging again
-                    resolve(requirement, resolved, unresolved)
+                    resolve(edge, resolved, unresolved)
             })
             resolved.push(node)
             unresolved.splice(unresolved.indexOf(node), 1)
