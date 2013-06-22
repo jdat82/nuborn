@@ -232,7 +232,7 @@ var GruntUtils = require("./GruntUtils")
 		 */
 		 watch: {
 			options: {
-				nospawn: true,
+				nospawn: false,
 				livereload: true
 			},
 			scss: {
@@ -241,7 +241,7 @@ var GruntUtils = require("./GruntUtils")
 			},
 			js: {
 				files: "<%= js %>",
-				tasks: ["uglify"]
+				tasks: ["nuglify"]
 			},
 			htmlmin: {
 				files: "<%= html %>",
@@ -274,7 +274,7 @@ var GruntUtils = require("./GruntUtils")
 	grunt.loadNpmTasks('grunt-contrib-clean')
 	grunt.loadNpmTasks('grunt-contrib-watch')
 	grunt.loadNpmTasks('grunt-contrib-connect');
-	//grunt.loadNpmTasks('grunt-devtools')
+	grunt.loadNpmTasks('grunt-devtools')
 
 
 	/**
