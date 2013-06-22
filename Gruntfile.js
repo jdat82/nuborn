@@ -247,6 +247,16 @@ var GruntUtils = require("./GruntUtils")
 				files: "<%= html %>",
 				tasks: ["htmlmin"]
 			}
+		 },
+
+		 connect: {
+		 	server: {
+		 		options: {
+		 			port: 9001,
+		 			base: 'build/web',
+		 			keepalive: true
+		 		}
+		 	}
 		 }
 
 	})
@@ -263,6 +273,7 @@ var GruntUtils = require("./GruntUtils")
 	grunt.loadNpmTasks('grunt-contrib-copy')
 	grunt.loadNpmTasks('grunt-contrib-clean')
 	grunt.loadNpmTasks('grunt-contrib-watch')
+	grunt.loadNpmTasks('grunt-contrib-connect');
 	//grunt.loadNpmTasks('grunt-devtools')
 
 
@@ -360,6 +371,8 @@ var GruntUtils = require("./GruntUtils")
 	 */
 	grunt.util.hooker.hook(grunt.task, "run", {
 		pre: function(task) {
+
+			// grunt.log.writeln("\n\n\n task:" + task + " \n\n\n")
 
 			// if there is already a target specified, no hook
 			// specifyng <task>: is also a way to bypass the hook without having target
