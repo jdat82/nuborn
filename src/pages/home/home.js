@@ -335,7 +335,7 @@ var HomePageHandler = nu.pages.PageHandler.subClass({
 		// getting a local reference of the menu
 		var menu = this.html.menu;
 		// add template to carousel wrapper, rendered with previous data
-		menu.append(Templates.home_menu_cell.render(this.data.menu));
+		menu.append(templates.menu_cell.render(this.data.menu));
 
 		// handle pressed state on li
 		menu.on("vmousedown", "li", function(event){
@@ -397,14 +397,14 @@ var HomePageHandler = nu.pages.PageHandler.subClass({
 	 */
 	prepareCarousel: function(){
 		// add template to carousel wrapper, rendered with carousel data
-		this.html.carouselWrapper.html(Templates.home_card.render(this.data.carousel));
+		this.html.carouselWrapper.html(templates.card.render(this.data.carousel));
 	},
 
 	prepareNews: function(){
 		// add template to news, rendered with news data
 		var news = this.html.news;
 
-		news.append(Templates.home_news_cell.render(this.data.news));
+		news.append(templates.news_cell.render(this.data.news));
 
 		news.on("vmousedown", "li", function(){
 			var self = $(this);

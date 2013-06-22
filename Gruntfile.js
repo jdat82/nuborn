@@ -39,6 +39,7 @@ var GruntUtils = require("./GruntUtils")
 		 "libs/jQueryMobile/*.js", /** jQuery Mobile is required **/
 		 "libs/Inheritance/*.js", /** Inheritance is required **/
 		 // "libs/jQueryJSON/*.js", /** jQueryJSON is required for old browser **/
+		 "gen/*.js",
 		 "libs/Nuborn/**/*.js", /** Nuborn is required **/
 		 "libs/SwipeJS/*.js",
 		 "src/**/*.js"
@@ -68,7 +69,40 @@ var GruntUtils = require("./GruntUtils")
 					"<%= platforms.ios.folder %>/js/app.min.js": ["libs/Cordova/cordova.ios.js", "<%= js %>"]
 				}
 			}
-		 },
+		},
+
+
+
+		/**
+		 * Common teplates for all platforms
+		 */
+		templates: [
+		"libs/Nuborn/**/*.hogan",
+		"src/**/*.hogan"
+		],
+
+		
+		/**
+		 * Templates compilation into javascript
+		 */
+		hogan: {
+			android: {
+				templates: ["<%= templates %>"],
+				output: "gen/templates.js",
+				binderName: "hulk"
+			},
+			ios: {
+				templates: ["<%= templates %>"],
+				output: "gen/templates.js",
+				binderName: "hulk"
+			},
+			web: {
+				templates: ["<%= templates %>"],
+				output: "gen/templates.js",
+				binderName: "hulk"
+			}
+		},
+
 
 		/**
 		 * Common css files for all platforms
@@ -246,6 +280,10 @@ var GruntUtils = require("./GruntUtils")
 			htmlmin: {
 				files: "<%= html %>",
 				tasks: ["htmlmin"]
+			},
+			hogan: {
+				files: "<%= templates %>",
+				tasks: ["hogan"]
 			}
 		 },
 
@@ -267,6 +305,7 @@ var GruntUtils = require("./GruntUtils")
 	 */
 	grunt.loadNpmTasks('grunt-jsduck')
 	grunt.loadNpmTasks('grunt-contrib-uglify')
+	grunt.loadNpmTasks('grunt-hogan');
 	grunt.loadNpmTasks('grunt-contrib-sass')
 	grunt.loadNpmTasks('grunt-contrib-htmlmin')
 	grunt.loadNpmTasks('grunt-contrib-imagemin')
@@ -280,15 +319,15 @@ var GruntUtils = require("./GruntUtils")
 	/**
 	 * Registering Default Task
 	 */
-	grunt.registerTask("default", [ "nuglify", "nsass", "htmlmin", "imagemin", "copy" ])
+	grunt.registerTask("default", [ "hogan", "nuglify", "nsass", "htmlmin", "imagemin", "copy" ])
 
 
 	/**
 	 * Registering one alias per target to allow compiling only one target
 	 */
-	grunt.registerTask("android", [ "nuglify:android", "nsass:android", "htmlmin:android", "imagemin:android", "copy:android" ])
-	grunt.registerTask("ios", [ "nuglify:ios", "nsass:ios", "htmlmin:ios", "imagemin:ios", "copy:ios" ])
-	grunt.registerTask("web", [ "nuglify:web", "nsass:web", "htmlmin:web", "imagemin:web", "copy:web" ])
+	grunt.registerTask("android", [ "hogan:android", "nuglify:android", "nsass:android", "htmlmin:android", "imagemin:android", "copy:android" ])
+	grunt.registerTask("ios", [ "hogan:ios", "nuglify:ios", "nsass:ios", "htmlmin:ios", "imagemin:ios", "copy:ios" ])
+	grunt.registerTask("web", [ "hogan:web", "nuglify:web", "nsass:web", "htmlmin:web", "imagemin:web", "copy:web" ])
 
 
 	/**
