@@ -4,8 +4,7 @@
  * Used to dispatch jQuery Mobile page events.
  *
  * @provide nu.pages.PageEventsManager
- *
- * @require nu
+ * @require nu.pages
  */
 nu.pages.PageEventsManager = Object.subClass(
 {
