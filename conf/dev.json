@@ -7,5 +7,10 @@
 	"css": {
 		"style": "expanded",
 		"noCache": true
+	},
+	"html": {
+		"removeComments": false,
+		"collapseWhitespace": false,
+		"collapseBooleanAttributes": false
 	}
 }

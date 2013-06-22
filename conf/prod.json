@@ -7,5 +7,10 @@
 	"css": {
 		"style": "compressed",
 		"noCache": true
+	},
+	"html": {
+		"removeComments": true,
+		"collapseWhitespace": true,
+		"collapseBooleanAttributes": true
 	}
 }

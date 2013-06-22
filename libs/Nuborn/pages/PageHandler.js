@@ -3,7 +3,6 @@
  * Handle lifecycle of jQuery Mobile pages.
  *
  * @provide nu.pages.PageHandler
- *
  * @require nu.pages.PageEventsManager
  */
 nu.pages.PageHandler = Object.subClass(

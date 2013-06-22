@@ -38,7 +38,7 @@ var GruntUtils = require("./GruntUtils")
 		 "src/app/mobileinit.js",
 		 "libs/jQueryMobile/*.js", /** jQuery Mobile is required **/
 		 "libs/Inheritance/*.js", /** Inheritance is required **/
-		 "libs/jQueryJSON/*.js", /** jQueryJSON is required for old browser **/
+		 // "libs/jQueryJSON/*.js", /** jQueryJSON is required for old browser **/
 		 "libs/Nuborn/**/*.js", /** Nuborn is required **/
 		 "libs/SwipeJS/*.js",
 		 "src/**/*.js"
@@ -117,9 +117,9 @@ var GruntUtils = require("./GruntUtils")
 		 */
 		 htmlmin: {
 			options: {
-				removeComments: true,
-				collapseWhitespace: true,
-				collapseBooleanAttributes: true
+				removeComments: options.html.removeComments,
+				collapseWhitespace: options.html.collapseWhitespace,
+				collapseBooleanAttributes: options.html.collapseBooleanAttributes
 			},
 			android: {
 				files: [

@@ -147,17 +147,17 @@ nu.Utils.enableScroll = function(){
 };
 
 // handle old browsers when JSON object is missing
-if(!JSON || !JSON.stringify || !JSON.parse){
-	// creating JSON object
-	JSON = {};
-	// bind JSON stringify to jQuery JSON "toJSON" method
-	JSON.stringify = $.toJSON || function(object){
-		nu.Log.e("JSON.stringify could not be loaded : returning empty string !");
-		return object instanceof Array ? "[]" : object instanceof Object ? "{}" : "";
-	};
-	// bind JSON stringify to jQuery JSON "evalJSON" method
-	JSON.parse = $.evalJSON || function(string){
-		nu.Log.e("JSON.parse could not be loaded : returning empty object !");
-		return {};
-	};
-}
+// if(!JSON || !JSON.stringify || !JSON.parse){
+// 	// creating JSON object
+// 	JSON = {};
+// 	// bind JSON stringify to jQuery JSON "toJSON" method
+// 	JSON.stringify = $.toJSON || function(object){
+// 		nu.Log.e("JSON.stringify could not be loaded : returning empty string !");
+// 		return object instanceof Array ? "[]" : object instanceof Object ? "{}" : "";
+// 	};
+// 	// bind JSON stringify to jQuery JSON "evalJSON" method
+// 	JSON.parse = $.evalJSON || function(string){
+// 		nu.Log.e("JSON.parse could not be loaded : returning empty object !");
+// 		return {};
+// 	};
+// }
