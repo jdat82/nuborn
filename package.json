@@ -9,12 +9,11 @@
     "grunt-contrib-sass": "~0.3.0",
     "grunt-contrib-clean": "~0.4.1",
     "grunt-contrib-copy": "~0.4.1",
-    "grunt-closure-compiler": "0.0.17",
     "grunt-jsduck": "~0.1.4",
-    "grunt-contrib-hogan": "~0.2.1",
     "grunt-contrib-uglify": "~0.2.2",
     "grunt-contrib-watch": "~0.4.4",
     "grunt-devtools": "~0.1.0-7",
-    "grunt-contrib-connect": "~0.3.0"
+    "grunt-contrib-connect": "~0.3.0",
+    "grunt-hogan": "~0.2.2-2"
   }
 }
