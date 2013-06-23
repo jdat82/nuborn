@@ -358,10 +358,8 @@ var GruntUtils = require("./GruntUtils")
 
 			// if we found a configuration for that platform, we use it
 			if(conf) 
-			{
 				// executing task with correct target
 				grunt.task.run(task + ":" + platform)
-			}
 		})
 
 		// task is platform dependent so it is preempted
@@ -410,8 +408,6 @@ var GruntUtils = require("./GruntUtils")
 	 */
 	grunt.util.hooker.hook(grunt.task, "run", {
 		pre: function(task) {
-
-			// grunt.log.writeln("\n\n\n task:" + task + " \n\n\n")
 
 			// if there is already a target specified, no hook
 			// specifyng <task>: is also a way to bypass the hook without having target
