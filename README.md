@@ -91,12 +91,32 @@ platforms: {
 	},
 	web: {
 		folder: "build/web",
-		active: **true**
+		active: true
 	}
  }
 ```
 
 Typing ```grunt nuglify``` will be replaced by ```grunt nuglify:web``` as it is the only active platform.
+
+Managing development and production configurations
+--------------------------------------------------
+
+As each grunt task has already a target per platform, we managed production and development configurations with external files in the `conf` folder.
+There is actually two configurations files : prod.json and dev.json.
+
+Their loading is based on the profile option.
+Just provide a `--profile=dev` or `--profile=prod` param at build time to enable one of them.
+Theirs contents will be loaded into an options variable that you can use directly.
+
+```
+nuglify: {
+	options: {
+		compress: options.js.compress,
+		beautify: options.js.beautify,
+		report: options.js.report
+	},
+	...
+```
 
 Coding with Nuborn
 ==================
