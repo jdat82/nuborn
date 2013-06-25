@@ -8,9 +8,9 @@
  */
 var app = {}
 
-window.onerror = function(message, url, line){
-	log.e(message);
-};
+// window.onerror = function(message, url, line){
+// 	log.e(message);
+// };
 
 // Create Shortcuts for singletons
 var utils = nu.Utils;
