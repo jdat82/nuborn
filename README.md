@@ -3,6 +3,8 @@ Nuborn
 
 Nuborn is a phonegap and web mobile boilerplate project based on `Phonegap`, `jQuery Mobile`, `jQuery` and `Grunt`.
 
+It is a vision of tools, project structure and workflows necessary for modern mobile web applications.
+
 Its goal is to provide a good base when starting a new project with an operative and complete build which can handle several platform and modern technologies needs : 
  * javascript compilation and obfuscation, 
  * hogan templates compilation
