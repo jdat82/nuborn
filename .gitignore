@@ -4,6 +4,7 @@
 .sass-cache/
 node_modules/
 docs/
+gen/
 # web
 build/web/
 # android

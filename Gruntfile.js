@@ -34,13 +34,14 @@ var GruntUtils = require("./GruntUtils")
 		 */
 		 js: [
 		 "libs/Hogan/*.js",
-		 "libs/jQuery/*.js", /** jQuery is required **/
+		 "libs/jQuery/*.js", 		/** jQuery is required **/
 		 "src/app/mobileinit.js",
-		 "libs/jQueryMobile/*.js", /** jQuery Mobile is required **/
-		 "libs/Inheritance/*.js", /** Inheritance is required **/
+		 "libs/jQueryMobile/jquery.mobile.custom*.js", 	/** jQuery Mobile is required **/
+		 "libs/Inheritance/*.js", 	/** Inheritance is required **/
+		 // "libs/Gsap/*.js",			/** Animations */
 		 // "libs/jQueryJSON/*.js", /** jQueryJSON is required for old browser **/
 		 "gen/*.js",
-		 "libs/Nuborn/**/*.js", /** Nuborn is required **/
+		 "libs/Nuborn/**/*.js", 	/** Nuborn is required **/
 		 "libs/SwipeJS/*.js",
 		 "src/**/*.js"
 		 ],
