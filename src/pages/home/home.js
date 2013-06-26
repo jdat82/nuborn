@@ -296,19 +296,27 @@ var HomePageHandler = nu.pages.PageHandler.subClass({
 	 * @override
 	 * @inheritdoc
 	 */
-	pageShow: function(event, data){
+	pageShow: function(event, data) {
 		// Initializing Carousel with the Swipe library
 		this.html.carousel.Swipe();
+		var self = this;
 		// if the splashscreen is handled from web
-		if(app.splash){
-			// hide splashscreen after 2 seconds
-			setTimeout(function(){
-				app.splash.hide(true);
+		if (app.splash) {
+			setTimeout(function() {
+				// hide splashscreen after 2 seconds
+				app.splash.hide(true)
+				// remove reference from dom for garbage collector (not needed anymore)
+				delete app.splash
+				// enjoy true magic
+				new TimelineLite().staggerFrom(self.html.news.find(".thumbnail"), 0.3, {
+					opacity: 0.2,
+					scale: 0.5
+				}, 0.2, 0.6)
 			}, 2000);
-		} 
+		}
 		// if the splashscreen is handled natively with iOS
-		else if(utils.isCordova() && utils.isIOS()){
-			// hide it immediately
+		else if (utils.isCordova() && utils.isIOS()) {
+			// hide it immediately via cordova
 			navigator.splashscreen.hide();
 		}
 	},
