@@ -44,7 +44,7 @@ var DetailPageHandler = nu.pages.PageHandler.subClass({
 
 		// when tap on back button, go back home
 		backButton.on("tap", function(){
-			$.mobile.changePage("home.html", {reverse: true});
+			$.mobile.navigate("home.html", {reverse: true});
 			// prevent bubbling
 			return false;
 		});

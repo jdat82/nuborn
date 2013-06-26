@@ -50,12 +50,12 @@ nu.widgets.SplashScreen = Object.subClass({
 	 */
 	initWithUrl: function(){
 		// retrieving the data from the url
-		var xhr = $.ajax({
+		var promise = $.ajax({
 			async: false,
 			url: this.settings.url
 		});
 		// defining the success callback
-		xhr.done(function(data){
+		promise.done(function(data){
 			// convert the data into jQuery Element
 			var element = $(data);
 			// getting the id
@@ -69,7 +69,7 @@ nu.widgets.SplashScreen = Object.subClass({
 			this.element = element;
 		});
 		// defining th error callback
-		xhr.fail(function(){
+		promise.fail(function(){
 			// initialize with id
 			this.initWithId();
 		});
@@ -79,7 +79,7 @@ nu.widgets.SplashScreen = Object.subClass({
 	 * Shows the splashscreen.
 	 * @param  {Boolean} animated Defines if the transition should be animated
 	 */
-	show: function(animated){
+	show: function(){
 		// if a splashscreen with the same id exists, remove it
 		var existing = $("#"+this.settings.id);
 		if(existing.length > 0){
@@ -87,14 +87,9 @@ nu.widgets.SplashScreen = Object.subClass({
 		}
 		// getting the element member as a local variable
 		var element = this.element;
-		// hiding the splashscreen before adding it to the document body
-		element.hide();
 		// adding the splashscreen at the end of the document body
 		$("body").append(element);
-		// if animated is false, set duration to 0
-		var duration = animated ? 400 : 0;
-		// showing the splashscreen with a fade effect
-		element.fadeIn(duration);
+		// showing the splashscreen
 	},
 
 	/**
@@ -104,13 +99,17 @@ nu.widgets.SplashScreen = Object.subClass({
 	hide: function(animated){
 		// getting the element member as a local variable
 		var element = this.element;
-		// if animated is false, set duration to 0
-		var duration = animated ? 400 : 0;
-		// hiding the splashscreen with a fade effect
-		element.fadeOut(duration, function(){
-			// remove the element from the document
-			element.remove();
-		});
+		// remove the element from the document
+		var period = animated ? 1 : 0
+		var tl = new TimelineLite()
+		tl.to(element, period, {
+			opacity: 0,
+			onComplete: function(){
+				element.remove()
+			},
+			ease:Back.easeIn
+		})
+		tl.play()
 	}
 });
 

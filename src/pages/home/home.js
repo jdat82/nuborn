@@ -416,7 +416,7 @@ var HomePageHandler = nu.pages.PageHandler.subClass({
 		});
 
 		news.on("tap", "li", function(){
-			$.mobile.changePage("detail.html");
+			$.mobile.navigate("detail.html");
 		});
 	}
 });
@@ -440,7 +440,7 @@ HomePageHandler.insertHTML = function(){
 	})
 	// on error, log the error 
 	.fail(function(){
-		log.e("There was an error while inserting HTML of Home page.");
+		log.e("There was an error loading the home page.");
 	})
 	// return the promise
 	.promise();
