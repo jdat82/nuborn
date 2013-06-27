@@ -6,7 +6,7 @@
  * @provide nu.Utils
  * @require nu
  */
-nu.Utils = {}
+var utils = nu.Utils = {}
 
 /**
  * Checks if Internet is reachable.

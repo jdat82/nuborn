@@ -8,13 +8,10 @@
  */
 var app = {}
 
+// rend impossible le debugging des erreurs dans la console
 // window.onerror = function(message, url, line){
 // 	log.e(message);
 // };
-
-// Create Shortcuts for singletons
-var utils = nu.Utils;
-var log = nu.debug.Log;
 
 /**
  * @class app
