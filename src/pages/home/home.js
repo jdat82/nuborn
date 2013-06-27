@@ -16,7 +16,6 @@ var HomePageHandler = nu.pages.PageHandler.subClass({
 	init: function(){
 		this._super({
 			id: "home",
-			url: "home.html"
 		});
 	},
 
@@ -424,8 +423,7 @@ var HomePageHandler = nu.pages.PageHandler.subClass({
 		});
 
 		news.on("tap", "li", function(){
-			$(templates.detail.render()).appendTo("body")
-			$.mobile.changePage("#" + app.detail.settings.id)
+			nu.pages.navigate(app.detail)
 		});
 	}
 });
@@ -438,19 +436,7 @@ app.home = new HomePageHandler();
  * @return {Deferred} The deferred of the process
  */
 HomePageHandler.insertHTML = function(){
-	// load the html of the home page and return the deferred's promise
-	return $.ajax({
-		// async: false,
-		url: app.home.settings.url
-	})
-	// on success, prepend the data into the body
-	.done(function(data){
-		$("body").prepend(data);
-	})
-	// on error, log the error 
-	.fail(function(){
-		log.e("There was an error loading the home page.");
-	})
-	// return the promise
-	.promise();
+	// load the html of the home page
+	// we don't use nu.pages.navigate has it is the first page for JQM after its initialization
+	$(templates.home.render()).appendTo("body")
 };

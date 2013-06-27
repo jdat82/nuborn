@@ -24,7 +24,7 @@ nu.pages.PageHandler = Object.subClass(
 		this.data = {};
 
 		// Regitsering 
-		nu.pages.PageEventsManager.sharedManager().registerPageHandler(this);
+		nu.pages.PageEventsManager.getInstance().registerPageHandler(this);
 	},
 
 	/**

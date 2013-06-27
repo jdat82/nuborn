@@ -16,7 +16,6 @@ var DetailPageHandler = nu.pages.PageHandler.subClass({
 	init: function(){
 		this._super({
 			id: "detail",
-			url: "detail.html"
 		});
 	},
 
@@ -44,7 +43,7 @@ var DetailPageHandler = nu.pages.PageHandler.subClass({
 
 		// when tap on back button, go back home
 		backButton.on("tap", function(){
-			$.mobile.navigate("home.html", {reverse: true});
+			nu.pages.navigate(app.home, {reverse: true});
 			// prevent bubbling
 			return false;
 		});

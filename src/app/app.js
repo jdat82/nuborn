@@ -67,9 +67,8 @@ app.init = function(){
 		$.mobile.defaultPageTransition = "slide";
 	}
 
-	HomePageHandler.insertHTML().done(function(){
-		$.mobile.initializePage();
-	});
+	HomePageHandler.insertHTML()
+	$.mobile.initializePage()
 };
 
 // When the Document is Ready, call app.ready
