@@ -2,16 +2,16 @@
 	"folders":
 	[
 		{
+			"name": "View: Nuborn Sources",
+			"path": "../libs/Nuborn"
+		},
+		{
 			"name": "View: App Sources",
 			"path": "../src",
 			"folder_exclude_patterns":
 			[
 				"images"
 			]
-		},
-		{
-			"name": "View: Nuborn Sources",
-			"path": "../libs/Nuborn"
 		},
 		{
 			"name": "View: Project",
