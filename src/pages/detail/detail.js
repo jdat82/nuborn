@@ -16,6 +16,7 @@ var DetailPageHandler = nu.pages.PageHandler.subClass({
 	init: function(){
 		this._super({
 			id: "detail",
+			url: "detail.html"
 		});
 	},
 

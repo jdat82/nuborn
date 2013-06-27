@@ -80,7 +80,7 @@ nu.pages.PageEventsManager = Object.subClass(
 	{
 		var pageHandler = this.pageHandlers[id];
 		if(!pageHandler){
-			console.log("-- Warning : no page handler for page '" + id + "' !");
+			log.w("-- Warning : no page handler for page '" + id + "' !");
 		}
 		return pageHandler;
 	},
