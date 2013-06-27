@@ -424,7 +424,8 @@ var HomePageHandler = nu.pages.PageHandler.subClass({
 		});
 
 		news.on("tap", "li", function(){
-			$.mobile.navigate("detail.html");
+			$(templates.detail.render()).appendTo("body")
+			$.mobile.changePage("#" + app.detail.settings.id)
 		});
 	}
 });
