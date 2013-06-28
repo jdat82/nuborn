@@ -328,7 +328,7 @@ var HomePageHandler = nu.pages.PageHandler.subClass({
 	pageHide: function(){
 		// jQuery mobile does not remove the home page the first time
 		if(Object.keys(this.html).length || Object.keys(this.data).length){
-			log.i("Manually remove the Home Page.");
+			debug && log.i("Manually remove the Home Page.");
 			this.deleteHtmlElements();
 			this.deleteDataElements();
 			$("#"+this.settings.id).remove();
@@ -357,7 +357,7 @@ var HomePageHandler = nu.pages.PageHandler.subClass({
 		menu.on("tap", "li", function(event){
 			var self = $(this);
 			self.removeClass("pressed");
-			log.i("This feature has note been implented yet");
+			log.w("This feature has note been implented yet");
 			menu.panel("close");
 		});
 	},

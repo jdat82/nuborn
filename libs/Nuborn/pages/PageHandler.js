@@ -55,8 +55,7 @@ nu.pages.PageHandler = Object.subClass(
 	 */
 	pageInit: function(event, data)
 	{
-		// if(debug)
-			log.i("page init of " + event.currentTarget.id);
+		debug && log.i("page init of " + event.currentTarget.id);
 
 		// Calling #createHtmlElements
 		this.createHtmlElements();
@@ -73,7 +72,7 @@ nu.pages.PageHandler = Object.subClass(
 	 */
 	pageCreate: function(event, data)
 	{
-		log.i("page create of '" + event.currentTarget.id + "'");
+		debug && log.i("page create of '" + event.currentTarget.id + "'");
 	},
 
 	/**
@@ -83,7 +82,7 @@ nu.pages.PageHandler = Object.subClass(
 	 */
 	pageBeforeHide: function(event, data)
 	{
-		log.i("page before hide of '" + event.currentTarget.id + "'");
+		debug && log.i("page before hide of '" + event.currentTarget.id + "'");
 	},
 
 	/**
@@ -93,7 +92,7 @@ nu.pages.PageHandler = Object.subClass(
 	 */
 	pageHide: function(event, data)
 	{
-		log.i("page hide of '" + event.currentTarget.id + "'");
+		debug && log.i("page hide of '" + event.currentTarget.id + "'");
 	},
 
 	/**
@@ -103,7 +102,7 @@ nu.pages.PageHandler = Object.subClass(
 	 */
 	pageBeforeShow: function(event, data)
 	{
-		log.i("page before show of '" + event.currentTarget.id + "'");
+		debug && log.i("page before show of '" + event.currentTarget.id + "'");
 	},
 
 	/**
@@ -113,7 +112,7 @@ nu.pages.PageHandler = Object.subClass(
 	 */
 	pageShow: function(event, data)
 	{
-		log.i("page show of '" + event.currentTarget.id + "'");
+		debug && log.i("page show of '" + event.currentTarget.id + "'");
 	},
 
 	/**
@@ -123,7 +122,7 @@ nu.pages.PageHandler = Object.subClass(
 	 */
 	pageBeforeChange: function(event, data)
 	{
-		log.i("page before change of '" + event.currentTarget.id + "'");
+		debug && log.i("page before change of '" + event.currentTarget.id + "'");
 	},
 
 	/**
@@ -133,7 +132,7 @@ nu.pages.PageHandler = Object.subClass(
 	 */
 	pageChange: function(event, data)
 	{
-		log.i("page change of '" + event.currentTarget.id + "'");
+		debug && log.i("page change of '" + event.currentTarget.id + "'");
 	},
 
 	/**
@@ -143,7 +142,7 @@ nu.pages.PageHandler = Object.subClass(
 	 */
 	pageBeforeLoad: function(event, data)
 	{
-		log.i("page before load of '" + event.currentTarget.id + "'");
+		debug && log.i("page before load of '" + event.currentTarget.id + "'");
 	},
 
 	/**
@@ -153,7 +152,7 @@ nu.pages.PageHandler = Object.subClass(
 	 */
 	pageLoad: function(event, data)
 	{
-		log.i("page load of '" + event.currentTarget.id + "'");
+		debug && log.i("page load of '" + event.currentTarget.id + "'");
 	},
 
 	/**
@@ -164,7 +163,7 @@ nu.pages.PageHandler = Object.subClass(
 	 */
 	pageRemove: function(event, data)
 	{
-		log.i("page remove of '" + event.currentTarget.id + "'");
+		debug && log.i("page remove of '" + event.currentTarget.id + "'");
 
 		// Cleaning references to HTML elements & data objects
 		this.deleteHtmlElements();

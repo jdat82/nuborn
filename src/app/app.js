@@ -36,11 +36,11 @@ app.name = "Nuborn Application";
  */
 app.ready = function(){
 	if(!utils.isCordova()) {
-		log.i("Used as a Web App");
+		debug && log.i("Used as a Web App");
 		app.init();
 	}
 	else {
-		log.i("Used as a Hybrid App");
+		debug && log.i("Used as a Hybrid App");
 		$.mobile.defaultHomeScroll = 0;
 		document.addEventListener("deviceready", app.init, false);
 	}

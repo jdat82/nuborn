@@ -18,7 +18,7 @@ var log = nu.debug.Log = {};
 nu.debug.Log.log = function(value, level){
 	// if no value is specified, log error and stop the process
 	if(!value){
-		nu.debug.Log.e("nu.debug.Log called without parameter");
+		nu.debug.Log.e("nu.debug.Log called without content");
 		return;
 	}
 	// getting the value as a string
@@ -65,10 +65,8 @@ nu.debug.Log.log = function(value, level){
 			// if log is null, initialize it
 			if(!log){
 				log = {};
-				log[nu.debug.LogLevel.INFO] = [];
-				log[nu.debug.LogLevel.WARN] = [];
-				log[nu.debug.LogLevel.ERROR] = [];
-				log[nu.debug.LogLevel.ALL] = [];
+				for(var level in nu.debug.LogLevel)
+					log[level] = []
 				nu.debug.Log.stack = log;
 			}
 			// unshifting the log into the stack memory with the date
@@ -142,14 +140,8 @@ nu.debug.Log.getStoraged = function(){
 	if(!log){
 		// creating the new log object
 		log = {};
-		// array containing informative logs
-		log[nu.debug.LogLevel.INFO] = [];
-		// array containing error logs
-		log[nu.debug.LogLevel.ERROR] = [];
-		// array containing warning logs
-		log[nu.debug.LogLevel.WARN] = [];
-		// array containing all logs
-		log[nu.debug.LogLevel.ALL] = [];
+		for(var level in nu.debug.LogLevel)
+			log[level] = []
 		// saving the object to the object storage
 		nu.debug.Log.setStoraged(log);
 	}
@@ -229,9 +221,8 @@ nu.debug.Log.clearStoraged = function(type){
 	} 
 	// if no type is specified or is incorrect, clear all
 	else if(type === nu.debug.LogLevel.ALL){
-		log[nu.debug.LogLevel.INFO] = [];
-		log[nu.debug.LogLevel.WARN] = [];
-		log[nu.debug.LogLevel.ERROR] = [];
+		for(var level in nu.debug.LogLevel)
+			log[level] = []
 	}
 	nu.debug.Log.setStoraged(log);
 };
@@ -249,10 +240,8 @@ nu.debug.Log.clearStacked = function(type){
 	} 
 	// if no type is specified or is incorrect, clear all
 	else if(type === nu.debug.LogLevel.ALL){
-		log[nu.debug.LogLevel.ALL] = [];
-		log[nu.debug.LogLevel.INFO] = [];
-		log[nu.debug.LogLevel.WARN] = [];
-		log[nu.debug.LogLevel.ERROR] = [];
+		for(var level in nu.debug.LogLevel)
+			log[level] = []
 	}
 };
 

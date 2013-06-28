@@ -19,13 +19,13 @@ nu.pages.navigate = function(pageHandler, options){
 
 	if(pageId && templates[pageId]) {
 		$(templates[pageId].render()).appendTo("body")
-		log.i("navigating to " + pageId)
+		debug && log.i("navigating to " + pageId)
 		$.mobile.changePage("#" + pageId, options)
 		return true
 	}
 
 	if(pageUrl) {
-		log.i("navigating to " + pageUrl)
+		debug && log.i("navigating to " + pageUrl)
 		$.mobile.changePage(pageUrl, options)
 		return true
 	}

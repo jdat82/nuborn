@@ -1,6 +1,11 @@
 {
 	"js": {
-		"compress": false,
+		"compress": {
+			"global_defs": {
+				"debug": true
+			},
+			"dead_code": true
+		},
 		"beautify": true,
 		"report": "false"
 	},
