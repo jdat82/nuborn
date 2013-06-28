@@ -8,7 +8,7 @@
  * @require nu.debug.LogItem
  * @require nu.Storage
  */
-nu.debug.Log = {};
+var log = nu.debug.Log = {};
 
 /**
  * Log the value parameter with the level specified.

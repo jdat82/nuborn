@@ -46,19 +46,19 @@ var HomePageHandler = nu.pages.PageHandler.subClass({
 			cards: [
 				{
 					title: "The Big Bang Theory",
-					image: "http://www.miglo.net/download/men-beard-the-big-bang-theory-1280x800.jpg"
+					image: "http://farm3.staticflickr.com/2493/3983699775_cfe70a1224_z.jpg"
 				},
 				{
-					title: "Friends",
-					image: "http://2.bp.blogspot.com/-qsfnOy3X1o8/UIWNBoHZlSI/AAAAAAAAA6E/lpOoOTh0rJU/s1600/Friends_04.jpg"
+					title: "Game of Thrones",
+					image: "http://www.menzone.gr/wp-content/uploads/2013/05/game-of-thrones-Poster.jpg"
 				},
 				{
 					title: "How I Met Your Mother",
-					image: "http://popgoestheweek.com/wp-content/uploads/2012/12/how-i-met-your-mother-506192f593493.jpg"
+					image: "http://opinionaided.s3.amazonaws.com/201211/50a004d9a6710c0f7c000006_ref.jpg"
 				},
 				{
-					title: "One Piece",
-					image: "http://anime-vostfr.com/wp-content/uploads/2013/01/one-piece-581-vostfr.jpg?8b6f22"
+					title: "Person of Interest",
+					image: "http://www.tuxboard.com/photos/2013/01/Person-of-Interest-saison-1-VOSTFR-640x640.jpg"
 				}
 			]
 		};
@@ -424,7 +424,7 @@ var HomePageHandler = nu.pages.PageHandler.subClass({
 		});
 
 		news.on("tap", "li", function(){
-			$.mobile.navigate("detail.html");
+			nu.pages.navigate(app.detail)
 		});
 	}
 });
@@ -437,19 +437,7 @@ app.home = new HomePageHandler();
  * @return {Deferred} The deferred of the process
  */
 HomePageHandler.insertHTML = function(){
-	// load the html of the home page and return the deferred's promise
-	return $.ajax({
-		// async: false,
-		url: app.home.settings.url
-	})
-	// on success, prepend the data into the body
-	.done(function(data){
-		$("body").prepend(data);
-	})
-	// on error, log the error 
-	.fail(function(){
-		log.e("There was an error loading the home page.");
-	})
-	// return the promise
-	.promise();
+	// load the html of the home page
+	// we don't use nu.pages.navigate has it is the first page for JQM after its initialization
+	$(templates.home.render()).appendTo("body")
 };

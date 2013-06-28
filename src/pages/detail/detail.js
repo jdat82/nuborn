@@ -17,38 +17,45 @@ var DetailPageHandler = nu.pages.PageHandler.subClass({
 		this._super({
 			id: "detail",
 			url: "detail.html"
-		});
+		})
 	},
+
+
+	createHtmlElements: function(){
+		// getting a local reference of the back button
+		this.html.backButton = $("#detail .back-button")
+	},
+
 
 	/**
 	 * @override
 	 * @inheritdoc
 	 */
 	pageBeforeShow: function(event, data){
-		this.prepareBackButton();
+		this.prepareBackButton()
 	},
 
+
 	prepareBackButton: function(){
-		// getting a local reference of the back button
-		var backButton = $("#detail .back-button");
 		// when touch start, go to active state
-		backButton.on("vmousedown", function(){
-			// making the back button active
-			backButton.addClass("pressed");
-			// when touch end, go to normal state
-			backButton.one("vmouseup vmousemove", function(){
-				// making the back button normal
-				backButton.removeClass("pressed");
-			});
-		});
+		nu.widgets.button.utils.enableUniversalPressMode(this.html.backButton)
 
 		// when tap on back button, go back home
-		backButton.on("tap", function(){
-			$.mobile.navigate("home.html", {reverse: true});
-			// prevent bubbling
-			return false;
-		});
-	}
-});
+		this.html.backButton.on("tap", this.goBackToHomePage)
+	},
 
-app.detail = new DetailPageHandler();
+
+	goBackToHomePage: function(){
+		nu.pages.navigate(app.home, {reverse: true})
+		// prevent bubbling
+		return false
+	},
+
+
+	pageHide: function(event, data){
+		this.html.backButton.off("tap", this.goBackToHomePage)
+		nu.widgets.button.utils.disableUniversalPressMode(this.html.backButton)
+	}
+})
+
+app.detail = new DetailPageHandler()

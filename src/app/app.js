@@ -8,13 +8,10 @@
  */
 var app = {}
 
+// rend impossible le debugging des erreurs dans la console
 // window.onerror = function(message, url, line){
 // 	log.e(message);
 // };
-
-// Create Shortcuts for singletons
-var utils = nu.Utils;
-var log = nu.debug.Log;
 
 /**
  * @class app
@@ -67,9 +64,8 @@ app.init = function(){
 		$.mobile.defaultPageTransition = "slide";
 	}
 
-	HomePageHandler.insertHTML().done(function(){
-		$.mobile.initializePage();
-	});
+	HomePageHandler.insertHTML()
+	$.mobile.initializePage()
 };
 
 // When the Document is Ready, call app.ready

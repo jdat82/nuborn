@@ -80,7 +80,7 @@ nu.pages.PageEventsManager = Object.subClass(
 	{
 		var pageHandler = this.pageHandlers[id];
 		if(!pageHandler){
-			console.log("-- Warning : no page handler for page '" + id + "' !");
+			log.w("-- Warning : no page handler for page '" + id + "' !");
 		}
 		return pageHandler;
 	},
@@ -326,7 +326,7 @@ nu.pages.PageEventsManager = Object.subClass(
  * @return {nu.pages.PageEventsManager} The shared instance of Page Events Manager
  * @static
  */
-nu.pages.PageEventsManager.sharedManager = function(){
+nu.pages.PageEventsManager.getInstance = function(){
 	if(!nu.pages.PageEventsManager.SINGLETON_INSTANCE){
 		nu.pages.PageEventsManager.SINGLETON_INSTANCE = new nu.pages.PageEventsManager();
 	}
