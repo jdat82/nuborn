@@ -27,11 +27,11 @@ But it is also a compilation of classic components like :
  * url handling
  * etc.
 
-Nuborn components don't intend to be state of the arts solution for the problem they solve. 
+Nuborn components don't intend to be state of the arts solutions for problems they solve. 
 They are simple and light javascript code, sufficient enough for simple and recurrent needs.
-No specialized and powefull framework for each problem/solution.
+We don't need specialized and poweful framework every time we need something. Specially on mobile.
 
-We try to create our perfect ligth boilerplate project.
+We tried to create our perfect ligth boilerplate project. Of course, it's a work in progress evolving continuously.
 
 
 Building Nuborn
@@ -78,7 +78,7 @@ Juggling with several platforms
 -------------------------------
 
 When coding we prefer to build only one target to accelerate build time. 
-So we added a little hook enabled for every task so as to only active platforms are build.
+So we added a little hook enabled for every task so as to only active platforms are built.
 
 So if you have a configuration like this :
 ```
