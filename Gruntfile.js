@@ -303,16 +303,19 @@ var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest
 				port: 9001,
 				base: 'build/web',
 				keepalive: true,
-				middleware: function(connect) {
-					return [proxySnippet];
-				}
+				// uncomment the next 3 lines to enable the reverse proxy
+				// middleware: function(connect) {
+				// 	return [proxySnippet];
+				// }
 			},
-			proxies: [{
+			proxies: [
+				{
 					context: '/reverse',
 					host: 'www.google.com',
 					port: 80,
-					https: false,
-					changeOrigin: false
+					rewrite: {
+				        '^/reverse': ''
+				    }		
 				}
 			]
 		}
