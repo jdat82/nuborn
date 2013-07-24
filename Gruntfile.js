@@ -1,5 +1,8 @@
 var GruntUtils = require("./GruntUtils")
 
+// used by the connect task to handle reverse proxy requests
+var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest
+
 /**
  * Grunt Configuration
  */
@@ -295,15 +298,24 @@ var GruntUtils = require("./GruntUtils")
 			}
 		 },
 
-		 connect: {
-		 	server: {
-		 		options: {
-		 			port: 9001,
-		 			base: 'build/web',
-		 			keepalive: true
-		 		}
-		 	}
-		 }
+		connect: {
+			options: {
+				port: 9001,
+				base: 'build/web',
+				keepalive: true,
+				middleware: function(connect) {
+					return [proxySnippet];
+				}
+			},
+			proxies: [{
+					context: '/reverse',
+					host: 'www.google.com',
+					port: 80,
+					https: false,
+					changeOrigin: false
+				}
+			]
+		}
 
 	})
 
@@ -320,7 +332,8 @@ var GruntUtils = require("./GruntUtils")
 	grunt.loadNpmTasks('grunt-contrib-copy')
 	grunt.loadNpmTasks('grunt-contrib-clean')
 	grunt.loadNpmTasks('grunt-contrib-watch')
-	grunt.loadNpmTasks('grunt-contrib-connect');
+	grunt.loadNpmTasks('grunt-contrib-connect')
+	grunt.loadNpmTasks('grunt-connect-proxy')
 	grunt.loadNpmTasks('grunt-devtools')
 
 
@@ -337,6 +350,10 @@ var GruntUtils = require("./GruntUtils")
 	grunt.registerTask("ios", [ "hogan:ios", "nuglify:ios", "nsass:ios", "htmlmin:ios", "imagemin:ios", "copy:ios" ])
 	grunt.registerTask("web", [ "hogan:web", "nuglify:web", "nsass:web", "htmlmin:web", "imagemin:web", "copy:web" ])
 
+	/**
+	 * Registering a special task for the local web server with reverse proxy capabilities
+	 */
+	grunt.registerTask("web-server", ["configureProxies", "connect"])
 
 	/**
 	 * Receive a task name and if no target specified find active targets and execute the active ones.
