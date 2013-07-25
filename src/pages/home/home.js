@@ -431,13 +431,3 @@ var HomePageHandler = nu.pages.PageHandler.subClass({
 
 // create a shortcut to the home page handler
 app.home = new HomePageHandler();
-
-/**
- * Load the page home.html and insert it to the body
- * @return {Deferred} The deferred of the process
- */
-HomePageHandler.insertHTML = function(){
-	// load the html of the home page
-	// we don't use PageHandler#navigate has it is the first page for JQM after its initialization
-	$(templates.home.render()).appendTo("body")
-};
