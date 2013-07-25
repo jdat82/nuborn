@@ -211,7 +211,7 @@ var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest
 		 },
 
 		/**
-		 * Finally static resources common to all platforms.
+		 * Static resources common to all platforms.
 		 */
 		 fonts: [
 		 "fonts/*",
@@ -270,6 +270,8 @@ var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest
 
 		/*
 		 * Rebuild on every save.
+		 * Install this chrome extension to have automatic refresh in chrome :
+		 * - https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
 		 */
 		 watch: {
 			options: {
@@ -298,6 +300,11 @@ var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest
 			}
 		 },
 
+		/**
+		 * Very simple web server to ease testing of the web application.
+		 * Can be enhanced to be smarter by configuring the connect middleware.
+		 * For instance, proxies can be added with this plugin : https://github.com/drewzboto/grunt-connect-proxy
+		 */
 		connect: {
 			options: {
 				port: 9001,
@@ -319,6 +326,14 @@ var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest
 				}
 			]
 		}
+
+		 /**
+		  * I highly recommend installing the grunt devtools chrome extension and the livereload chrome extension to
+		  * to improved seriously productivity when developping for the web.
+		  *
+		  * Grunt devtools: https://chrome.google.com/webstore/detail/grunt-devtools/fbiodiodggnlakggeeckkjccjhhjndnb
+		  * Livereload: https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
+		  */
 
 	})
 
