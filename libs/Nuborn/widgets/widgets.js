@@ -1,6 +1,9 @@
-/**
- * @provide nu.widgets
- * 
- * @require nu
- */
-nu.widgets = {}
+(function(nu) {
+
+    /**
+     * @provide nu.widgets
+     * @require nu
+     */
+    nu.widgets = {}
+
+})(nu)

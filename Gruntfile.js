@@ -44,7 +44,6 @@ var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest
 		 "libs/jQuery/jquery.min.js", 						/** jQuery is required **/
 		 "src/app/mobileinit.js",							/** jQuery Mobile pre-initialization */
 		 "libs/jQueryMobile/jquery.mobile.custom*.js", 		/** jQuery Mobile is required **/
-		 "libs/Inheritance/*.js", 							/** Inheritance is required **/
 		 // "libs/jQueryJSON/*.js", 						/** jQueryJSON is required for old browser **/
 		 "gen/*.js",										/** Generated sources as templates */
 		 "libs/Nuborn/**/*.js", 							/** Nuborn is required **/
@@ -191,7 +190,8 @@ var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest
 		 */
 		 imagemin: {
 			options: {
-				optimizationLevel: 3
+				optimizationLevel: 3,
+				progressive: true
 			},
 			android: {
 				files: [

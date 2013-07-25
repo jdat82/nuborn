@@ -1,8 +1,10 @@
-/**
- * Utility methods for Buttons.
- *
- * @provide nu.widgets.button
- * @require nu.widgets
- */
+(function(nu) {
 
-nu.widgets.button = {}
+    /**
+     * Buttons namespace.
+     * @provide nu.widgets.button
+     * @require nu.widgets
+     */
+    nu.widgets.button = {}
+
+})(nu)

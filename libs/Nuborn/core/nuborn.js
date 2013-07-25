@@ -6,7 +6,7 @@
  * @provide nu
  * @require primitives
  */
- var nu = {}
+ window.nu = {}
 
 /**
  * Current version of Nuborn.

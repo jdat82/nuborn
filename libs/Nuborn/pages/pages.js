@@ -1,5 +1,9 @@
-/**
- * @provide nu.pages
- * @require nu
- */
-nu.pages = {}
+(function(nu) {
+
+	/**
+	 * @provide nu.pages
+	 * @require nu
+	 */
+	nu.pages = {}
+
+})(nu)

@@ -1,61 +1,67 @@
-/**
- * @class DetailPageHandler
- * The Page Handler of the detail page
- * @extends nu.pages.PageHandler
- *
- * @provide app.detail
- * @require app
- */
-var DetailPageHandler = nu.pages.PageHandler.subClass({
-	
-	/**
-	 * @constructor
-	 * @override
-	 * @inheritdoc
-	 */
-	init: function(){
-		this._super({
-			id: "detail",
-			url: "detail.html"
-		})
-	},
-
-
-	createHtmlElements: function(){
-		// getting a local reference of the back button
-		this.html.backButton = $("#detail .back-button")
-	},
-
+(function($, nu, app, undefined) {
 
 	/**
-	 * @override
-	 * @inheritdoc
+	 * @class DetailPageHandler
+	 * The Page Handler of the detail page
+	 * @extends nu.pages.PageHandler
+	 *
+	 * @provide app.detail
+	 * @require app
 	 */
-	pageBeforeShow: function(event, data){
-		this.prepareBackButton()
-	},
+	var DetailPageHandler = nu.pages.PageHandler.subClass({
+
+		/**
+		 * @constructor
+		 * @override
+		 * @inheritdoc
+		 */
+		init: function() {
+			this._super({
+				id: "detail",
+				url: "detail.html"
+			})
+		},
 
 
-	prepareBackButton: function(){
-		// when touch start, go to active state
-		nu.widgets.button.utils.enableUniversalPressMode(this.html.backButton)
-
-		// when tap on back button, go back home
-		this.html.backButton.on("tap", this.goBackToHomePage)
-	},
+		createHtmlElements: function() {
+			// getting a local reference of the back button
+			this.html.backButton = $("#detail .back-button")
+		},
 
 
-	goBackToHomePage: function(){
-		app.home.navigate({reverse: true})
-		// prevent bubbling
-		return false
-	},
+		/**
+		 * @override
+		 * @inheritdoc
+		 */
+		pageBeforeShow: function(event, data) {
+			this.prepareBackButton()
+		},
 
 
-	pageHide: function(event, data){
-		this.html.backButton.off("tap", this.goBackToHomePage)
-		nu.widgets.button.utils.disableUniversalPressMode(this.html.backButton)
-	}
-})
+		prepareBackButton: function() {
+			// when touch start, go to active state
+			nu.widgets.button.utils.enableUniversalPressMode(this.html.backButton)
 
-app.detail = new DetailPageHandler()
+			// when tap on back button, go back home
+			this.html.backButton.on("tap", this.goBackToHomePage)
+		},
+
+
+		goBackToHomePage: function() {
+			app.home.navigate({
+				reverse: true
+			})
+			// prevent bubbling
+			return false
+		},
+
+
+		pageHide: function(event, data) {
+			this.html.backButton.off("tap", this.goBackToHomePage)
+			nu.widgets.button.utils.disableUniversalPressMode(this.html.backButton)
+		}
+	})
+
+	app.detail = new DetailPageHandler()
+
+})(jQuery, nu, app)
