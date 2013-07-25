@@ -8,7 +8,7 @@
  */
 var app = {};
 
-(function($, nu, app, utils, log, undefined) {
+(function($, nu, app, utils, log, templates, undefined) {
 
 	/**
 	 * The version of the application.
@@ -68,7 +68,7 @@ var app = {};
 	// When the Document is Ready, call app.ready
 	$(app.ready)
 
-})(jQuery, nu, app, nu.Utils, nu.debug.Log)
+})(jQuery, nu, app, nu.Utils, nu.debug.Log, templates)
 
 // rend impossible le debugging des erreurs dans la console
 // window.onerror = function(message, url, line){

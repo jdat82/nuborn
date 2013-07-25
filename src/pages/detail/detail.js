@@ -1,4 +1,4 @@
-(function($, nu, app, undefined) {
+(function($, nu, app, templates, undefined) {
 
 	/**
 	 * @class DetailPageHandler
@@ -64,4 +64,4 @@
 
 	app.detail = new DetailPageHandler()
 
-})(jQuery, nu, app)
+})(jQuery, nu, app, templates)

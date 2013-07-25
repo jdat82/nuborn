@@ -1,4 +1,4 @@
-(function($, nu, app, utils, log, undefined) {
+(function($, nu, app, utils, log, templates, undefined) {
 
 	/**
 	 * @class HomePageHandler
@@ -393,4 +393,4 @@
 	// create a shortcut to the home page handler
 	app.home = new HomePageHandler();
 
-})(jQuery, nu, app, nu.Utils, nu.debug.Log)
+})(jQuery, nu, app, nu.Utils, nu.debug.Log, templates)
