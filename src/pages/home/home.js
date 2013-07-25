@@ -424,7 +424,7 @@ var HomePageHandler = nu.pages.PageHandler.subClass({
 		});
 
 		news.on("tap", "li", function(){
-			nu.pages.navigate(app.detail)
+			app.detail.navigate()
 		});
 	}
 });
@@ -438,6 +438,6 @@ app.home = new HomePageHandler();
  */
 HomePageHandler.insertHTML = function(){
 	// load the html of the home page
-	// we don't use nu.pages.navigate has it is the first page for JQM after its initialization
+	// we don't use PageHandler#navigate has it is the first page for JQM after its initialization
 	$(templates.home.render()).appendTo("body")
 };

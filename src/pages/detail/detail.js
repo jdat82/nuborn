@@ -46,7 +46,7 @@ var DetailPageHandler = nu.pages.PageHandler.subClass({
 
 
 	goBackToHomePage: function(){
-		nu.pages.navigate(app.home, {reverse: true})
+		app.home.navigate({reverse: true})
 		// prevent bubbling
 		return false
 	},
