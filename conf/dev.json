@@ -1,5 +1,5 @@
 {
-	"js": {
+	"uglify": {
 		"compress": {
 			"global_defs": {
 				"debug": true
@@ -11,7 +11,7 @@
 		"warnings": true,
 		"mangle": false
 	},
-	"css": {
+	"sass": {
 		"style": "expanded",
 		"noCache": true
 	},

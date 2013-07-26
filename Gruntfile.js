@@ -55,11 +55,7 @@ var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest
 		 * Javascript compilation
 		 */
 		 nuglify: {
-			options: {
-				compress: options.js.compress,
-				beautify: options.js.beautify,
-				report: options.js.report
-			},
+			options: options.uglify,
 			web: {
 				files: {
 					"<%= platforms.web.folder %>/js/app.min.js": ["<%= js %>"]
@@ -123,10 +119,7 @@ var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest
 		 * CSS compilation
 		 */
 		 nsass: {
-			options: {
-				style: options.css.style,
-				noCache: options.css.noCache
-			},
+			options: options.sass,
 			android: {
 				files: {
 					"<%= platforms.android.folder %>/css/app.min.css": ["<%= css %>"]
@@ -156,11 +149,7 @@ var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest
 		 * HTML minification
 		 */
 		 htmlmin: {
-			options: {
-				removeComments: options.html.removeComments,
-				collapseWhitespace: options.html.collapseWhitespace,
-				collapseBooleanAttributes: options.html.collapseBooleanAttributes
-			},
+			options: options.html,
 			android: {
 				files: [
 				{ dest: "<%= platforms.android.folder %>/", src: ["<%= html %>"], expand: true, flatten: true }
