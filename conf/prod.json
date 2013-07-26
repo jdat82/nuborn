@@ -7,7 +7,9 @@
 			"dead_code": true
 		},
 		"beautify": false,
-		"report": "min"
+		"report": "min",
+		"warnings": true,
+		"mangle": true
 	},
 	"css": {
 		"style": "compressed",
