@@ -45,16 +45,16 @@
 			this.data.carousel = {
 				cards: [{
 						title: "The Big Bang Theory",
-						image: "images/3983699775_cfe70a1224_z.jpg"
+						image: "img/3983699775_cfe70a1224_z.jpg"
 					}, {
 						title: "Game of Thrones",
-						image: "images/game-of-thrones-Poster.jpg"
+						image: "img/game-of-thrones-Poster.jpg"
 					}, {
 						title: "How I Met Your Mother",
-						image: "images/50a004d9a6710c0f7c000006_ref.jpg"
+						image: "img/50a004d9a6710c0f7c000006_ref.jpg"
 					}, {
 						title: "Person of Interest",
-						image: "images/Person-of-Interest-saison-1-VOSTFR-640x640.jpg"
+						image: "img/Person-of-Interest-saison-1-VOSTFR-640x640.jpg"
 					}
 				]
 			};
@@ -83,37 +83,37 @@
 						title: "Le créateur des \"Griffin\" se pointe... dans \"Les Simpson\" !",
 						author: "Jim Robs",
 						date: "dimanche 12 mai",
-						image: "20558741.jpg"
+						image: "img/20558741.jpg"
 					}, {
 						title: "La chaîne américaine ABC commande 12 nouvelles séries",
 						author: "Jim Robs",
 						date: "samedi 11 mai",
-						image: "20560689.jpg"
+						image: "img/20560689.jpg"
 					}, {
 						title: "La série adaptée de \"SHIELD\" de Marvel est commandée",
 						author: "Jim Robs",
 						date: "samedi 11 mai",
-						image: "20559549.jpg"
+						image: "img/20559549.jpg"
 					}, {
 						title: "\"Nashville\" est renouvelée",
 						author: "Jim Robs",
 						date: "samedi 11 mai",
-						image: "20560903.jpg"
+						image: "img/20560903.jpg"
 					}, {
 						title: "Matthew Perry est maudit : \"Go On\" est annulée !",
 						author: "Jim Robs",
 						date: "vendredi 10 mai",
-						image: "20560816.jpg"
+						image: "img/20560816.jpg"
 					}, {
 						title: "Ewan McGregor-Natalie Portman, de \"Star wars\" à \"Jane got a gun\"",
 						author: "Jim Robs",
 						date: "mardi 7 mai",
-						image: "20556957.jpg"
+						image: "img/20556957.jpg"
 					}, {
 						title: "Le final de \"Mentalist\" !",
 						author: "Jim Robs",
 						date: "lundi 6 mai",
-						image: "20555126.jpg"
+						image: "img/20555126.jpg"
 					}
 
 					// ************** //

@@ -28,30 +28,30 @@ $soft-white: #F3F3F3;
 		text-indent: 30px;
 
 		&.home{
-			background-image: url("../images/home.png");
+			background-image: url("../img/home.png");
 			@include mq(retina){
-				background-image: url("../images/home@2x.png");
+				background-image: url("../img/home@2x.png");
 			};
 		}
 
 		&.profile{
-			background-image: url("../images/profile.png");
+			background-image: url("../img/profile.png");
 			@include mq(retina){
-				background-image: url("../images/profile@2x.png");
+				background-image: url("../img/profile@2x.png");
 			};
 		}
 
 		&.settings{
-			background-image: url("../images/settings.png");
+			background-image: url("../img/settings.png");
 			@include mq(retina){
-				background-image: url("../images/settings@2x.png");
+				background-image: url("../img/settings@2x.png");
 			};
 		}
 
 		&.help{
-			background-image: url("../images/help.png");
+			background-image: url("../img/help.png");
 			@include mq(retina){
-				background-image: url("../images/help@2x.png");
+				background-image: url("../img/help@2x.png");
 			};
 		}
 
@@ -123,9 +123,9 @@ $soft-white: #F3F3F3;
 		background-repeat: no-repeat;
 		background-size: 25px 20px;
 
-		background-image: url("../images/list-arrow.png");
+		background-image: url("../img/list-arrow.png");
 		@include mq(retina){
-			background-image: url("../images/list-arrow@2x.png");
+			background-image: url("../img/list-arrow@2x.png");
 		};
 
 		&.pressed {

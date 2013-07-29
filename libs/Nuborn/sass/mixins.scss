@@ -71,8 +71,8 @@
 	background-size: $width $height;
 	background-position: $x $y;
 	background-repeat: no-repeat;
-	background-image: url("../images/#{$image}.png");
+	background-image: url("../img/#{$image}.png");
 	@include mq(retina){
-		background-image: url("../images/#{$image}@2x.png");
+		background-image: url("../img/#{$image}@2x.png");
 	};
 }
