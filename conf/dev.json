@@ -9,7 +9,8 @@
 		"beautify": true,
 		"report": "false",
 		"warnings": true,
-		"mangle": false
+		"mangle": false,
+		"banner": "/**\n * !!! DEV !!!\n * © IT&L@BS TOULOUSE 2013\n * Generated on <%=grunt.template.today()%>\n */\n"
 	},
 	"sass": {
 		"style": "expanded",
