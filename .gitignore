@@ -1,18 +1,20 @@
 # common
-.DS_Store
-*.sublime-workspace
+**.DS_Store
+**.sublime-workspace
 .sass-cache/
 node_modules/
 docs/
 gen/
+
 # web
 build/web/
+
 # android
 build/android/assets/www/
 build/android/gen/
 build/android/out/
+
 # ios
 build/ios/www/
-build/ios/CordovaLib/CordovaLib.xcodeproj/
-build/ios/NubornKitchenSink.xcodeproj/
+build/ios/**xcodeproj
 build/ios/build/

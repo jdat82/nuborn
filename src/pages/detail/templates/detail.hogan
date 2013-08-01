@@ -4,9 +4,5 @@
 		<div class="title">Détail</div>
 	</div>
 	<div data-role="content">
-		<div style="text-align:center;">
-			Page under Construction<br/>
-			<img src="http://www.institut-langevin.espci.fr/sites/www.institut-langevin.espci.fr/IMG/png/under_construction.png"/>
-		</div>
 	</div>
 </div>

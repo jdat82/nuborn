@@ -1,17 +1,21 @@
 (function($, nu, app, templates, undefined) {
 
 	/**
-	 * @class DetailPageHandler
-	 * The Page Handler of the detail page
+	 * @class app.pages.DetailPageHandler
 	 * @extends nu.pages.PageHandler
 	 *
-	 * @provide app.detail
+	 * The Page Handler of the detail page
+	 *
+	 * {@link app#detail app.detail is an instance of this page handler}
+	 *
+	 * @provide app.pages.DetailPageHandler
+	 *
 	 * @require app
 	 */
-	var DetailPageHandler = nu.pages.PageHandler.subClass({
+	app.pages = app.pages || {}
+	app.pages.DetailPageHandler = nu.pages.PageHandler.subClass({
 
 		/**
-		 * @constructor
 		 * @override
 		 * @inheritdoc
 		 */
@@ -40,7 +44,7 @@
 
 		prepareBackButton: function() {
 			// when touch start, go to active state
-			nu.widgets.button.utils.enableUniversalPressMode(this.html.backButton)
+			nu.widgets.button.Utils.enableUniversalPressMode(this.html.backButton)
 
 			// when tap on back button, go back home
 			this.html.backButton.on("tap", this.goBackToHomePage)
@@ -58,10 +62,15 @@
 
 		pageHide: function(event, data) {
 			this.html.backButton.off("tap", this.goBackToHomePage)
-			nu.widgets.button.utils.disableUniversalPressMode(this.html.backButton)
+			nu.widgets.button.Utils.disableUniversalPressMode(this.html.backButton)
 		}
 	})
 
-	app.detail = new DetailPageHandler()
+	/**
+	 * @property {app.pages.DetailPageHandler} detail
+	 * @member app
+	 * Instance of a page handler for the detail page.
+	 */
+	app.detail = new app.pages.DetailPageHandler()
 
 })(jQuery, nu, app, templates)

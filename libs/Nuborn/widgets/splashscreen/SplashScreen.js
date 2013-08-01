@@ -5,7 +5,7 @@
 	 * Controls the splashscreen of the application.
 	 *
 	 * @provide nu.widgets.SplashScreen
-	 *
+ 	 *
 	 * @require nu.widgets
 	 */
 	nu.widgets.SplashScreen = Object.subClass({

@@ -1,39 +1,71 @@
 /**
+ * Generic useful css classes.
+ * 
  * @provide classes
+ *
  * @require mixins
  */
 
+/**
+ * @class
+ * Position absolute.
+ */
 .pa {
 	position:absolute;
 }
 
+/**
+ * Position relative.
+ */
 .pr {
 	position:relative;
 }
+
+/**
+ * Float right.
+ */
 .fr {
 	float:right;
 }
 
+/**
+ * Float left.
+ */
 .fl {
 	float:left;
 }
 
+/**
+ * Clear both.
+ */
 .cb {
 	clear:both;
 }
 
+/**
+ * Display inline-block.
+ */
 .dib {
 	display:inline-block;
 }
 
+/**
+ * Display block.
+ */
 .db {
 	display:block;
 }
 
+/**
+ * Display none.
+ */
 .dn {
 	display: none;
 }
 
+/**
+ * Overflow hidden.
+ */
 .ovhid {
 	overflow:hidden;
 }

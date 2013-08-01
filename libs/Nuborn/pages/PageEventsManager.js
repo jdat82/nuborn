@@ -2,10 +2,12 @@
 
 	/**
 	 * @class nu.pages.PageEventsManager
+ 	 *
 	 * Page events manager Class. <br/>
 	 * Used to dispatch jQuery Mobile page events.
 	 *
 	 * @provide nu.pages.PageEventsManager
+ 	 *
 	 * @require nu.pages
 	 */
 	nu.pages.PageEventsManager = Object.subClass({

@@ -7,7 +7,9 @@
 	 * @provide nu.debug.Log
 	 *
 	 * @require nu.debug.LogLevel
+	 *
 	 * @require nu.debug.LogItem
+	 *
 	 * @require nu.Storage
 	 */
 	nu.debug.Log = {};
@@ -276,5 +278,12 @@
 	 * @type {String}
 	 */
 	nu.debug.Log.level = nu.debug.LogLevel.ALL;
+
+	/**
+	 * 
+	 */
+	window.onerror = function(message, url, line){
+		nu.debug.Log.error(message)
+	}
 
 })(jQuery, nu, window)

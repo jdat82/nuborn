@@ -2,9 +2,12 @@
 
 	/**
 	 * @class nu.Storage
-	 * Help for saving objects into the local storage memory.
 	 * @singleton
+ 	 *
+	 * Help for saving objects into the local storage memory.
+ 	 *
 	 * @provide nu.Storage
+ 	 *
 	 * @require nu
 	 */
 	nu.Storage = {};

@@ -1,12 +1,16 @@
 (function($, nu, undefined) {
 
 	/**
+	 * @class nu.widgets.button.Utils
+	 * @singleton
+	 *
 	 * Utility methods for buttons.
 	 *
-	 * @provide nu.widgets.button.utils
+	 * @provide nu.widgets.button.Utils
+ 	 *
 	 * @require nu.widgets.button
 	 */
-	nu.widgets.button.utils = {
+	nu.widgets.button.Utils = {
 
 		onvmousedown: function() {
 			var button = $(this)

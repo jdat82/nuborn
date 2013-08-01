@@ -2,7 +2,12 @@
  * @provide detail
  * @require mixins
  */
-
-#detail{
-
+ #detail {
+    [data-role=content] {
+        width: 100vw;
+        height: 100vh;
+        background-image: url('../img/under-construction-sign.jpg');
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
 }

@@ -2,17 +2,18 @@
 
 	/**
 	 * @class nu.pages.PageHandler
+ 	 *
 	 * Handle lifecycle of jQuery Mobile pages.
 	 *
 	 * @provide nu.pages.PageHandler
+ 	 *
 	 * @require nu.pages.PageEventsManager
 	 */
 	nu.pages.PageHandler = Object.subClass({
 
 		/**
-		 * @constructor
-		 * Creates a new Page Handler.
-		 * @param  {Object} settings    The settings of the page handler (ID, URL, ...).
+		 * Initialize a fresh new Page Handler.
+		 * @param {Object} settings    The settings of the page handler (ID, URL, ...).
 		 */
 		init: function(settings) {
 			// Declaring class members
@@ -200,6 +201,8 @@
 		 * If the page handler has an id and we found a javascript template for it, we use it.
 		 * Else, if the page handler has a url, we use that instead.
 		 * Else error.
+		 * @param {Object} options [jQuery Mobile #changePage options][1]
+		 * [1]: http://api.jquerymobile.com/jQuery.mobile.changePage/	 
 		 */
 		navigate: function(options) {
 

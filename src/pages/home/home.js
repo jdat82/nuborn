@@ -1,17 +1,21 @@
 (function($, nu, app, utils, log, templates, undefined) {
 
 	/**
-	 * @class HomePageHandler
-	 * The Page Handler of the home page
+	 * @class app.pages.HomePageHandler
 	 * @extends nu.pages.PageHandler
 	 *
-	 * @provide app.home
+	 * The Page Handler of the home page.
+	 *
+	 * {@link app#home app.home is an instance of this page handler}
+	 *
+	 * @provide app.pages.HomePageHandler
+	 *
 	 * @require app
 	 */
-	var HomePageHandler = nu.pages.PageHandler.subClass({
+	app.pages = app.pages || {}
+	app.pages.HomePageHandler = nu.pages.PageHandler.subClass({
 
 		/**
-		 * @constructor
 		 * @override
 		 * @inheritdoc
 		 */
@@ -390,7 +394,11 @@
 		}
 	});
 
-	// create a shortcut to the home page handler
-	app.home = new HomePageHandler();
+	/**
+	 * @property {app.pages.HomePageHandler} home
+	 * @member app
+	 * Instance of a page handler for the home page.
+	 */
+	app.home = new app.pages.HomePageHandler();
 
 })(jQuery, nu, app, nu.Utils, nu.debug.Log, templates)

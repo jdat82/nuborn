@@ -1,15 +1,16 @@
-
 /**
  * @class nu
- * @singleton 
+ * @singleton
  *
  * @provide nu
+ *
  * @require primitives
  */
- window.nu = {}
+window.nu = {
 
-/**
- * Current version of Nuborn.
- * @type {Number}
- */
-nu.version = 0.1;
+    /**
+     * Current version of Nuborn.
+     */
+    version: "0.0.1"
+
+}

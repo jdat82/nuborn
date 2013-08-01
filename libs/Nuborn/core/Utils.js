@@ -2,10 +2,12 @@
 
 	/**
 	 * @class nu.Utils
-	 * Utilities class.
 	 * @singleton
+ 	 *
+	 * Utilities class.
 	 *
 	 * @provide nu.Utils
+ 	 *
 	 * @require nu
 	 */
 	nu.Utils = {}

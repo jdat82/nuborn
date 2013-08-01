@@ -1,64 +1,70 @@
-/**
- * @class app
- * Application entry point.
- * @singleton
- *
- * @provide app
- * @require nu
- */
-var app = {};
-
-(function($, nu, app, utils, log, templates, undefined) {
+(function($, nu, utils, log, templates, undefined) {
 
 	/**
-	 * The version of the application.
-	 * @type {String}
+	 * @class app
+	 * @singleton
+	 * Application entry point.
+	 *
+	 * @provide app
+	 *
+	 * @require nu
 	 */
-	app.version = "0.1.0"
+	window["app"] = {
 
-	/**
-	 * The name of the application.
-	 * @type {String}
-	 */
-	app.name = "Nuborn Application"
+		/**
+		 * Application current version.
+		 */
+		version: "0.1.0",
 
-	/**
-	 * Callback function called when the DOM is ready.
-	 */
-	app.ready = function() {
-		if (!utils.isCordova()) {
-			debug && log.i("Used as a Web App")
-			app.init()
-		} else {
-			debug && log.i("Used as a Hybrid App")
-			$.mobile.defaultHomeScroll = 0
-			document.addEventListener("deviceready", app.init, false)
+		/**
+		 * Application name.
+		 */
+		name: "Nuborn Application",
+
+		/**
+		 * Callback function called when the DOM is ready.
+		 */
+		ready: function() {
+			if (!utils.isCordova()) {
+				debug && log.i("Used as a Web App")
+				app.init()
+			} else {
+				debug && log.i("Used as a Hybrid App")
+				$.mobile.defaultHomeScroll = 0
+				document.addEventListener("deviceready", app.init, false)
+			}
+		},
+
+		/**
+		 * Initialize the appllication when DOM & Device (PhoneGap only) are ready.
+		 */
+		init: function() {
+			if (!utils.isCordova() || !utils.isIOS()) {
+				/**
+				 * @property {nu.widgets.SplashScreen} splash
+				 * @member app
+				 * Application splashscreen instance.
+				 */
+				app.splash = new nu.widgets.SplashScreen({
+					id: "splash"
+				})
+				app.splash.show()
+			}
+
+			if (utils.isOldAndroid()) {
+				$.mobile.defaultPageTransition = "none"
+			} else {
+				$.mobile.defaultPageTransition = "slide"
+			}
+
+			insertHomePage()
+			$.mobile.initializePage()
 		}
-	}
-
-	/**
-	 * Initialize the appllication when DOM & Device (PhoneGap) are ready.
-	 */
-	app.init = function() {
-		if (!utils.isCordova() || !utils.isIOS()) {
-			app.splash = new nu.widgets.SplashScreen({
-				id: "splash"
-			})
-			app.splash.show()
-		}
-
-		if (utils.isOldAndroid()) {
-			$.mobile.defaultPageTransition = "none"
-		} else {
-			$.mobile.defaultPageTransition = "slide"
-		}
-
-		insertHomePage()
-		$.mobile.initializePage()
+		
 	}
 
 	// Load the page home.html and insert it to the body
-	var insertHomePage = function() {
+	function insertHomePage() {
 		// load the html of the home page
 		// we don't use the go function has it is the first page for JQM after its initialization
 		// and it will not work
@@ -68,9 +74,4 @@ var app = {};
 	// When the Document is Ready, call app.ready
 	$(app.ready)
 
-})(jQuery, nu, app, nu.Utils, nu.debug.Log, templates)
-
-// rend impossible le debugging des erreurs dans la console
-// window.onerror = function(message, url, line){
-// 	log.e(message)
-// }
+})(jQuery, nu, nu.Utils, nu.debug.Log, templates)

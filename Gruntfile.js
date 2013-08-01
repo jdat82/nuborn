@@ -235,10 +235,12 @@ var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest
 				options: {
 					"builtin-classes": true,
 					"title": "Nuborn documentation",
-					"footer": "IT&L@bs Toulouse - Mobile team"
+					"footer": "IT&L@bs Toulouse - Mobile team",
+					"categories": "docs/categories.json"
+					// "tests": true
 				},
 				src: ["src/", "libs/Nuborn/"],
-				dest: "docs/"
+				dest: "docs/gen"
 			}
 		 },
 
