@@ -14,7 +14,8 @@
 	},
 	"sass": {
 		"style": "expanded",
-		"noCache": true
+		"noCache": true,
+		"compass": true // http://compass-style.org/install/
 	},
 	"html": {
 		"removeComments": false,

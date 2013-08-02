@@ -324,11 +324,12 @@ module.exports = function(grunt) {
 		connect: {
 			options: {
 				port: 9001,
-				base: 'build/web',
+				base: 'build/web',	
 				keepalive: true,
 				middleware: function(connect, options) {
 					return [
 						// custom headers rewriting
+						// example : https://gist.github.com/muratcorlu/5803655
 						// function(req, res, next){
 
 						// },
