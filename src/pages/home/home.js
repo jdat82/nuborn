@@ -49,16 +49,16 @@
 			this.data.carousel = {
 				cards: [{
 						title: "The Big Bang Theory",
-						image: "img/3983699775_cfe70a1224_z.jpg"
+						image: "http://farm3.staticflickr.com/2493/3983699775_cfe70a1224_z.jpg"
 					}, {
 						title: "Game of Thrones",
-						image: "img/game-of-thrones-Poster.jpg"
+						image: "http://www.menzone.gr/wp-content/uploads/2013/05/game-of-thrones-Poster.jpg"
 					}, {
 						title: "How I Met Your Mother",
-						image: "img/50a004d9a6710c0f7c000006_ref.jpg"
+						image: "http://opinionaided.s3.amazonaws.com/201211/50a004d9a6710c0f7c000006_ref.jpg"
 					}, {
 						title: "Person of Interest",
-						image: "img/Person-of-Interest-saison-1-VOSTFR-640x640.jpg"
+						image: "http://www.tuxboard.com/photos/2013/01/Person-of-Interest-saison-1-VOSTFR-640x640.jpg"
 					}
 				]
 			};
@@ -87,37 +87,37 @@
 						title: "Le créateur des \"Griffin\" se pointe... dans \"Les Simpson\" !",
 						author: "Jim Robs",
 						date: "dimanche 12 mai",
-						image: "img/20558741.jpg"
+						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/94/34/20558741.jpg"
 					}, {
 						title: "La chaîne américaine ABC commande 12 nouvelles séries",
 						author: "Jim Robs",
 						date: "samedi 11 mai",
-						image: "img/20560689.jpg"
+						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/28/20560689.jpg"
 					}, {
 						title: "La série adaptée de \"SHIELD\" de Marvel est commandée",
 						author: "Jim Robs",
 						date: "samedi 11 mai",
-						image: "img/20559549.jpg"
+						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/95/80/20559549.jpg"
 					}, {
 						title: "\"Nashville\" est renouvelée",
 						author: "Jim Robs",
 						date: "samedi 11 mai",
-						image: "img/20560903.jpg"
+						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/77/20560903.jpg"
 					}, {
 						title: "Matthew Perry est maudit : \"Go On\" est annulée !",
 						author: "Jim Robs",
 						date: "vendredi 10 mai",
-						image: "img/20560816.jpg"
+						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/54/20560816.jpg"
 					}, {
 						title: "Ewan McGregor-Natalie Portman, de \"Star wars\" à \"Jane got a gun\"",
 						author: "Jim Robs",
 						date: "mardi 7 mai",
-						image: "img/20556957.jpg"
+						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/88/93/20556957.jpg"
 					}, {
 						title: "Le final de \"Mentalist\" !",
 						author: "Jim Robs",
 						date: "lundi 6 mai",
-						image: "img/20555126.jpg"
+						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/86/24/20555126.jpg"
 					}
 
 					// ************** //

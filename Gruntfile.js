@@ -325,17 +325,27 @@ module.exports = function(grunt) {
 			options: {
 				port: 9001,
 				base: 'build/web',
-				keepalive: true
-				// --- REVERSE PROXY CONFIGURATION
-				// middleware: function(connect, options) {
-				// 	return [
-				// 		connect.static(options.base),
-				// 		proxySnippet
-				// 	];
-				// }
+				keepalive: true,
+				middleware: function(connect, options) {
+					return [
+						// custom headers rewriting
+						// function(req, res, next){
+
+						// },
+
+						// serve static files
+						connect.static(options.base),
+
+						// make empty directories browsable
+						connect.directory(options.base)
+						
+						// reverse Proxy Configuration
+						// proxySnippet
+					];
+				}
 			},
 			web: {
-				// --- REVERSE PROXY CONFIGURATION
+				// reverse Proxy Configuration
 				// proxies: [{
 				// 	context: '/reverse',
 				// 	host: 'placehold.it',
