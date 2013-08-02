@@ -15,7 +15,7 @@
 	"sass": {
 		"style": "expanded",
 		"noCache": true,
-		"compass": true // http://compass-style.org/install/
+		"compass": true
 	},
 	"html": {
 		"removeComments": false,

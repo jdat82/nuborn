@@ -139,6 +139,27 @@ module.exports = function(grunt) {
 		},
 
 		/**
+		 * Overwrite the sass generated css by replacing image text url with image data url.
+		 */
+		imageEmbed: {
+			android: {
+				files: {
+					"<%= platforms.android.folder %>/css/app.min.css": ["<%= platforms.android.folder %>/css/app.min.css"]
+				}
+			},
+			ios: {
+				files: {
+					"<%= platforms.ios.folder %>/css/app.min.css": ["<%= platforms.ios.folder %>/css/app.min.css"]
+				}
+			},
+			web: {
+				files: {
+					"<%= platforms.web.folder %>/css/app.min.css": ["<%= platforms.web.folder %>/css/app.min.css"]
+				}
+			}
+		},
+
+		/**
 		 * HTML files common to all platforms.
 		 */
 		html: [
@@ -296,7 +317,7 @@ module.exports = function(grunt) {
 			},
 			scss: {
 				files: "<%= css %>",
-				tasks: ["nsass"]
+				tasks: ["nsass", "imageEmbed"]
 			},
 			js: {
 				files: "<%= js %>",
@@ -324,7 +345,7 @@ module.exports = function(grunt) {
 		connect: {
 			options: {
 				port: 9001,
-				base: 'build/web',	
+				base: 'build/web',
 				keepalive: true,
 				middleware: function(connect, options) {
 					return [
@@ -339,7 +360,7 @@ module.exports = function(grunt) {
 
 						// make empty directories browsable
 						connect.directory(options.base)
-						
+
 						// reverse Proxy Configuration
 						// proxySnippet
 					];
@@ -386,6 +407,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-connect')
 	grunt.loadNpmTasks('grunt-connect-proxy')
 	grunt.loadNpmTasks('grunt-devtools')
+	grunt.loadNpmTasks("grunt-image-embed")
 
 
 	/**
@@ -397,9 +419,9 @@ module.exports = function(grunt) {
 	/**
 	 * Registering one alias per target to allow compiling only one target
 	 */
-	grunt.registerTask("android", ["hogan:android", "nuglify:android", "nsass:android", "htmlmin:android", "imagemin:android", "copy:android"])
-	grunt.registerTask("ios", ["hogan:ios", "nuglify:ios", "nsass:ios", "htmlmin:ios", "imagemin:ios", "copy:ios"])
-	grunt.registerTask("web", ["hogan:web", "nuglify:web", "nsass:web", "htmlmin:web", "imagemin:web", "copy:web"])
+	grunt.registerTask("android", ["hogan:android", "nuglify:android", "nsass:android", "imageEmbed:android", "htmlmin:android", "imagemin:android", "copy:android"])
+	grunt.registerTask("ios", ["hogan:ios", "nuglify:ios", "nsass:ios", "imageEmbed:ios", "htmlmin:ios", "imagemin:ios", "copy:ios"])
+	grunt.registerTask("web", ["hogan:web", "nuglify:web", "nsass:web", "imageEmbed:web", "htmlmin:web", "imagemin:web", "copy:web"])
 
 	/**
 	 * Registering a special task for the local web server with reverse proxy capabilities

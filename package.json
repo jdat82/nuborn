@@ -15,6 +15,7 @@
     "grunt-devtools": "~0.1.0-7",
     "grunt-contrib-connect": "~0.3.0",
     "grunt-hogan": "~0.2.2-2",
-    "grunt-connect-proxy": "~0.1.5"
+    "grunt-connect-proxy": "~0.1.5",
+    "grunt-image-embed": "~0.3.1"
   }
 }
