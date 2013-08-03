@@ -426,7 +426,7 @@ module.exports = function(grunt) {
 	/**
 	 * Registering a special task for the local web server with reverse proxy capabilities
 	 */
-	grunt.registerTask("web-server", ["configureProxies:web", "connect:web"])
+	grunt.registerTask("server", ["configureProxies:web", "connect:web"])
 
 	/**
 	 * Receive a task name and if no target specified find active targets and execute the active ones.
@@ -442,21 +442,30 @@ module.exports = function(grunt) {
 
 		function executeTaskForActiveTargetsOnly(task) {
 			var activePlatforms = activeTargets(grunt)
+			var isGlobalBuild = task === "default"
 
 			// if task isn't related to any platform, no preempting
-			if (!isPlatformDependent(task))
+			if (!isGlobalBuild && !isPlatformDependent(task))
 				return false
 
 			// if a configuration exists for each active platform, preempts the default behavior by executing only
 			// these ones
 			activePlatforms.forEach(function(platform) {
-				// getting task and target configuration
-				var conf = grunt.config.get(task + "." + platform)
+				if (isGlobalBuild) 
+				{
+					// executing all tasks for the current platforms
+					grunt.task.run(platform)
+				} 
+				else 
+				{
+					// getting task and target configuration
+					var conf = grunt.config.get(task + "." + platform)
 
-				// if we found a configuration for that platform, we use it
-				if (conf)
-				// executing task with correct target
-					grunt.task.run(task + ":" + platform)
+					// if we found a configuration for that platform, we use it
+					// executing task with correct target
+					if (conf)
+						grunt.task.run(task + ":" + platform)
+				}
 			})
 
 			// task is platform dependent so it is preempted
