@@ -1,4 +1,4 @@
-(function($, nu, app, templates, undefined) {
+(function ($, nu, app, templates, undefined) {
 
 	/**
 	 * @class app.pages.DetailPageHandler
@@ -19,7 +19,7 @@
 		 * @override
 		 * @inheritdoc
 		 */
-		init: function() {
+		init: function () {
 			this._super({
 				id: "detail",
 				url: "detail.html"
@@ -27,7 +27,7 @@
 		},
 
 
-		createHtmlElements: function() {
+		createHtmlElements: function () {
 			// getting a local reference of the back button
 			this.html.backButton = $("#detail .back-button")
 		},
@@ -37,12 +37,12 @@
 		 * @override
 		 * @inheritdoc
 		 */
-		pageBeforeShow: function(event, data) {
+		pageBeforeShow: function (event, data) {
 			this.prepareBackButton()
 		},
 
 
-		prepareBackButton: function() {
+		prepareBackButton: function () {
 			// when touch start, go to active state
 			nu.widgets.button.Utils.enableUniversalPressMode(this.html.backButton)
 
@@ -51,7 +51,7 @@
 		},
 
 
-		goBackToHomePage: function() {
+		goBackToHomePage: function () {
 			app.home.navigate({
 				reverse: true
 			})
@@ -60,7 +60,7 @@
 		},
 
 
-		pageHide: function(event, data) {
+		pageHide: function (event, data) {
 			this.html.backButton.off("tap", this.goBackToHomePage)
 			nu.widgets.button.Utils.disableUniversalPressMode(this.html.backButton)
 		}

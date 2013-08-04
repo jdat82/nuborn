@@ -1,46 +1,11 @@
 {
-	"folders":
-	[
-		{
-			"name": "View: Nuborn Sources",
-			"path": "../libs/Nuborn"
-		},
-		{
-			"name": "View: App Sources",
-			"path": "../src",
-			"folder_exclude_patterns":
-			[
-				"images"
-			]
-		},
-		{
-			"name": "View: Project",
-			"path": ".."
-		}
-	],
-	"build_systems":
-	[
-		{
-			"name": "nuborn",
-			"encoding": "UTF-8",
-			"osx":
-			{
-				"cmd":
-				[
-					"sh",
-					"$project_path/../scripts/grunt.sh",
-					"$file_extension",
-					"dev"
-				]
-			},
-			"windows":
-			{
-				"cmd":
-				[
-					"dir"
-				]
-			},
-			"path": "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin"
-		}
-	]
+	"folders": [
+	{
+		"name": "View: Nuborn Sources",
+		"path": "../libs/Nuborn"
+	},
+	{
+		"name": "View: App Sources",
+		"path": "../src"
+	}]
 }

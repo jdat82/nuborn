@@ -1,13 +1,13 @@
-(function($, nu, undefined) {
+(function ($, nu, undefined) {
 
 	/**
 	 * @class nu.Utils
 	 * @singleton
- 	 *
+	 *
 	 * Utilities class.
 	 *
 	 * @provide nu.Utils
- 	 *
+	 *
 	 * @require nu
 	 */
 	nu.Utils = {}
@@ -16,10 +16,11 @@
 	 * Checks if Internet is reachable.
 	 * @return {Boolean} The reachability of the internet
 	 */
-	nu.Utils.isNetworkAvailable = function() {
+	nu.Utils.isNetworkAvailable = function () {
 		if (nu.Utils.isCordova()) {
 			return navigator.connection.type !== Connection.NONE;
-		} else {
+		}
+		else {
 			return navigator.onLine;
 		}
 	};
@@ -28,7 +29,7 @@
 	 * Checks if the application is running with PhoneGap (Cordova)
 	 * @return {Boolean} [description]
 	 */
-	nu.Utils.isCordova = function() {
+	nu.Utils.isCordova = function () {
 		return window.cordova;
 	};
 
@@ -36,10 +37,11 @@
 	 * Checks if the device platform is Android.
 	 * @return {Boolean}
 	 */
-	nu.Utils.isAndroid = function() {
+	nu.Utils.isAndroid = function () {
 		if (nu.Utils.isCordova()) {
 			return device.platform === "Android";
-		} else {
+		}
+		else {
 			return navigator.userAgent.match("Android");
 		}
 	};
@@ -48,10 +50,11 @@
 	 * Checks if the device platform is iOS.
 	 * @return {Boolean}
 	 */
-	nu.Utils.isIOS = function() {
+	nu.Utils.isIOS = function () {
 		if (nu.Utils.isCordova()) {
 			return device.platform === "iOS";
-		} else {
+		}
+		else {
 			return navigator.userAgent.match(/(iPhone|iPod|iPad)/i);
 		}
 	};
@@ -60,7 +63,7 @@
 	 * Checks if the device platform is older than Android 4.
 	 * @return {Boolean}
 	 */
-	nu.Utils.isOldAndroid = function() {
+	nu.Utils.isOldAndroid = function () {
 		if (!nu.Utils.isAndroid()) {
 			return false;
 		}
@@ -71,7 +74,7 @@
 	 * Checks if the device platform is older than iOS 5.
 	 * @return {Boolean}
 	 */
-	nu.Utils.isOldIOS = function() {
+	nu.Utils.isOldIOS = function () {
 		if (!nu.Utils.isIOS()) {
 			return false;
 		}
@@ -84,7 +87,7 @@
 	 * Needs more support.
 	 * @return {Boolean}
 	 */
-	nu.Utils.getOSVersion = function() {
+	nu.Utils.getOSVersion = function () {
 		// if the app is running on PhoneGap, ask for the device version
 		if (nu.Utils.isCordova()) {
 			return parseFloat(device.version, 10);
@@ -120,7 +123,8 @@
 				var version = parseInt(agent);
 				// returning the version
 				return version;
-			} else {
+			}
+			else {
 				return NaN;
 			}
 		}
@@ -130,7 +134,7 @@
 	 * Loads JavaScript library contained in the js/lazy folder.
 	 * @param  {String} library The library to load
 	 */
-	nu.Utils.loadLazyLib = function(library) {
+	nu.Utils.loadLazyLib = function (library) {
 		$.ajax({
 			url: "js/lazy/" + library,
 			dataType: "script",
@@ -138,15 +142,15 @@
 		});
 	};
 
-	nu.Utils.blockEvent = function(event) {
+	nu.Utils.blockEvent = function (event) {
 		return false;
 	};
 
-	nu.Utils.disableScroll = function() {
+	nu.Utils.disableScroll = function () {
 		$(document).on("touchmove", nu.Utils.blockEvent);
 	};
 
-	nu.Utils.enableScroll = function() {
+	nu.Utils.enableScroll = function () {
 		$(document).off("touchmove", nu.Utils.blockEvent);
 	};
 

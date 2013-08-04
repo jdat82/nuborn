@@ -1,4 +1,4 @@
-(function($, nu, app, utils, log, templates, undefined) {
+(function ($, nu, app, utils, log, templates, undefined) {
 
 	/**
 	 * @class app.pages.HomePageHandler
@@ -19,7 +19,7 @@
 		 * @override
 		 * @inheritdoc
 		 */
-		init: function() {
+		init: function () {
 			this._super({
 				id: "home",
 				url: "home.html"
@@ -30,7 +30,7 @@
 		 * @override
 		 * @inheritdoc
 		 */
-		createHtmlElements: function() {
+		createHtmlElements: function () {
 			var page = this.html.page;
 			this.html.menuButton = page.find("div.menu-button");
 			this.html.menu = page.find("#home-menu");
@@ -43,41 +43,39 @@
 		 * @override
 		 * @inheritdoc
 		 */
-		createDataElements: function() {
+		createDataElements: function () {
 			// Create the data to display in the carousel
 			this.data.carousel = {
 				cards: [{
-						title: "The Big Bang Theory",
-						image: "http://farm3.staticflickr.com/2493/3983699775_cfe70a1224_z.jpg"
-					}, {
-						title: "Game of Thrones",
-						image: "http://www.menzone.gr/wp-content/uploads/2013/05/game-of-thrones-Poster.jpg"
-					}, {
-						title: "How I Met Your Mother",
-						image: "http://opinionaided.s3.amazonaws.com/201211/50a004d9a6710c0f7c000006_ref.jpg"
-					}, {
-						title: "Person of Interest",
-						image: "http://www.tuxboard.com/photos/2013/01/Person-of-Interest-saison-1-VOSTFR-640x640.jpg"
-					}
-				]
+					title: "The Big Bang Theory",
+					image: "http://farm3.staticflickr.com/2493/3983699775_cfe70a1224_z.jpg"
+				}, {
+					title: "Game of Thrones",
+					image: "http://www.menzone.gr/wp-content/uploads/2013/05/game-of-thrones-Poster.jpg"
+				}, {
+					title: "How I Met Your Mother",
+					image: "http://opinionaided.s3.amazonaws.com/201211/50a004d9a6710c0f7c000006_ref.jpg"
+				}, {
+					title: "Person of Interest",
+					image: "http://www.tuxboard.com/photos/2013/01/Person-of-Interest-saison-1-VOSTFR-640x640.jpg"
+				}]
 			};
 
 			// Create the data to display in the menu
 			this.data.menu = {
 				items: [{
-						title: "Accueil",
-						icon: "home"
-					}, {
-						title: "Profil",
-						icon: "profile"
-					}, {
-						title: "Paramètres",
-						icon: "settings"
-					}, {
-						title: "Aide",
-						icon: "help"
-					}
-				]
+					title: "Accueil",
+					icon: "home"
+				}, {
+					title: "Profil",
+					icon: "profile"
+				}, {
+					title: "Paramètres",
+					icon: "settings"
+				}, {
+					title: "Aide",
+					icon: "help"
+				}]
 			};
 
 			// Create the data to display in the news
@@ -249,7 +247,7 @@
 		 * @override
 		 * @inheritdoc
 		 */
-		pageBeforeShow: function(event, data) {
+		pageBeforeShow: function (event, data) {
 			this.prepareMenu();
 			this.handleMenuButton();
 			this.prepareCarousel();
@@ -260,13 +258,13 @@
 		 * @override
 		 * @inheritdoc
 		 */
-		pageShow: function(event, data) {
+		pageShow: function (event, data) {
 			// Initializing Carousel with the Swipe library
 			this.html.carousel.Swipe();
 			var self = this;
 			// if the splashscreen is handled from web
 			if (app.splash) {
-				setTimeout(function() {
+				setTimeout(function () {
 					// hide splashscreen after 2 seconds
 					app.splash.hide(true)
 					// remove reference from dom for garbage collector (not needed anymore)
@@ -289,7 +287,7 @@
 		 * @override
 		 * @inheritdoc
 		 */
-		pageHide: function() {
+		pageHide: function () {
 			// jQuery mobile does not remove the home page the first time
 			if (Object.keys(this.html).length || Object.keys(this.data).length) {
 				debug && log.i("Manually remove the Home Page.");
@@ -303,22 +301,22 @@
 		 * Prepare the data to be displayed in the menu panel. <br/>
 		 * Also handle pressed states and taps of the menu items.
 		 */
-		prepareMenu: function() {
+		prepareMenu: function () {
 			// getting a local reference of the menu
 			var menu = this.html.menu;
 			// add template to carousel wrapper, rendered with previous data
 			menu.append(templates.menu_cell.render(this.data.menu));
 
 			// handle pressed state on li
-			menu.on("vmousedown", "li", function(event) {
+			menu.on("vmousedown", "li", function (event) {
 				var self = $(this);
 				self.addClass("pressed");
-				self.one("vmouseup vmousemove", function(event) {
+				self.one("vmouseup vmousemove", function (event) {
 					self.removeClass("pressed");
 				});
 			});
 			// handle tap on li
-			menu.on("tap", "li", function(event) {
+			menu.on("tap", "li", function (event) {
 				var self = $(this);
 				self.removeClass("pressed");
 				log.w("This feature has note been implented yet");
@@ -329,15 +327,15 @@
 		/**
 		 * Handle the menu button.
 		 */
-		handleMenuButton: function() {
+		handleMenuButton: function () {
 			// getting a local reference of the menu button
 			var menuButton = this.html.menuButton;
 			// when touch start, go to active state
-			menuButton.on("vmousedown", function() {
+			menuButton.on("vmousedown", function () {
 				// making the menu button active
 				menuButton.addClass("pressed");
 				// when touch end, go to normal state
-				menuButton.one("vmouseup vmousemove", function() {
+				menuButton.one("vmouseup vmousemove", function () {
 					// making the menu button normal
 					menuButton.removeClass("pressed");
 				});
@@ -346,18 +344,18 @@
 			// getting a local reference of the menu
 			var menu = this.html.menu;
 			// when tap on menu button, open menu panel
-			menuButton.on("tap", function() {
+			menuButton.on("tap", function () {
 				// opening menu panel
 				menu.panel("open");
 				// prevent bubbling
 				return false;
 			});
 			// disabling scroll when the menu is open
-			menu.on("panelbeforeopen", function(event, ui) {
+			menu.on("panelbeforeopen", function (event, ui) {
 				utils.disableScroll();
 			});
 			// enabling scroll when the menu is closed
-			menu.on("panelbeforeclose", function(event, ui) {
+			menu.on("panelbeforeclose", function (event, ui) {
 				utils.enableScroll();
 			});
 		},
@@ -367,27 +365,27 @@
 		 * -- Load the data <br/>
 		 * -- Render the data
 		 */
-		prepareCarousel: function() {
+		prepareCarousel: function () {
 			// add template to carousel wrapper, rendered with carousel data
 			this.html.carouselWrapper.html(templates.card.render(this.data.carousel));
 		},
 
-		prepareNews: function() {
+		prepareNews: function () {
 			// add template to news, rendered with news data
 			var news = this.html.news;
 
 			news.append(templates.news_cell.render(this.data.news));
 
-			news.on("vmousedown", "li", function() {
+			news.on("vmousedown", "li", function () {
 				var self = $(this);
 
 				self.addClass("pressed");
-				self.one("vmouseup vmousemove", function() {
+				self.one("vmouseup vmousemove", function () {
 					self.removeClass("pressed");
 				});
 			});
 
-			news.on("tap", "li", function() {
+			news.on("tap", "li", function () {
 				app.detail.navigate()
 			});
 		}

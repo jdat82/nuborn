@@ -1,11 +1,11 @@
-(function($, nu, undefined) {
+(function ($, nu, undefined) {
 
 	/**
 	 * @class nu.widgets.SplashScreen
 	 * Controls the splashscreen of the application.
 	 *
 	 * @provide nu.widgets.SplashScreen
- 	 *
+	 *
 	 * @require nu.widgets
 	 */
 	nu.widgets.SplashScreen = Object.subClass({
@@ -14,7 +14,7 @@
 		 * @constructor
 		 * @param  {Object} settings
 		 */
-		init: function(settings) {
+		init: function (settings) {
 			// registering settings as a Class member
 			this.settings = settings ||  {};
 
@@ -36,7 +36,7 @@
 		/**
 		 * Initialize the splashscreen with the id provided in settings.
 		 */
-		initWithId: function() {
+		initWithId: function () {
 			// create the div element with the id provided in settings
 			var element = $("<div>");
 			element.prop("id", this.settings.id);
@@ -49,14 +49,14 @@
 		/**
 		 * Initialize the splashscreen with the url provided in settings.
 		 */
-		initWithUrl: function() {
+		initWithUrl: function () {
 			// retrieving the data from the url
 			var promise = $.ajax({
 				async: false,
 				url: this.settings.url
 			});
 			// defining the success callback
-			promise.done(function(data) {
+			promise.done(function (data) {
 				// convert the data into jQuery Element
 				var element = $(data);
 				// getting the id
@@ -70,7 +70,7 @@
 				this.element = element;
 			});
 			// defining th error callback
-			promise.fail(function() {
+			promise.fail(function () {
 				// initialize with id
 				this.initWithId();
 			});
@@ -80,7 +80,7 @@
 		 * Shows the splashscreen.
 		 * @param  {Boolean} animated Defines if the transition should be animated
 		 */
-		show: function() {
+		show: function () {
 			// if a splashscreen with the same id exists, remove it
 			var existing = $("#" + this.settings.id);
 			if (existing.length > 0) {
@@ -97,7 +97,7 @@
 		 * Hides the splashscreen.
 		 * @param  {Boolean} animated Defines if the transition should be animated
 		 */
-		hide: function(animated) {
+		hide: function (animated) {
 			// getting the element member as a local variable
 			var element = this.element;
 			// remove the element from the document
@@ -105,7 +105,7 @@
 			var tl = new TimelineLite()
 			tl.to(element, period, {
 				opacity: 0,
-				onComplete: function() {
+				onComplete: function () {
 					element.remove()
 				},
 				ease: Back.easeIn

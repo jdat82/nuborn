@@ -1,13 +1,13 @@
-(function($, nu, undefined) {
+(function ($, nu, undefined) {
 
 	/**
 	 * @class nu.pages.PageEventsManager
- 	 *
+	 *
 	 * Page events manager Class. <br/>
 	 * Used to dispatch jQuery Mobile page events.
 	 *
 	 * @provide nu.pages.PageEventsManager
- 	 *
+	 *
 	 * @require nu.pages
 	 */
 	nu.pages.PageEventsManager = Object.subClass({
@@ -15,7 +15,7 @@
 		 * @constructor
 		 * Creates a new Page Events Manager.
 		 */
-		init: function() {
+		init: function () {
 			// initializing members
 			this.pageHandlers = {};
 			this.currentPageHandler = null;
@@ -28,7 +28,7 @@
 		/**
 		 * Bind page events.
 		 */
-		bindPageEvents: function() {
+		bindPageEvents: function () {
 			// Declaring page selector string
 			var pageSelector = "[data-role=page]";
 			// Binding all jQuery Mobile page events
@@ -49,7 +49,7 @@
 		/**
 		 * Unbind page events.
 		 */
-		unbindPageEvent: function() {
+		unbindPageEvent: function () {
 			// Unbinding all jQuery Mobile page events
 			$(document).off("pagebeforecreate");
 			$(document).off("pageinit");
@@ -67,7 +67,7 @@
 		 * Page handlers have to register to the page events manager to be notified when jQuery Mobile page events are triggered.
 		 * @param  {nu.pages.PageHandler} pageHandler
 		 */
-		registerPageHandler: function(pageHandler) {
+		registerPageHandler: function (pageHandler) {
 			this.pageHandlers[pageHandler.settings.id] = pageHandler;
 		},
 
@@ -76,7 +76,7 @@
 		 * @param  {String} id
 		 * @return {nu.pages.PageHandler}
 		 */
-		getPageHandler: function(id) {
+		getPageHandler: function (id) {
 			var pageHandler = this.pageHandlers[id];
 			if (!pageHandler) {
 				log.w("-- Warning : no page handler for page '" + id + "' !");
@@ -89,7 +89,7 @@
 		 * @param  {Event} event
 		 * @return {nu.pages.PageHandler}
 		 */
-		getPageHandlerFromEvent: function(event) {
+		getPageHandlerFromEvent: function (event) {
 			// getting the page on which the event has been triggered
 			var page = event.currentTarget;
 			// getting the page handler
@@ -101,7 +101,7 @@
 		 * @param {Object} event
 		 * @param {Object} data
 		 */
-		pageBeforeCreate: function(event, data) {
+		pageBeforeCreate: function (event, data) {
 			// getting page handler from the event
 			var pageHandler = this.getPageHandlerFromEvent(event);
 			// stop process if no page handler has been found
@@ -123,7 +123,7 @@
 		 * @param {Object} event
 		 * @param {Object} data
 		 */
-		pageInit: function(event, data) {
+		pageInit: function (event, data) {
 			// getting page handler from the event
 			var pageHandler = this.getPageHandlerFromEvent(event);
 			// stop process if no page handler has been found
@@ -140,7 +140,7 @@
 		 * @param {Object} event
 		 * @param {Object} data
 		 */
-		pageCreate: function(event, data) {
+		pageCreate: function (event, data) {
 			// getting page handler from the event
 			var pageHandler = this.getPageHandlerFromEvent(event);
 			// stop process if no page handler has been found
@@ -157,7 +157,7 @@
 		 * @param {Object} event
 		 * @param {Object} data
 		 */
-		pageHide: function(event, data) {
+		pageHide: function (event, data) {
 			// getting page handler from the event
 			var pageHandler = this.getPageHandlerFromEvent(event);
 			// stop process if no page handler has been found
@@ -174,7 +174,7 @@
 		 * @param {Object} event
 		 * @param {Object} data
 		 */
-		pageRemove: function(event, data) {
+		pageRemove: function (event, data) {
 			// getting page handler from the event
 			var pageHandler = this.getPageHandlerFromEvent(event);
 			// stop process if no page handler has been found
@@ -191,7 +191,7 @@
 		 * @param {Object} event
 		 * @param {Object} data
 		 */
-		pageBeforeShow: function(event, data) {
+		pageBeforeShow: function (event, data) {
 			// getting page handler from the event
 			var pageHandler = this.getPageHandlerFromEvent(event);
 			// stop process if no page handler has been found
@@ -208,7 +208,7 @@
 		 * @param {Object} event
 		 * @param {Object} data
 		 */
-		pageBeforeChange: function(event, data) {
+		pageBeforeChange: function (event, data) {
 			// getting page handler from the event
 			var pageHandler = this.getPageHandlerFromEvent(event);
 			// stop process if no page handler has been found
@@ -225,7 +225,7 @@
 		 * @param {Object} event
 		 * @param {Object} data
 		 */
-		pageChange: function(event, data) {
+		pageChange: function (event, data) {
 			// getting page handler from the event
 			var pageHandler = this.getPageHandlerFromEvent(event);
 			// stop process if no page handler has been found
@@ -242,7 +242,7 @@
 		 * @param {Object} event
 		 * @param {Object} data
 		 */
-		pageBeforeLoad: function(event, data) {
+		pageBeforeLoad: function (event, data) {
 			// getting page handler from the event
 			var pageHandler = this.getPageHandlerFromEvent(event);
 			// stop process if no page handler has been found
@@ -259,7 +259,7 @@
 		 * @param {Object} event
 		 * @param {Object} data
 		 */
-		pageLoad: function(event, data) {
+		pageLoad: function (event, data) {
 			// getting page handler from the event
 			var pageHandler = this.getPageHandlerFromEvent(event);
 			// stop process if no page handler has been found
@@ -276,7 +276,7 @@
 		 * @param {Object} event
 		 * @param {Object} data
 		 */
-		pageShow: function(event, data) {
+		pageShow: function (event, data) {
 			// getting page handler from the event
 			var pageHandler = this.getPageHandlerFromEvent(event);
 			// stop process if no page handler has been found
@@ -293,7 +293,7 @@
 		 * @param {Object} event
 		 * @param {Object} data
 		 */
-		pageBeforeHide: function(event, data) {
+		pageBeforeHide: function (event, data) {
 			// getting page handler from the event
 			var pageHandler = this.getPageHandlerFromEvent(event);
 			// stop process if no page handler has been found
@@ -312,7 +312,7 @@
 	 * @return {nu.pages.PageEventsManager} The shared instance of Page Events Manager
 	 * @static
 	 */
-	nu.pages.PageEventsManager.getInstance = function() {
+	nu.pages.PageEventsManager.getInstance = function () {
 		if (!nu.pages.PageEventsManager.SINGLETON_INSTANCE) {
 			nu.pages.PageEventsManager.SINGLETON_INSTANCE = new nu.pages.PageEventsManager();
 		}

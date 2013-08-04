@@ -1,4 +1,4 @@
-(function($, nu, window, undefined) {
+(function ($, nu, window, undefined) {
 
 	/**
 	 * @class nu.debug.Log
@@ -19,7 +19,7 @@
 	 * @param  {String} value The value to log
 	 * @param  {String} level The level of the log
 	 */
-	nu.debug.Log.log = function(value, level) {
+	nu.debug.Log.log = function (value, level) {
 		// if no value is specified, log error and stop the process
 		if (!value) {
 			nu.debug.Log.e("nu.debug.Log called without content");
@@ -37,22 +37,22 @@
 		var date = new Date();
 		// checking the level, default is INFO
 		switch (level) {
-			case nu.debug.LogLevel.ERROR:
-				// if it is an error, we save the error with its stack trace
-				storage = stack = new Error(val).stack;
-				// calling console.error if it is an error
-				method = "error";
-				break;
-			case nu.debug.LogLevel.WARN:
-				// calling console.warn if it is a warning
-				method = "warn";
-				break;
-			default:
-				// setting the level to INFO by default
-				level = nu.debug.LogLevel.INFO;
-				// calling console.info if it is an info
-				method = "info";
-				break;
+		case nu.debug.LogLevel.ERROR:
+			// if it is an error, we save the error with its stack trace
+			storage = stack = new Error(val).stack;
+			// calling console.error if it is an error
+			method = "error";
+			break;
+		case nu.debug.LogLevel.WARN:
+			// calling console.warn if it is a warning
+			method = "warn";
+			break;
+		default:
+			// setting the level to INFO by default
+			level = nu.debug.LogLevel.INFO;
+			// calling console.info if it is an info
+			method = "info";
+			break;
 		}
 		var logItem = new nu.debug.LogItem(level, val, date);
 		// if the level is activated
@@ -95,7 +95,7 @@
 	 * Logs informations.
 	 * @param  {String} value The information to log
 	 */
-	nu.debug.Log.info = function(value) {
+	nu.debug.Log.info = function (value) {
 		nu.debug.Log.log(value, nu.debug.LogLevel.INFO);
 	};
 
@@ -109,7 +109,7 @@
 	 * Logs errors.
 	 * @param  {String} value The error to log
 	 */
-	nu.debug.Log.error = function(value) {
+	nu.debug.Log.error = function (value) {
 		nu.debug.Log.log(value, nu.debug.LogLevel.ERROR);
 	};
 
@@ -123,7 +123,7 @@
 	 * Logs warnings.
 	 * @param  {String} value The warning to log
 	 */
-	nu.debug.Log.warn = function(value) {
+	nu.debug.Log.warn = function (value) {
 		nu.debug.Log.log(value, nu.debug.LogLevel.WARN);
 	};
 
@@ -137,7 +137,7 @@
 	 * Gets the saved logs object or a new one.
 	 * @return {Object} The saved object containing infos, errors and warnings logs, or a new one
 	 */
-	nu.debug.Log.getStoraged = function() {
+	nu.debug.Log.getStoraged = function () {
 		// getting logs from object storage
 		var log = nu.Storage.get(nu.debug.Log.STORAGE_KEY);
 		// if log is null, create a new one and save it
@@ -157,7 +157,7 @@
 	 * Saves the log parameter into storage.
 	 * @param {Object} log The log object to save
 	 */
-	nu.debug.Log.setStoraged = function(log) {
+	nu.debug.Log.setStoraged = function (log) {
 		nu.Storage.set(nu.debug.Log.STORAGE_KEY, log);
 	};
 
@@ -165,7 +165,7 @@
 	 * List log of type from the storage.
 	 * @param  {String} type The type of log to list
 	 */
-	nu.debug.Log.listStoraged = function(type) {
+	nu.debug.Log.listStoraged = function (type) {
 		var log = nu.debug.Log.getStoraged();
 		var array = log[type];
 
@@ -190,7 +190,7 @@
 	 * List log of type from the stack memory.
 	 * @param  {String} type The type of log to list
 	 */
-	nu.debug.Log.listStacked = function(type) {
+	nu.debug.Log.listStacked = function (type) {
 		// if teh stack is null, no log has been stacked
 		if (!nu.debug.Log.stack) {
 			console.log("There is no logs in the stack memory");
@@ -216,7 +216,7 @@
 	 * Clear logs of type from storaged.
 	 * @param  {String} type The type of log to clear
 	 */
-	nu.debug.Log.clearStoraged = function(type) {
+	nu.debug.Log.clearStoraged = function (type) {
 		// getting the log object
 		var log = nu.debug.Log.getStoraged();
 		// check if the type is specified and correct
@@ -235,7 +235,7 @@
 	 * Clear logs of type from stack memory.
 	 * @param  {String} type The type of log to clear
 	 */
-	nu.debug.Log.clearStacked = function(type) {
+	nu.debug.Log.clearStacked = function (type) {
 		// getting the log object
 		var log = nu.debug.Log.stack;
 		// check if the type is specified and correct
@@ -280,9 +280,9 @@
 	nu.debug.Log.level = nu.debug.LogLevel.ALL;
 
 	/**
-	 * 
+	 *
 	 */
-	window.onerror = function(message, url, line){
+	window.onerror = function (message, url, line) {
 		nu.debug.Log.error(message)
 	}
 

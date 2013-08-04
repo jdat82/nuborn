@@ -1,9 +1,9 @@
-(function(nu) {
+(function (nu) {
 
-    /**
-     * @provide nu.widgets
-     * @require nu
-     */
-    nu.widgets = {}
+	/**
+	 * @provide nu.widgets
+	 * @require nu
+	 */
+	nu.widgets = {}
 
 })(nu)

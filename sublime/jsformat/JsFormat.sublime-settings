@@ -1,0 +1,17 @@
+{
+	// exposed jsbeautifier options
+	"indent_with_tabs": true,
+	"preserve_newlines": true,
+	"max_preserve_newlines": 4,
+	"space_in_paren": true,
+	"jslint_happy": true,
+	"brace_style": "end-expand",
+	"keep_array_indentation": false,
+	"keep_function_indentation": false,
+	"eval_code": false,
+	"unescape_strings": false,
+	"break_chained_methods": false,
+
+	// jsformat options
+	"format_on_save": false
+}

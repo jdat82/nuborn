@@ -11,7 +11,7 @@
  * @param  {Boolean} 		caseInsensitive	Make a case insensitive search
  * @return {Boolean}                 		True if the string contains value, false otherwise
  */
-String.prototype.contains = function(value, caseInsensitive) {
+String.prototype.contains = function (value, caseInsensitive) {
 	// if value is null or undefined, return false
 	if (!value) {
 		return false;
@@ -34,7 +34,7 @@ String.prototype.contains = function(value, caseInsensitive) {
  * @ignore
  * Clears the array and keep reference.
  */
-Array.prototype.clear = function() {
+Array.prototype.clear = function () {
 	this.splice(0, this.length);
 };
 
@@ -61,15 +61,15 @@ Array.prototype.clear = function() {
  * 		}
  * })
  * var child = new Child("Bobby")
- */ 
- (function() {
+ */
+(function () {
 
 	var initializing = false,
-		superPattern = /xyz/.test(function() {
+		superPattern = /xyz/.test(function () {
 			xyz;
 		}) ? /\b_super\b/ : /.*/;
 
-	Object.subClass = function(properties) {
+	Object.subClass = function (properties) {
 
 		var _super = this.prototype;
 
@@ -80,8 +80,8 @@ Array.prototype.clear = function() {
 		for (var name in properties) {
 
 			proto[name] = typeof properties[name] == "function" && typeof _super[name] == "function" && superPattern.test(properties[name]) ?
-				(function(name, fn) {
-				return function() {
+				(function (name, fn) {
+				return function () {
 					var tmp = this._super;
 					this._super = _super[name];
 					var ret = fn.apply(this, arguments);

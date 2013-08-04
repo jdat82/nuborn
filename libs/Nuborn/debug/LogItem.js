@@ -1,4 +1,4 @@
-(function(nu, undefined) {
+(function (nu, undefined) {
 
 	/**
 	 * @class nu.debug.LogItem
@@ -17,7 +17,7 @@
 		 * @param  {String} message The message of the log item.
 		 * @param  {Date} date    The date of the log item.
 		 */
-		init: function(level, message, date) {
+		init: function (level, message, date) {
 			/**
 			 * The message of the log item.
 			 * @type {String}
@@ -39,7 +39,7 @@
 		 * The string representation of the log item (message).
 		 * @return {String} The message of the log item.
 		 */
-		toString: function() {
+		toString: function () {
 			return this.message;
 		}
 	});

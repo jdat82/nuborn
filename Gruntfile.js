@@ -7,7 +7,7 @@ var GruntUtils = require("./GruntUtils")
 /**
  * Grunt Configuration
  */
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
 	// externals options which can be context dependent
 	var profile = grunt.option("profile") || "dev"
@@ -347,7 +347,7 @@ module.exports = function(grunt) {
 				port: 9001,
 				base: 'build/web',
 				keepalive: true,
-				middleware: function(connect, options) {
+				middleware: function (connect, options) {
 					return [
 						// custom headers rewriting
 						// example : https://gist.github.com/muratcorlu/5803655
@@ -413,15 +413,15 @@ module.exports = function(grunt) {
 	/**
 	 * Registering Default Task
 	 */
-	grunt.registerTask("default", ["hogan", "nuglify", "nsass", "htmlmin", "imagemin", "copy"])
+	grunt.registerTask("default", ["clean", "hogan", "nuglify", "nsass", "htmlmin", "imagemin", "imageEmbed", "copy"])
 
 
 	/**
 	 * Registering one alias per target to allow compiling only one target
 	 */
-	grunt.registerTask("android", ["hogan:android", "nuglify:android", "nsass:android", "imageEmbed:android", "htmlmin:android", "imagemin:android", "copy:android"])
-	grunt.registerTask("ios", ["hogan:ios", "nuglify:ios", "nsass:ios", "imageEmbed:ios", "htmlmin:ios", "imagemin:ios", "copy:ios"])
-	grunt.registerTask("web", ["hogan:web", "nuglify:web", "nsass:web", "imageEmbed:web", "htmlmin:web", "imagemin:web", "copy:web"])
+	grunt.registerTask("android", ["hogan:android", "nuglify:android", "nsass:android", "htmlmin:android", "imagemin:android", "imageEmbed:android", "copy:android"])
+	grunt.registerTask("ios", ["hogan:ios", "nuglify:ios", "nsass:ios", "htmlmin:ios", "imagemin:ios", "imageEmbed:ios", "copy:ios"])
+	grunt.registerTask("web", ["hogan:web", "nuglify:web", "nsass:web", "htmlmin:web", "imagemin:web", "imageEmbed:web", "copy:web"])
 
 	/**
 	 * Registering a task to launch the web server.
@@ -450,14 +450,12 @@ module.exports = function(grunt) {
 
 			// if a configuration exists for each active platform, preempts the default behavior by executing only
 			// these ones
-			activePlatforms.forEach(function(platform) {
-				if (isGlobalBuild) 
-				{
+			activePlatforms.forEach(function (platform) {
+				if (isGlobalBuild) {
 					// executing all tasks for the current platforms
 					grunt.task.run(platform)
-				} 
-				else 
-				{
+				}
+				else {
 					// getting task and target configuration
 					var conf = grunt.config.get(task + "." + platform)
 
@@ -513,7 +511,7 @@ module.exports = function(grunt) {
 		 * Hook that intercept calls to grunt.task.run so as to execute the task for active platforms only.
 		 */
 		grunt.util.hooker.hook(grunt.task, "run", {
-			pre: function(task) {
+			pre: function (task) {
 
 				// if there is already a target specified, no hook
 				// specifyng <task>: is also a way to bypass the hook without having target
@@ -533,7 +531,7 @@ module.exports = function(grunt) {
 		 * The task is invoked by the above hook for each active platform. Each time, a sass.target
 		 * configuration is created.
 		 */
-		grunt.registerMultiTask("nsass", "wrapper for grunt-contrib-sass", function() {
+		grunt.registerMultiTask("nsass", "wrapper for grunt-contrib-sass", function () {
 			// sass config for the current target
 			var sass = {
 				options: this.options(),
@@ -543,7 +541,7 @@ module.exports = function(grunt) {
 			}
 
 			// resolving patterns and then dependencies order
-			this.files.forEach(function(files) {
+			this.files.forEach(function (files) {
 				sass.target.files.push({
 					src: GruntUtils.resolveDependencies(files.src),
 					dest: files.dest
@@ -562,7 +560,7 @@ module.exports = function(grunt) {
 		 * The task is invoked by the above hook for each active platform. Each time, a uglify.target
 		 * configuration is created.
 		 */
-		grunt.registerMultiTask("nuglify", "wrapper for grunt-contrib-uglify", function() {
+		grunt.registerMultiTask("nuglify", "wrapper for grunt-contrib-uglify", function () {
 			// uglify config for the current target
 			var uglify = {
 				options: this.options(),
@@ -572,7 +570,7 @@ module.exports = function(grunt) {
 			}
 
 			// resolving patterns and then dependencies order
-			this.files.forEach(function(files) {
+			this.files.forEach(function (files) {
 				uglify.target.files.push({
 					src: GruntUtils.resolveDependencies(files.src),
 					dest: files.dest

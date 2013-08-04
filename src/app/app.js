@@ -1,4 +1,4 @@
-(function($, nu, utils, log, templates, undefined) {
+(function ($, nu, utils, log, templates, undefined) {
 
 	/**
 	 * @class app
@@ -24,11 +24,12 @@
 		/**
 		 * Callback function called when the DOM is ready.
 		 */
-		ready: function() {
+		ready: function () {
 			if (!utils.isCordova()) {
 				debug && log.i("Used as a Web App")
 				app.init()
-			} else {
+			}
+			else {
 				debug && log.i("Used as a Hybrid App")
 				$.mobile.defaultHomeScroll = 0
 				document.addEventListener("deviceready", app.init, false)
@@ -38,7 +39,7 @@
 		/**
 		 * Initialize the appllication when DOM & Device (PhoneGap only) are ready.
 		 */
-		init: function() {
+		init: function () {
 			if (!utils.isCordova() || !utils.isIOS()) {
 				/**
 				 * @property {nu.widgets.SplashScreen} splash
@@ -53,17 +54,19 @@
 
 			if (utils.isOldAndroid()) {
 				$.mobile.defaultPageTransition = "none"
-			} else {
+			}
+			else {
 				$.mobile.defaultPageTransition = "slide"
 			}
 
 			insertHomePage()
 			$.mobile.initializePage()
 		}
-		
+
 	}
 
 	// Load the page home.html and insert it to the body
+
 	function insertHomePage() {
 		// load the html of the home page
 		// we don't use the go function has it is the first page for JQM after its initialization
