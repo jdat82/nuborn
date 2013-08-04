@@ -34,9 +34,9 @@
 			var page = this.html.page;
 			this.html.menuButton = page.find("div.menu-button");
 			this.html.menu = page.find("#home-menu");
-			this.html.carousel = $("#carousel");
-			this.html.carouselWrapper = $("#carousel-wrapper");
-			this.html.news = $("#news");
+			this.html.carousel = page.find("#carousel");
+			this.html.carouselWrapper = page.find("#carousel-wrapper");
+			this.html.news = page.find("#news");
 		},
 
 		/**
@@ -44,7 +44,6 @@
 		 * @inheritdoc
 		 */
 		createDataElements: function() {
-			this.data = {}
 			// Create the data to display in the carousel
 			this.data.carousel = {
 				cards: [{

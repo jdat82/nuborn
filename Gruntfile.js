@@ -424,7 +424,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("web", ["hogan:web", "nuglify:web", "nsass:web", "imageEmbed:web", "htmlmin:web", "imagemin:web", "copy:web"])
 
 	/**
-	 * Registering a special task for the local web server with reverse proxy capabilities
+	 * Registering a task to launch the web server.
 	 */
 	grunt.registerTask("server", ["configureProxies:web", "connect:web"])
 
