@@ -355,7 +355,8 @@ module.exports = function (grunt) {
 		 */
 		connect: {
 			options: {
-				port: 9001,
+				hostname: "*",
+				port: 9000,
 				base: 'build/web',
 				keepalive: true,
 				middleware: function (connect, options) {
@@ -369,9 +370,6 @@ module.exports = function (grunt) {
 						// serve static files
 						connect.static(options.base),
 
-						// make empty directories browsable
-						connect.directory(options.base)
-
 						// reverse Proxy Configuration
 						// proxySnippet
 					];
@@ -380,15 +378,15 @@ module.exports = function (grunt) {
 			web: {
 				// reverse Proxy Configuration
 				// proxies: [{
-				//	context: '/reverse',
-				//	host: 'placehold.it',
-				//	port: 80,
-				//	https: false,
-				//	changeOrigin: true,
-				//	rewrite: {
-				//		'^/reverse': ''
-				//	}
-				//}]
+				// 	context: '/reverse',
+				// 	host: 'placehold.it',
+				// 	port: 80,
+				// 	https: false,
+				// 	changeOrigin: true,
+				// 	rewrite: {
+				// 		'^/reverse': ''
+				// 	}
+				// }]
 			}
 		},
 
@@ -399,6 +397,8 @@ module.exports = function (grunt) {
 		 * Grunt devtools: https://chrome.google.com/webstore/detail/grunt-devtools/fbiodiodggnlakggeeckkjccjhhjndnb
 		 * Livereload: https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
 		 */
+
+		appcache: ["**", "!*.appcache", "!img", "!css", "!fonts", "!js"],
 
 		/**
 		 * Generate a manifest file (HTML5 cache).
@@ -411,12 +411,28 @@ module.exports = function (grunt) {
 				verbose: false,
 				timestamp: true
 			},
+			android: {
+				options: {
+					basePath: "<%= platforms.android.folder %>"
+				},
+				files: {
+					"<%= platforms.android.folder %>/manifest.appcache": ["<%= appcache %>"]
+				}
+			},
+			ios: {
+				options: {
+					basePath: "<%= platforms.ios.folder %>"
+				},
+				files: {
+					"<%= platforms.ios.folder %>/manifest.appcache": ["<%= appcache %>"]
+				}
+			},
 			web: {
 				options: {
 					basePath: "<%= platforms.web.folder %>"
 				},
 				files: {
-					"<%= platforms.web.folder %>/manifest.appcache": ["**", "!*.appcache"]
+					"<%= platforms.web.folder %>/manifest.appcache": ["<%= appcache %>"]
 				}
 			}
 		}

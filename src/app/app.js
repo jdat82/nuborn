@@ -27,6 +27,7 @@
 		ready: function () {
 			if (!utils.isCordova()) {
 				debug && log.i("Used as a Web App");
+				app.updateCache();
 				app.init();
 			} else {
 				debug && log.i("Used as a Hybrid App");
@@ -39,6 +40,7 @@
 		 * Initialize the appllication when DOM & Device (PhoneGap only) are ready.
 		 */
 		init: function () {
+
 			if (!utils.isCordova() || !utils.isIOS()) {
 				/**
 				 * @property {nu.widgets.SplashScreen} splash
@@ -59,6 +61,26 @@
 
 			insertHomePage();
 			$.mobile.initializePage();
+		},
+
+		/**
+		 * Check if a new version of the webapp is available online.
+		 * Non sense in hybride mode. Useful only in webapp mode.
+		 */
+		updateCache: function () {
+
+			var appCache = window.applicationCache;
+
+			appCache.addEventListener('updateready', function (e) {
+				debug && log.i("New hotness available. Refresh the page please.");
+				if (appCache.status == appCache.UPDATEREADY) {
+					// new downloaded content available
+					appCache.swapCache();
+					if (confirm('A new version of this site is available. Load it ?')) {
+						window.location.reload();
+					}
+				}
+			}, false);
 		}
 
 	};
