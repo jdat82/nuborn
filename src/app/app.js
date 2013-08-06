@@ -26,13 +26,12 @@
 		 */
 		ready: function () {
 			if (!utils.isCordova()) {
-				debug && log.i("Used as a Web App")
-				app.init()
-			}
-			else {
-				debug && log.i("Used as a Hybrid App")
-				$.mobile.defaultHomeScroll = 0
-				document.addEventListener("deviceready", app.init, false)
+				debug && log.i("Used as a Web App");
+				app.init();
+			} else {
+				debug && log.i("Used as a Hybrid App");
+				$.mobile.defaultHomeScroll = 0;
+				document.addEventListener("deviceready", app.init, false);
 			}
 		},
 
@@ -48,22 +47,21 @@
 				 */
 				app.splash = new nu.widgets.SplashScreen({
 					id: "splash"
-				})
-				app.splash.show()
+				});
+				app.splash.show();
 			}
 
 			if (utils.isOldAndroid()) {
-				$.mobile.defaultPageTransition = "none"
-			}
-			else {
-				$.mobile.defaultPageTransition = "slide"
+				$.mobile.defaultPageTransition = "none";
+			} else {
+				$.mobile.defaultPageTransition = "slide";
 			}
 
-			insertHomePage()
-			$.mobile.initializePage()
+			insertHomePage();
+			$.mobile.initializePage();
 		}
 
-	}
+	};
 
 	// Load the page home.html and insert it to the body
 
@@ -71,10 +69,10 @@
 		// load the html of the home page
 		// we don't use the go function has it is the first page for JQM after its initialization
 		// and it will not work
-		$(templates.home.render()).appendTo("body")
+		$(templates.home.render()).appendTo("body");
 	}
 
 	// When the Document is Ready, call app.ready
-	$(app.ready)
+	$(app.ready);
 
-})(jQuery, nu, nu.Utils, nu.debug.Log, templates)
+})(jQuery, nu, nu.Utils, nu.debug.Log, templates);

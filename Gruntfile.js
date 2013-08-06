@@ -1,4 +1,4 @@
-var GruntUtils = require("./GruntUtils")
+var GruntUtils = require("./GruntUtils");
 
 // --- REVERSE PROXY CONFIGURATION
 // --- Used by the connect task 
@@ -10,8 +10,8 @@ var GruntUtils = require("./GruntUtils")
 module.exports = function (grunt) {
 
 	// externals options which can be context dependent
-	var profile = grunt.option("profile") || "dev"
-	var options = grunt.file.readJSON("conf/" + profile + ".json")
+	var profile = grunt.option("profile") || "dev";
+	var options = grunt.file.readJSON("conf/" + profile + ".json");
 
 	grunt.initConfig({
 
@@ -46,7 +46,7 @@ module.exports = function (grunt) {
 			"src/app/mobileinit.js", /** jQuery Mobile pre-initialization */
 			"libs/jQueryMobile/jquery.mobile.custom*.js", /** jQuery Mobile is required **/
 			"libs/SwipeJS/*.js",
-			// "libs/jQueryJSON/*.js", 						/** jQueryJSON is required for old browser **/
+			// "libs/jQueryJSON/*.js",						/** jQueryJSON is required for old browser **/
 			"gen/*.js", /** Generated sources as templates */
 			"libs/Nuborn/**/*.js", /** Nuborn is required **/
 			"src/**/*.js"
@@ -242,9 +242,8 @@ module.exports = function (grunt) {
 		/**
 		 * Static resources common to all platforms.
 		 */
-		fonts: [
-			"fonts/*",
-		],
+		hierarchicalStatics: ["fonts/*"],
+		flattenedStatics: [],
 
 		/**
 		 * Let's copy some static files.
@@ -253,22 +252,34 @@ module.exports = function (grunt) {
 			android: {
 				files: [{
 					dest: "<%= platforms.android.folder %>/",
-					src: ["<%= fonts %>"],
-					expand: true
+					src: ["<%= hierarchicalStatics %>"]
+				}, {
+					dest: "<%= platforms.android.folder %>/",
+					src: ["<%= flattenedStatics %>"],
+					expand: true,
+					flatten: true
 				}]
 			},
 			ios: {
 				files: [{
 					dest: "<%= platforms.ios.folder %>/",
-					src: ["<%= fonts %>"],
-					expand: true
+					src: ["<%= hierarchicalStatics %>"]
+				}, {
+					dest: "<%= platforms.ios.folder %>/",
+					src: ["<%= flattenedStatics %>"],
+					expand: true,
+					flatten: true
 				}]
 			},
 			web: {
 				files: [{
 					dest: "<%= platforms.web.folder %>/",
-					src: ["<%= fonts %>"],
-					expand: true
+					src: ["<%= hierarchicalStatics %>"]
+				}, {
+					dest: "<%= platforms.web.folder %>/",
+					src: ["<%= flattenedStatics %>"],
+					expand: true,
+					flatten: true
 				}]
 			}
 		},
@@ -369,64 +380,86 @@ module.exports = function (grunt) {
 			web: {
 				// reverse Proxy Configuration
 				// proxies: [{
-				// 	context: '/reverse',
-				// 	host: 'placehold.it',
-				// 	port: 80,
-				// 	https: false,
-				// 	changeOrigin: true,
-				// 	rewrite: {
-				// 		'^/reverse': ''
-				// 	}
-				// }]
+				//	context: '/reverse',
+				//	host: 'placehold.it',
+				//	port: 80,
+				//	https: false,
+				//	changeOrigin: true,
+				//	rewrite: {
+				//		'^/reverse': ''
+				//	}
+				//}]
 			}
-		}
+		},
 
 		/**
 		 * I highly recommend installing the grunt devtools chrome extension and the livereload chrome extension to
-		 * to improved seriously productivity when developping for the web.
+		 * to improve seriously productivity when developping for the web.
 		 *
 		 * Grunt devtools: https://chrome.google.com/webstore/detail/grunt-devtools/fbiodiodggnlakggeeckkjccjhhjndnb
 		 * Livereload: https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
 		 */
 
-	})
+		/**
+		 * Generate a manifest file (HTML5 cache).
+		 */
+		manifest: {
+			options: {
+				network: ["*"],
+				fallback: ['/ /app.html#offline'],
+				// preferOnline: true,
+				verbose: false,
+				timestamp: true
+			},
+			web: {
+				options: {
+					basePath: "<%= platforms.web.folder %>"
+				},
+				files: {
+					"<%= platforms.web.folder %>/manifest.appcache": ["**", "!*.appcache"]
+				}
+			}
+		}
+
+	});
 
 
 	/**
 	 * Loading grunt plugins
 	 */
-	grunt.loadNpmTasks('grunt-jsduck')
-	grunt.loadNpmTasks('grunt-contrib-uglify')
-	grunt.loadNpmTasks('grunt-hogan')
-	grunt.loadNpmTasks('grunt-contrib-sass')
-	grunt.loadNpmTasks('grunt-contrib-htmlmin')
-	grunt.loadNpmTasks('grunt-contrib-imagemin')
-	grunt.loadNpmTasks('grunt-contrib-copy')
-	grunt.loadNpmTasks('grunt-contrib-clean')
-	grunt.loadNpmTasks('grunt-contrib-watch')
-	grunt.loadNpmTasks('grunt-contrib-connect')
-	grunt.loadNpmTasks('grunt-connect-proxy')
-	grunt.loadNpmTasks('grunt-devtools')
-	grunt.loadNpmTasks("grunt-image-embed")
+	grunt.loadNpmTasks('grunt-jsduck');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-hogan');
+	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('grunt-contrib-htmlmin');
+	grunt.loadNpmTasks('grunt-contrib-imagemin');
+	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-connect');
+	grunt.loadNpmTasks('grunt-connect-proxy');
+	grunt.loadNpmTasks('grunt-devtools');
+	grunt.loadNpmTasks("grunt-image-embed");
+	grunt.loadNpmTasks('grunt-manifest');
 
 
 	/**
 	 * Registering Default Task
 	 */
-	grunt.registerTask("default", ["clean", "hogan", "nuglify", "nsass", "htmlmin", "imagemin", "imageEmbed", "copy"])
+	grunt.registerTask("default", ["clean", "hogan", "nuglify", "nsass", "htmlmin", "imagemin", "imageEmbed", "copy", "manifest"]);
 
 
 	/**
 	 * Registering one alias per target to allow compiling only one target
 	 */
-	grunt.registerTask("android", ["hogan:android", "nuglify:android", "nsass:android", "htmlmin:android", "imagemin:android", "imageEmbed:android", "copy:android"])
-	grunt.registerTask("ios", ["hogan:ios", "nuglify:ios", "nsass:ios", "htmlmin:ios", "imagemin:ios", "imageEmbed:ios", "copy:ios"])
-	grunt.registerTask("web", ["hogan:web", "nuglify:web", "nsass:web", "htmlmin:web", "imagemin:web", "imageEmbed:web", "copy:web"])
+	grunt.registerTask("android", ["clean:android", "hogan:android", "nuglify:android", "nsass:android", "htmlmin:android", "imagemin:android", "imageEmbed:android", "copy:android", "manifest:android"]);
+	grunt.registerTask("ios", ["clean:ios", "hogan:ios", "nuglify:ios", "nsass:ios", "htmlmin:ios", "imagemin:ios", "imageEmbed:ios", "copy:ios", "manifest:ios"]);
+	grunt.registerTask("web", ["clean:web", "hogan:web", "nuglify:web", "nsass:web", "htmlmin:web", "imagemin:web", "imageEmbed:web", "copy:web", "manifest:web"]);
 
 	/**
 	 * Registering a task to launch the web server.
 	 */
-	grunt.registerTask("server", ["configureProxies:web", "connect:web"])
+	grunt.registerTask("server", ["configureProxies:web", "connect:web"]);
 
 	/**
 	 * Receive a task name and if no target specified find active targets and execute the active ones.
@@ -440,147 +473,146 @@ module.exports = function (grunt) {
 	 * False else.
 	 */
 
-		function executeTaskForActiveTargetsOnly(task) {
-			var activePlatforms = activeTargets(grunt)
-			var isGlobalBuild = task === "default"
+	function executeTaskForActiveTargetsOnly(task) {
+		var activePlatforms = activeTargets(grunt);
+		var isGlobalBuild = task === "default";
 
-			// if task isn't related to any platform, no preempting
-			if (!isGlobalBuild && !isPlatformDependent(task))
-				return false
+		// if task isn't related to any platform, no preempting
+		if (!isGlobalBuild && !isPlatformDependent(task))
+			return false;
 
-			// if a configuration exists for each active platform, preempts the default behavior by executing only
-			// these ones
-			activePlatforms.forEach(function (platform) {
-				if (isGlobalBuild) {
-					// executing all tasks for the current platforms
-					grunt.task.run(platform)
-				}
-				else {
-					// getting task and target configuration
-					var conf = grunt.config.get(task + "." + platform)
+		// if a configuration exists for each active platform, preempts the default behavior by executing only
+		// these ones
+		activePlatforms.forEach(function (platform) {
+			if (isGlobalBuild) {
+				// executing all tasks for the current platforms
+				grunt.task.run(platform);
+			} else {
+				// getting task and target configuration
+				var conf = grunt.config.get(task + "." + platform);
 
-					// if we found a configuration for that platform, we use it
-					// executing task with correct target
-					if (conf)
-						grunt.task.run(task + ":" + platform)
-				}
-			})
+				// if we found a configuration for that platform, we use it
+				// executing task with correct target
+				if (conf)
+					grunt.task.run(task + ":" + platform);
+			}
+		});
 
-			// task is platform dependent so it is preempted
-			return true
+		// task is platform dependent so it is preempted
+		return true;
+	}
+
+	/**
+	 * Compute an array of active target names.
+	 */
+
+	function activeTargets() {
+		var platforms = grunt.config("platforms");
+		var result = [];
+
+		if (!platforms)
+			return result;
+
+		for (var targetName in platforms)
+			if (platforms[targetName].active)
+				result.push(targetName);
+
+		return result;
+	}
+
+	/**
+	 * Return true if task's configuration is platform dependent.
+	 */
+
+	function isPlatformDependent(task) {
+		var platforms = grunt.config("platforms");
+		var taskConfiguration = grunt.config(task);
+
+		if (!taskConfiguration || !platforms || !Object.keys(platforms).length)
+			return false;
+
+		for (var platform in platforms) {
+			if (taskConfiguration[platform])
+				return true;
 		}
 
-		/**
-		 * Compute an array of active target names.
-		 */
+		return false;
+	}
 
-		function activeTargets() {
-			var platforms = grunt.config("platforms")
-			var result = []
+	/**
+	 * Hook that intercept calls to grunt.task.run so as to execute the task for active platforms only.
+	 */
+	grunt.util.hooker.hook(grunt.task, "run", {
+		pre: function (task) {
 
-			if (!platforms)
-				return result
+			// if there is already a target specified, no hook
+			// specifyng <task>: is also a way to bypass the hook without having target
+			if (task.match(/:/g))
+				return;
 
-			for (var targetName in platforms)
-				if (platforms[targetName].active)
-					result.push(targetName)
-
-			return result
+			// if task is platform dependent and has active targets : preempt
+			if (executeTaskForActiveTargetsOnly(task))
+				return grunt.util.hooker.preempt(true);
 		}
+	});
 
-		/**
-		 * Return true if task's configuration is platform dependent.
-		 */
-
-		function isPlatformDependent(task) {
-			var platforms = grunt.config("platforms")
-			var taskConfiguration = grunt.config(task)
-
-			if (!taskConfiguration || !platforms || !Object.keys(platforms).length)
-				return false
-
-			for (var platform in platforms) {
-				if (taskConfiguration[platform])
-					return true
+	/**
+	 * Booster for sass configuration. Automagically sorts files according to their dependencies.
+	 * Strictly identical to grunt-contrib-sass configuration as it is a wrapper for it.
+	 * Will create a sass/target configuration and compute the final sorted "files" attribute.
+	 * The task is invoked by the above hook for each active platform. Each time, a sass.target
+	 * configuration is created.
+	 */
+	grunt.registerMultiTask("nsass", "wrapperfor grunt-contrib-sass", function () {
+		// sass config for the current target
+		var sass = {
+			options: this.options(),
+			target: {
+				files: []
 			}
+		};
 
-			return false
-		}
+		// resolving patterns and then dependencies order
+		this.files.forEach(function (files) {
+			sass.target.files.push({
+				src: GruntUtils.resolveDependencies(files.src),
+				dest: files.dest
+			});
+		});
 
-		/**
-		 * Hook that intercept calls to grunt.task.run so as to execute the task for active platforms only.
-		 */
-		grunt.util.hooker.hook(grunt.task, "run", {
-			pre: function (task) {
+		// registering the sass config for execution
+		grunt.config("sass", sass);
+		grunt.task.run("sass:");
+	});
 
-				// if there is already a target specified, no hook
-				// specifyng <task>: is also a way to bypass the hook without having target
-				if (task.match(/:/g))
-					return
-
-				// if task is platform dependent and has active targets : preempt
-				if (executeTaskForActiveTargetsOnly(task))
-					return grunt.util.hooker.preempt(true)
+	/**
+	 * Booster for uglify configuration. Automagically sorts files according to their dependencies.
+	 * Strictly identical to grunt-contrib-uglify configuration as it is a wrapper for it.
+	 * Will create a uglify/target configuration and compute the final sorted "files" attribute.
+	 * The task is invoked by the above hook for each active platform. Each time, a uglify.target
+	 * configuration is created.
+	 */
+	grunt.registerMultiTask("nuglify", "wrapperfor grunt-contrib-uglify", function () {
+		// uglify config for the current target
+		var uglify = {
+			options: this.options(),
+			target: {
+				files: []
 			}
-		})
+		};
 
-		/**
-		 * Booster for sass configuration. Automagically sorts files according to their dependencies.
-		 * Strictly identical to grunt-contrib-sass configuration as it is a wrapper for it.
-		 * Will create a sass/target configuration and compute the final sorted "files" attribute.
-		 * The task is invoked by the above hook for each active platform. Each time, a sass.target
-		 * configuration is created.
-		 */
-		grunt.registerMultiTask("nsass", "wrapper for grunt-contrib-sass", function () {
-			// sass config for the current target
-			var sass = {
-				options: this.options(),
-				target: {
-					files: []
-				}
-			}
+		// resolving patterns and then dependencies order
+		this.files.forEach(function (files) {
+			uglify.target.files.push({
+				src: GruntUtils.resolveDependencies(files.src),
+				dest: files.dest
+			});
+		});
 
-			// resolving patterns and then dependencies order
-			this.files.forEach(function (files) {
-				sass.target.files.push({
-					src: GruntUtils.resolveDependencies(files.src),
-					dest: files.dest
-				})
-			})
-
-			// registering the sass config for execution
-			grunt.config("sass", sass)
-			grunt.task.run("sass:")
-		})
-
-		/**
-		 * Booster for uglify configuration. Automagically sorts files according to their dependencies.
-		 * Strictly identical to grunt-contrib-uglify configuration as it is a wrapper for it.
-		 * Will create a uglify/target configuration and compute the final sorted "files" attribute.
-		 * The task is invoked by the above hook for each active platform. Each time, a uglify.target
-		 * configuration is created.
-		 */
-		grunt.registerMultiTask("nuglify", "wrapper for grunt-contrib-uglify", function () {
-			// uglify config for the current target
-			var uglify = {
-				options: this.options(),
-				target: {
-					files: []
-				}
-			}
-
-			// resolving patterns and then dependencies order
-			this.files.forEach(function (files) {
-				uglify.target.files.push({
-					src: GruntUtils.resolveDependencies(files.src),
-					dest: files.dest
-				})
-			})
-
-			// registering the uglify config for execution
-			grunt.config("uglify", uglify)
-			grunt.task.run("uglify:")
-		})
+		// registering the uglify config for execution
+		grunt.config("uglify", uglify);
+		grunt.task.run("uglify:");
+	});
 
 
-}
+};
