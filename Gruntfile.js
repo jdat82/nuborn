@@ -57,19 +57,49 @@ module.exports = function (grunt) {
 		 */
 		nuglify: {
 			options: options.uglify,
-			web: {
-				files: {
-					"<%= platforms.web.folder %>/js/app.min.js": ["<%= js %>"]
-				}
-			},
 			android: {
+				// defining an ANDROID constant in order to allow compilation of android specific code
+				options: {
+					"compress": GruntUtils.extend(true, {}, options.uglify.compress, {
+						"global_defs": {
+							"ANDROID": true,
+							"IOS": false,
+							"WEB": false
+						}
+					})
+				},
 				files: {
 					"<%= platforms.android.folder %>/js/app.min.js": ["libs/Cordova/cordova.android.js", "<%= js %>"]
 				}
 			},
 			ios: {
+				// defining an ANDROID constant in order to allow compilation of ios specific code
+				options: {
+					"compress": GruntUtils.extend(true, {}, options.uglify.compress, {
+						"global_defs": {
+							"ANDROID": false,
+							"IOS": true,
+							"WEB": false
+						}
+					})
+				},
 				files: {
 					"<%= platforms.ios.folder %>/js/app.min.js": ["libs/Cordova/cordova.ios.js", "<%= js %>"]
+				}
+			},
+			web: {
+				// defining an ANDROID constant in order to allow compilation of web specific code
+				options: {
+					"compress": GruntUtils.extend(true, {}, options.uglify.compress, {
+						"global_defs": {
+							"ANDROID": false,
+							"IOS": false,
+							"WEB": true
+						}
+					})
+				},
+				files: {
+					"<%= platforms.web.folder %>/js/app.min.js": ["<%= js %>"]
 				}
 			}
 		},
@@ -378,15 +408,15 @@ module.exports = function (grunt) {
 			web: {
 				// reverse Proxy Configuration
 				// proxies: [{
-				// 	context: '/reverse',
-				// 	host: 'placehold.it',
-				// 	port: 80,
-				// 	https: false,
-				// 	changeOrigin: true,
-				// 	rewrite: {
-				// 		'^/reverse': ''
-				// 	}
-				// }]
+				//	context: '/reverse',
+				//	host: 'placehold.it',
+				//	port: 80,
+				//	https: false,
+				//	changeOrigin: true,
+				//	rewrite: {
+				//		'^/reverse': ''
+				//	}
+				//}]
 			}
 		},
 

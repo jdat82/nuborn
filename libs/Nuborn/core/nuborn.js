@@ -13,4 +13,4 @@ window.nu = {
 	 */
 	version: "0.0.1"
 
-}
+};

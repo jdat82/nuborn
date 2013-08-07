@@ -280,10 +280,10 @@
 	nu.debug.Log.level = nu.debug.LogLevel.ALL;
 
 	/**
-	 *
+	 * Deactivated for now cause doesn't work as expected.
 	 */
-	window.onerror = function (message, url, line) {
-		nu.debug.Log.error(message)
-	}
+	// window.onerror = function (message, url, line) {
+	//	nu.debug.Log.error(message);
+	// }
 
-})(jQuery, nu, window)
+})(jQuery, nu, window);

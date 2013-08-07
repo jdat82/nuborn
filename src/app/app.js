@@ -41,6 +41,13 @@
 		 */
 		init: function () {
 
+			if (WEB)
+				log.i("WEB:" + WEB);
+			if (IOS)
+				log.i("IOS:" + IOS);
+			if (ANDROID)
+				log.i("ANDROID:" + ANDROID);
+
 			if (!utils.isCordova() || !utils.isIOS()) {
 				/**
 				 * @property {nu.widgets.SplashScreen} splash
