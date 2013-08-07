@@ -1,11 +1,9 @@
 {
-	"folders": [
-	{
-		"name": "View: Nuborn Sources",
-		"path": "../libs/Nuborn"
-	},
-	{
+	"folders": [{
 		"name": "View: App Sources",
 		"path": "../src"
+	}, {
+		"name": "View: Nuborn Sources",
+		"path": "../libs/Nuborn"
 	}]
 }

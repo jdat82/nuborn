@@ -1,17 +1,20 @@
 /**
  * @provide app
+ *
  * @require mixins
  */
 
 /**
  * @var
+ * Tungsten color.
  */
-$background : #293541;
+$background : #424242;
 
 /**
  * @var
+ * Lead color.
  */
-$background-dark : #171D22;
+$background-dark : #212121;
 
 html * { 
 	font-family: "Helvetica";
@@ -24,6 +27,12 @@ html * {
 	@include vendorize(box-sizing, border-box);
 
 }
+
+// body {
+// 	-webkit-transition: -webkit-filter 0.5s ease-in;
+// 	-webkit-filter: blur(0px) brightness(100%);
+// 	-webkit-transform: translateZ(0);
+// }
 
 input, textarea {
 	-moz-user-select: text;

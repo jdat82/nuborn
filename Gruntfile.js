@@ -25,11 +25,11 @@ module.exports = function (grunt) {
 			},
 			ios: {
 				folder: "build/ios/www",
-				active: false
+				active: true
 			},
 			web: {
 				folder: "build/web",
-				active: true
+				active: false
 			}
 		},
 
@@ -358,19 +358,19 @@ module.exports = function (grunt) {
 			},
 			scss: {
 				files: "<%= css %>",
-				tasks: ["nsass", "imageEmbed"]
+				tasks: ["nsass", "imageEmbed", "manifest"]
 			},
 			js: {
 				files: "<%= js %>",
-				tasks: ["nuglify"]
+				tasks: ["nuglify", "manifest"]
 			},
 			htmlmin: {
 				files: "<%= html %>",
-				tasks: ["htmlmin"]
+				tasks: ["htmlmin", "manifest"]
 			},
 			hogan: {
 				files: "<%= templates %>",
-				tasks: ["hogan"]
+				tasks: ["hogan", "nuglify", "manifest"]
 			},
 			all: {
 				files: "Gruntfile.js",

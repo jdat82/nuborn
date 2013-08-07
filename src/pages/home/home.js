@@ -12,7 +12,7 @@
 	 *
 	 * @require app
 	 */
-	app.pages = app.pages || {}
+	app.pages = app.pages || {};
 	app.pages.HomePageHandler = nu.pages.PageHandler.subClass({
 
 		/**
@@ -115,10 +115,10 @@
 						author: "Jim Robs",
 						date: "lundi 6 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/86/24/20555126.jpg"
-					}
+					},
 
 					// ************** //
-					, {
+					{
 						title: "\"Nashville\" est renouvelée",
 						author: "Jim Robs",
 						date: "samedi 11 mai",
@@ -266,15 +266,15 @@
 			if (app.splash) {
 				setTimeout(function () {
 					// hide splashscreen after 2 seconds
-					app.splash.hide(true)
+					app.splash.hide(true);
 					// remove reference from dom for garbage collector (not needed anymore)
-					delete app.splash
+					delete app.splash;
 					// enjoy true magic
 					new TimelineLite().staggerFrom(self.html.news.find(".thumbnail"), 0.3, {
 						opacity: 0.2,
 						scale: 0.5
-					}, 0.2, 0.6)
-				}, 2000);
+					}, 0.2, 0.6);
+				}, 1000);
 			}
 			// if the splashscreen is handled natively with iOS
 			else if (utils.isCordova() && utils.isIOS()) {
@@ -386,7 +386,7 @@
 			});
 
 			news.on("tap", "li", function () {
-				app.detail.navigate()
+				app.detail.navigate();
 			});
 		}
 	});
