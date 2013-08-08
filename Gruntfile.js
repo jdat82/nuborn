@@ -445,24 +445,6 @@ module.exports = function (grunt) {
 				verbose: false,
 				timestamp: true
 			},
-			android: {
-				options: {
-					basePath: "<%= platforms.android.folder %>"
-				},
-				files: [{
-					dest: "<%= platforms.android.folder %>/manifest.appcache",
-					src: ["<%= appcache %>"]
-				}]
-			},
-			ios: {
-				options: {
-					basePath: "<%= platforms.ios.folder %>"
-				},
-				files: [{
-					dest: "<%= platforms.ios.folder %>/manifest.appcache",
-					src: ["<%= appcache %>"]
-				}]
-			},
 			web: {
 				options: {
 					basePath: "<%= platforms.web.folder %>"

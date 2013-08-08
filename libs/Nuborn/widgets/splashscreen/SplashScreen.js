@@ -37,11 +37,9 @@
 		 * Initialize the splashscreen with the id provided in settings.
 		 */
 		initWithId: function () {
-			// create the div element with the id provided in settings
-			var element = $("<div>");
-			element.prop("id", this.settings.id);
-			// adding class fullscreen
-			element.addClass("fullscreen");
+			// inflates the splashscreen
+			var element = $(templates.splashscreen.render(this.settings));
+
 			// registering the div element as a Class member
 			this.element = element;
 		},
@@ -81,16 +79,15 @@
 		 * @param  {Boolean} animated Defines if the transition should be animated
 		 */
 		show: function () {
+
 			// if a splashscreen with the same id exists, remove it
 			var existing = $("#" + this.settings.id);
 			if (existing.length > 0) {
 				this.element = existing;
 			}
-			// getting the element member as a local variable
-			var element = this.element;
+
 			// adding the splashscreen at the end of the document body
-			$("body").append(element);
-			// showing the splashscreen
+			$("body").append(this.element);
 		},
 
 		/**

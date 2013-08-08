@@ -11,4 +11,4 @@
 	 */
 	nu.debug = {};
 
-})(window, nu);
+})(this, nu);

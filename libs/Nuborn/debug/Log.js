@@ -1,4 +1,4 @@
-(function ($, nu, window, undefined) {
+(function (window, $, nu, window, undefined) {
 
 	/**
 	 * @class nu.debug.Log
@@ -286,4 +286,4 @@
 	//	nu.debug.Log.error(message);
 	// }
 
-})(jQuery, nu, window);
+})(this, jQuery, nu);

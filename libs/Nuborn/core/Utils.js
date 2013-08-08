@@ -1,4 +1,4 @@
-(function ($, nu, undefined) {
+(function (window, $, nu, undefined) {
 
 	/**
 	 * @class nu.Utils
@@ -170,4 +170,4 @@
 	// 	};
 	// }
 
-})(jQuery, nu)
+})(this, jQuery, nu)

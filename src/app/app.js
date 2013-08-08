@@ -1,4 +1,4 @@
-(function ($, nu, utils, log, templates, undefined) {
+(function (window, $, nu, utils, log, templates, undefined) {
 
 	/**
 	 * @class app
@@ -29,7 +29,8 @@
 				debug && log.i("Used as a Web App");
 				app.updateCache();
 				app.init();
-			} else {
+			}
+			else {
 				debug && log.i("Used as a Hybrid App");
 				$.mobile.defaultHomeScroll = 0;
 				document.addEventListener("deviceready", app.init, false);
@@ -55,7 +56,8 @@
 
 			if (utils.isOldAndroid()) {
 				$.mobile.defaultPageTransition = "none";
-			} else {
+			}
+			else {
 				$.mobile.defaultPageTransition = "slide";
 			}
 
@@ -97,4 +99,4 @@
 	// When the Document is Ready, call app.ready
 	$(app.ready);
 
-})(jQuery, nu, nu.Utils, nu.debug.Log, templates);
+})(this, jQuery, nu, nu.Utils, nu.debug.Log, templates);
