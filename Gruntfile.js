@@ -25,11 +25,11 @@ module.exports = function (grunt) {
 			},
 			ios: {
 				folder: "build/ios/www",
-				active: true
+				active: false
 			},
 			web: {
 				folder: "build/web",
-				active: false
+				active: true
 			}
 		},
 
@@ -272,7 +272,7 @@ module.exports = function (grunt) {
 		/**
 		 * Static resources common to all platforms.
 		 */
-		hierarchicalStatics: ["fonts/*"],
+		hierarchicalStatics: ["fonts/**"],
 		flattenedStatics: [],
 
 		/**
@@ -428,7 +428,11 @@ module.exports = function (grunt) {
 		 * Livereload: https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
 		 */
 
-		appcache: ["**", "!*.appcache", "!img", "!css", "!fonts", "!js"],
+		/**
+		 * Unfortunately, for now, grunt manifest doesn't handle grunt files mechanism.
+		 * So we are stick with manually excluding folders.
+		 */
+		appcache: ["**/*.css", "**/.js", "**/*.jpg", "**/*.png", "**/*.html", "**/*.otf", "**/*.ttf", "!*.appcache"],
 
 		/**
 		 * Generate a manifest file (HTML5 cache).
@@ -445,25 +449,28 @@ module.exports = function (grunt) {
 				options: {
 					basePath: "<%= platforms.android.folder %>"
 				},
-				files: {
-					"<%= platforms.android.folder %>/manifest.appcache": ["<%= appcache %>"]
-				}
+				files: [{
+					dest: "<%= platforms.android.folder %>/manifest.appcache",
+					src: ["<%= appcache %>"]
+				}]
 			},
 			ios: {
 				options: {
 					basePath: "<%= platforms.ios.folder %>"
 				},
-				files: {
-					"<%= platforms.ios.folder %>/manifest.appcache": ["<%= appcache %>"]
-				}
+				files: [{
+					dest: "<%= platforms.ios.folder %>/manifest.appcache",
+					src: ["<%= appcache %>"]
+				}]
 			},
 			web: {
 				options: {
 					basePath: "<%= platforms.web.folder %>"
 				},
-				files: {
-					"<%= platforms.web.folder %>/manifest.appcache": ["<%= appcache %>"]
-				}
+				files: [{
+					dest: "<%= platforms.web.folder %>/manifest.appcache",
+					src: ["<%= appcache %>"]
+				}]
 			}
 		}
 
@@ -533,7 +540,8 @@ module.exports = function (grunt) {
 			if (isGlobalBuild) {
 				// executing all tasks for the current platforms
 				grunt.task.run(platform);
-			} else {
+			}
+			else {
 				// getting task and target configuration
 				var conf = grunt.config.get(task + "." + platform);
 
