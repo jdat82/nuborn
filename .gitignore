@@ -16,6 +16,4 @@ build/android/out/
 
 # ios
 build/ios/www/
-build/ios/**xcodeproj
-build/ios/**/*xcodeproj
 build/ios/build/
