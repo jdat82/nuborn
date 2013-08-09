@@ -487,8 +487,8 @@ module.exports = function (grunt) {
 	/**
 	 * Registering one alias per target to allow compiling only one target
 	 */
-	grunt.registerTask("android", ["clean:android", "hogan:android", "nuglify:android", "nsass:android", "htmlmin:android", "imagemin:android", "imageEmbed:android", "copy:android", "manifest:android"]);
-	grunt.registerTask("ios", ["clean:ios", "hogan:ios", "nuglify:ios", "nsass:ios", "htmlmin:ios", "imagemin:ios", "imageEmbed:ios", "copy:ios", "manifest:ios"]);
+	grunt.registerTask("android", ["clean:android", "hogan:android", "nuglify:android", "nsass:android", "htmlmin:android", "imagemin:android", "imageEmbed:android", "copy:android"]);
+	grunt.registerTask("ios", ["clean:ios", "hogan:ios", "nuglify:ios", "nsass:ios", "htmlmin:ios", "imagemin:ios", "imageEmbed:ios", "copy:ios"]);
 	grunt.registerTask("web", ["clean:web", "hogan:web", "nuglify:web", "nsass:web", "htmlmin:web", "imagemin:web", "imageEmbed:web", "copy:web", "manifest:web"]);
 
 	/**
@@ -522,8 +522,7 @@ module.exports = function (grunt) {
 			if (isGlobalBuild) {
 				// executing all tasks for the current platforms
 				grunt.task.run(platform);
-			}
-			else {
+			} else {
 				// getting task and target configuration
 				var conf = grunt.config.get(task + "." + platform);
 

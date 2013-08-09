@@ -1,6 +1,18 @@
 /**
  * @provide normalize
  */
+
+/*
+ * The page should take 100% of the viewport even if smaller.
+ */
 body {
 	min-height: 100%;
+}
+
+/*
+ * Provoke a layer creation in GPU algorithm and hardware acceleration so. 
+ * We want each page to have its own layer. 
+ */
+[data-role=page] {
+    webkit-transform: translateZ(0);
 }
