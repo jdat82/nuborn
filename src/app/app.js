@@ -49,7 +49,8 @@
 				 * Application splashscreen instance.
 				 */
 				app.splash = new nu.widgets.SplashScreen({
-					id: "splash"
+					id: "splash",
+					title: "NUBORN"
 				});
 				app.splash.show();
 			}

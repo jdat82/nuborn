@@ -23,14 +23,7 @@
 				this.settings.id = nu.widgets.SplashScreen.DEFAULT_ID;
 			}
 
-			// if url is provided, initialize with url
-			if (this.settings.url) {
-				this.initWithUrl();
-			}
-			// else, initialize with id
-			else {
-				this.initWithId();
-			}
+			this.initWithId();
 		},
 
 		/**
@@ -42,36 +35,6 @@
 
 			// registering the div element as a Class member
 			this.element = element;
-		},
-
-		/**
-		 * Initialize the splashscreen with the url provided in settings.
-		 */
-		initWithUrl: function () {
-			// retrieving the data from the url
-			var promise = $.ajax({
-				async: false,
-				url: this.settings.url
-			});
-			// defining the success callback
-			promise.done(function (data) {
-				// convert the data into jQuery Element
-				var element = $(data);
-				// getting the id
-				var id = element.prop("id");
-				if (id !== "") {
-					this.settings.id = id;
-				}
-				// adding class fullscreen
-				element.addClass("fullscreen");
-				// registering the element as a Class member
-				this.element = element;
-			});
-			// defining th error callback
-			promise.fail(function () {
-				// initialize with id
-				this.initWithId();
-			});
 		},
 
 		/**

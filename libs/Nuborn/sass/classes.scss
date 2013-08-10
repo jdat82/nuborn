@@ -1,6 +1,6 @@
 /**
  * Generic useful css classes.
- * 
+ *
  * @provide classes
  *
  * @require mixins
@@ -24,7 +24,7 @@
  * Raise brightness to 300%.
  */
 .brightness-300pc {
-    -webkit-filter: brightness(300%);   
+    -webkit-filter: brightness(300%);
 }
 
 /**
@@ -116,6 +116,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.cv {
+  display: table-cell;
+  vertical-align: middle;
 }
 
 // les scrollbars ne fonctionnent pas bien dans safari mobile
