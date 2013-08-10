@@ -78,9 +78,12 @@
 				if (appCache.status == appCache.UPDATEREADY) {
 					// new downloaded content available
 					appCache.swapCache();
-					if (confirm('A new version of this site is available. Load it ?')) {
-						window.location.reload();
+					if (!debug) {
+						if (confirm('A new version of this site is available. Load it ?')) {
+							window.location.reload();
+						}
 					}
+					else window.location.reload();
 				}
 			}, false);
 		}

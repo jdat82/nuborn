@@ -1,7 +1,7 @@
 var GruntUtils = require("./GruntUtils");
 
 // --- REVERSE PROXY CONFIGURATION
-// --- Used by the connect task 
+// --- Used by the connect task
 // var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest
 
 /**
@@ -492,6 +492,14 @@ module.exports = function (grunt) {
 	grunt.registerTask("web", ["clean:web", "hogan:web", "nuglify:web", "nsass:web", "htmlmin:web", "imagemin:web", "imageEmbed:web", "copy:web", "manifest:web"]);
 
 	/**
+	 * Alias for hogan and nuglify tasks.
+	 */
+	grunt.registerTask("js", function () {
+		grunt.task.run("hogan");
+		grunt.task.run("nuglify");
+	});
+
+	/**
 	 * Registering a task to launch the web server.
 	 */
 	grunt.registerTask("server", ["configureProxies:web", "connect:web"]);
@@ -522,7 +530,8 @@ module.exports = function (grunt) {
 			if (isGlobalBuild) {
 				// executing all tasks for the current platforms
 				grunt.task.run(platform);
-			} else {
+			}
+			else {
 				// getting task and target configuration
 				var conf = grunt.config.get(task + "." + platform);
 

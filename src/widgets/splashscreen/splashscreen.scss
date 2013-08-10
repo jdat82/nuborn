@@ -1,12 +1,49 @@
 /**
- * @provide splashscreen
- * @require mixins
- */
+* @provide splashscreen
+* @require mixins
+*/
+
+$color: rgba(255,255,255,1);
+
+@include keyframes(fade-in) {
+  from { text-shadow: 0 0 1em $color; }
+  to { text-shadow: 0 0 0 $color; }
+}
+@include keyframes(md) {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@include keyframes(border) {
+  from { box-shadow: 0 0 0 0em $color; }
+  to { box-shadow: 0 0 0 0.1em $color; }
+}
 
 #splash {
-	background-color: #212121;
-	background-position: center;
-	z-index:2000;
-	opacity: 1;
-	text-align: center;
+
+  z-index: 2000;
+  background-color: #212121;
+  color: $color;
+  text-align: center;
+  vertical-align: middle;
+
+  h1 {
+    @include animation(fade-in, 2s);
+    color: transparent;
+    display: inline-block;
+    font: {
+      family: sans-serif;
+      size: 2.5em;
+      weight: bold;
+    }
+    letter-spacing: .2em;
+    position: relative;
+
+    &:first-letter {
+      display: block;
+      box-shadow: 0 0 0 0.1em $color;
+      padding:0  .2em;
+      letter-spacing: 0;
+      margin-right: .2em;
+    }
+  }
 }

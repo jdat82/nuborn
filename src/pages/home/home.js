@@ -274,7 +274,7 @@
 						opacity: 0.2,
 						scale: 0.5
 					}, 0.2, 0.6);
-				}, 1000);
+				}, 2000);
 			}
 			// if the splashscreen is handled natively with iOS
 			else if (utils.isCordova() && utils.isIOS()) {
