@@ -82,37 +82,37 @@
 			this.data.news = {
 				items: [{
 						title: "Le créateur des \"Griffin\" se pointe... dans \"Les Simpson\" !",
-						author: "Jim Robs",
+						author: "",
 						date: "dimanche 12 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/94/34/20558741.jpg"
 					}, {
 						title: "La chaîne américaine ABC commande 12 nouvelles séries",
-						author: "Jim Robs",
+						author: "",
 						date: "samedi 11 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/28/20560689.jpg"
 					}, {
 						title: "La série adaptée de \"SHIELD\" de Marvel est commandée",
-						author: "Jim Robs",
+						author: "",
 						date: "samedi 11 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/95/80/20559549.jpg"
 					}, {
 						title: "\"Nashville\" est renouvelée",
-						author: "Jim Robs",
+						author: "",
 						date: "samedi 11 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/77/20560903.jpg"
 					}, {
 						title: "Matthew Perry est maudit : \"Go On\" est annulée !",
-						author: "Jim Robs",
+						author: "",
 						date: "vendredi 10 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/54/20560816.jpg"
 					}, {
 						title: "Ewan McGregor-Natalie Portman, de \"Star wars\" à \"Jane got a gun\"",
-						author: "Jim Robs",
+						author: "",
 						date: "mardi 7 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/88/93/20556957.jpg"
 					}, {
 						title: "Le final de \"Mentalist\" !",
-						author: "Jim Robs",
+						author: "",
 						date: "lundi 6 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/86/24/20555126.jpg"
 					},
@@ -120,122 +120,122 @@
 					// ************** //
 					{
 						title: "\"Nashville\" est renouvelée",
-						author: "Jim Robs",
+						author: "",
 						date: "samedi 11 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/77/20560903.jpg"
 					}, {
 						title: "Matthew Perry est maudit : \"Go On\" est annulée !",
-						author: "Jim Robs",
+						author: "",
 						date: "vendredi 10 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/54/20560816.jpg"
 					}, {
 						title: "Ewan McGregor-Natalie Portman, de \"Star wars\" à \"Jane got a gun\"",
-						author: "Jim Robs",
+						author: "",
 						date: "mardi 7 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/88/93/20556957.jpg"
 					}, {
 						title: "Le final de \"Mentalist\" !",
-						author: "Jim Robs",
+						author: "",
 						date: "lundi 6 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/86/24/20555126.jpg"
 					}, {
 						title: "\"Nashville\" est renouvelée",
-						author: "Jim Robs",
+						author: "",
 						date: "samedi 11 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/77/20560903.jpg"
 					}, {
 						title: "Matthew Perry est maudit : \"Go On\" est annulée !",
-						author: "Jim Robs",
+						author: "",
 						date: "vendredi 10 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/54/20560816.jpg"
 					}, {
 						title: "Ewan McGregor-Natalie Portman, de \"Star wars\" à \"Jane got a gun\"",
-						author: "Jim Robs",
+						author: "",
 						date: "mardi 7 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/88/93/20556957.jpg"
 					}, {
 						title: "Le final de \"Mentalist\" !",
-						author: "Jim Robs",
+						author: "",
 						date: "lundi 6 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/86/24/20555126.jpg"
 					}, {
 						title: "\"Nashville\" est renouvelée",
-						author: "Jim Robs",
+						author: "",
 						date: "samedi 11 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/77/20560903.jpg"
 					}, {
 						title: "Matthew Perry est maudit : \"Go On\" est annulée !",
-						author: "Jim Robs",
+						author: "",
 						date: "vendredi 10 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/54/20560816.jpg"
 					}, {
 						title: "Ewan McGregor-Natalie Portman, de \"Star wars\" à \"Jane got a gun\"",
-						author: "Jim Robs",
+						author: "",
 						date: "mardi 7 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/88/93/20556957.jpg"
 					}, {
 						title: "Le final de \"Mentalist\" !",
-						author: "Jim Robs",
+						author: "",
 						date: "lundi 6 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/86/24/20555126.jpg"
 					}, {
 						title: "\"Nashville\" est renouvelée",
-						author: "Jim Robs",
+						author: "",
 						date: "samedi 11 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/77/20560903.jpg"
 					}, {
 						title: "Matthew Perry est maudit : \"Go On\" est annulée !",
-						author: "Jim Robs",
+						author: "",
 						date: "vendredi 10 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/54/20560816.jpg"
 					}, {
 						title: "Ewan McGregor-Natalie Portman, de \"Star wars\" à \"Jane got a gun\"",
-						author: "Jim Robs",
+						author: "",
 						date: "mardi 7 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/88/93/20556957.jpg"
 					}, {
 						title: "Le final de \"Mentalist\" !",
-						author: "Jim Robs",
+						author: "",
 						date: "lundi 6 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/86/24/20555126.jpg"
 					}, {
 						title: "\"Nashville\" est renouvelée",
-						author: "Jim Robs",
+						author: "",
 						date: "samedi 11 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/77/20560903.jpg"
 					}, {
 						title: "Matthew Perry est maudit : \"Go On\" est annulée !",
-						author: "Jim Robs",
+						author: "",
 						date: "vendredi 10 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/54/20560816.jpg"
 					}, {
 						title: "Ewan McGregor-Natalie Portman, de \"Star wars\" à \"Jane got a gun\"",
-						author: "Jim Robs",
+						author: "",
 						date: "mardi 7 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/88/93/20556957.jpg"
 					}, {
 						title: "Le final de \"Mentalist\" !",
-						author: "Jim Robs",
+						author: "",
 						date: "lundi 6 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/86/24/20555126.jpg"
 					}, {
 						title: "\"Nashville\" est renouvelée",
-						author: "Jim Robs",
+						author: "",
 						date: "samedi 11 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/77/20560903.jpg"
 					}, {
 						title: "Matthew Perry est maudit : \"Go On\" est annulée !",
-						author: "Jim Robs",
+						author: "",
 						date: "vendredi 10 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/54/20560816.jpg"
 					}, {
 						title: "Ewan McGregor-Natalie Portman, de \"Star wars\" à \"Jane got a gun\"",
-						author: "Jim Robs",
+						author: "",
 						date: "mardi 7 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/88/93/20556957.jpg"
 					}, {
 						title: "Le final de \"Mentalist\" !",
-						author: "Jim Robs",
+						author: "",
 						date: "lundi 6 mai",
 						image: "http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/86/24/20555126.jpg"
 					}
