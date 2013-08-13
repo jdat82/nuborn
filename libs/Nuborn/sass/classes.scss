@@ -118,10 +118,33 @@
   white-space: nowrap;
 }
 
-.cv {
-  display: table-cell;
-  vertical-align: middle;
+/*
+ * ABSOLUTE CENTERING. 
+ */
+
+// to be put on the block container if you want it to be centered in the viewport (not the document)
+.absolute-center-container {
+  position: relative;
 }
+
+// to be put on the block to center.
+// Don't forget to set a height on the block.
+.absolute-center {
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
+// to be put on the block if you want it to be centered in the viewport (not the document)
+.absolute-center.is-fixed {
+  position: fixed;
+  z-index: 3000;
+}
+
+/*
+ * END ABSOLUTE CENTERING. 
+ */
 
 // les scrollbars ne fonctionnent pas bien dans safari mobile
 // pour qu'elles n'apparaissent que s'il faut scroller, on ne les affiche

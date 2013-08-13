@@ -26,6 +26,10 @@ $color: rgba(255,255,255,1);
   text-align: center;
   vertical-align: middle;
 
+  & + div {
+    height: 7rem;
+  }
+
   h1 {
     @include animation(fade-in, 2s);
     color: transparent;

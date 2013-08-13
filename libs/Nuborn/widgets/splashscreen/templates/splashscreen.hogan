@@ -1,3 +1,5 @@
-<div id="{{id}}" class="fullscreen">
-    <h1>{{title}}</h1>
+<div id="{{id}}" class="fullscreen absolute-center-container">
+    <div class="absolute-center is-fixed">
+        <h1>{{title}}</h1>
+    </div>
 </div>
