@@ -15,24 +15,10 @@
 		 * @param  {Object} settings
 		 */
 		init: function (settings) {
-			// registering settings as a Class member
 			this.settings = settings ||  {};
-
-			// if the id is not provided, use the default id
-			if (!this.settings.id) {
-				this.settings.id = nu.widgets.SplashScreen.DEFAULT_ID;
-			}
-
-			this.initWithId();
-		},
-
-		/**
-		 * Initialize the splashscreen with the id provided in settings.
-		 */
-		initWithId: function () {
+			this.settings.id = "splash";
 			// inflates the splashscreen
-			var element = $(templates.splashscreen.render(this.settings));
-
+			var element = $(templates.SplashScreen.render(this.settings));
 			// registering the div element as a Class member
 			this.element = element;
 		},
@@ -73,12 +59,5 @@
 			tl.play()
 		}
 	});
-
-	/**
-	 * Defining the splashscreen default id constant.
-	 * @static
-	 * @type {String}
-	 */
-	nu.widgets.SplashScreen.DEFAULT_ID = "splashscreen";
 
 })(jQuery, nu)

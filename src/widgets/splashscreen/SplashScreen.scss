@@ -12,16 +12,8 @@ $color: rgba(255,255,255,1);
 
 #splash {
 
-  z-index: 2000;
-  background-color: #212121;
-  color: $color;
-  text-align: center;
-  vertical-align: middle;
-  height: 100%;
-
-  & > div {
-    height: 7rem;
-  }
+  background-color: $darkBackground;
+  color: $textColor;
 
   h1 {
     @include animation(fade-in, 2s);
@@ -29,7 +21,7 @@ $color: rgba(255,255,255,1);
     display: inline-block;
     font: {
       family: sans-serif;
-      size: 2.5em;
+      size: 2.5rem;
       weight: bold;
     }
     letter-spacing: .2em;
