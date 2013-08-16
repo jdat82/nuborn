@@ -9,14 +9,6 @@ $color: rgba(255,255,255,1);
   from { text-shadow: 0 0 1em $color; }
   to { text-shadow: 0 0 0 $color; }
 }
-@include keyframes(md) {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@include keyframes(border) {
-  from { box-shadow: 0 0 0 0em $color; }
-  to { box-shadow: 0 0 0 0.1em $color; }
-}
 
 #splash {
 
@@ -25,8 +17,9 @@ $color: rgba(255,255,255,1);
   color: $color;
   text-align: center;
   vertical-align: middle;
+  height: 100%;
 
-  & + div {
+  & > div {
     height: 7rem;
   }
 

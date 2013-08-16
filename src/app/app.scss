@@ -5,11 +5,11 @@
  */
 
 // Typography "Roboto"
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,900);
+// @import url(http://fonts.googleapis.com/css?family=Roboto:400,300,900);
 
 // Typography "Roboto Condensed".
 // @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700);
- 
+
 // Typography "Lato"
 // @import url(http://fonts.googleapis.com/css?family=Lato:400,900);
 
@@ -28,9 +28,9 @@ $background : #424242;
  */
 $background-dark : #212121;
 
-html * { 
+html * {
 	font-family: "Roboto";
-	
+
 	-webkit-user-select: none;
 	-moz-user-select: -moz-none;
 	-ms-user-select: none;
@@ -64,7 +64,7 @@ li{
 	border-color: #111;
 	border-bottom: 1px solid;
 	@include linear-gradient($background, $background-dark);
-	
+
 	.title{
 		color: white;
 		line-height: 44px;
