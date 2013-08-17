@@ -11,21 +11,35 @@ $color: rgba(255,255,255,1);
 }
 
 #splash {
+  z-index: 999;
+  text-align: center;
+  vertical-align: middle;
+  // height: 100%;
 
   background-color: $darkBackground;
   color: $textColor;
 
+  & > div {
+    height: 7rem;
+  }
+}
+
+.textshadow #splash {
+
+  // Dr House effect
   h1 {
+
     @include animation(fade-in, 2s);
     color: transparent;
     display: inline-block;
+    letter-spacing: .2em;
+    position: relative;
+
     font: {
       family: sans-serif;
       size: 2.5rem;
       weight: bold;
     }
-    letter-spacing: .2em;
-    position: relative;
 
     &:first-letter {
       display: block;
@@ -34,5 +48,17 @@ $color: rgba(255,255,255,1);
       letter-spacing: 0;
       margin-right: .2em;
     }
+
+    &::after {
+      content: attr(data-content);
+    }
+
   }
+}
+
+// fallback if browser doesn't support text shadows
+:not(.textshadow) body #splash h1 {
+    background-image: url("../img/Nuborn-House.png");
+    height: 100%;
+    margin: 0;
 }

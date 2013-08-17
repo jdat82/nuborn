@@ -43,6 +43,7 @@ module.exports = function (grunt) {
 			"libs/Gsap/TweenLite.min.js", /** Animations */
 			"libs/Gsap/TimelineLite.min.js", /** Animations */
 			"libs/jQuery/jquery.min.js", /** jQuery is required **/
+			"libs/Modernizr/*.js",
 			"src/app/mobileinit.js", /** jQuery Mobile pre-initialization */
 			"libs/jQueryMobile/jquery.mobile.custom*.js", /** jQuery Mobile is required **/
 			"libs/SwipeJS/*.js",
@@ -358,7 +359,7 @@ module.exports = function (grunt) {
 			},
 			scss: {
 				files: "<%= css %>",
-				tasks: ["nsass", "imageEmbed", "manifest"]
+				tasks: ["nsass", "manifest"]
 			},
 			js: {
 				files: "<%= js %>",
@@ -431,8 +432,20 @@ module.exports = function (grunt) {
 		/**
 		 * Unfortunately, for now, grunt manifest doesn't handle grunt files mechanism.
 		 * So we are stick with manually excluding folders.
+		 * I choose to not add images as they are already inlined in css. It would be not
+		 * genuine to have them downloaded and put in cache twice.
+		 * Of course, if some images are not used in css, it should be wise to add them
+		 * specifically in the manifest.
 		 */
-		appcache: ["**/*.css", "**/.js", "**/*.jpg", "**/*.png", "**/*.html", "**/*.otf", "**/*.ttf", "!*.appcache"],
+		appcache: [
+			"css/*.css",
+			"js/*.js",
+			"*.html",
+			"fonts/*.otf",
+			"fonts/*.ttf",
+			"img/*",
+			"!*.appcache"
+		],
 
 		/**
 		 * Generate a manifest file (HTML5 cache).
@@ -481,15 +494,15 @@ module.exports = function (grunt) {
 	/**
 	 * Registering Default Task
 	 */
-	grunt.registerTask("default", ["clean", "hogan", "nuglify", "nsass", "htmlmin", "imagemin", "imageEmbed", "copy", "manifest"]);
+	grunt.registerTask("default", ["clean", "hogan", "nuglify", "nsass", "htmlmin", "imagemin", "copy", "manifest"]);
 
 
 	/**
 	 * Registering one alias per target to allow compiling only one target
 	 */
-	grunt.registerTask("android", ["clean:android", "hogan:android", "nuglify:android", "nsass:android", "htmlmin:android", "imagemin:android", "imageEmbed:android", "copy:android"]);
-	grunt.registerTask("ios", ["clean:ios", "hogan:ios", "nuglify:ios", "nsass:ios", "htmlmin:ios", "imagemin:ios", "imageEmbed:ios", "copy:ios"]);
-	grunt.registerTask("web", ["clean:web", "hogan:web", "nuglify:web", "nsass:web", "htmlmin:web", "imagemin:web", "imageEmbed:web", "copy:web", "manifest:web"]);
+	grunt.registerTask("android", ["clean:android", "hogan:android", "nuglify:android", "nsass:android", "htmlmin:android", "imagemin:android", "copy:android"]);
+	grunt.registerTask("ios", ["clean:ios", "hogan:ios", "nuglify:ios", "nsass:ios", "htmlmin:ios", "imagemin:ios", "copy:ios"]);
+	grunt.registerTask("web", ["clean:web", "hogan:web", "nuglify:web", "nsass:web", "htmlmin:web", "imagemin:web", "copy:web", "manifest:web"]);
 
 	/**
 	 * Alias for hogan and nuglify tasks.

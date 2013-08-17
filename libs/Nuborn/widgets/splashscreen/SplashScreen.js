@@ -29,11 +29,8 @@
 		 */
 		show: function () {
 
-			// if a splashscreen with the same id exists, remove it
-			var existing = $("#" + this.settings.id);
-			if (existing.length > 0) {
-				this.element = existing;
-			}
+			// deactivating scroll capacity during splashscreen
+			// nu.Utils.disableScroll();
 
 			// adding the splashscreen at the end of the document body
 			$("body").append(this.element);
@@ -44,8 +41,13 @@
 		 * @param  {Boolean} animated Defines if the transition should be animated
 		 */
 		hide: function (animated) {
+
+			// reactivating scroll capacity
+			// nu.Utils.enableScroll();
+
 			// getting the element member as a local variable
 			var element = this.element;
+
 			// remove the element from the document
 			var period = animated ? 1 : 0
 			var tl = new TimelineLite()
@@ -58,6 +60,7 @@
 			})
 			tl.play()
 		}
+
 	});
 
 })(jQuery, nu)
