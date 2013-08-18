@@ -323,8 +323,8 @@ module.exports = function (grunt) {
 				options: {
 					"builtin-classes": true,
 					"title": "Nuborn documentation",
-					"footer": "IT&L@bs Toulouse - Mobile team",
-					"categories": "docs/categories.json"
+					"footer": "IT&L@bs Toulouse - Mobile team"
+					// "categories": "docs/categories.json"
 					// "tests": true
 				},
 				src: ["src/", "libs/Nuborn/"],
@@ -441,8 +441,7 @@ module.exports = function (grunt) {
 			"css/*.css",
 			"js/*.js",
 			"*.html",
-			"fonts/*.otf",
-			"fonts/*.ttf",
+			"fonts/*",
 			"img/*",
 			"!*.appcache"
 		],
