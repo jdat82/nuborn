@@ -4,8 +4,29 @@
  * @require mixins
  */
 
+ /*************************** TYPOGRAPHY ***************************/
+
 // Typography "Roboto"
 // @import url(http://fonts.googleapis.com/css?family=Roboto:400,300,900);
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Roboto Light'), local('Roboto-Light'), url('../fonts/Hgo13k-tfSpn0qi1SFdUfbO3LdcAZYWl9Si6vvxL-qU.woff') format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto Regular'), local('Roboto-Regular'), url('../fonts/CrYjSnGjrRCn0pd9VQsnFOvvDin1pK8aKteLpeZ5c0A.woff') format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 900;
+  src: local('Roboto Black'), local('Roboto-Black'), url('../fonts/mnpfi9pxYH-Go5UiibESIrO3LdcAZYWl9Si6vvxL-qU.woff') format('woff');
+}
 
 // Typography "Roboto Condensed".
 // @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700);
@@ -15,6 +36,10 @@
 
 // Typography "Droid Serif"
 // @import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,700);
+
+
+
+/*************************** DEFAULTS ***************************/
 
 /**
  * @var
@@ -76,7 +101,7 @@ li{
 		line-height: 44px;
 		text-align: center;
 		font-size: 1.3rem;
-		font-weight: 300;
+		font-weight: 900;
 	}
 
 	.menu-button{
