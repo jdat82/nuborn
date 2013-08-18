@@ -269,11 +269,8 @@
 					app.splash.hide(true);
 					// remove reference from dom for garbage collector (not needed anymore)
 					delete app.splash;
-					// enjoy true magic
-					new TimelineLite().staggerFrom(self.html.news.find(".thumbnail"), 0.3, {
-						opacity: 0.2,
-						scale: 0.5
-					}, 0.2, 0.6);
+					// thumbnails little effect for fun
+					self.startThumbnailsAnimation();
 				}, 2000);
 			}
 			// if the splashscreen is handled natively with iOS
@@ -281,6 +278,44 @@
 				// hide it immediately via cordova
 				navigator.splashscreen.hide();
 			}
+		},
+
+		/**
+		 * Little animation on thumbnails.
+		 */
+		startThumbnailsAnimation: function () {
+
+			// creating the timeline
+			var tl = new TimelineLite();
+
+			// pausing animation on scroll
+			var onScrollStartPauseTimeline = function () {
+				tl.pause();
+			};
+			$(document).on("scrollstart", onScrollStartPauseTimeline);
+
+			// resuming animation on scroll end
+			var onScrollStopResumeTimeline = function () {
+				tl.resume();
+			};
+			$(document).on("scrollstop", onScrollStopResumeTimeline);
+
+			// removing listeners on events scrollXXX when timeline has completed
+			var onCompleteStopScrollEventsListening = function () {
+				$(document).off("scrollstart", onScrollStartPauseTimeline);
+				$(document).off("scrollstop", onScrollStopResumeTimeline);
+			};
+
+			// starting animation
+			tl.staggerFrom(
+				this.html.news.find(".thumbnail"),
+				0.3, {
+					opacity: 0.2,
+					scale: 0.5
+				},
+				0.2,
+				1,
+				onCompleteStopScrollEventsListening);
 		},
 
 		/**
