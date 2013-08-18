@@ -1,0 +1,8 @@
+<snippet>
+    <content><![CDATA[
+/*************************** ${1} ***************************/
+]]></content>
+    <tabTrigger>section</tabTrigger>
+    <description>Comment section header</description>
+    <scope>source.css, source.scss, source.js</scope>
+</snippet>
