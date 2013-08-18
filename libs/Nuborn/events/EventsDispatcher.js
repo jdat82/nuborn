@@ -1,33 +1,36 @@
 (function ($, nu, undefined) {
 
 	/**
-	 * @class nu.EventsDispatcher
+	 * @class nu.events.EventsDispatcher
+	 * @singleton
 	 *
 	 * Simple events manager to dispatch and listen to custom events.
 	 * All events are attached to the same object the sake of simplicity.
 	 * Behind the scenes, jQuery events mechanism are used.
 	 *
-	 * {@link nu#events nu.events is an instance of this class}
+	 * To get an instance, simply do: nu.events.EventsDispatcher.get()
 	 *
-	 * @provide nu.events
+	 * @provide nu.events.EventsDispatcher
 	 *
-	 * @require nu
+	 * @require nu.events
 	 */
-	nu.EventsDispatcher = Object.subClass({
+	nu.events.EventsDispatcher = Object.subClass({
 		init: function () {
-			this.emitter = $(this)
+			this.emitter = $(this);
 		},
 		/**
 		 * Emit an event <name> having the given <target> and <data> as properties.
 		 * @param {String} name
 		 * @param {Object} target
+		 *	Event will appears to be triggered by this target
 		 * @param {Mixed} data
+		 *	Events data
 		 */
 		emit: function (name, target, data) {
-			var event = $.Event(name, data)
+			var event = $.Event(name, data);
 			if (target)
-				event.target = target
-			this.emitter.trigger(event)
+				event.target = target;
+			this.emitter.trigger(event);
 		},
 		/**
 		 * Register <callback> for events of type <name>
@@ -35,7 +38,7 @@
 		 * @param {Function} callback
 		 */
 		on: function (name, callback) {
-			this.emitter.on(name, callback)
+			this.emitter.on(name, callback);
 		},
 		/**
 		 * Unregister <callback> for events of type <name>
@@ -44,17 +47,24 @@
 		 */
 		off: function (name, callback) {
 			if (callback)
-				this.emitter.off(name, callback)
+				this.emitter.off(name, callback);
 			else
-				this.emitter.off(name)
+				this.emitter.off(name);
 		}
 	})
 
 	/**
-	 * @property {nu.EventsDispatcher} events
-	 * @member nu
-	 * Instance of the events dispatcher.
+	 * Gets the shared instance of EventsDispatcher class.
+	 * @return {nu.events.EventsDispatcher} The shared instance of EventsDispatcher
+	 *
+	 * @static
+	 * @method get
 	 */
-	nu.events = new nu.EventsDispatcher()
+	nu.events.EventsDispatcher.get = function () {
+		if (!nu.events.EventsDispatcher.SINGLETON_INSTANCE) {
+			nu.events.EventsDispatcher.SINGLETON_INSTANCE = new nu.events.EventsDispatcher();
+		}
+		return nu.events.EventsDispatcher.SINGLETON_INSTANCE;
+	};
 
 })(jQuery, nu)
