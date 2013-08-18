@@ -1,8 +1,6 @@
 (function (nu) {
 
 	/**
-	 * @class nu.widgets
-	 * @singleton
 	 * Widgets namespace.
 	 *
 	 * @provide nu.widgets

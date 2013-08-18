@@ -1,8 +1,6 @@
 (function (nu) {
 
 	/**
-	 * @class nu.widgets.button
-	 * @singleton
 	 * Buttons namespace.
 	 *
 	 * @provide nu.widgets.button

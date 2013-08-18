@@ -1,8 +1,6 @@
 (function (window, nu) {
 
 	/**
-	 * @class nu.debug
-	 * @singleton
 	 * Debug namespace.
 	 *
 	 * @provide nu.debug

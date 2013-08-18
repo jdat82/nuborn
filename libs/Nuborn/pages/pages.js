@@ -1,8 +1,6 @@
-(function (nu) {
+(function (window, nu) {
 
 	/**
-	 * @class nu.pages
-	 * @singleton
 	 * Pages namespace.
 	 *
 	 * @provide nu.pages
@@ -11,4 +9,4 @@
 	 */
 	nu.pages = {};
 
-})(nu);
+})(this, nu);
