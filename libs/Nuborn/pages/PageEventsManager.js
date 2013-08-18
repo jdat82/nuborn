@@ -1,7 +1,8 @@
-(function ($, nu, undefined) {
+(function ($, nu, log, undefined) {
 
 	/**
 	 * @class nu.pages.PageEventsManager
+	 * @singleton
 	 *
 	 * Page events manager Class. <br/>
 	 * Used to dispatch jQuery Mobile page events.
@@ -94,6 +95,22 @@
 			var page = event.currentTarget;
 			// getting the page handler
 			return this.getPageHandler(page.id);
+		},
+
+		/**
+		 * Load first page.
+		 * @param {String} defaultPageId Default page ID to use if no ID in current URL.
+		 */
+		loadFirstPage: function (defaultPageId) {
+
+			// check url
+			// var urlParams = nu.Utils.fillUrlParams();
+			// log.i(urlParams);
+
+			var pageHandler = this.getPageHandler(defaultPageId);
+			if (pageHandler) {
+				pageHandler.navigate();
+			}
 		},
 
 		/**
@@ -198,6 +215,10 @@
 			if (!pageHandler) {
 				return;
 			}
+
+			var page = event.currentTarget;
+
+			data = nu.Utils.fillUrlParams(page, data);
 
 			// dispatching the event to current active page handler
 			pageHandler.pageBeforeShow(event, data);
@@ -308,15 +329,17 @@
 	});
 
 	/**
-	 * Gets the shared instance of Page Events Manager
+	 * Gets the shared instance of PageEventsManager class.
 	 * @return {nu.pages.PageEventsManager} The shared instance of Page Events Manager
+	 *
 	 * @static
+	 * @method get
 	 */
-	nu.pages.PageEventsManager.getInstance = function () {
+	nu.pages.PageEventsManager.get = function () {
 		if (!nu.pages.PageEventsManager.SINGLETON_INSTANCE) {
 			nu.pages.PageEventsManager.SINGLETON_INSTANCE = new nu.pages.PageEventsManager();
 		}
 		return nu.pages.PageEventsManager.SINGLETON_INSTANCE;
 	};
 
-})(jQuery, nu)
+})(jQuery, nu, nu.debug.Log)

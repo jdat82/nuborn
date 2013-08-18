@@ -154,6 +154,50 @@
 		$(document).off("touchmove", nu.Utils.blockEvent);
 	};
 
+	nu.Utils.getUrlParams = function (query) {
+
+		var result = {},
+			nvPairs = ((query || "").replace(/^\?/, "").split(/&/)),
+			i, pair, n, v;
+
+		for (i = 0; i < nvPairs.length; i++) {
+			var pstr = nvPairs[i];
+			if (pstr) {
+				pair = pstr.split(/=/);
+				n = pair[0];
+				v = pair[1];
+				if (result[n] === undefined) {
+					result[n] = v;
+				}
+				else {
+					if (typeof result[n] !== "object") {
+						result[n] = [result[n]];
+					}
+					result[n].push(v);
+				}
+			}
+		}
+
+		return result;
+	};
+
+	/**
+	 * Read params from url and fill them in JQM data object.
+	 */
+	nu.Utils.fillUrlParams = function (page, data) {
+
+		var u = $.mobile.path.parseUrl(page.baseURI);
+		if (u.search) {
+			if (!data.options) {
+				data.options = {};
+			}
+			if (!data.options.dataUrl) {
+				data.options.dataUrl = u.hrefNoSearch;
+			}
+			data.options.pageData = nu.Utils.getUrlParams(u.search);
+		}
+	};
+
 	// handle old browsers when JSON object is missing
 	// if(!JSON || !JSON.stringify || !JSON.parse){
 	// 	// creating JSON object

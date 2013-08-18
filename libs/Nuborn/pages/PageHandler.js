@@ -24,8 +24,8 @@
 			// Data : data of the page
 			this.data = {};
 
-			// Regitsering 
-			nu.pages.PageEventsManager.getInstance().registerPageHandler(this);
+			// Regitsering
+			nu.pages.PageEventsManager.get().registerPageHandler(this);
 		},
 
 		/**
@@ -206,25 +206,33 @@
 		 */
 		navigate: function (options) {
 
-			if (!this.settings) throw "invalid page handler"
+			if (!this.settings) throw "invalid page handler";
 
-			var pageId = this.settings.id
-			var pageUrl = this.settings.url
+			var pageId = this.settings.id;
+			var pageUrl = this.settings.url;
 
 			if (pageId && templates[pageId]) {
-				$(templates[pageId].render()).appendTo("body")
-				debug && log.i("navigating to " + pageId)
-				$.mobile.changePage("#" + pageId, options)
-				return true
+				// at least, we add the page to the DOM
+				$(templates[pageId].render()).appendTo("body");
+				// plus if JQM is initialized, we navigate to it
+				if (app.isJqmInitialized) {
+					debug && log.i("navigating to " + pageId + " page");
+					$.mobile.changePage("#" + pageId, options);
+				}
+				// else we do nothing waiting for $.mobile.initializePage to be called
+				else {
+					debug && log.i("loading " + pageId + " page");
+				}
+				return true;
 			}
 
 			if (pageUrl) {
-				debug && log.i("navigating to " + pageUrl)
-				$.mobile.changePage(pageUrl, options)
-				return true
+				debug && log.i("navigating to " + pageUrl);
+				$.mobile.changePage(pageUrl, options);
+				return true;
 			}
 
-			throw "This page handler has neither a valid page id nor a valid url"
+			throw "This page handler has neither a valid page id nor a valid url";
 		}
 
 	});

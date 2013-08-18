@@ -61,7 +61,13 @@
 				$.mobile.defaultPageTransition = "slide";
 			}
 
-			insertHomePage();
+			// loading in DOM first page app
+			nu.pages.PageEventsManager.get().loadFirstPage("home");
+
+			// only simple way to know if JQM is started or not
+			app.isJqmInitialized = true;
+
+			// starting JQM pages enhancement mechanism
 			$.mobile.initializePage();
 		},
 
@@ -90,16 +96,7 @@
 
 	};
 
-	// Load the page home.html and insert it to the body
-
-	function insertHomePage() {
-		// load the html of the home page
-		// we don't use the go function has it is the first page for JQM after its initialization
-		// and it will not work
-		$(templates.home.render()).appendTo("body");
-	}
-
-	// When the Document is Ready, call app.ready
+	// when the Document is Ready, call app.ready
 	$(app.ready);
 
 })(this, jQuery, nu, nu.Utils, nu.debug.Log, templates);
