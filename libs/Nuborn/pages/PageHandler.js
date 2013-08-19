@@ -39,10 +39,10 @@
 			var page = event.currentTarget;
 			this.html.page = $(page);
 
-			// inserting wordings on current page
+			// TODO inserting wordings on current page
 			// $.it.wordings.update(page);
 
-			// using right image resolution depending on device
+			// TODO using right image resolution depending on device
 			// $.it.rimages.update(page);
 		},
 
@@ -202,9 +202,10 @@
 		 * Else, if the page handler has a url, we use that instead.
 		 * Else error.
 		 * @param {Object} options [jQuery Mobile #changePage options][1]
+		 * @param {Object} data template placeholders values
 		 * [1]: http://api.jquerymobile.com/jQuery.mobile.changePage/
 		 */
-		navigate: function (options) {
+		navigate: function (options, data) {
 
 			if (!this.settings) throw "invalid page handler";
 
@@ -212,8 +213,10 @@
 			var pageUrl = this.settings.url;
 
 			if (pageId && templates[pageId]) {
-				// at least, we add the page to the DOM
-				$(templates[pageId].render()).appendTo("body");
+				if (document.getElementById(pageId) === null) {
+					// at least, we add the page to the DOM
+					$(templates[pageId].render(data)).appendTo("body");
+				}
 				// plus if JQM is initialized, we navigate to it
 				if (app.isJqmInitialized) {
 					debug && log.i("navigating to " + pageId + " page");

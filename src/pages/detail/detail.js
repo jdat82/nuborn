@@ -12,7 +12,7 @@
 	 *
 	 * @require app
 	 */
-	app.pages = app.pages || {}
+	app.pages = app.pages || {};
 	app.pages.DetailPageHandler = nu.pages.PageHandler.subClass({
 
 		/**
@@ -23,13 +23,13 @@
 			this._super({
 				id: "detail",
 				url: "detail.html"
-			})
+			});
 		},
 
 
 		createHtmlElements: function () {
 			// getting a local reference of the back button
-			this.html.backButton = $("#detail .back-button")
+			this.html.backButton = $("#detail .back-button");
 		},
 
 
@@ -38,39 +38,41 @@
 		 * @inheritdoc
 		 */
 		pageBeforeShow: function (event, data) {
-			this.prepareBackButton()
+			this._super(event, data);
+			this.prepareBackButton();
 		},
 
 
 		prepareBackButton: function () {
 			// when touch start, go to active state
-			nu.widgets.button.Utils.enableUniversalPressMode(this.html.backButton)
+			nu.widgets.button.Utils.enableUniversalPressMode(this.html.backButton);
 
 			// when tap on back button, go back home
-			this.html.backButton.on("tap", this.goBackToHomePage)
+			this.html.backButton.on("tap", this.goBackToHomePage);
 		},
 
 
 		goBackToHomePage: function () {
 			app.home.navigate({
 				reverse: true
-			})
+			});
 			// prevent bubbling
-			return false
+			return false;
 		},
 
 
 		pageHide: function (event, data) {
-			this.html.backButton.off("tap", this.goBackToHomePage)
-			nu.widgets.button.Utils.disableUniversalPressMode(this.html.backButton)
+			this._super(event, data);
+			this.html.backButton.off("tap", this.goBackToHomePage);
+			nu.widgets.button.Utils.disableUniversalPressMode(this.html.backButton);
 		}
-	})
+	});
 
 	/**
 	 * @property {app.pages.DetailPageHandler} detail
 	 * @member app
 	 * Instance of a page handler for the detail page.
 	 */
-	app.detail = new app.pages.DetailPageHandler()
+	app.detail = new app.pages.DetailPageHandler();
 
-})(jQuery, nu, app, templates)
+})(jQuery, nu, app, templates);
