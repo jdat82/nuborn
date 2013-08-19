@@ -323,8 +323,7 @@ module.exports = function (grunt) {
 				options: {
 					"builtin-classes": true,
 					"title": "Nuborn documentation",
-					"footer": "IT&L@bs Toulouse - Mobile team",
-					"categories": "docs/categories.json"
+					"footer": "IT&L@bs Toulouse - Mobile team"
 					// "tests": true
 				},
 				src: ["src/", "libs/Nuborn/"],
@@ -542,7 +541,8 @@ module.exports = function (grunt) {
 			if (isGlobalBuild) {
 				// executing all tasks for the current platforms
 				grunt.task.run(platform);
-			} else {
+			}
+			else {
 				// getting task and target configuration
 				var conf = grunt.config.get(task + "." + platform);
 
