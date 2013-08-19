@@ -22,7 +22,8 @@
 		init: function () {
 			this._super({
 				id: "home",
-				url: "home.html"
+				url: "home.html",
+				singleton: true
 			});
 		},
 
@@ -247,7 +248,10 @@
 		 * @override
 		 * @inheritdoc
 		 */
-		pageBeforeShow: function (event, data) {
+		pageInit: function (event, data) {
+
+			this._super(event, data);
+
 			this.prepareMenu();
 			this.handleMenuButton();
 			this.prepareCarousel();
@@ -259,8 +263,12 @@
 		 * @inheritdoc
 		 */
 		pageShow: function (event, data) {
+
+			this._super(event, data);
+
 			// Initializing Carousel with the Swipe library
 			this.html.carousel.Swipe();
+
 			var self = this;
 			// if the splashscreen is handled from web
 			if (app.splash) {
@@ -270,7 +278,7 @@
 					// remove reference from dom for garbage collector (not needed anymore)
 					delete app.splash;
 					// thumbnails little effect for fun
-					self.startThumbnailsAnimation();
+					// self.startThumbnailsAnimation();
 				}, 2000);
 			}
 			// if the splashscreen is handled natively with iOS
@@ -322,15 +330,16 @@
 		 * @override
 		 * @inheritdoc
 		 */
-		pageHide: function () {
-			// jQuery mobile does not remove the home page the first time
-			if (Object.keys(this.html).length || Object.keys(this.data).length) {
-				debug && log.i("Manually remove the Home Page.");
-				this.deleteHtmlElements();
-				this.deleteDataElements();
-				$("#" + this.settings.id).remove();
-			}
-		},
+		// pageHide: function (event, data) {
+		// this._super(event, data);
+		// jQuery mobile does not remove the home page the first time
+		// if (Object.keys(this.html).length || Object.keys(this.data).length) {
+		// 	debug && log.i("Manually remove the Home Page.");
+		// 	this.deleteHtmlElements();
+		// 	this.deleteDataElements();
+		// 	$("#" + this.settings.id).remove();
+		// }
+		// },
 
 		/**
 		 * Prepare the data to be displayed in the menu panel. <br/>

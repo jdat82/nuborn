@@ -61,7 +61,7 @@
 		},
 
 
-		pageHide: function (event, data) {
+		pageBeforeHide: function (event, data) {
 			this._super(event, data);
 			this.html.backButton.off("tap", this.goBackToHomePage);
 			nu.widgets.button.Utils.disableUniversalPressMode(this.html.backButton);

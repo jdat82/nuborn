@@ -1,4 +1,5 @@
 <div id="home" data-role="page">
+
 	<div id="home-menu" data-role="panel" data-swipe-close="false" data-position-fixed="true"></div>
 
 	<div data-role="header" data-position="fixed" data-tap-toggle="false">

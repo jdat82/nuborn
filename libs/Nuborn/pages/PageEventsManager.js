@@ -42,7 +42,7 @@
 			$(document).on("pageload", pageSelector, $.proxy(this, "pageLoad"));
 			$(document).on("pagebeforehide", pageSelector, $.proxy(this, "pageBeforeHide"));
 			$(document).on("pagebeforeshow", pageSelector, $.proxy(this, "pageBeforeShow"));
-			$(document).on("pageremove", pageSelector, $.proxy(this, "pageRemove"));
+			// $(document).on("pageremove", pageSelector, $.proxy(this, "pageRemove"));
 			$(document).on("pagehide", pageSelector, $.proxy(this, "pageHide"));
 			$(document).on("pageshow", pageSelector, $.proxy(this, "pageShow"));
 		},
@@ -59,7 +59,7 @@
 			$(document).off("pagebeforeload");
 			$(document).off("pagebeforehide");
 			$(document).off("pagebeforeshow");
-			$(document).off("pageremove");
+			// $(document).off("pageremove");
 			$(document).off("pagehide");
 			$(document).off("pageshow");
 		},
@@ -191,17 +191,17 @@
 		 * @param {Object} event
 		 * @param {Object} data
 		 */
-		pageRemove: function (event, data) {
-			// getting page handler from the event
-			var pageHandler = this.getPageHandlerFromEvent(event);
-			// stop process if no page handler has been found
-			if (!pageHandler) {
-				return;
-			}
+		// pageRemove: function (event, data) {
+		// 	// getting page handler from the event
+		// 	var pageHandler = this.getPageHandlerFromEvent(event);
+		// 	// stop process if no page handler has been found
+		// 	if (!pageHandler) {
+		// 		return;
+		// 	}
 
-			// dispatching the event to current active page handler
-			pageHandler.pageRemove(event, data);
-		},
+		// 	// dispatching the event to current active page handler
+		// 	pageHandler.pageRemove(event, data);
+		// },
 
 		/**
 		 * Called for pagebeforeshow event.

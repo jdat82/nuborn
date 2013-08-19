@@ -4,6 +4,10 @@
 	 * @class nu.pages.PageHandler
 	 *
 	 * Handle lifecycle of jQuery Mobile pages.
+	 * Defaults PageHandler instances are prototype which means
+	 * every time you change the page, the page is considered to be removed
+	 * from the DOM. If you use data-dom-cache or any technique to keep the page
+	 * in the DOM, set "singleton" to true in the settings.
 	 *
 	 * @provide nu.pages.PageHandler
 	 *
@@ -18,7 +22,9 @@
 		init: function (settings) {
 			// Declaring class members
 			// Settings : object containing ID and URL or a jQuery Mobile page
-			this.settings = $.extend(true, {}, settings);
+			this.settings = $.extend(true, {
+				singleton: false
+			}, settings);
 			// Html : Object containing jQuery Object referencing to HTML elements of the page
 			this.html = {};
 			// Data : data of the page
@@ -84,11 +90,21 @@
 
 		/**
 		 * Called for the pagehide event.
+		 * Also clean references to HTML elements & Data Objects in prototype mode,
+		 * i.e. when page is removed each time we go away.
 		 * @param  {Object} event
 		 * @param  {Object} data
 		 */
 		pageHide: function (event, data) {
 			debug && log.i("page hide of '" + event.currentTarget.id + "'");
+
+			if (!this.settings.singleton) {
+				// Cleaning references to HTML elements & data objects
+				// as they will be recreated every time we go back to the page
+				this.html.page.remove();
+				this.deleteHtmlElements();
+				this.deleteDataElements();
+			}
 		},
 
 		/**
@@ -147,16 +163,13 @@
 
 		/**
 		 * Called for the pageremove event. <br/>
-		 * Also clean references to HTML elements & Data Objects.
+		 * Also clean references to HTML elements & Data Objects in prototype mode,
+		 * i.e. when page is removed each time we go away.
 		 * @param  {Object} event
 		 * @param  {Object} data
 		 */
 		pageRemove: function (event, data) {
 			debug && log.i("page remove of '" + event.currentTarget.id + "'");
-
-			// Cleaning references to HTML elements & data objects
-			this.deleteHtmlElements();
-			this.deleteDataElements();
 		},
 
 		/**

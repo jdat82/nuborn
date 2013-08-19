@@ -4,4 +4,5 @@ $(document).on("mobileinit", function () {
 	$.mobile.autoInitializePage = false;
 	// $.mobile.touchOverflowEnabled = true; // Deprecated since 1.1
 	$.mobile.phonegapNavigationEnabled = true;
+	// $.mobile.maxScrollForTransition = 1;
 });
