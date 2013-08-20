@@ -1,4 +1,5 @@
-(function (window, $, nu, utils, log, templates, undefined) {
+(function (window, $, nu, utils, log, templates, undefined)
+{
 
 	/**
 	 * @class app
@@ -24,13 +25,17 @@
 		/**
 		 * Callback function called when the DOM is ready.
 		 */
-		ready: function () {
-			if (!utils.isCordova()) {
+		ready: function ()
+		{
+			if (!utils.isCordova())
+			{
 				debug && log.i("Used as a Web App");
 				// first access will initialize the cache manager
 				nu.cache.AppCache.get();
 				app.init();
-			} else {
+			}
+			else
+			{
 				debug && log.i("Used as a Hybrid App");
 				$.mobile.defaultHomeScroll = 0;
 				document.addEventListener("deviceready", app.init, false);
@@ -40,24 +45,20 @@
 		/**
 		 * Initialize the appllication when DOM & Device (PhoneGap only) are ready.
 		 */
-		init: function () {
-
-			if (!utils.isCordova() || !utils.isIOS()) {
+		init: function ()
+		{
+			if (!utils.isCordova() || !utils.isIOS())
+			{
 				/**
 				 * @property {nu.widgets.SplashScreen} splash
 				 * @member app
 				 * Application splashscreen instance.
 				 */
-				app.splash = new nu.widgets.SplashScreen({
+				app.splash = new nu.widgets.SplashScreen(
+				{
 					title: "NUBORN"
 				});
 				app.splash.show();
-			}
-
-			if (utils.isOldAndroid()) {
-				$.mobile.defaultPageTransition = "none";
-			} else {
-				$.mobile.defaultPageTransition = "slide";
 			}
 
 			// loading in DOM first page app
