@@ -11,10 +11,8 @@
 	 *
 	 * @provide app.pages.HomePageHandler
 	 *
-	 * @require app
+	 * @require app.pages
 	 */
-	app.pages = app.pages ||
-	{};
 	app.pages.HomePageHandler = nu.pages.PageHandler.subClass(
 	{
 

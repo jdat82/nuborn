@@ -50,6 +50,8 @@
 			// $(document).on("pageremove", pageSelector, $.proxy(this, "pageRemove"));
 			$(document).on("pagehide", pageSelector, $.proxy(this, "pageHide"));
 			$(document).on("pageshow", pageSelector, $.proxy(this, "pageShow"));
+			$(document).on("swipeleft", pageSelector, $.proxy(this, "swipeLeft"));
+			$(document).on("swiperight", pageSelector, $.proxy(this, "swipeRight"));
 		},
 
 		/**
@@ -357,6 +359,44 @@
 
 			// dispatching the event to current active page handler
 			pageHandler.pageBeforeHide(event, data);
+		},
+
+		/**
+		 * Called for swipeleft event.
+		 * @param {Object} event
+		 * @param {Object} data
+		 */
+		swipeLeft: function (event, data)
+		{
+			// getting page handler from the event
+			var pageHandler = this.getPageHandlerFromEvent(event);
+			// stop process if no page handler has been found
+			if (!pageHandler)
+			{
+				return;
+			}
+
+			// dispatching the event to current active page handler
+			pageHandler.swipeLeft(event, data);
+		},
+
+		/**
+		 * Called for swiperight event.
+		 * @param {Object} event
+		 * @param {Object} data
+		 */
+		swipeRight: function (event, data)
+		{
+			// getting page handler from the event
+			var pageHandler = this.getPageHandlerFromEvent(event);
+			// stop process if no page handler has been found
+			if (!pageHandler)
+			{
+				return;
+			}
+
+			// dispatching the event to current active page handler
+			pageHandler.swipeRight(event, data);
 		}
 
 	});
