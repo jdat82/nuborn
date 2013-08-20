@@ -4,19 +4,23 @@ $(document).on("mobileinit", function ()
 	// do not auto initialize page because of splashscreen
 	$.mobile.autoInitializePage = false;
 
-	// $.mobile.touchOverflowEnabled = true; // Deprecated since 1.1
+	// Deprecated since 1.1
+	// $.mobile.touchOverflowEnabled = true;
 
 	// phonegap friendly ?
 	if (window.cordova)
 		$.mobile.phonegapNavigationEnabled = true;
 
 	// TODO je serais partant pour désactiver les transitions dès qu'on a un peu scrollé
-	// la valeur par défaut me semble bien trop importante
+	// la valeur par défaut me semble bien trop importante (3 fois la taille du viewport)
+	// malheureusement, j'ai peur que cela soit harcodé contrairement à ce qui est dit dans la doc
 	// $.mobile.maxScrollForTransition = 1;
+	// OU ?
+	// $.mobile.getMaxScrollForTransition(1);
 
 	// Don't use fancy transitions on poor capable devices
-    if ($.mobile.gradeA())
-        $.mobile.defaultPageTransition = "slide";
-    else
+	if ($.mobile.gradeA())
+		$.mobile.defaultPageTransition = "slide";
+	else
 		$.mobile.defaultPageTransition = "none";
 });
