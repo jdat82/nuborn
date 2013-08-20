@@ -13,6 +13,7 @@ build/web/
 build/android/assets/www/
 build/android/gen/
 build/android/out/
+build/android/build/
 
 # ios
 build/ios/www/
