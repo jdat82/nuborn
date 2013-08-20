@@ -30,10 +30,10 @@
 					if (!debug)
 					{
 						if (confirm('A new version of this site is available. Load it ?'))
-							nu.Utils.refreshPage();
+							window.location.reload();
 					}
 					else
-						nu.Utils.refreshPage();
+						window.location.reload();
 				}
 			}, false);
 		}

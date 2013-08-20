@@ -1,4 +1,4 @@
-(function (window, $, nu, undefined)
+(function (window, $, nu, log, undefined)
 {
 
 	/**
@@ -230,20 +230,23 @@
 	};
 
 	/**
-	 * Refresh page without any blinking.
+	 * [Warning] Doesn't work if page handler is in prototype mode.
+	 * Refresh a JQM page. If no page id provided, use the current active page.
+	 * @param {String} pageId page ID.
+	 *	Don't provide the character "#" in pageId.
 	 */
-	nu.Utils.refreshPage = function ()
+	nu.Utils.refreshPage = function (pageId)
 	{
-		window.location.reload();
-		// TODO 
-		// $.mobile.changePage(
-		// 	window.location.href,
-		// 	{
-		// 		allowSamePageTransition: true,
-		// 		transition: 'none',
-		// 		showLoadMsg: false,
-		// 		reloadPage: true
-		// 	});
+		pageId = pageId || $.mobile.activePage.attr("id");
+		debug && log.i("Refreshing page: " + pageId);
+		$.mobile.changePage(
+			"#" + pageId,
+			{
+				allowSamePageTransition: true,
+				transition: 'none',
+				showLoadMsg: false,
+				changeHash: false
+			});
 	};
 
 	// handle old browsers when JSON object is missing
@@ -262,4 +265,4 @@
 	// 	};
 	// }
 
-})(this, jQuery, nu)
+})(this, jQuery, nu, nu.debug.Log)
