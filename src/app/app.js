@@ -27,10 +27,10 @@
 		ready: function () {
 			if (!utils.isCordova()) {
 				debug && log.i("Used as a Web App");
-				app.updateCache();
+				// first access will initialize the cache manager
+				nu.cache.AppCache.get();
 				app.init();
-			}
-			else {
+			} else {
 				debug && log.i("Used as a Hybrid App");
 				$.mobile.defaultHomeScroll = 0;
 				document.addEventListener("deviceready", app.init, false);
@@ -56,8 +56,7 @@
 
 			if (utils.isOldAndroid()) {
 				$.mobile.defaultPageTransition = "none";
-			}
-			else {
+			} else {
 				$.mobile.defaultPageTransition = "slide";
 			}
 
@@ -69,29 +68,6 @@
 
 			// starting JQM pages enhancement mechanism
 			$.mobile.initializePage();
-		},
-
-		/**
-		 * Check if a new version of the webapp is available online.
-		 * Non sense in hybride mode. Useful only in webapp mode.
-		 */
-		updateCache: function () {
-
-			var appCache = window.applicationCache;
-
-			appCache.addEventListener('updateready', function (e) {
-				debug && log.i("New hotness available !");
-				if (appCache.status == appCache.UPDATEREADY) {
-					// new downloaded content available
-					appCache.swapCache();
-					if (!debug) {
-						if (confirm('A new version of this site is available. Load it ?')) {
-							window.location.reload();
-						}
-					}
-					else window.location.reload();
-				}
-			}, false);
 		}
 
 	};

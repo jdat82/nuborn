@@ -2,13 +2,13 @@
 {
 
 	/**
-	 * Pages namespace.
+	 * Cache namespace.
 	 *
-	 * @provide nu.pages
+	 * @provide nu.cache
 	 *
 	 * @require nu
 	 * @require nu.debug
 	 */
-	nu.pages = {};
+	nu.cache = {};
 
 })(this, nu);

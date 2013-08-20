@@ -1,4 +1,4 @@
-(function (window, $, nu, window, undefined) {
+(function (window, $, nu, undefined) {
 
 	/**
 	 * @class nu.debug.Log

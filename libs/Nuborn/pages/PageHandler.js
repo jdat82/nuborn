@@ -1,4 +1,5 @@
-(function ($, nu, log, undefined) {
+(function ($, nu, log, undefined)
+{
 
 	/**
 	 * @class nu.pages.PageHandler
@@ -12,21 +13,27 @@
 	 * @provide nu.pages.PageHandler
 	 *
 	 * @require nu.pages.PageEventsManager
+	 * @require nu.debug.Log
 	 */
-	nu.pages.PageHandler = Object.subClass({
+	nu.pages.PageHandler = Object.subClass(
+	{
 
 		/**
 		 * Initialize a fresh new Page Handler.
 		 * @param {Object} settings    The settings of the page handler (ID, URL, ...).
 		 */
-		init: function (settings) {
+		init: function (settings)
+		{
 			// Declaring class members
 			// Settings : object containing ID and URL or a jQuery Mobile page
-			this.settings = $.extend(true, {
+			this.settings = $.extend(true,
+			{
 				singleton: false
 			}, settings);
+
 			// Html : Object containing jQuery Object referencing to HTML elements of the page
 			this.html = {};
+
 			// Data : data of the page
 			this.data = {};
 
@@ -40,7 +47,8 @@
 		 * @param  {Object} event
 		 * @param  {Object} data
 		 */
-		pageBeforeCreate: function (event, data) {
+		pageBeforeCreate: function (event, data)
+		{
 			// Registering the page into HTML elements
 			var page = event.currentTarget;
 			this.html.page = $(page);
@@ -59,7 +67,8 @@
 		 * @param  {Object} event
 		 * @param  {Object} data
 		 */
-		pageInit: function (event, data) {
+		pageInit: function (event, data)
+		{
 			debug && log.i("page init of " + event.currentTarget.id);
 
 			// Calling #createHtmlElements
@@ -75,7 +84,8 @@
 		 * @param  {Object} event
 		 * @param  {Object} data
 		 */
-		pageCreate: function (event, data) {
+		pageCreate: function (event, data)
+		{
 			debug && log.i("page create of '" + event.currentTarget.id + "'");
 		},
 
@@ -84,7 +94,8 @@
 		 * @param  {Object} event
 		 * @param  {Object} data
 		 */
-		pageBeforeHide: function (event, data) {
+		pageBeforeHide: function (event, data)
+		{
 			debug && log.i("page before hide of '" + event.currentTarget.id + "'");
 		},
 
@@ -95,10 +106,12 @@
 		 * @param  {Object} event
 		 * @param  {Object} data
 		 */
-		pageHide: function (event, data) {
+		pageHide: function (event, data)
+		{
 			debug && log.i("page hide of '" + event.currentTarget.id + "'");
 
-			if (!this.settings.singleton) {
+			if (!this.settings.singleton)
+			{
 				// Cleaning references to HTML elements & data objects
 				// as they will be recreated every time we go back to the page
 				this.html.page.remove();
@@ -112,7 +125,8 @@
 		 * @param  {Object} event
 		 * @param  {Object} data
 		 */
-		pageBeforeShow: function (event, data) {
+		pageBeforeShow: function (event, data)
+		{
 			debug && log.i("page before show of '" + event.currentTarget.id + "'");
 		},
 
@@ -121,7 +135,8 @@
 		 * @param  {Object} event
 		 * @param  {Object} data
 		 */
-		pageShow: function (event, data) {
+		pageShow: function (event, data)
+		{
 			debug && log.i("page show of '" + event.currentTarget.id + "'");
 		},
 
@@ -130,7 +145,8 @@
 		 * @param  {Object} event
 		 * @param  {Object} data
 		 */
-		pageBeforeChange: function (event, data) {
+		pageBeforeChange: function (event, data)
+		{
 			debug && log.i("page before change of '" + event.currentTarget.id + "'");
 		},
 
@@ -139,7 +155,8 @@
 		 * @param  {Object} event
 		 * @param  {Object} data
 		 */
-		pageChange: function (event, data) {
+		pageChange: function (event, data)
+		{
 			debug && log.i("page change of '" + event.currentTarget.id + "'");
 		},
 
@@ -148,7 +165,8 @@
 		 * @param  {Object} event
 		 * @param  {Object} data
 		 */
-		pageBeforeLoad: function (event, data) {
+		pageBeforeLoad: function (event, data)
+		{
 			debug && log.i("page before load of '" + event.currentTarget.id + "'");
 		},
 
@@ -157,7 +175,8 @@
 		 * @param  {Object} event
 		 * @param  {Object} data
 		 */
-		pageLoad: function (event, data) {
+		pageLoad: function (event, data)
+		{
 			debug && log.i("page load of '" + event.currentTarget.id + "'");
 		},
 
@@ -168,30 +187,36 @@
 		 * @param  {Object} event
 		 * @param  {Object} data
 		 */
-		pageRemove: function (event, data) {
+		pageRemove: function (event, data)
+		{
 			debug && log.i("page remove of '" + event.currentTarget.id + "'");
 		},
 
 		/**
 		 * Create all references to HTML elements.
 		 */
-		createHtmlElements: function () {
+		createHtmlElements: function ()
+		{
 			nu.debug.Log.w("This method should be overriden");
 		},
 
 		/**
 		 * Create all references to data objects.
 		 */
-		createDataElements: function () {
+		createDataElements: function ()
+		{
 			nu.debug.Log.w("This method should be overriden");
 		},
 
 		/**
 		 * Delete all references to HTML elements.
 		 */
-		deleteHtmlElements: function () {
-			if (this.html) {
-				for (var key in this.html) {
+		deleteHtmlElements: function ()
+		{
+			if (this.html)
+			{
+				for (var key in this.html)
+				{
 					delete this.html[key];
 				}
 			}
@@ -200,9 +225,12 @@
 		/**
 		 * Delete all references to data objects.
 		 */
-		deleteDataElements: function () {
-			if (this.data) {
-				for (var key in this.data) {
+		deleteDataElements: function ()
+		{
+			if (this.data)
+			{
+				for (var key in this.data)
+				{
 					delete this.data[key];
 				}
 			}
@@ -218,31 +246,37 @@
 		 * @param {Object} data template placeholders values
 		 * [1]: http://api.jquerymobile.com/jQuery.mobile.changePage/
 		 */
-		navigate: function (options, data) {
+		navigate: function (options, data)
+		{
 
 			if (!this.settings) throw "invalid page handler";
 
 			var pageId = this.settings.id;
 			var pageUrl = this.settings.url;
 
-			if (pageId && templates[pageId]) {
-				if (document.getElementById(pageId) === null) {
+			if (pageId && templates[pageId])
+			{
+				if (document.getElementById(pageId) === null)
+				{
 					// at least, we add the page to the DOM
 					$(templates[pageId].render(data)).appendTo("body");
 				}
 				// plus if JQM is initialized, we navigate to it
-				if (app.isJqmInitialized) {
+				if (app.isJqmInitialized)
+				{
 					debug && log.i("navigating to " + pageId + " page");
 					$.mobile.changePage("#" + pageId, options);
 				}
 				// else we do nothing waiting for $.mobile.initializePage to be called
-				else {
+				else
+				{
 					debug && log.i("loading " + pageId + " page");
 				}
 				return true;
 			}
 
-			if (pageUrl) {
+			if (pageUrl)
+			{
 				debug && log.i("navigating to " + pageUrl);
 				$.mobile.changePage(pageUrl, options);
 				return true;
