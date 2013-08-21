@@ -5,16 +5,11 @@
 
 $color: rgba(255,255,255,1);
 
-@include keyframes(fade-in) {
-  from { text-shadow: 0 0 1em $color; }
-  to { text-shadow: 0 0 0 $color; }
-}
-
-#splash {
+#splash 
+{
   z-index: 1100;
   text-align: center;
   vertical-align: middle;
-  // height: 100%;
 
   background-color: $darkBackground;
   color: $textColor;
@@ -22,15 +17,9 @@ $color: rgba(255,255,255,1);
   & > div {
     height: 7rem;
   }
-}
 
-.textshadow #splash {
-
-  // Dr House effect
   h1 {
 
-    @include animation(fade-in, 2s);
-    color: transparent;
     display: inline-block;
     letter-spacing: .2em;
     position: relative;
@@ -54,11 +43,4 @@ $color: rgba(255,255,255,1);
     }
 
   }
-}
-
-// fallback if browser doesn't support text shadows
-:not(.textshadow) body #splash h1 {
-    background-image: url("../img/Nuborn-House.png");
-    height: 100%;
-    margin: 0;
 }

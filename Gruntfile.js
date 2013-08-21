@@ -526,7 +526,8 @@ module.exports = function (grunt)
 			"css/*.css",
 			"js/*.js",
 			"*.html",
-			"fonts/*",
+			// "fonts/Roboto/*",
+			"fonts/Montserrat/*",
 			"img/*",
 			"!*.appcache"
 		],

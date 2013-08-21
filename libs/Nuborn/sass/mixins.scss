@@ -2,7 +2,7 @@
  * @provide mixins
  */
 
-@mixin animation($name, $duration, $delay: 0s, $fill-mode: forwards) {
+@mixin animation($name, $duration, $delay: 0s, $fill-mode: forwards, $iteration: 1, $direction: normal) {
   -moz-animation-name: $name;
   -webkit-animation-name: $name;
 
@@ -14,6 +14,12 @@
 
   -moz-animation-duration: $duration;
   -webkit-animation-duration: $duration;
+
+  -webkit-animation-iteration-count: $iteration;
+  -moz-animation-iteration-count: $iteration;
+
+  -webkit-animation-direction: $direction;
+  -moz-animation-direction: $direction;
 }
 
 @mixin keyframes($name) {
