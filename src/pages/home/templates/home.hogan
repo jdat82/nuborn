@@ -1,8 +1,8 @@
 <div id="home" data-role="page">
 
-	<div id="home-menu" data-role="panel" data-swipe-close="false" data-position-fixed="true"></div>
+	<div id="home-menu" data-role="panel" data-swipe-close="false"></div>
 
-	<div data-role="header" data-position="fixed" data-tap-toggle="false">
+	<div data-role="header">
 		<div class="menu-button"></div>
 		<div class="title">Accueil</div>
 	</div>

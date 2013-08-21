@@ -14,9 +14,10 @@ $(document).on("mobileinit", function ()
 	// TODO je serais partant pour désactiver les transitions dès qu'on a un peu scrollé
 	// la valeur par défaut me semble bien trop importante (3 fois la taille du viewport)
 	// malheureusement, j'ai peur que cela soit harcodé contrairement à ce qui est dit dans la doc
-	// $.mobile.maxScrollForTransition = 1;
-	// OU ?
-	// $.mobile.getMaxScrollForTransition(1);
+	// $.mobile.getMaxScrollForTransition = function ()
+	// {
+	// 	return $.mobile.getScreenHeight();
+	// };
 
 	// Don't use fancy transitions on poor capable devices
 	if ($.mobile.gradeA())
