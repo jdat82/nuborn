@@ -7,7 +7,6 @@
 	 * @provide nu.cache
 	 *
 	 * @require nu
-	 * @require nu.debug
 	 */
 	nu.cache = {};
 

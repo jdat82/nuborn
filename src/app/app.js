@@ -30,14 +30,12 @@
 			if (!utils.isCordova())
 			{
 				debug && log.i("Used as a Web App");
-				// first access will initialize the cache manager
-				nu.cache.AppCache.get();
 				app.init();
 			}
 			else
 			{
 				debug && log.i("Used as a Hybrid App");
-				$.mobile.defaultHomeScroll = 0;
+				// $.mobile.defaultHomeScroll = 0;
 				document.addEventListener("deviceready", app.init, false);
 			}
 		},

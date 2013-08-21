@@ -7,7 +7,6 @@
 	 * @provide nu.pages
 	 *
 	 * @require nu
-	 * @require nu.debug
 	 */
 	nu.pages = {};
 

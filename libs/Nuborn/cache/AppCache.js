@@ -1,4 +1,4 @@
-(function (window, nu, log, undefined)
+(function (window, $, nu, log, undefined)
 {
 
 	/**
@@ -18,6 +18,9 @@
 	{
 		init: function ()
 		{
+			// if application cache is not supported, this is a no-op.
+			if (!Modernizr.applicationcache) return;
+
 			var appCache = window.applicationCache;
 
 			appCache.addEventListener('updateready', function (e)
@@ -54,4 +57,11 @@
 		return nu.cache.AppCache.SINGLETON_INSTANCE;
 	};
 
-})(this, nu, nu.debug.Log)
+	// When DOM is ready, starting the cache.
+	$(function ()
+	{
+		// first access will initialize the cache manager
+		nu.cache.AppCache.get();
+	});
+
+})(this, jQuery, nu, nu.debug.Log);
