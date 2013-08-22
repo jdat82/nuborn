@@ -44,14 +44,14 @@ module.exports = function (grunt)
 		 */
 		js: [
 			"libs/Hogan/*.js",
-			"libs/Gsap/plugins/CSSPlugin.min.js", /** Animations */
-			"libs/Gsap/easing/EasePack.min.js", /** Animations */
+			"libs/Gsap/plugins/*.js", /** Animations */
+			"libs/Gsap/easing/*.js", /** Animations */
 			"libs/Gsap/TweenLite.min.js", /** Animations */
 			"libs/Gsap/TimelineLite.min.js", /** Animations */
 			"libs/jQuery/*.js", /** jQuery is required **/
 			"libs/Modernizr/*.js",
 			"src/app/mobileinit.js", /** jQuery Mobile pre-initialization */
-			"libs/jQueryMobile/jquery.mobile.custom*.js", /** jQuery Mobile is required **/
+			"libs/jQueryMobile/*.js", /** jQuery Mobile is required **/
 			"libs/SwipeJS/*.js",
 			// "libs/jQueryJSON/*.js",						/** jQueryJSON is required for old browser **/
 			"gen/*.js", /** Generated sources as templates */
