@@ -115,11 +115,17 @@
 		 */
 		loadFirstPage: function (defaultPageId)
 		{
-			// TODO check url
-			// var urlParams = nu.Utils.fillUrlParams();
-			// log.i(urlParams);
+			// TODO passer les paramètres d'URL à la page et gérer suppression du splash screen
+			// car seul la home aujourd'hui sait se débarrasser du splashscreen
+			var parser = $.mobile.path.parseUrl(window.location.href);
+			var pageId = parser.hash;
+			debug && log.i("First page is: " + (pageId || defaultPageId));
+			if (pageId)
+				pageId = pageId.replace("#", "");
+			var pageParams = parser.search;
+			debug && log.i("Page params: " + nu.Utils.toJSON(nu.Utils.getUrlParams(pageParams)));
 
-			var pageHandler = this.getPageHandler(defaultPageId);
+			var pageHandler = this.getPageHandler(pageId || defaultPageId);
 			if (pageHandler)
 			{
 				pageHandler.navigate();

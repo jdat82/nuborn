@@ -214,6 +214,18 @@
 	};
 
 	/**
+	 * @param {Object} page JQM page object.
+	 * @return {Object} URL key/value parameters
+	 */
+	nu.Utils.getUrlParamsFromPage = function (page)
+	{
+		var u = $.mobile.path.parseUrl(page.baseURI);
+		if (u.search)
+			return nu.Utils.getUrlParams(u.search);
+		return {};
+	};
+
+	/**
 	 * Read params from url and fill them in JQM data object.
 	 */
 	nu.Utils.fillUrlParams = function (page, data)
@@ -227,6 +239,14 @@
 				data.options.dataUrl = u.hrefNoSearch;
 			data.options.pageData = nu.Utils.getUrlParams(u.search);
 		}
+	};
+
+	/**
+	 * Shortcut for JSON.stringify(object, null, "    ")
+	 */
+	nu.Utils.toJSON = function (object)
+	{
+		return JSON.stringify(object, null, "    ");
 	};
 
 	/**
