@@ -293,7 +293,7 @@ module.exports = function (grunt)
 		{
 			options:
 			{
-				optimizationLevel: 3,
+				optimizationLevel: 8,
 				progressive: true
 			},
 			android:
