@@ -485,6 +485,9 @@ module.exports = function (grunt)
 						// serve static files
 						connect.static(options.base),
 
+						// make empty directories browsable
+						connect.directory(options.base)
+
 						// reverse Proxy Configuration
 						// proxySnippet
 					];
