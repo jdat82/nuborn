@@ -66,7 +66,6 @@
 		 */
 		pageInit: function (event, data) {
 			debug && log.i("page init of " + event.currentTarget.id);
-			log.i("pi data: " + nu.Utils.toJSON(data));
 
 			// Calling #createHtmlElements
 			this.createHtmlElements();
@@ -83,11 +82,10 @@
 		 */
 		pageCreate: function (event, data) {
 			debug && log.i("page create of '" + event.currentTarget.id + "'");
-			log.i("pc data: " + nu.Utils.toJSON(data));
 		},
 
 		/**
-		 * Called for the pagebeforehide event.
+		 * Called		for the pagebeforehide event.
 		 * @param  {Object} event
 		 * @param  {Object} data
 		 */
@@ -121,7 +119,6 @@
 		 */
 		pageBeforeShow: function (event, data) {
 			debug && log.i("page before show of '" + event.currentTarget.id + "'");
-			log.i("pbs data: " + nu.Utils.toJSON(data));
 		},
 
 		/**
@@ -284,23 +281,18 @@
 			// settings defaults
 			options = $.extend(true, options, {
 				jqmOptions: {},
-				pageParams: {},
+				pageParams: undefined,
 				templateData: {}
 			});
 
-			// creating search query
-			// var search = "";
-			// if (options.pageParams.length) {
-			// 	search = "?";
-			// 	var arrayParams = Object.keys(options.pageParams).map(function (param) {
-			// 		return param + "=" + options.pageParams[param];
-			// 	});
-			// 	search += arrayParams.join(",");
-			// }
-
-			// updating location bar to allows bookmarking and indexation
-			// if (Modernizr.history)
-			// 	history.pushState(options.pageParams, pageId, "#" + pageId);
+			// the JQM tricky way to pass parameters between pages is to use the dataUrl option
+			// must contain the hash name without "#" followed by query params
+			options.jqmOptions.dataUrl = pageId;
+			if (options.pageParams) {
+				var serializedParams = nu.Utils.serializeHashParameters(options.pageParams);
+				if (serializedParams && serializedParams.length)
+					options.jqmOptions.dataUrl += "?" + serializedParams;
+			}
 
 			debug && log.i("options: " + nu.Utils.toJSON(options));
 

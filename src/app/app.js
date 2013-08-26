@@ -55,7 +55,13 @@
 			window.onpopstate = function (event) {
 				debug && log.i("## popstate ##");
 				debug && log.i("history.length: " + history.length);
-				debug && log.i(nu.Utils.toJSON(event.state));
+				debug && console.log(event);
+			};
+
+			window.onhashchange = function (event) {
+				debug && log.i("## hashchange ##");
+				// debug && log.i(nu.Utils.toJSON(event.state));
+				debug && console.log(event);
 			};
 
 			// loading in DOM first page app

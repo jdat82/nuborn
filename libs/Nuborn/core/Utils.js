@@ -154,56 +154,74 @@
 		$(document).off("touchmove", nu.Utils.blockEvent);
 	};
 
-	nu.Utils.getUrlParams = function (query) {
 
-		var result = {},
-			nvPairs = ((query || "").replace(/^\?/, "").split(/&/)),
-			i, pair, n, v;
+	nu.Utils.deserializeHash = function (hash) {
+		var result = {
+			name: "",
+			params: ""
+		};
+		if (!hash || !hash.length)
+			return result;
 
-		for (i = 0; i < nvPairs.length; i++) {
-			var pstr = nvPairs[i];
-			if (pstr) {
-				pair = pstr.split(/=/);
-				n = pair[0];
-				v = pair[1];
-				if (result[n] === undefined) {
-					result[n] = v;
-				}
-				else {
-					if (typeof result[n] !== "object") {
-						result[n] = [result[n]];
-					}
-					result[n].push(v);
-				}
-			}
-		}
+		var questionMarkIndex = hash.indexOf("?") + 1;
+
+		// extracting hash name
+		result.name = hash.substr(0, questionMarkIndex);
+		if (result.name && result.name.length)
+			result.name = result.name.replace(/[#?]/g, "");
+
+		// extracting hash parameters
+		result.params = nu.Utils.deserializeHashParameters(hash.substr(questionMarkIndex));
 
 		return result;
 	};
 
 	/**
-	 * @param {Object} page JQM page object.
-	 * @return {Object} URL key/value parameters
+	 * Create a javascript object from a string hash which contains key/value parameters.
+	 * @param {String} hash Minimum significant pattern is "?key=value"
+	 * @return {Object} Simple key/value object.
 	 */
-	nu.Utils.getUrlParamsFromPage = function (page) {
-		var u = $.mobile.path.parseUrl(page.baseURI);
-		if (u.search)
-			return nu.Utils.getUrlParams(u.search);
-		return {};
+	nu.Utils.deserializeHashParameters = function (hash) {
+
+		var result = {};
+		if (!hash || !hash.length)
+			return result;
+
+		// extracting hash parameters substring
+		var hashParameters = hash.substr(hash.indexOf("?") + 1);
+		if (!hashParameters || !hashParameters.length)
+			return result;
+
+		// parsing key=value pairs 
+		var paramsArray = hashParameters.split("&");
+		paramsArray.forEach(function (param) {
+			var keyValueArray = param.split("=");
+			if (!keyValueArray || !keyValueArray.length)
+				return;
+			result[keyValueArray[0]] = decodeURIComponent(keyValueArray[1]);
+		});
+
+		return result;
 	};
 
 	/**
-	 * Read params from url and fill them in JQM data object.
+	 * Create a new String object from a javascript object.
+	 * @param {Object} parameters Simple key/value object.
+	 * @return {String} following pattern "key1=value[&key2=value&...]"
 	 */
-	nu.Utils.fillUrlParams = function (page, data) {
-		var u = $.mobile.path.parseUrl(page.baseURI);
-		if (u.search) {
-			if (!data.options)
-				data.options = {};
-			if (!data.options.dataUrl)
-				data.options.dataUrl = u.hrefNoSearch;
-			data.options.pageData = nu.Utils.getUrlParams(u.search);
+	nu.Utils.serializeHashParameters = function (parameters) {
+
+		var result = "";
+		if (!parameters)
+			return result;
+
+		var paramsArray = [];
+		for (var key in parameters) {
+			paramsArray.push(key + "=" + encodeURIComponent(parameters[key]));
 		}
+
+		result = paramsArray.join("&");
+		return result;
 	};
 
 	/**

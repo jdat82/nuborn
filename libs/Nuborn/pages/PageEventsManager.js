@@ -108,25 +108,18 @@
 
 			// TODO passer les paramètres d'URL à la page et gérer suppression du splash screen
 			// car seul la home aujourd'hui sait se débarrasser du splashscreen
-			// var parser = $.mobile.path.parseUrl(window.location.href);
 
-			// extracting from url current hash (page ID)
-			// may be replaced with window.location.hash
-			// var pageId = parser.hash;
-			// debug && log.i("First page is: " + (pageId || defaultPageId));
-			// if (pageId) pageId = pageId.replace("#", "");
+			// hash.name contains current page id if filled
+			var hash = nu.Utils.deserializeHash(window.location.hash);
+			var pageId = hash.name || defaultPageId;
+			debug && log.i("First page is: " + pageId);
 
-			var pageHandler = this.getPageHandler(defaultPageId);
-			// var pageHandler = this.getPageHandler(pageId || defaultPageId);
+			var pageHandler = this.getPageHandler(pageId);
 
 			if (pageHandler) {
-				// extracting from url current params
-				// var pageParams = nu.Utils.getUrlParams(parser.search);
-				// debug && log.i("Page params: " + nu.Utils.toJSON(pageParams));
-
-				// navigating to page
+				window.location.hash = "#" + pageId;
+				// loading page into DOM
 				pageHandler.load();
-				// pageHandler.navigate({}, pageParams);
 			}
 		},
 
@@ -234,8 +227,6 @@
 			}
 
 			var page = event.currentTarget;
-
-			data = nu.Utils.fillUrlParams(page, data);
 
 			// dispatching the event to current active page handler
 			pageHandler.pageBeforeShow(event, data);

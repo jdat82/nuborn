@@ -427,7 +427,11 @@
 			});
 
 			news.on("tap", "li", function () {
-				app.detail.navigate();
+				app.detail.navigate({
+					pageParams: {
+						id: 3
+					}
+				});
 			});
 		}
 	});
