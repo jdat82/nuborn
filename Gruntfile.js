@@ -7,33 +7,27 @@ var GruntUtils = require("./GruntUtils");
 /**
  * Grunt Configuration
  */
-module.exports = function (grunt)
-{
+module.exports = function (grunt) {
 
 	// externals options which can be context dependent
 	var profile = grunt.option("profile") || "dev";
 	var options = grunt.file.readJSON("conf/" + profile + ".json");
 
-	grunt.initConfig(
-	{
+	grunt.initConfig({
 
 		/**
 		 * Definition of build targets.
 		 */
-		platforms:
-		{
-			android:
-			{
+		platforms: {
+			android: {
 				folder: "build/android/assets/www",
 				active: false
 			},
-			ios:
-			{
+			ios: {
 				folder: "build/ios/www",
 				active: false
 			},
-			web:
-			{
+			web: {
 				folder: "build/web",
 				active: true
 			}
@@ -48,9 +42,10 @@ module.exports = function (grunt)
 			"libs/Gsap/easing/*.js", /** Animations */
 			"libs/Gsap/TweenLite.min.js", /** Animations */
 			"libs/Gsap/TimelineLite.min.js", /** Animations */
-			"libs/jQuery/*.js", /** jQuery is required **/
+			"libs/jQuery/*.min.js", /** jQuery is required **/
 			"libs/Modernizr/*.js",
 			"src/app/mobileinit.js", /** jQuery Mobile pre-initialization */
+			// "libs/jQueryMobileRouter/*.js",
 			"libs/jQueryMobile/*.js", /** jQuery Mobile is required **/
 			"libs/SwipeJS/*.js",
 			// "libs/jQueryJSON/*.js",						/** jQueryJSON is required for old browser **/
@@ -62,69 +57,50 @@ module.exports = function (grunt)
 		/**
 		 * Javascript compilation
 		 */
-		nuglify:
-		{
+		nuglify: {
 			options: options.uglify,
-			android:
-			{
+			android: {
 				// defining an ANDROID constant in order to allow compilation of android specific code
-				options:
-				{
-					"compress": GruntUtils.extend(true,
-					{}, options.uglify.compress,
-					{
-						"global_defs":
-						{
+				options: {
+					"compress": GruntUtils.extend(true, {}, options.uglify.compress, {
+						"global_defs": {
 							"ANDROID": true,
 							"IOS": false,
 							"WEB": false
 						}
 					})
 				},
-				files:
-				{
+				files: {
 					"<%= platforms.android.folder %>/js/app.min.js": ["libs/Cordova/cordova.android.js", "<%= js %>"]
 				}
 			},
-			ios:
-			{
+			ios: {
 				// defining an ANDROID constant in order to allow compilation of ios specific code
-				options:
-				{
-					"compress": GruntUtils.extend(true,
-					{}, options.uglify.compress,
-					{
-						"global_defs":
-						{
+				options: {
+					"compress": GruntUtils.extend(true, {}, options.uglify.compress, {
+						"global_defs": {
 							"ANDROID": false,
 							"IOS": true,
 							"WEB": false
 						}
 					})
 				},
-				files:
-				{
+				files: {
 					"<%= platforms.ios.folder %>/js/app.min.js": ["libs/Cordova/cordova.ios.js", "<%= js %>"]
 				}
 			},
-			web:
-			{
+			web: {
 				// defining an ANDROID constant in order to allow compilation of web specific code
-				options:
-				{
-					"compress": GruntUtils.extend(true,
-					{}, options.uglify.compress,
-					{
-						"global_defs":
-						{
+				options: {
+					"compress": GruntUtils.extend(true, {}, options.uglify.compress, {
+						"global_defs": {
 							"ANDROID": false,
 							"IOS": false,
 							"WEB": true
 						}
 					})
 				},
-				files:
-				{
+				files: {
 					"<%= platforms.web.folder %>/js/app.min.js": ["<%= js %>"]
 				}
 			}
@@ -144,22 +120,18 @@ module.exports = function (grunt)
 		/**
 		 * Templates compilation into javascript
 		 */
-		hogan:
-		{
-			android:
-			{
+		hogan: {
+			android: {
 				templates: ["<%= templates %>"],
 				output: "gen/templates.js",
 				binderName: "hulk"
 			},
-			ios:
-			{
+			ios: {
 				templates: ["<%= templates %>"],
 				output: "gen/templates.js",
 				binderName: "hulk"
 			},
-			web:
-			{
+			web: {
 				templates: ["<%= templates %>"],
 				output: "gen/templates.js",
 				binderName: "hulk"
@@ -179,27 +151,20 @@ module.exports = function (grunt)
 		/**
 		 * CSS compilation
 		 */
-		nsass:
-		{
+		nsass: {
 			options: options.sass,
-			android:
-			{
-				files:
-				{
+			android: {
+				files: {
 					"<%= platforms.android.folder %>/css/app.min.css": ["<%= css %>"]
 				}
 			},
-			ios:
-			{
-				files:
-				{
+			ios: {
+				files: {
 					"<%= platforms.ios.folder %>/css/app.min.css": ["<%= css %>"]
 				}
 			},
-			web:
-			{
-				files:
-				{
+			web: {
+				files: {
 					"<%= platforms.web.folder %>/css/app.min.css": ["<%= css %>"]
 				}
 			}
@@ -208,26 +173,19 @@ module.exports = function (grunt)
 		/**
 		 * Overwrite the sass generated css by replacing image text url with image data url.
 		 */
-		imageEmbed:
-		{
-			android:
-			{
-				files:
-				{
+		imageEmbed: {
+			android: {
+				files: {
 					"<%= platforms.android.folder %>/css/app.min.css": ["<%= platforms.android.folder %>/css/app.min.css"]
 				}
 			},
-			ios:
-			{
-				files:
-				{
+			ios: {
+				files: {
 					"<%= platforms.ios.folder %>/css/app.min.css": ["<%= platforms.ios.folder %>/css/app.min.css"]
 				}
 			},
-			web:
-			{
-				files:
-				{
+			web: {
+				files: {
 					"<%= platforms.web.folder %>/css/app.min.css": ["<%= platforms.web.folder %>/css/app.min.css"]
 				}
 			}
@@ -244,33 +202,26 @@ module.exports = function (grunt)
 		/**
 		 * HTML minification
 		 */
-		htmlmin:
-		{
+		htmlmin: {
 			options: options.html,
-			android:
-			{
-				files: [
-				{
+			android: {
+				files: [{
 					dest: "<%= platforms.android.folder %>/",
 					src: ["<%= html %>"],
 					expand: true,
 					flatten: true
 				}]
 			},
-			ios:
-			{
-				files: [
-				{
+			ios: {
+				files: [{
 					dest: "<%= platforms.ios.folder %>/",
 					src: ["<%= html %>"],
 					expand: true,
 					flatten: true
 				}]
 			},
-			web:
-			{
-				files: [
-				{
+			web: {
+				files: [{
 					dest: "<%= platforms.web.folder %>/",
 					src: ["<%= html %>"],
 					expand: true,
@@ -289,37 +240,29 @@ module.exports = function (grunt)
 		/**
 		 * Images optimisations
 		 */
-		imagemin:
-		{
-			options:
-			{
+		imagemin: {
+			options: {
 				optimizationLevel: 8,
 				progressive: true
 			},
-			android:
-			{
-				files: [
-				{
+			android: {
+				files: [{
 					dest: "<%= platforms.android.folder %>/img/",
 					src: ["<%= img %>"],
 					expand: true,
 					flatten: true
 				}]
 			},
-			ios:
-			{
-				files: [
-				{
+			ios: {
+				files: [{
 					dest: "<%= platforms.ios.folder %>/img/",
 					src: ["<%= img %>"],
 					expand: true,
 					flatten: true
 				}]
 			},
-			web:
-			{
-				files: [
-				{
+			web: {
+				files: [{
 					dest: "<%= platforms.web.folder %>/img/",
 					src: ["<%= img %>"],
 					expand: true,
@@ -337,44 +280,34 @@ module.exports = function (grunt)
 		/**
 		 * Let's copy some static files.
 		 */
-		copy:
-		{
-			android:
-			{
-				files: [
-				{
+		copy: {
+			android: {
+				files: [{
 					dest: "<%= platforms.android.folder %>/",
 					src: ["<%= hierarchicalStatics %>"]
-				},
-				{
+				}, {
 					dest: "<%= platforms.android.folder %>/",
 					src: ["<%= flattenedStatics %>"],
 					expand: true,
 					flatten: true
 				}]
 			},
-			ios:
-			{
-				files: [
-				{
+			ios: {
+				files: [{
 					dest: "<%= platforms.ios.folder %>/",
 					src: ["<%= hierarchicalStatics %>"]
-				},
-				{
+				}, {
 					dest: "<%= platforms.ios.folder %>/",
 					src: ["<%= flattenedStatics %>"],
 					expand: true,
 					flatten: true
 				}]
 			},
-			web:
-			{
-				files: [
-				{
+			web: {
+				files: [{
 					dest: "<%= platforms.web.folder %>/",
 					src: ["<%= hierarchicalStatics %>"]
-				},
-				{
+				}, {
 					dest: "<%= platforms.web.folder %>/",
 					src: ["<%= flattenedStatics %>"],
 					expand: true,
@@ -386,12 +319,9 @@ module.exports = function (grunt)
 		/*
 		 * Documentation
 		 */
-		jsduck:
-		{
-			app:
-			{
-				options:
-				{
+		jsduck: {
+			app: {
+				options: {
 					"builtin-classes": true,
 					"title": "Nuborn documentation",
 					"footer": "IT&L@bs Toulouse - Mobile team"
@@ -405,18 +335,14 @@ module.exports = function (grunt)
 		/*
 		 * Empty the build folder
 		 */
-		clean:
-		{
-			android:
-			{
+		clean: {
+			android: {
 				src: ["<%= platforms.android.folder %>/*"]
 			},
-			ios:
-			{
+			ios: {
 				src: ["<%= platforms.ios.folder %>/*"]
 			},
-			web:
-			{
+			web: {
 				src: ["<%= platforms.web.folder %>/*"]
 			}
 		},
@@ -426,35 +352,28 @@ module.exports = function (grunt)
 		 * Install this chrome extension to have automatic refresh in chrome :
 		 * - https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
 		 */
-		watch:
-		{
-			options:
-			{
+		watch: {
+			options: {
 				nospawn: false,
 				livereload: true
 			},
-			scss:
-			{
+			scss: {
 				files: "<%= css %>",
 				tasks: ["nsass", "manifest"]
 			},
-			js:
-			{
+			js: {
 				files: "<%= js %>",
 				tasks: ["nuglify", "manifest"]
 			},
-			htmlmin:
-			{
+			htmlmin: {
 				files: "<%= html %>",
 				tasks: ["htmlmin", "manifest"]
 			},
-			hogan:
-			{
+			hogan: {
 				files: "<%= templates %>",
 				tasks: ["hogan", "nuglify", "manifest"]
 			},
-			all:
-			{
+			all: {
 				files: "Gruntfile.js",
 				tasks: [activeTargets().join(",")]
 			}
@@ -465,16 +384,13 @@ module.exports = function (grunt)
 		 * Can be enhanced to be smarter by configuring the connect middleware.
 		 * For instance, proxies can be added with this plugin : https://github.com/drewzboto/grunt-connect-proxy
 		 */
-		connect:
-		{
-			options:
-			{
+		connect: {
+			options: {
 				hostname: "*",
 				port: 9000,
 				base: 'build/web',
 				keepalive: true,
-				middleware: function (connect, options)
-				{
+				middleware: function (connect, options) {
 					return [
 						// custom headers rewriting
 						// example : https://gist.github.com/muratcorlu/5803655
@@ -493,8 +409,7 @@ module.exports = function (grunt)
 					];
 				}
 			},
-			web:
-			{
+			web: {
 				// reverse Proxy Configuration
 				// proxies: [{
 				//	context: '/reverse',
@@ -538,24 +453,19 @@ module.exports = function (grunt)
 		/**
 		 * Generate a manifest file (HTML5 cache).
 		 */
-		manifest:
-		{
-			options:
-			{
+		manifest: {
+			options: {
 				network: ["*"],
 				fallback: ['/ /app.html#offline'],
 				// preferOnline: true,
 				verbose: false,
 				timestamp: true
 			},
-			web:
-			{
-				options:
-				{
+			web: {
+				options: {
 					basePath: "<%= platforms.web.folder %>"
 				},
-				files: [
-				{
+				files: [{
 					dest: "<%= platforms.web.folder %>/manifest.appcache",
 					src: ["<%= appcache %>"]
 				}]
@@ -600,8 +510,7 @@ module.exports = function (grunt)
 	/**
 	 * Alias for hogan and nuglify tasks.
 	 */
-	grunt.registerTask("js", function ()
-	{
+	grunt.registerTask("js", function () {
 		grunt.task.run("hogan");
 		grunt.task.run("nuglify");
 	});
@@ -623,8 +532,7 @@ module.exports = function (grunt)
 	 * False else.
 	 */
 
-	function executeTaskForActiveTargetsOnly(task)
-	{
+	function executeTaskForActiveTargetsOnly(task) {
 		var activePlatforms = activeTargets(grunt);
 		var isGlobalBuild = task === "default";
 
@@ -634,15 +542,12 @@ module.exports = function (grunt)
 
 		// if a configuration exists for each active platform, preempts the default behavior by executing only
 		// these ones
-		activePlatforms.forEach(function (platform)
-		{
-			if (isGlobalBuild)
-			{
+		activePlatforms.forEach(function (platform) {
+			if (isGlobalBuild) {
 				// executing all tasks for the current platforms
 				grunt.task.run(platform);
 			}
-			else
-			{
+			else {
 				// getting task and target configuration
 				var conf = grunt.config.get(task + "." + platform);
 
@@ -661,8 +566,7 @@ module.exports = function (grunt)
 	 * Compute an array of active target names.
 	 */
 
-	function activeTargets()
-	{
+	function activeTargets() {
 		var platforms = grunt.config("platforms");
 		var result = [];
 
@@ -680,16 +584,14 @@ module.exports = function (grunt)
 	 * Return true if task's configuration is platform dependent.
 	 */
 
-	function isPlatformDependent(task)
-	{
+	function isPlatformDependent(task) {
 		var platforms = grunt.config("platforms");
 		var taskConfiguration = grunt.config(task);
 
 		if (!taskConfiguration || !platforms || !Object.keys(platforms).length)
 			return false;
 
-		for (var platform in platforms)
-		{
+		for (var platform in platforms) {
 			if (taskConfiguration[platform])
 				return true;
 		}
@@ -700,10 +602,8 @@ module.exports = function (grunt)
 	/**
 	 * Hook that intercept calls to grunt.task.run so as to execute the task for active platforms only.
 	 */
-	grunt.util.hooker.hook(grunt.task, "run",
-	{
-		pre: function (task)
-		{
+	grunt.util.hooker.hook(grunt.task, "run", {
+		pre: function (task) {
 
 			// if there is already a target specified, no hook
 			// specifyng <task>: is also a way to bypass the hook without having target
@@ -723,22 +623,18 @@ module.exports = function (grunt)
 	 * The task is invoked by the above hook for each active platform. Each time, a sass.target
 	 * configuration is created.
 	 */
-	grunt.registerMultiTask("nsass", "wrapperfor grunt-contrib-sass", function ()
-	{
+	grunt.registerMultiTask("nsass", "wrapperfor grunt-contrib-sass", function () {
 		// sass config for the current target
 		var sass = {
 			options: this.options(),
-			target:
-			{
+			target: {
 				files: []
 			}
 		};
 
 		// resolving patterns and then dependencies order
-		this.files.forEach(function (files)
-		{
-			sass.target.files.push(
-			{
+		this.files.forEach(function (files) {
+			sass.target.files.push({
 				src: GruntUtils.resolveDependencies(files.src),
 				dest: files.dest
 			});
@@ -756,22 +652,18 @@ module.exports = function (grunt)
 	 * The task is invoked by the above hook for each active platform. Each time, a uglify.target
 	 * configuration is created.
 	 */
-	grunt.registerMultiTask("nuglify", "wrapperfor grunt-contrib-uglify", function ()
-	{
+	grunt.registerMultiTask("nuglify", "wrapperfor grunt-contrib-uglify", function () {
 		// uglify config for the current target
 		var uglify = {
 			options: this.options(),
-			target:
-			{
+			target: {
 				files: []
 			}
 		};
 
 		// resolving patterns and then dependencies order
-		this.files.forEach(function (files)
-		{
-			uglify.target.files.push(
-			{
+		this.files.forEach(function (files) {
+			uglify.target.files.push({
 				src: GruntUtils.resolveDependencies(files.src),
 				dest: files.dest
 			});

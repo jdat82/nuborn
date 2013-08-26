@@ -1,5 +1,4 @@
-(function (window, $, nu, log, undefined)
-{
+(function (window, $, nu, log, undefined) {
 
 	/**
 	 * @class nu.Utils
@@ -17,14 +16,11 @@
 	 * Checks if Internet is reachable.
 	 * @return {Boolean} The reachability of the internet
 	 */
-	nu.Utils.isNetworkAvailable = function ()
-	{
-		if (nu.Utils.isCordova())
-		{
+	nu.Utils.isNetworkAvailable = function () {
+		if (nu.Utils.isCordova()) {
 			return navigator.connection.type !== Connection.NONE;
 		}
-		else
-		{
+		else {
 			return navigator.onLine;
 		}
 	};
@@ -33,8 +29,7 @@
 	 * Checks if the application is running with PhoneGap (Cordova)
 	 * @return {Boolean} [description]
 	 */
-	nu.Utils.isCordova = function ()
-	{
+	nu.Utils.isCordova = function () {
 		return window.cordova;
 	};
 
@@ -42,14 +37,11 @@
 	 * Checks if the device platform is Android.
 	 * @return {Boolean}
 	 */
-	nu.Utils.isAndroid = function ()
-	{
-		if (nu.Utils.isCordova())
-		{
+	nu.Utils.isAndroid = function () {
+		if (nu.Utils.isCordova()) {
 			return device.platform === "Android";
 		}
-		else
-		{
+		else {
 			return navigator.userAgent.match("Android");
 		}
 	};
@@ -58,14 +50,11 @@
 	 * Checks if the device platform is iOS.
 	 * @return {Boolean}
 	 */
-	nu.Utils.isIOS = function ()
-	{
-		if (nu.Utils.isCordova())
-		{
+	nu.Utils.isIOS = function () {
+		if (nu.Utils.isCordova()) {
 			return device.platform === "iOS";
 		}
-		else
-		{
+		else {
 			return navigator.userAgent.match(/(iPhone|iPod|iPad)/i);
 		}
 	};
@@ -74,10 +63,8 @@
 	 * Checks if the device platform is older than Android 4.
 	 * @return {Boolean}
 	 */
-	nu.Utils.isOldAndroid = function ()
-	{
-		if (!nu.Utils.isAndroid())
-		{
+	nu.Utils.isOldAndroid = function () {
+		if (!nu.Utils.isAndroid()) {
 			return false;
 		}
 		return nu.Utils.getOSVersion() < 4;
@@ -87,10 +74,8 @@
 	 * Checks if the device platform is older than iOS 5.
 	 * @return {Boolean}
 	 */
-	nu.Utils.isOldIOS = function ()
-	{
-		if (!nu.Utils.isIOS())
-		{
+	nu.Utils.isOldIOS = function () {
+		if (!nu.Utils.isIOS()) {
 			return false;
 		}
 		return nu.Utils.getOSVersion() < 5;
@@ -102,21 +87,17 @@
 	 * Needs more support.
 	 * @return {Boolean}
 	 */
-	nu.Utils.getOSVersion = function ()
-	{
+	nu.Utils.getOSVersion = function () {
 		// if the app is running on PhoneGap, ask for the device version
-		if (nu.Utils.isCordova())
-		{
+		if (nu.Utils.isCordova()) {
 			return parseFloat(device.version, 10);
 		}
 		// if it is a web app, ask the navigator user agent
-		else
-		{
+		else {
 			// getting the user agent into a local variable
 			var agent = navigator.userAgent;
 			// iOS case
-			if (nu.Utils.isIOS())
-			{
+			if (nu.Utils.isIOS()) {
 				// removing the first part of the user agent
 				var versionIndex = agent.indexOf("OS") + 2;
 				agent = agent.slice(versionIndex);
@@ -131,8 +112,7 @@
 				return version;
 			}
 			// Android case
-			else if (nu.Utils.isAndroid())
-			{
+			else if (nu.Utils.isAndroid()) {
 				// removing the first part of the user agent
 				var versionIndex = agent.indexOf("Android") + 7;
 				agent = agent.slice(versionIndex);
@@ -144,8 +124,7 @@
 				// returning the version
 				return version;
 			}
-			else
-			{
+			else {
 				return NaN;
 			}
 		}
@@ -155,54 +134,43 @@
 	 * Loads JavaScript library contained in the js/lazy folder.
 	 * @param  {String} library The library to load
 	 */
-	nu.Utils.loadLazyLib = function (library)
-	{
-		$.ajax(
-		{
+	nu.Utils.loadLazyLib = function (library) {
+		$.ajax({
 			url: "js/lazy/" + library,
 			dataType: "script",
 			async: false
 		});
 	};
 
-	nu.Utils.blockEvent = function (event)
-	{
+	nu.Utils.blockEvent = function (event) {
 		return false;
 	};
 
-	nu.Utils.disableScroll = function ()
-	{
+	nu.Utils.disableScroll = function () {
 		$(document).on("touchmove", nu.Utils.blockEvent);
 	};
 
-	nu.Utils.enableScroll = function ()
-	{
+	nu.Utils.enableScroll = function () {
 		$(document).off("touchmove", nu.Utils.blockEvent);
 	};
 
-	nu.Utils.getUrlParams = function (query)
-	{
+	nu.Utils.getUrlParams = function (query) {
 
 		var result = {},
 			nvPairs = ((query || "").replace(/^\?/, "").split(/&/)),
 			i, pair, n, v;
 
-		for (i = 0; i < nvPairs.length; i++)
-		{
+		for (i = 0; i < nvPairs.length; i++) {
 			var pstr = nvPairs[i];
-			if (pstr)
-			{
+			if (pstr) {
 				pair = pstr.split(/=/);
 				n = pair[0];
 				v = pair[1];
-				if (result[n] === undefined)
-				{
+				if (result[n] === undefined) {
 					result[n] = v;
 				}
-				else
-				{
-					if (typeof result[n] !== "object")
-					{
+				else {
+					if (typeof result[n] !== "object") {
 						result[n] = [result[n]];
 					}
 					result[n].push(v);
@@ -217,8 +185,7 @@
 	 * @param {Object} page JQM page object.
 	 * @return {Object} URL key/value parameters
 	 */
-	nu.Utils.getUrlParamsFromPage = function (page)
-	{
+	nu.Utils.getUrlParamsFromPage = function (page) {
 		var u = $.mobile.path.parseUrl(page.baseURI);
 		if (u.search)
 			return nu.Utils.getUrlParams(u.search);
@@ -228,11 +195,9 @@
 	/**
 	 * Read params from url and fill them in JQM data object.
 	 */
-	nu.Utils.fillUrlParams = function (page, data)
-	{
+	nu.Utils.fillUrlParams = function (page, data) {
 		var u = $.mobile.path.parseUrl(page.baseURI);
-		if (u.search)
-		{
+		if (u.search) {
 			if (!data.options)
 				data.options = {};
 			if (!data.options.dataUrl)
@@ -244,9 +209,9 @@
 	/**
 	 * Shortcut for JSON.stringify(object, null, "    ")
 	 */
-	nu.Utils.toJSON = function (object)
-	{
-		return JSON.stringify(object, null, "    ");
+	nu.Utils.toJSON = function (object) {
+		var clone = $.extend(true, {}, object);
+		return JSON.stringify(clone, null, "    ");
 	};
 
 	/**
@@ -255,13 +220,11 @@
 	 * @param {String} pageId page ID.
 	 *	Don't provide the character "#" in pageId.
 	 */
-	nu.Utils.refreshPage = function (pageId)
-	{
+	nu.Utils.refreshPage = function (pageId) {
 		pageId = pageId || $.mobile.activePage.attr("id");
 		debug && log.i("Refreshing page: " + pageId);
 		$.mobile.changePage(
-			"#" + pageId,
-			{
+			"#" + pageId, {
 				allowSamePageTransition: true,
 				transition: 'none',
 				showLoadMsg: false,

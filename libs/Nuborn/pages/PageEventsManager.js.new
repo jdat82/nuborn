@@ -23,8 +23,7 @@
 			this.currentPageHandler = null;
 			this.previousPageHandler = null;
 
-			// binding page events to the manager
-			this.bindPageEvents();
+			this.router = $.mobile.Router([], {}, {});
 		},
 
 		/**
@@ -34,20 +33,20 @@
 			// Declaring page selector string
 			var pageSelector = "[data-role=page]";
 			// Binding all jQuery Mobile page events
-			$(document).on("pagebeforecreate", pageSelector, $.proxy(this, "pageBeforeCreate"));
-			$(document).on("pageinit", pageSelector, $.proxy(this, "pageInit"));
-			$(document).on("pagecreate", pageSelector, $.proxy(this, "pageCreate"));
-			$(document).on("pagebeforechange", pageSelector, $.proxy(this, "pageBeforeChange"));
-			$(document).on("pagechange", pageSelector, $.proxy(this, "pageChange"));
-			$(document).on("pagebeforeload", pageSelector, $.proxy(this, "pageBeforeLoad"));
-			$(document).on("pageload", pageSelector, $.proxy(this, "pageLoad"));
-			$(document).on("pagebeforehide", pageSelector, $.proxy(this, "pageBeforeHide"));
-			$(document).on("pagebeforeshow", pageSelector, $.proxy(this, "pageBeforeShow"));
-			// $(document).on("pageremove", pageSelector, $.proxy(this, "pageRemove"));
-			$(document).on("pagehide", pageSelector, $.proxy(this, "pageHide"));
-			$(document).on("pageshow", pageSelector, $.proxy(this, "pageShow"));
-			$(document).on("swipeleft", pageSelector, $.proxy(this, "swipeLeft"));
-			$(document).on("swiperight", pageSelector, $.proxy(this, "swipeRight"));
+			// $(document).on("pagebeforecreate", pageSelector, $.proxy(this, "pageBeforeCreate"));
+			// $(document).on("pageinit", pageSelector, $.proxy(this, "pageInit"));
+			// $(document).on("pagecreate", pageSelector, $.proxy(this, "pageCreate"));
+			// $(document).on("pagebeforechange", pageSelector, $.proxy(this, "pageBeforeChange"));
+			// $(document).on("pagechange", pageSelector, $.proxy(this, "pageChange"));
+			// $(document).on("pagebeforeload", pageSelector, $.proxy(this, "pageBeforeLoad"));
+			// $(document).on("pageload", pageSelector, $.proxy(this, "pageLoad"));
+			// $(document).on("pagebeforehide", pageSelector, $.proxy(this, "pageBeforeHide"));
+			// $(document).on("pagebeforeshow", pageSelector, $.proxy(this, "pageBeforeShow"));
+			// // $(document).on("pageremove", pageSelector, $.proxy(this, "pageRemove"));
+			// $(document).on("pagehide", pageSelector, $.proxy(this, "pageHide"));
+			// $(document).on("pageshow", pageSelector, $.proxy(this, "pageShow"));
+			// $(document).on("swipeleft", pageSelector, $.proxy(this, "swipeLeft"));
+			// $(document).on("swiperight", pageSelector, $.proxy(this, "swipeRight"));
 		},
 
 		/**
@@ -55,16 +54,16 @@
 		 */
 		unbindPageEvent: function () {
 			// Unbinding all jQuery Mobile page events
-			$(document).off("pagebeforecreate");
-			$(document).off("pageinit");
-			$(document).off("pagecreate");
-			$(document).off("pagebeforechange");
-			$(document).off("pagebeforeload");
-			$(document).off("pagebeforehide");
-			$(document).off("pagebeforeshow");
-			// $(document).off("pageremove");
-			$(document).off("pagehide");
-			$(document).off("pageshow");
+			// $(document).off("pagebeforecreate");
+			// $(document).off("pageinit");
+			// $(document).off("pagecreate");
+			// $(document).off("pagebeforechange");
+			// $(document).off("pagebeforeload");
+			// $(document).off("pagebeforehide");
+			// $(document).off("pagebeforeshow");
+			// // $(document).off("pageremove");
+			// $(document).off("pagehide");
+			// $(document).off("pageshow");
 		},
 
 		/**
@@ -72,7 +71,17 @@
 		 * @param  {nu.pages.PageHandler} pageHandler
 		 */
 		registerPageHandler: function (pageHandler) {
-			this.pageHandlers[pageHandler.settings.id] = pageHandler;
+			this.router.add([{
+				pageHandler.settings.id: {
+					handler: pageHandler.pageInit,
+					events: "i"
+				}
+			}, {
+				pageHandler.settings.id: {
+					handler: pageHandler.pageCreate,
+					events: "s"
+				}
+			}]);
 		},
 
 		/**
@@ -228,14 +237,11 @@
 		pageBeforeShow: function (event, data) {
 			// getting page handler from the event
 			var pageHandler = this.getPageHandlerFromEvent(event);
-			// stop process if no page handler has been found
 			if (!pageHandler) {
 				return;
 			}
 
 			var page = event.currentTarget;
-
-			data = nu.Utils.fillUrlParams(page, data);
 
 			// dispatching the event to current active page handler
 			pageHandler.pageBeforeShow(event, data);
@@ -249,7 +255,6 @@
 		pageBeforeChange: function (event, data) {
 			// getting page handler from the event
 			var pageHandler = this.getPageHandlerFromEvent(event);
-			// stop process if no page handler has been found
 			if (!pageHandler) {
 				return;
 			}
@@ -266,7 +271,6 @@
 		pageChange: function (event, data) {
 			// getting page handler from the event
 			var pageHandler = this.getPageHandlerFromEvent(event);
-			// stop process if no page handler has been found
 			if (!pageHandler) {
 				return;
 			}

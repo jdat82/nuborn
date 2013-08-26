@@ -1,7 +1,5 @@
 <div id="home" data-role="page">
-
-	<div id="home-menu" data-role="panel" data-swipe-close="false"></div>
-
+	<div id="home-menu" data-role="panel" data-swipe-close="false" data-display="overlay"></div>
 	<div data-role="header">
 		<div class="menu-button"></div>
 		<div class="title">Accueil</div>

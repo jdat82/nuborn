@@ -1,6 +1,5 @@
 // Configuration of jQuery Mobile before it loads
-$(document).on("mobileinit", function ()
-{
+$(document).on("mobileinit", function () {
 	// do not auto initialize page because of splashscreen
 	$.mobile.autoInitializePage = false;
 
@@ -10,6 +9,9 @@ $(document).on("mobileinit", function ()
 	// phonegap friendly ?
 	if (window.cordova)
 		$.mobile.phonegapNavigationEnabled = true;
+
+	// not needed
+	$.mobile.ajaxEnabled = false;
 
 	// TODO je serais partant pour désactiver les transitions dès qu'on a un peu scrollé
 	// la valeur par défaut me semble bien trop importante (3 fois la taille du viewport)
