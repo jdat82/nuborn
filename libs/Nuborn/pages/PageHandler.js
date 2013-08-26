@@ -119,6 +119,7 @@
 		 */
 		pageBeforeShow: function (event, data) {
 			debug && log.i("page before show of '" + event.currentTarget.id + "'");
+			this.data.pageParams = nu.Utils.deserializeHashParameters();
 		},
 
 		/**
@@ -128,6 +129,11 @@
 		 */
 		pageShow: function (event, data) {
 			debug && log.i("page show of '" + event.currentTarget.id + "'");
+			if (this.data.isFirst) {
+				nu.Utils.hideSplashScreen(this.data.splashscreen);
+				delete this.data.isFirst;
+				delete this.data.splashscreen;
+			}
 		},
 
 		/**

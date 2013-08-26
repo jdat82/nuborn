@@ -154,16 +154,23 @@
 		$(document).off("touchmove", nu.Utils.blockEvent);
 	};
 
-
+	/**
+	 * Deserialize the hash part of a URL.
+	 * @param {String} hash Hash part of a URL. If null, window.location.hash is used.
+	 * @return {Object}
+	 * @return {String} return.name Hash name
+	 * @return {Object} return.params Hash parameters
+	 */
 	nu.Utils.deserializeHash = function (hash) {
 		var result = {
 			name: "",
 			params: ""
 		};
 		if (!hash || !hash.length)
-			return result;
+			hash = window.location.hash;
 
-		var questionMarkIndex = hash.indexOf("?") + 1;
+		var questionMarkIndex = hash.indexOf("?");
+		questionMarkIndex = questionMarkIndex < 0 ? hash.length : questionMarkIndex + 1;
 
 		// extracting hash name
 		result.name = hash.substr(0, questionMarkIndex);
@@ -185,14 +192,14 @@
 
 		var result = {};
 		if (!hash || !hash.length)
-			return result;
+			hash = window.location.hash;
 
 		// extracting hash parameters substring
 		var hashParameters = hash.substr(hash.indexOf("?") + 1);
 		if (!hashParameters || !hashParameters.length)
 			return result;
 
-		// parsing key=value pairs 
+		// parsing key=value pairs
 		var paramsArray = hashParameters.split("&");
 		paramsArray.forEach(function (param) {
 			var keyValueArray = param.split("=");
@@ -248,6 +255,27 @@
 				showLoadMsg: false,
 				changeHash: false
 			});
+	};
+
+	/**
+	 * If in a web app, wait 2 seconds and hide web splashscreen.
+	 * If in a phonegap app, hide native splashscreen.
+	 * @param {nu.widgets.SplashScreen} splashscreen Web splashscreen. Useless in phonegap app.
+	 */
+	nu.Utils.hideSplashScreen = function (splashscreen) {
+		var self = this;
+		// if the splashscreen is handled from web
+		if (splashscreen) {
+			setTimeout(function () {
+				// hide splashscreen after 2 seconds
+				splashscreen.hide(true);
+			}, 2000);
+		}
+		// if the splashscreen is handled natively with iOS
+		else if (this.isCordova() && this.isIOS()) {
+			// hide it immediately via cordova
+			navigator.splashscreen.hide();
+		}
 	};
 
 	// handle old browsers when JSON object is missing

@@ -4,7 +4,8 @@
 			"global_defs": {
 				"debug": false
 			},
-			"dead_code": true
+			"dead_code": true,
+			"drop_debugger": true
 		},
 		"beautify": false,
 		"report": "min",

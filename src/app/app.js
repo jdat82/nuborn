@@ -46,10 +46,10 @@
 				 * @member app
 				 * Application splashscreen instance.
 				 */
-				app.splash = new nu.widgets.SplashScreen({
+				var splashscreen = new nu.widgets.SplashScreen({
 					title: "NUBORN"
 				});
-				app.splash.show();
+				splashscreen.show();
 			}
 
 			window.onpopstate = function (event) {
@@ -60,12 +60,11 @@
 
 			window.onhashchange = function (event) {
 				debug && log.i("## hashchange ##");
-				// debug && log.i(nu.Utils.toJSON(event.state));
 				debug && console.log(event);
 			};
 
 			// loading in DOM first page app
-			nu.pages.PageEventsManager.get().loadFirstPage(app.home.settings.id);
+			nu.pages.PageEventsManager.get().loadFirstPage(app.home.settings.id, splashscreen);
 
 			// starting JQM pages enhancement mechanism
 			$.mobile.initializePage();

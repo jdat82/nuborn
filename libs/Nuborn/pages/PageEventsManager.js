@@ -103,14 +103,12 @@
 		/**
 		 * Load first page.
 		 * @param {String} defaultPageId Default page ID to use if no ID in current URL.
+		 * @param {nu.widgets.SplashScreen} splashscreen Web splashscreen (optional).
 		 */
-		loadFirstPage: function (defaultPageId) {
-
-			// TODO passer les paramètres d'URL à la page et gérer suppression du splash screen
-			// car seul la home aujourd'hui sait se débarrasser du splashscreen
+		loadFirstPage: function (defaultPageId, splashscreen) {
 
 			// hash.name contains current page id if filled
-			var hash = nu.Utils.deserializeHash(window.location.hash);
+			var hash = nu.Utils.deserializeHash();
 			var pageId = hash.name || defaultPageId;
 			debug && log.i("First page is: " + pageId);
 
@@ -120,6 +118,9 @@
 				window.location.hash = "#" + pageId;
 				// loading page into DOM
 				pageHandler.load();
+				// memorizing first page handler to handle splashscreen removal
+				pageHandler.data.isFirst = true;
+				pageHandler.data.splashscreen = splashscreen;
 			}
 		},
 
