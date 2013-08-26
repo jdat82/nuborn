@@ -115,7 +115,8 @@
 			var pageHandler = this.getPageHandler(pageId);
 
 			if (pageHandler) {
-				window.location.hash = "#" + pageId;
+				if (!window.location.hash)
+					window.location.hash = "#" + pageId;
 				// loading page into DOM
 				pageHandler.load();
 				// memorizing first page handler to handle splashscreen removal
