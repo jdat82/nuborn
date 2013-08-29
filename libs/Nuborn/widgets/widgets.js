@@ -1,12 +1,14 @@
 (function (nu) {
 
-	/**
-	 * Widgets namespace.
-	 *
-	 * @provide nu.widgets
-	 *
-	 * @require nu
-	 */
-	nu.widgets = {};
+    'use strict';
+
+    /**
+     * Widgets namespace.
+     *
+     * @provide nu.widgets
+     *
+     * @require nu
+     */
+    nu.widgets = {};
 
 })(nu);

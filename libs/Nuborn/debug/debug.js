@@ -1,12 +1,14 @@
 (function (window, nu) {
 
-	/**
-	 * Debug namespace.
-	 *
-	 * @provide nu.debug
-	 *
-	 * @require nu
-	 */
-	nu.debug = {};
+    'use strict';
+
+    /**
+     * Debug namespace.
+     *
+     * @provide nu.debug
+     *
+     * @require nu
+     */
+    nu.debug = {};
 
 })(this, nu);

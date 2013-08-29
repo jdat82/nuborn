@@ -1,5 +1,7 @@
 (function (window, $, nu, undefined) {
 
+	'use strict';
+
 	/**
 	 * @class nu.debug.Log
 	 * @singleton

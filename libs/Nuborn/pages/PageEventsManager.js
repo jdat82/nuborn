@@ -1,5 +1,7 @@
 (function ($, nu, log, undefined) {
 
+	'use strict';
+
 	/**
 	 * @class nu.pages.PageEventsManager
 	 * @singleton

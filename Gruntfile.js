@@ -42,13 +42,12 @@ module.exports = function (grunt) {
 			"libs/Gsap/easing/*.js", /** Animations */
 			"libs/Gsap/TweenLite.min.js", /** Animations */
 			"libs/Gsap/TimelineLite.min.js", /** Animations */
-			"libs/jQuery/*.min.js", /** jQuery is required **/
+			"libs/jQuery/*.min.js", /** jQuery is required */
 			"libs/Modernizr/*.js",
 			"src/app/mobileinit.js", /** jQuery Mobile pre-initialization */
-			// "libs/jQueryMobileRouter/*.js",
 			"libs/jQueryMobile/*.js", /** jQuery Mobile is required **/
 			"libs/SwipeJS/*.js",
-			// "libs/jQueryJSON/*.js",						/** jQueryJSON is required for old browser **/
+			// "libs/jQueryJSON/*.js",	/** jQueryJSON is required for old browser **/
 			"gen/*.js", /** Generated sources as templates */
 			"libs/Nuborn/**/*.js", /** Nuborn is required **/
 			"src/**/*.js"

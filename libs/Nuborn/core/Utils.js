@@ -1,6 +1,8 @@
 (function (window, $, nu, log, undefined) {
 
-	/**
+	'use strict';
+
+	/***
 	 * @class nu.Utils
 	 * @singleton
 	 *

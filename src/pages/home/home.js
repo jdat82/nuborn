@@ -1,5 +1,7 @@
 (function ($, nu, app, utils, log, templates, undefined) {
 
+	'use strict';
+
 	/**
 	 * @class app.pages.HomePageHandler
 	 * @extends nu.pages.PageHandler

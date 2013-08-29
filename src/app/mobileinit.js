@@ -1,5 +1,8 @@
 // Configuration of jQuery Mobile before it loads
 $(document).on("mobileinit", function () {
+
+	'use strict';
+
 	// do not auto initialize page because of splashscreen
 	$.mobile.autoInitializePage = false;
 

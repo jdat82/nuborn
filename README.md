@@ -31,7 +31,7 @@ Nuborn components don't intend to be state of the arts solutions for problems th
 They are simple and light javascript code, sufficient enough for simple and recurrent needs.
 We don't need specialized and poweful framework every time we need something. Specially on mobile.
 
-We tried to create our perfect ligth boilerplate project. Of course, it's a work in progress evolving continuously.
+We tried to create a ligth boilerplate project. Of course, it's a work in progress evolving continuously.
 
 
 Building Nuborn

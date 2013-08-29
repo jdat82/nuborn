@@ -1,6 +1,6 @@
 (function ($, nu, log, undefined) {
 
-	"use strict";
+	'use strict';
 
 	/**
 	 * @class nu.pages.PageHandler

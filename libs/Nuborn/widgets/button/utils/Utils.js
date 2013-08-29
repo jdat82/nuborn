@@ -1,5 +1,7 @@
 (function ($, nu, undefined) {
 
+	'use strict';
+
 	/**
 	 * @class nu.widgets.button.Utils
 	 * @singleton

@@ -1,5 +1,7 @@
 (function ($, nu, undefined) {
 
+	'use strict';
+
 	/**
 	 * @class nu.events.EventsDispatcher
 	 * @singleton

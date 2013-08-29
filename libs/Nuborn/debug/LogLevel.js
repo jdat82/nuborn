@@ -1,5 +1,7 @@
 (function (nu) {
 
+	'use strict';
+
 	/**
 	 * @enum
 	 * Enumeration of log levels.
@@ -15,4 +17,4 @@
 		WARN: "WARN"
 	};
 
-})(nu)
+})(nu);

@@ -1,5 +1,7 @@
 (function (window, $, nu, utils, log, templates, undefined) {
 
+	'use strict';
+	
 	/**
 	 * @class app
 	 * @singleton

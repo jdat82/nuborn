@@ -1,5 +1,6 @@
-(function ($, nu, undefined)
-{
+(function ($, nu, undefined) {
+
+	'use strict';
 
 	/**
 	 * @class nu.widgets.SplashScreen
@@ -9,17 +10,14 @@
 	 *
 	 * @require nu.widgets
 	 */
-	nu.widgets.SplashScreen = Object.subClass(
-	{
+	nu.widgets.SplashScreen = Object.subClass({
 
 		/**
 		 * @constructor
 		 * @param  {Object} settings
 		 */
-		init: function (settings)
-		{
-			this.settings = settings ||  
-			{};
+		init: function (settings) {
+			this.settings = settings ||  {};
 			this.settings.id = "splash";
 			// inflates the splashscreen
 			var element = $(templates.SplashScreen.render(this.settings));
@@ -31,8 +29,7 @@
 		 * Shows the splashscreen.
 		 * @param  {Boolean} animated Defines if the transition should be animated
 		 */
-		show: function ()
-		{
+		show: function () {
 
 			// deactivating scroll capacity during splashscreen
 			// nu.Utils.disableScroll();
@@ -45,8 +42,7 @@
 		 * Hides the splashscreen.
 		 * @param  {Boolean} animated Defines if the transition should be animated
 		 */
-		hide: function (animated)
-		{
+		hide: function (animated) {
 
 			// reactivating scroll capacity
 			// nu.Utils.enableScroll();
@@ -56,11 +52,9 @@
 
 			// remove the element from the document
 			var period = animated ? 1 : 0;
-			var tl = new TimelineLite().to(element, period,
-			{
+			var tl = new TimelineLite().to(element, period, {
 				opacity: 0,
-				onComplete: function ()
-				{
+				onComplete: function () {
 					element.remove();
 				},
 				ease: Back.easeIn
