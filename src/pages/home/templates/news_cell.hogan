@@ -1,6 +1,6 @@
 <ul>
 	{{#items}}
-		<li>
+		<li data-news-id="{{id}}">
 			<div class="thumbnail" style="background-image:url('{{image}}')"></div>
 			<div class="title">{{title}}</div>
 			<div class="subtitle">{{date}}</div>

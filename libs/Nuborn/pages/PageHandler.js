@@ -6,10 +6,10 @@
 	 * @class nu.pages.PageHandler
 	 *
 	 * Handle lifecycle of jQuery Mobile pages.
-	 * Defaults PageHandler instances are prototype which means
-	 * every time you change the page, the page is considered to be removed
-	 * from the DOM. If you use data-dom-cache or any technique to keep the page
-	 * in the DOM, set "singleton" to true in the settings.
+	 * Defaults PageHandler instances are prototype which means every time you navigate away
+	 * to another page, it is removed from the DOM.
+	 * As page parameters are set on "pageinit" event, singleton controllers received them
+	 * once only.
 	 *
 	 * @provide nu.pages.PageHandler
 	 *
@@ -60,12 +60,18 @@
 
 		/**
 		 * Called for the pageinit event. <br/>
-		 * Also create Html Elements & Data objects.
+		 * Populate page parameters by reading url hash part in PageHandler#data#pageParams.
+		 * Also create PageHandler#html and PageHandler#data properties.
 		 * @param  {Object} event
 		 * @param  {Object} data
 		 */
 		pageInit: function (event, data) {
 			debug && log.i("page init of " + event.currentTarget.id);
+
+			// page parameters are passed in on "pageinit" event
+			// so controller in singleton mode will keep their page parameters
+			// forever
+			this.data.pageParams = nu.Utils.deserializeHashParameters();
 
 			// Calling #createHtmlElements
 			this.createHtmlElements();
@@ -128,6 +134,11 @@
 		 */
 		pageShow: function (event, data) {
 			debug && log.i("page show of '" + event.currentTarget.id + "'");
+			if (this.data.isFirst) {
+				nu.Utils.hideSplashScreen(this.data.splashscreen);
+				delete this.data.isFirst;
+				delete this.data.splashscreen;
+			}
 		},
 
 		/**
