@@ -1,7 +1,7 @@
 (function (window, $, nu, utils, log, templates, undefined) {
 
 	'use strict';
-	
+
 	/**
 	 * @class app
 	 * @singleton
@@ -35,6 +35,21 @@
 				debug && log.i("Used as a Hybrid App");
 				// $.mobile.defaultHomeScroll = 0;
 				document.addEventListener("deviceready", app.init, false);
+			}
+
+			/**
+			 * Adding livereload support for development only.
+			 * Refresh page automatically in conjunction with grunt watcher.
+			 * Generate something like this in body :
+			 *   <script src="http://<hostname>:35729/livereload.js"></script>
+			 */
+			if (debug) {
+				var lr = document.createElement('script');
+				lr.src = ('https:' == window.location.protocol ? 'https://' : 'http://') + window.location.hostname + ":35729/livereload.js";
+				lr.type = 'text/javascript';
+				lr.async = 'true';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(lr, s);
 			}
 		},
 
