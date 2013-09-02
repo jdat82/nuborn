@@ -280,6 +280,47 @@
 		}
 	};
 
+	/**
+	 * Install remote debugging scripts based on build based variables (uglify compilation).
+	 * debug : true if compiling for development
+	 * weinre : true if you want weinre support
+	 * livereload : true if you want livereload support
+	 */
+	nu.Utils.installDebugScripts = function () {
+
+		/**
+		 * Adding livereload support for development only.
+		 * Refresh page automatically in conjunction with grunt watcher.
+		 * Generate something like this in body :
+		 *   <script src="http://<hostname>:35729/livereload.js"></script>
+		 */
+		if (debug && livereload) {
+			var lr = document.createElement('script');
+			lr.src = ('https:' == window.location.protocol ? 'https://' : 'http://') + window.location.hostname + ":35729/livereload.js";
+			lr.type = 'text/javascript';
+			lr.async = 'true';
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(lr, s);
+		}
+
+		/**
+		 * Adding weinre support for development only.
+		 * Allows remote debugging with Android default browser.
+		 * Generate something like this in body :
+		 *   <script src="http://<hostname>::8080/target/target-script-min.js#weinre"></script>
+		 */
+		if (debug && weinre) {
+			var lr = document.createElement('script');
+			lr.src = ('https:' == window.location.protocol ? 'https://' : 'http://') + window.location.hostname +
+				":8080/target/target-script-min.js#weinre";
+			lr.type = 'text/javascript';
+			lr.async = 'true';
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(lr, s);
+		}
+
+	};
+
 	// handle old browsers when JSON object is missing
 	// if(!JSON || !JSON.stringify || !JSON.parse){
 	// 	// creating JSON object
