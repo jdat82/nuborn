@@ -3,9 +3,9 @@
 * @require mixins
 */
 
-$color: rgba(255,255,255,1);
+$white: rgba(255,255,255,1);
 
-#splash 
+#splash
 {
   z-index: 1100;
   text-align: center;
@@ -25,17 +25,19 @@ $color: rgba(255,255,255,1);
     position: relative;
 
     font: {
-      family: sans-serif;
-      size: 2.5rem;
+      family: Champagne;
+      size: 3rem;
       weight: bold;
+      variant: small-caps;
     }
 
     &:first-letter {
       display: block;
-      box-shadow: 0 0 0 0.1em $color;
       padding:0  .2em;
       letter-spacing: 0;
-      margin-right: .2em;
+      font-size: 3.3rem;
+      font-weight: 900;
+      color: $red;
     }
 
     &::after {

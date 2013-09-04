@@ -7,26 +7,13 @@
 
 /*************************** DEFAULTS ***************************/
 
-/**
- * @var
- * Tungsten color.
- */
 $background : #424242;
-
-/**
- * @var
- * Lead color.
- */
 $darkBackground : #212121;
-
-/**
- * @var
- * Default text color.
- */
+$red: #e23343;
 $textColor: white;
 
 html * {
-	font-family: "Montserrat", "Helvetica", "Arial";
+	font-family: "Roboto", "Helvetica", "Arial";
 
 	-webkit-user-select: none;
 	-moz-user-select: -moz-none;
@@ -36,12 +23,6 @@ html * {
 	@include vendorize(box-sizing, border-box);
 
 }
-
-// body {
-// 	-webkit-transition: -webkit-filter 0.5s ease-in;
-// 	-webkit-filter: blur(0px) brightness(100%);
-// 	-webkit-transform: translateZ(0);
-// }
 
 input, textarea {
 	-moz-user-select: text;
@@ -60,14 +41,15 @@ li{
 	height: 44px;
 	border-color: #111;
 	border-bottom: 1px solid;
-	@include linear-gradient($background, $darkBackground);
+	background-color: $background;
 
 	.title{
 		color: white;
 		line-height: 44px;
 		text-align: center;
 		font-size: 1.3rem;
-		font-weight: 900;
+		font-weight: 400;
+		// font-family: Roboto;
 	}
 
 	.menu-button{
@@ -79,7 +61,7 @@ li{
 		border-right: 1px solid;
 
 		&.pressed{
-			background-color: $darkBackground;
+			background-color: $background;
 		}
 
 		@include background("menu-button", center, center, 40px, 44px);
@@ -94,7 +76,7 @@ li{
 		border-right: 1px solid;
 
 		&.pressed{
-			background-color: $darkBackground;
+			background-color: $background;
 		}
 
 		@include background("back-button", center, center, 40px, 44px);

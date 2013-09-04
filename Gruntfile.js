@@ -443,8 +443,8 @@ module.exports = function (grunt) {
 			"css/*.css",
 			"js/*.js",
 			"*.html",
-			// "fonts/Roboto/*",
-			"fonts/Montserrat/*",
+			"fonts/Roboto/*",
+			"fonts/Champagne/*",
 			"img/*",
 			"!*.appcache"
 		],

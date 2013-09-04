@@ -1,0 +1,18 @@
+/**
+  * Typography "Champagne" (similar to Neutraface Display Medium)
+  * http://www.dafont.com/champagne-limousines.font?text=TOM+CRUISE+OBLIVION
+  *
+  * @provide Champagne
+  */
+// @font-face {
+//   font-family: 'Champagne';
+//   font-style: normal;
+//   font-weight: 400;
+//   src:  local("Champagne"), url("../fonts/Champagne/Champagne.ttf") format('truetype');
+// }
+@font-face {
+  font-family: 'Champagne';
+  font-style: normal;
+  font-weight: 900;
+  src:  local("Champagne-Bold"), url("../fonts/Champagne/Champagne-Bold.ttf") format('truetype');
+}
