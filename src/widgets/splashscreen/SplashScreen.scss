@@ -15,7 +15,7 @@ $white: rgba(255,255,255,1);
   color: $textColor;
 
   & > div {
-    height: 7rem;
+    height: 8rem;
   }
 
   h1 {
@@ -49,12 +49,18 @@ $white: rgba(255,255,255,1);
 
 @import "compass/css3/transform";
 
-@include keyframes(fade-in) {
-  from { opacity: 0; }
-  to { opacity: 1; }
+// @include keyframes(fade-in) {
+//   from { opacity: 0; }
+//   to { opacity: 1; }
+// }
+
+@include keyframes(scale-in) {
+  0% { @include transform(scaleY(0)); }
+  50% { @include transform(scaleY(0)); }
+  100% { @include transform(scaleY(1)); }
 }
 
 .csstransforms3d #splash h1 {
-  @include transform3d(translateZ(0));
-  @include animation(fade-in, 2s);
+  // @include animation(fade-in, 1s);
+  @include animation(scale-in, 2s);
 }
