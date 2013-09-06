@@ -145,6 +145,7 @@
 	};
 
 	nu.Utils.blockEvent = function (event) {
+		event.preventDefault();
 		return false;
 	};
 

@@ -1,4 +1,4 @@
-(function ($, nu, undefined) {
+(function ($, nu, log, undefined) {
 
 	'use strict';
 
@@ -32,7 +32,7 @@
 		show: function () {
 
 			// deactivating scroll capacity during splashscreen
-			// nu.Utils.disableScroll();
+			nu.Utils.disableScroll();
 
 			// adding the splashscreen at the end of the document body
 			$("body").append(this.element);
@@ -45,7 +45,7 @@
 		hide: function (animated) {
 
 			// reactivating scroll capacity
-			// nu.Utils.enableScroll();
+			nu.Utils.enableScroll();
 
 			// getting the element member as a local variable
 			var element = this.element;
@@ -63,4 +63,4 @@
 
 	});
 
-})(jQuery, nu);
+})(jQuery, nu, nu.debug.Log);

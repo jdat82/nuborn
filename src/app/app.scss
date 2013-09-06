@@ -21,7 +21,6 @@ html * {
 	user-select: none;
 
 	@include vendorize(box-sizing, border-box);
-
 }
 
 input, textarea {

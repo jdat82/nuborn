@@ -48,11 +48,7 @@
 		 */
 		init: function () {
 			if (!utils.isCordova() || !utils.isIOS()) {
-				/**
-				 * @property {nu.widgets.SplashScreen} splash
-				 * @member app
-				 * Application splashscreen instance.
-				 */
+				// Application splashscreen instance
 				var splashscreen = new nu.widgets.SplashScreen({
 					title: "NUBORN"
 				});
