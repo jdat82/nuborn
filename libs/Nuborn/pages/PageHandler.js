@@ -285,6 +285,7 @@
 		 * [1]: http://api.jquerymobile.com/jQuery.mobile.changePage/
 		 * @param options.pageParams Key/value pairs to be passed to destination page
 		 * @param options.delay Delay before navigating. Default 0 = no delay.
+		 * @param options.callback Callback called after navigating.
 		 *
 		 * @throws {String} This page handler has no valid page
 		 */
