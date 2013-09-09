@@ -27,6 +27,7 @@
 
 			// binding page events to the manager
 			this.bindPageEvents();
+			this.interceptHashLinks();
 		},
 
 		/**
@@ -120,7 +121,7 @@
 				if (!window.location.hash)
 					window.location.hash = "#" + pageId;
 				// loading page into DOM
-				pageHandler.load();
+				pageHandler.load(hash.params);
 				// memorizing first page handler to handle splashscreen removal
 				pageHandler.data.isFirst = true;
 				pageHandler.data.splashscreen = splashscreen;
@@ -370,8 +371,33 @@
 
 			// dispatching the event to current active page handler
 			pageHandler.swipeRight(event, data);
-		}
+		},
 
+		/**
+		 * Intercept links which starts with a #.
+		 * The page manager will load the linked template and navigate to it.
+		 */
+		interceptHashLinks: function () {
+			$(document).on("click", "a", function (event) {
+				var el = event.currentTarget;
+				var hash = nu.Utils.deserializeHash(el.href);
+				var preventDefault = !(el.dataset.intercept === "true");
+				// if it is not a hash link, nothing to do
+				if (!hash.name || !hash.name.length || preventDefault) {
+					event.preventDefault();
+					return false;
+				}
+
+				debug && log.i("intercepted hash link: #" + hash.name);
+				if (app[hash.name]) {
+					app[hash.name].navigate({
+						pageParams: hash.params
+					});
+					event.preventDefault();
+					return false;
+				}
+			});
+		}
 	});
 
 	/**
