@@ -172,13 +172,22 @@
 		if (!hash || !hash.length)
 			hash = window.location.hash;
 
+		// no hash, no op.
+		var hashIndex = hash.lastIndexOf("#");
+		if (hashIndex < 0)
+			return result;
+
+		// removing part before hash
+		hash = hash.substr(hashIndex);
+
+		// is there hash parameters too ?
 		var questionMarkIndex = hash.indexOf("?");
 		questionMarkIndex = questionMarkIndex < 0 ? hash.length : questionMarkIndex + 1;
 
 		// extracting hash name
 		result.name = hash.substr(0, questionMarkIndex);
 		if (result.name && result.name.length)
-			result.name = result.name.replace(/[#?]/g, "");
+			result.name = result.name.replace(/(.*#)|(\?.*)/g, "");
 
 		// extracting hash parameters
 		result.params = nu.Utils.deserializeHashParameters(hash.substr(questionMarkIndex));
@@ -195,7 +204,7 @@
 
 		var result = {};
 		if (!hash || !hash.length)
-			hash = window.location.hash;
+			return result;
 
 		// extracting hash parameters substring
 		var hashParameters = hash.substr(hash.indexOf("?") + 1);
