@@ -2,24 +2,15 @@
  * @provide mixins
  */
 
-@mixin animation($name, $duration, $delay: 0s, $fill-mode: forwards, $iteration: 1, $direction: normal) {
-  -moz-animation-name: $name;
-  -webkit-animation-name: $name;
-
-  -webkit-animation-fill-mode: $fill-mode;
-  -moz-animation-fill-mode: $fill-mode;
-
-  -webkit-animation-delay: $delay;
-  -moz-animation-delay: $delay;
-
-  -moz-animation-duration: $duration;
-  -webkit-animation-duration: $duration;
-
-  -webkit-animation-iteration-count: $iteration;
-  -moz-animation-iteration-count: $iteration;
-
-  -webkit-animation-direction: $direction;
-  -moz-animation-direction: $direction;
+/**
+ * FYI : animation property accepts these arguments :
+ * name, duration, timingFunction, iteration, delay, direction, fillMode, playState
+ * http://www.w3.org/TR/css3-animations/#animation-shorthand-property
+ */
+@mixin animation($value) {
+  -moz-animation: $value;
+  -webkit-animation: $value;
+  animation: $value;
 }
 
 @mixin keyframes($name) {
@@ -38,14 +29,14 @@
 }
 
 @mixin linear-gradient($from, $to) {
-	background: $from; /* Old browsers */
-	background: -moz-linear-gradient(top,  $from 0%, $to 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$from), color-stop(100%,$to)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  $from 0%,$to 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  $from 0%,$to 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  $from 0%,$to 100%); /* IE10+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$from}', endColorstr='#{$to}',GradientType=0 ); /* IE6-9 */
-	background: linear-gradient(to bottom,  $from 0%,$to 100%); /* W3C */
+    background-image: $from; /* Old browsers */
+    background-image: -moz-linear-gradient(top, $from 0%, $to 100%); /* FF3.6+ */
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $from), color-stop(100%,$to)); /* Chrome,Safari4+ */
+    background-image: -webkit-linear-gradient(top, $from 0%, $to 100%); /* Chrome10+,Safari5.1+ */
+    background-image: -o-linear-gradient(top, $from 0%, $to 100%); /* Opera 11.10+ */
+    background-image: -ms-linear-gradient(top, $from 0%, $to 100%); /* IE10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$from}', endColorstr='#{$to}',GradientType=0 ); /* IE6-9 */
+    background-image: linear-gradient(to bottom, $from 0%, $to 100%); /* W3C */
 }
 
 @mixin box-shadow($inset, $x, $y, $blur, $spread, $color, $ieDirection) {
