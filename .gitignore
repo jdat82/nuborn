@@ -5,6 +5,7 @@
 node_modules/
 docs/gen/
 gen/
+**.off
 
 # web
 build/web/
