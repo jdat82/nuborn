@@ -124,6 +124,11 @@
 		 * @param  {Object} data
 		 */
 		pageBeforeShow: function (event, data) {
+			// controller in prototype mode can receive parameters each time
+			// the page is rendered
+			if (!this.settings.singleton)
+				this.data.pageParams = nu.Utils.deserializeHashParameters();
+
 			debug && log.i("page before show of '" + event.currentTarget.id + "'");
 		},
 
@@ -278,8 +283,8 @@
 		 * @param {Object} options
 		 * @param options.jqmOptions [jQuery Mobile #changePage options][1]
 		 * [1]: http://api.jquerymobile.com/jQuery.mobile.changePage/
-		 * @param options.templateData Placeholder values for Mustache templates
 		 * @param options.pageParams Key/value pairs to be passed to destination page
+		 * @param options.delay Delay before navigating. Default 0 = no delay.
 		 *
 		 * @throws {String} This page handler has no valid page
 		 */
@@ -290,11 +295,11 @@
 			var pageId = this.settings.id;
 
 			// settings defaults
-			options = $.extend(true, options, {
+			options = $.extend(true, {
 				jqmOptions: {},
 				pageParams: undefined,
-				templateData: {}
-			});
+				delay: 0
+			}, options);
 
 			// the JQM tricky way to pass parameters between pages is to use the dataUrl option
 			// must contain the hash name without "#" followed by query params
@@ -308,10 +313,14 @@
 			debug && log.i("options: " + nu.Utils.toJSON(options));
 
 			if (pageId && templates[pageId]) {
-				this.load(options.jqmOptions, options.templateData);
-				debug && log.i("navigating to #" + pageId);
-				$.mobile.changePage("#" + pageId, options.jqmOptions);
-				debug && log.i("history.length: " + history.length);
+				this.load(options.pageParams);
+				window.setTimeout(function () {
+					debug && log.i("navigating to #" + pageId);
+					$.mobile.changePage("#" + pageId, options.jqmOptions);
+					if (options.callback) {
+						options.callback();
+					}
+				}, options.delay);
 			}
 			else {
 				throw "This page handler has no valid page";
