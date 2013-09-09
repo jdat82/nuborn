@@ -29,7 +29,7 @@
 
 		createHtmlElements: function () {
 			// getting a local reference of the back button
-			this.html.backButton = $("#detail .back-button");
+			this.html.backButton = this.html.page.find(".back-button");
 		},
 
 
