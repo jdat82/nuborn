@@ -4,7 +4,7 @@
 			"global_defs": {
 				"debug": true,
 				"livereload": true,
-				"weinre": true
+				"weinre": false
 			},
 			"dead_code": true
 		},
@@ -12,7 +12,7 @@
 		"report": "false",
 		"warnings": true,
 		"mangle": false,
-		"banner": "/**\n * !!! DEV !!!\n * © IT&L@BS TOULOUSE 2013\n * Generated on <%=grunt.template.today()%>\n */\n"
+		"banner": "/**\n * !!! DEV !!!\n * © Jean Dat 2013\n * Generated on <%=grunt.template.today()%>\n */\n"
 	},
 	"sass": {
 		"style": "expanded",

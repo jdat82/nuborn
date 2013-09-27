@@ -71,7 +71,8 @@
 			// page parameters are passed in on "pageinit" event
 			// so controller in singleton mode will keep their page parameters
 			// forever
-			this.data.pageParams = nu.Utils.deserializeHashParameters();
+			if (this.settings.singleton)
+				this.data.pageParams = nu.Utils.deserializeHash().params;
 
 			// Calling #createHtmlElements
 			this.createHtmlElements();
@@ -127,7 +128,7 @@
 			// controller in prototype mode can receive parameters each time
 			// the page is rendered
 			if (!this.settings.singleton)
-				this.data.pageParams = nu.Utils.deserializeHashParameters();
+				this.data.pageParams = nu.Utils.deserializeHash().params;
 
 			debug && log.i("page before show of '" + event.currentTarget.id + "'");
 		},
@@ -252,20 +253,27 @@
 		 * If the page handler has an id and we found a javascript template for it, we use it.
 		 * Else error.
 		 *
-		 * @param {Object} templateData Placeholder values for mustache templates
+		 * @param {Object} pageParams Page parameters. Will be merged with this controller settings as placeholder values.
 		 *
 		 * @throws {String} This page handler has no valid page
 		 */
-		load: function (templateData) {
+		load: function (pageParams) {
 
 			if (!this.settings) throw "invalid page handler";
 
 			var pageId = this.settings.id;
+			var templateId = this.settings.templateId || pageId;
 
-			if (pageId && templates[pageId]) {
+			// creating a new object which contains static page settings plus dynamic page parameters
+			// this object will be used by the template engine to fill placeholders
+			var templateData = nu.Utils.clone(this.settings);
+			templateData = $.extend(true, templateData, pageParams);
+
+			if (templateId && templates[templateId]) {
 				if (!document.getElementById(pageId)) {
 					debug && log.i("loading #" + pageId);
-					$(templates[pageId].render(templateData)).appendTo("body");
+					debug && log.i("templateData: " + nu.Utils.toJSON(templateData));
+					$(templates[templateId].render(templateData)).appendTo("body");
 				}
 			}
 			else {
@@ -294,6 +302,7 @@
 			if (!this.settings) throw "invalid page handler";
 
 			var pageId = this.settings.id;
+			var templateId = this.settings.templateId || pageId;
 
 			// settings defaults
 			options = $.extend(true, {
@@ -313,11 +322,16 @@
 
 			debug && log.i("options: " + nu.Utils.toJSON(options));
 
-			if (pageId && templates[pageId]) {
+			if (templateId && templates[templateId]) {
+
+				// loading template in DOM
 				this.load(options.pageParams);
+
+				// changing page with a delay if any
 				window.setTimeout(function () {
 					debug && log.i("navigating to #" + pageId);
 					$.mobile.changePage("#" + pageId, options.jqmOptions);
+					// calling callback after page change if any
 					if (options.callback) {
 						options.callback();
 					}

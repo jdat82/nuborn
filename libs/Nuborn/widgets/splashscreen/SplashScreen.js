@@ -47,18 +47,13 @@
 			// reactivating scroll capacity
 			nu.Utils.enableScroll();
 
-			// getting the element member as a local variable
-			var element = this.element;
+			if (animated)
+				this.element.addClass("fade-out");
 
-			// remove the element from the document
-			var period = animated ? 1 : 0;
-			var tl = new TimelineLite().to(element, period, {
-				opacity: 0,
-				onComplete: function () {
-					element.remove();
-				},
-				ease: Back.easeIn
-			}).play();
+			var self = this;
+			this.element.one('animationend webkitAnimationEnd oanimationend MSAnimationEnd', function () {
+				self.element.remove();
+			});
 		}
 
 	});

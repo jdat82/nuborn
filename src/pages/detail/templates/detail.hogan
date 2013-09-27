@@ -1,8 +1,0 @@
-<div id="detail" data-role="page">
-	<div data-role="header">
-		<div class="back-button"></div>
-		<div class="title">Détail</div>
-	</div>
-	<div data-role="content">
-	</div>
-</div>

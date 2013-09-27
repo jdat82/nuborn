@@ -12,7 +12,7 @@
     "grunt-jsduck": "~0.1.4",
     "grunt-contrib-uglify": "~0.2.2",
     "grunt-contrib-watch": "~0.4.4",
-    "grunt-devtools": "~0.1.0-7",
+    "grunt-devtools": "~0.2.0",
     "grunt-contrib-connect": "~0.3.0",
     "grunt-hogan": "~0.2.2-2",
     "grunt-connect-proxy": "~0.1.5",

@@ -75,7 +75,14 @@
 		 * @param  {nu.pages.PageHandler} pageHandler
 		 */
 		registerPageHandler: function (pageHandler) {
-			this.pageHandlers[pageHandler.settings.id] = pageHandler;
+
+			if (!pageHandler || !pageHandler.settings || !pageHandler.settings.id)
+				return;
+
+			if (pageHandler.settings["default"])
+				this.defaultPageHandler = pageHandler;
+			else
+				this.pageHandlers[pageHandler.settings.id] = pageHandler;
 		},
 
 		/**
@@ -84,10 +91,19 @@
 		 * @return {nu.pages.PageHandler}
 		 */
 		getPageHandler: function (id) {
+
 			var pageHandler = this.pageHandlers[id];
-			if (!pageHandler) {
-				log.w("-- Warning : no page handler for page '" + id + "' !");
+
+			if (!pageHandler && !this.defaultPageHandler) {
+				log.w("No page handler for page '" + id + "' !");
+				return undefined;
 			}
+
+			if (!pageHandler && this.defaultPageHandler) {
+				log.w("No page handler for page '" + id + "' but found a default one");
+				return this.defaultPageHandler;
+			}
+
 			return pageHandler;
 		},
 
@@ -120,11 +136,13 @@
 			if (pageHandler) {
 				if (!window.location.hash)
 					window.location.hash = "#" + pageId;
-				// loading page into DOM
-				pageHandler.load(hash.params);
 				// memorizing first page handler to handle splashscreen removal
 				pageHandler.data.isFirst = true;
 				pageHandler.data.splashscreen = splashscreen;
+				// loading page into DOM
+				pageHandler.navigate({
+					pageParams: hash.params
+				});
 			}
 		},
 
@@ -398,6 +416,7 @@
 				}
 			});
 		}
+
 	});
 
 	/**

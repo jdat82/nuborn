@@ -1,81 +1,87 @@
-(function (window, $, nu, utils, log, templates, undefined) {
+(function (window, $, nu, utils, log, undefined) {
 
-	'use strict';
+    'use strict';
 
-	/**
-	 * @class app
-	 * @singleton
-	 * Application entry point.
-	 *
-	 * @provide app
-	 *
-	 * @require nu
-	 */
-	window["app"] = {
+    var splashscreen;
 
-		/**
-		 * Application current version.
-		 */
-		version: "0.1.0",
+    /**
+     * @class app
+     * @singleton
+     * Application entry point.
+     *
+     * @provide app
+     *
+     * @require nu
+     */
+    window["app"] = {
 
-		/**
-		 * Application name.
-		 */
-		name: "Nuborn Application",
+        /**
+         * Application current version.
+         */
+        version: "0.1.0",
 
-		/**
-		 * Callback function called when the DOM is ready.
-		 */
-		ready: function () {
-			if (!utils.isCordova()) {
-				debug && log.i("Used as a Web App");
-				app.init();
-			}
-			else {
-				debug && log.i("Used as a Hybrid App");
-				// $.mobile.defaultHomeScroll = 0;
-				document.addEventListener("deviceready", app.init, false);
-			}
+        /**
+         * Application name.
+         */
+        name: "Nuborn Application"
+    };
 
-			/**
-			 * Installing scripts that will help remote debugging.
-			 */
-			debug && utils.installDebugScripts();
-		},
+    /**
+     * Callback function called when the DOM is ready.
+     */
 
-		/**
-		 * Initialize the appllication when DOM & Device (PhoneGap only) are ready.
-		 */
-		init: function () {
-			if (!utils.isCordova() || !utils.isIOS()) {
-				// Application splashscreen instance
-				var splashscreen = new nu.widgets.SplashScreen({
-					title: "NUBORN"
-				});
-				splashscreen.show();
-			}
+    function ready() {
+        if (!utils.isCordova()) {
+            debug && log.i("Used as a Web App");
+            init();
+        }
+        else {
+            debug && log.i("Used as a Hybrid App");
+            // $.mobile.defaultHomeScroll = 0;
+            document.addEventListener("deviceready", init, false);
+        }
 
-			window.onpopstate = function (event) {
-				debug && log.i("## popstate ##");
-				debug && log.i("history.length: " + history.length);
-				debug && console.log(event);
-			};
+        // installing scripts that will help remote debugging
+        debug && utils.installDebugScripts();
+    }
 
-			window.onhashchange = function (event) {
-				debug && log.i("## hashchange ##");
-				debug && console.log(event);
-			};
+    /**
+     * Initialize the appllication when DOM & Device (PhoneGap only) are ready.
+     */
 
-			// loading in DOM first page app
-			nu.pages.PageEventsManager.get().loadFirstPage(app.home.settings.id, splashscreen);
+    function init() {
 
-			// starting JQM pages enhancement mechanism
-			$.mobile.initializePage();
-		}
+        if (!utils.isCordova() || !utils.isIOS()) {
+            // Application splashscreen instance
+            splashscreen = new nu.widgets.SplashScreen({
+                title: "NUBORN"
+            });
+            splashscreen.show();
+        }
 
-	};
+        downloadMetadataAndStart();
 
-	// when the Document is Ready, call app.ready
-	$(app.ready);
+        // starting JQM
+        $.mobile.initializePage();
+    }
 
-})(this, jQuery, nu, nu.Utils, nu.debug.Log, templates);
+    /**
+     * Download application mandatory data.
+     */
+
+    function downloadMetadataAndStart() {
+
+        // load something...
+        //$.when(promise).done(function () {
+        // loading in DOM first page app
+        nu.pages.PageEventsManager.get().loadFirstPage(app.home.settings.id, splashscreen);
+        //}).fail(function () {
+        //   // TODO handle properly. Redirect to an error page which will give options to user like restart the app, send an email, etc.
+        //  alert("Oops... Something went wrong.");
+        //});
+    }
+
+    // when the Document is Ready, call app.ready
+    $(ready);
+
+})(this, jQuery, nu, nu.Utils, nu.debug.Log);

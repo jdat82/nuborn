@@ -1,0 +1,59 @@
+/**
+* @provide app.widgets.splashscreen
+* @require mixins
+* @require core
+*/
+
+#splash
+{
+  z-index: 1100;
+  text-align: center;
+  vertical-align: middle;
+
+  background-color: $darkBackground;
+  color: $textColor;
+
+  & > div {
+    height: 8rem;
+  }
+
+  h1 {
+
+    display: inline-block;
+    letter-spacing: .2em;
+    position: relative;
+
+    font: {
+      family: "Champagne";
+      size: 3rem;
+      weight: 900;
+      variant: small-caps;
+    }
+
+    &:first-letter {
+      display: block;
+      padding:0  .2em;
+      letter-spacing: 0;
+      font-size: 3.3rem;
+      font-weight: 900;
+      color: $red;
+    }
+
+    &::after {
+      content: attr(data-content);
+    }
+
+  }
+}
+
+@import "compass/css3/transform";
+
+@include keyframes(scaleIn) {
+  0% { @include transform(scaleY(0)); }
+  50% { @include transform(scaleY(0)); }
+  100% { @include transform(scaleY(1)); }
+}
+
+.csstransforms3d #splash h1 {
+  @include animation(scaleIn 2s);
+}

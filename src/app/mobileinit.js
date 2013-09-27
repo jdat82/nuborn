@@ -37,4 +37,7 @@ $(document).on("mobileinit", function () {
 	for (var key in $.mobile.transitionFallbacks) {
 		$.mobile.transitionFallbacks[key] = "none";
 	}
+
+	// minimum displacement to consider a swipe event
+	$.event.special.swipe.horizontalDistanceThreshold = 30;
 });

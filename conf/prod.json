@@ -13,7 +13,7 @@
 		"report": "min",
 		"warnings": true,
 		"mangle": true,
-		"banner": "/**\n * © IT&L@BS TOULOUSE 2013\n * Generated on <%=grunt.template.today()%>\n */\n"
+		"banner": "/**\n * © Jean Dat 2013\n * Generated on <%=grunt.template.today()%>\n */\n"
 	},
 	"sass": {
 		"style": "compressed",

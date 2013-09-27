@@ -38,10 +38,10 @@ module.exports = function (grunt) {
 		 */
 		js: [
 			"libs/Hogan/*.js",
-			"libs/Gsap/plugins/*.js", /** Animations */
-			"libs/Gsap/easing/*.js", /** Animations */
-			"libs/Gsap/TweenLite.min.js", /** Animations */
-			"libs/Gsap/TimelineLite.min.js", /** Animations */
+			//"libs/Gsap/plugins/*.js", /** Animations */
+			//"libs/Gsap/easing/*.js", /** Animations */
+			//"libs/Gsap/TweenLite.min.js", /** Animations */
+			//"libs/Gsap/TimelineLite.min.js", /** Animations */
 			"libs/jQuery/*.min.js", /** jQuery is required */
 			"libs/Modernizr/*.js",
 			"src/app/mobileinit.js", /** jQuery Mobile pre-initialization */
@@ -445,6 +445,7 @@ module.exports = function (grunt) {
 			"*.html",
 			"fonts/Roboto/*",
 			"fonts/Champagne/*",
+			"fonts/Icons/fonts/*",
 			"img/*",
 			"!*.appcache"
 		],

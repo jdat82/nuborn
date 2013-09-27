@@ -11,6 +11,11 @@ window.nu = {
     /**
      * Current version of Nuborn.
      */
-    version: "0.0.1"
+    version: "0.0.1",
+
+    /**
+     * Core package.
+     */
+    core: {}
 
 };

@@ -12,7 +12,7 @@
 	 *
 	 * @require nu.debug.LogItem
 	 *
-	 * @require nu.Storage
+	 * @require nu.cache.Storage
 	 */
 	nu.debug.Log = {};
 
@@ -141,7 +141,7 @@
 	 */
 	nu.debug.Log.getStoraged = function () {
 		// getting logs from object storage
-		var log = nu.Storage.get(nu.debug.Log.STORAGE_KEY);
+		var log = nu.cache.Storage.get(nu.debug.Log.STORAGE_KEY);
 		// if log is null, create a new one and save it
 		if (!log) {
 			// creating the new log object
@@ -160,7 +160,7 @@
 	 * @param {Object} log The log object to save
 	 */
 	nu.debug.Log.setStoraged = function (log) {
-		nu.Storage.set(nu.debug.Log.STORAGE_KEY, log);
+		nu.cache.Storage.set(nu.debug.Log.STORAGE_KEY, log);
 	};
 
 	/**
