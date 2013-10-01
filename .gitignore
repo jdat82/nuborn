@@ -15,6 +15,7 @@ build/android/assets/www/
 build/android/gen/
 build/android/out/
 build/android/build/
+build/android/.gradle/
 
 # ios
 build/ios/www/

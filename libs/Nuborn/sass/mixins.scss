@@ -103,3 +103,21 @@
 		background-image: url("../img/#{$image}@2x.png");
 	};
 }
+
+@mixin vmiddle(){
+    &::before {
+        content: '';
+        display: inline-block;
+        vertical-align: middle;
+        height: 100%;
+        @content;
+    }
+}
+
+@mixin justify() {
+    &::after {
+        content: '';
+        display: inline-block;
+        width: 100%;
+    }
+}

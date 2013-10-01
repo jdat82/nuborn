@@ -9,30 +9,16 @@
  /**
   * Hardware acceleration.
   */
-  .ha {
-    -webkit-transform: translateZ(0);
-  }
-
- /**
-  * Add a blur filter of 5px.
-  */
-  .blur-5px {
-    -webkit-filter: blur(5px);
-  }
-
-/**
- * Raise brightness to 300%.
- */
- .brightness-300pc {
-  -webkit-filter: brightness(300%);
+.ha {
+    @include transform3d(translateZ(0));
 }
 
 /**
  * Position absolute.
  */
- .pa {
+.pa {
    position:absolute;
- }
+}
 
 /**
  * Position relative.
