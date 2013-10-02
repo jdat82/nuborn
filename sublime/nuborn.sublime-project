@@ -1,9 +1,13 @@
 {
-	"folders": [{
-		"name": "App Sources",
-		"path": "../src"
-	}, {
-		"name": "Nuborn Sources",
-		"path": "../libs/Nuborn"
-	}]
+    "folders": [ {
+        "name": "App Sources",
+        "path": "../src"
+    }, {
+        "name": "Nuborn Sources",
+        "path": "../libs/Nuborn"
+    }, {
+        "name": "Resources",
+        "path": "..",
+        "folder_exclude_patterns": [ "build", "docs", "fonts", "node_modules", "gen", "libs", "src" ]
+    } ]
 }
