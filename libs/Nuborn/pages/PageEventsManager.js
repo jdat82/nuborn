@@ -99,8 +99,7 @@
 				return undefined;
 			}
 
-			if (!pageHandler && this.defaultPageHandler) {
-				log.w("No page handler for page '" + id + "' but found a default one");
+			if ( !pageHandler && this.defaultPageHandler ) {
 				return this.defaultPageHandler;
 			}
 

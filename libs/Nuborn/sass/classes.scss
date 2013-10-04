@@ -103,6 +103,13 @@
   white-space: nowrap;
 }
 
+.hyphens {
+  @include word-break(break-all);
+  @include hyphenation;
+  hyphenate-character: "\2112";
+  text-align: justify;
+}
+
 /*
  * ABSOLUTE CENTERING.
  */

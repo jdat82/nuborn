@@ -1,4 +1,4 @@
-(function ($, nu, app, utils, log, templates, undefined) {
+( function ( $, nu, app, utils, log, templates, undefined ) {
 
 	'use strict';
 
@@ -12,42 +12,42 @@
 	 *
 	 * @provide app.pages.HomePageHandler
 	 *
-	 * @require app.pages
+	 * @require app.pages.NubornPageHandler
 	 */
-	app.pages.HomePageHandler = nu.pages.PageHandler.subClass({
+	app.pages.HomePageHandler = app.pages.NubornPageHandler.subClass( {
 
 		/**
 		 * @override
 		 * @inheritdoc
 		 */
-		init: function () {
-			this._super({
+		init: function ( ) {
+			this._super( {
 				id: "home",
 				singleton: true
-			});
+			} );
 		},
 
 		/**
 		 * @override
 		 * @inheritdoc
 		 */
-		createHtmlElements: function () {
+		createHtmlElements: function ( ) {
 			var page = this.html.page;
-			this.html.menuButton = page.find("div.menu-button");
-			this.html.menu = page.find("#home-menu");
-			this.html.carousel = page.find("#carousel");
-			this.html.carouselWrapper = page.find("#carousel-wrapper");
-			this.html.news = page.find("#news");
+			this.html.menuButton = page.find( "div.menu-button" );
+			this.html.menu = page.find( "#home-menu" );
+			this.html.carousel = page.find( "#carousel" );
+			this.html.carouselWrapper = page.find( "#carousel-wrapper" );
+			this.html.news = page.find( "#news" );
 		},
 
 		/**
 		 * @override
 		 * @inheritdoc
 		 */
-		createDataElements: function () {
+		createDataElements: function ( ) {
 			// Create the data to display in the carousel
 			this.data.carousel = {
-				cards: [{
+				cards: [ {
 					title: "The Big Bang Theory",
 					image: "http://src.sencha.io/http://farm3.staticflickr.com/2493/3983699775_cfe70a1224_z.jpg"
 				}, {
@@ -59,12 +59,12 @@
 				}, {
 					title: "Person of Interest",
 					image: "http://src.sencha.io/http://www.tuxboard.com/photos/2013/01/Person-of-Interest-saison-1-VOSTFR-640x640.jpg"
-				}]
+				} ]
 			};
 
 			// Create the data to display in the menu
 			this.data.menu = {
-				items: [{
+				items: [ {
 					title: "Accueil",
 					icon: "home"
 				}, {
@@ -76,12 +76,12 @@
 				}, {
 					title: "Aide",
 					icon: "help"
-				}]
+				} ]
 			};
 
 			// Create the data to display in the news
 			this.data.news = {
-				items: [{
+				items: [ {
 						id: 1,
 						title: "Le créateur des \"Griffin\" se pointe... dans \"Les Simpson\" !",
 						author: "",
@@ -279,89 +279,89 @@
 		 * @override
 		 * @inheritdoc
 		 */
-		pageInit: function (event, data) {
+		pageInit: function ( event, data ) {
 
-			this._super(event, data);
+			this._super( event, data );
 
-			this.prepareMenu();
-			this.handleMenuButton();
-			this.prepareCarousel();
-			this.prepareNews();
+			this.prepareMenu( );
+			this.handleMenuButton( );
+			this.prepareCarousel( );
+			this.prepareNews( );
 		},
 
 		/**
 		 * @override
 		 * @inheritdoc
 		 */
-		pageShow: function (event, data) {
+		pageShow: function ( event, data ) {
 
-			this._super(event, data);
+			this._super( event, data );
 
 			// Initializing Carousel with the Swipe library
-			this.html.carousel.Swipe();
+			this.html.carousel.Swipe( );
 		},
 
 		/**
 		 * Prepare the data to be displayed in the menu panel. <br/>
 		 * Also handle pressed states and taps of the menu items.
 		 */
-		prepareMenu: function () {
+		prepareMenu: function ( ) {
 			// getting a local reference of the menu
 			var menu = this.html.menu;
 			// add template to carousel wrapper, rendered with previous data
-			menu.append(templates.menu_cell.render(this.data.menu));
+			menu.append( templates.menu_cell.render( this.data.menu ) );
 
 			// handle pressed state on li
-			menu.on("vmousedown", "li", function (event) {
-				var self = $(this);
-				self.addClass("pressed");
-				self.one("vmouseup vmousemove", function (event) {
-					self.removeClass("pressed");
-				});
-			});
+			menu.on( "vmousedown", "li", function ( event ) {
+				var self = $( this );
+				self.addClass( "pressed" );
+				self.one( "vmouseup vmousemove", function ( event ) {
+					self.removeClass( "pressed" );
+				} );
+			} );
 			// handle tap on li
-			menu.on("tap", "li", function (event) {
-				var self = $(this);
-				self.removeClass("pressed");
-				log.w("This feature has note been implented yet");
-				menu.panel("close");
-			});
+			menu.on( "tap", "li", function ( event ) {
+				var self = $( this );
+				self.removeClass( "pressed" );
+				log.w( "This feature has note been implented yet" );
+				menu.panel( "close" );
+			} );
 		},
 
 		/**
 		 * Handle the menu button.
 		 */
-		handleMenuButton: function () {
+		handleMenuButton: function ( ) {
 			// getting a local reference of the menu button
 			var menuButton = this.html.menuButton;
 			// when touch start, go to active state
-			menuButton.on("vmousedown", function () {
+			menuButton.on( "vmousedown", function ( ) {
 				// making the menu button active
-				menuButton.addClass("pressed");
+				menuButton.addClass( "pressed" );
 				// when touch end, go to normal state
-				menuButton.one("vmouseup vmousemove", function () {
+				menuButton.one( "vmouseup vmousemove", function ( ) {
 					// making the menu button normal
-					menuButton.removeClass("pressed");
-				});
-			});
+					menuButton.removeClass( "pressed" );
+				} );
+			} );
 
 			// getting a local reference of the menu
 			var menu = this.html.menu;
 			// when tap on menu button, open menu panel
-			menuButton.on("tap", function () {
+			menuButton.on( "tap", function ( ) {
 				// opening menu panel
-				menu.panel("open");
+				menu.panel( "open" );
 				// prevent bubbling
 				return false;
-			});
+			} );
 			// disabling scroll when the menu is open
-			menu.on("panelbeforeopen", function (event, ui) {
-				utils.disableScroll();
-			});
+			menu.on( "panelbeforeopen", function ( event, ui ) {
+				utils.disableScroll( );
+			} );
 			// enabling scroll when the menu is closed
-			menu.on("panelbeforeclose", function (event, ui) {
-				utils.enableScroll();
-			});
+			menu.on( "panelbeforeclose", function ( event, ui ) {
+				utils.enableScroll( );
+			} );
 		},
 
 		/**
@@ -369,42 +369,42 @@
 		 * -- Load the data <br/>
 		 * -- Render the data
 		 */
-		prepareCarousel: function () {
+		prepareCarousel: function ( ) {
 			// add template to carousel wrapper, rendered with carousel data
-			this.html.carouselWrapper.html(templates.card.render(this.data.carousel));
+			this.html.carouselWrapper.html( templates.card.render( this.data.carousel ) );
 		},
 
-		prepareNews: function () {
+		prepareNews: function ( ) {
 			// add template to news, rendered with news data
 			var news = this.html.news;
 
-			news.append(templates.news_cell.render(this.data.news));
+			news.append( templates.news_cell.render( this.data.news ) );
 
-			news.on("vmousedown", "li", function () {
-				var item = $(this);
-				item.addClass("pressed");
-				item.one("vmouseup vmousemove", function () {
-					item.removeClass("pressed");
-				});
-			});
+			news.on( "vmousedown", "li", function ( ) {
+				var item = $( this );
+				item.addClass( "pressed" );
+				item.one( "vmouseup vmousemove", function ( ) {
+					item.removeClass( "pressed" );
+				} );
+			} );
 
-			news.on("tap", "li", function (event) {
+			news.on( "tap", "li", function ( event ) {
 				var newsId = event.currentTarget.dataset.newsId;
-				app.detail.navigate({
+				app.detail.navigate( {
 					pageParams: {
 						id: newsId
 					}
-				});
+				} );
 				return false;
-			});
+			} );
 		}
-	});
+	} );
 
 	/**
 	 * @property {app.pages.HomePageHandler} home
 	 * @member app
 	 * Instance of a page handler for the home page.
 	 */
-	app.home = new app.pages.HomePageHandler();
+	app.home = new app.pages.HomePageHandler( );
 
-})(jQuery, nu, app, nu.Utils, nu.debug.Log, templates)
+} )( jQuery, nu, app, nu.Utils, nu.debug.Log, templates )

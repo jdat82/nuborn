@@ -1,4 +1,4 @@
-(function ($, nu, app, templates, log, undefined) {
+( function ( $, nu, app, templates, log, undefined ) {
 
 	'use strict';
 
@@ -12,44 +12,44 @@
 	 *
 	 * @provide app.pages.OfflinePageHandler
 	 *
-	 * @require app.pages
+	 * @require app.pages.NubornPageHandler
 	 */
-	app.pages.OfflinePageHandler = nu.pages.PageHandler.subClass({
+	app.pages.OfflinePageHandler = app.pages.NubornPageHandler.subClass( {
 
 		/**
 		 * @override
 		 * @inheritdoc
 		 */
-		init: function () {
-			this._super({
+		init: function ( ) {
+			this._super( {
 				id: "offline",
-			});
+			} );
 		},
 
 
-		createHtmlElements: function () {},
+		createHtmlElements: function ( ) {},
 
 
 		/**
 		 * @override
 		 * @inheritdoc
 		 */
-		pageBeforeShow: function (event, data) {
-			this._super(event, data);
+		pageBeforeShow: function ( event, data ) {
+			this._super( event, data );
 		},
 
 
-		pageBeforeHide: function (event, data) {
-			this._super(event, data);
+		pageBeforeHide: function ( event, data ) {
+			this._super( event, data );
 		},
 
-	});
+	} );
 
 	/**
 	 * @property {app.pages.OfflinePageHandler} offline
 	 * @member app
 	 * Instance of a page handler for the offline page.
 	 */
-	app.offline = new app.pages.OfflinePageHandler();
+	app.offline = new app.pages.OfflinePageHandler( );
 
-})(jQuery, nu, app, templates, nu.debug.Log);
+} )( jQuery, nu, app, templates, nu.debug.Log );

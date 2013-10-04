@@ -1,4 +1,4 @@
-(function (nu, app, undefined) {
+( function ( nu, app, undefined ) {
 
     'use strict';
 
@@ -13,25 +13,13 @@
      * @require nu.core.UriManager
      * @require app.core
      */
-    app.core.uris = new nu.core.UriManager({
+    app.core.uris = new nu.core.UriManager( {
         networks: {
-            // back office
-            "wifi": {
-                "host": "http://jdat-dev.mbp:9000/"
-            },
-            "usb": {
-                "host": "http://mbp:9000/"
-            },
-            "mock": {
-                "host": "mock/"
-            }
+
         },
         services: {
-            "load-survey": {
-                path: "survey/get?sid={0}",
-                network: "usb"
-            }
-        }
-    });
 
-})(nu, app);
+        }
+    } );
+
+} )( nu, app );

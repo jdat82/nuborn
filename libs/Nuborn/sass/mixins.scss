@@ -7,11 +7,11 @@
  * name, duration, timingFunction, iteration, delay, direction, fillMode, playState
  * http://www.w3.org/TR/css3-animations/#animation-shorthand-property
  */
-@mixin animation($value) {
-  -webkit-animation: $value;
-  -moz-animation: $value;
-  -ms-animation: $value;
-  -o-animation: $value;
+@mixin animation($animations...) {
+  -webkit-animation: $animations;
+  -moz-animation: $animations;
+  -ms-animation: $animations;
+  -o-animation: $animations;
 }
 
 @mixin keyframes($name) {

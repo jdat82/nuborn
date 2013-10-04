@@ -1,4 +1,4 @@
-(function (window, $, nu, utils, log, undefined) {
+( function ( window, $, nu, utils, log, undefined ) {
 
     'use strict';
 
@@ -13,7 +13,7 @@
      *
      * @require nu
      */
-    window["app"] = {
+    window[ "app" ] = {
 
         /**
          * Application current version.
@@ -30,51 +30,55 @@
      * Callback function called when the DOM is ready.
      */
 
-    function ready() {
-        if (!utils.isCordova()) {
-            debug && log.i("Used as a Web App");
-            init();
+    function ready( ) {
+        if ( !utils.isCordova( ) ) {
+            debug && log.i( "Used as a Web App" );
+            init( );
         }
         else {
-            debug && log.i("Used as a Hybrid App");
+            debug && log.i( "Used as a Hybrid App" );
             // $.mobile.defaultHomeScroll = 0;
-            document.addEventListener("deviceready", init, false);
+            document.addEventListener( "deviceready", init, false );
         }
 
         // installing scripts that will help remote debugging
-        debug && utils.installDebugScripts();
+        debug && utils.installDebugScripts( );
     }
 
     /**
      * Initialize the appllication when DOM & Device (PhoneGap only) are ready.
      */
 
-    function init() {
+    function init( ) {
 
-        if (!utils.isCordova() || !utils.isIOS()) {
+        if ( !utils.isCordova( ) || !utils.isIOS( ) ) {
             // Application splashscreen instance
-            splashscreen = new nu.widgets.SplashScreen({
+            splashscreen = new nu.widgets.SplashScreen( {
                 title: "NUBORN"
-            });
-            splashscreen.show();
+            } );
+            splashscreen.show( );
         }
 
-        downloadMetadataAndStart();
+        downloadMetadataAndStart( );
 
         // starting JQM
-        $.mobile.initializePage();
+        $.mobile.initializePage( );
     }
 
     /**
      * Download application mandatory data.
      */
 
-    function downloadMetadataAndStart() {
+    function downloadMetadataAndStart( ) {
 
         // load something...
         //$.when(promise).done(function () {
+        // there is a very annoying JQM bug : we need to add our first page navigation at the end of the event loop.
+        // so that's the setTimeout job in here.
+        // window.setTimeout( function ( ) {
         // loading in DOM first page app
-        nu.pages.PageEventsManager.get().loadFirstPage(app.home.settings.id, splashscreen);
+        nu.pages.PageEventsManager.get( ).loadFirstPage( app.home.settings.id, splashscreen );
+        // }, 100 );
         //}).fail(function () {
         //   // TODO handle properly. Redirect to an error page which will give options to user like restart the app, send an email, etc.
         //  alert("Oops... Something went wrong.");
@@ -82,6 +86,6 @@
     }
 
     // when the Document is Ready, call app.ready
-    $(ready);
+    $( ready );
 
-})(this, jQuery, nu, nu.Utils, nu.debug.Log);
+} )( this, jQuery, nu, nu.Utils, nu.debug.Log );

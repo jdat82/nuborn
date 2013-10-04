@@ -1,4 +1,4 @@
-(function ($, nu, app, templates, log, undefined) {
+( function ( $, nu, app, templates, log, undefined ) {
 
 	'use strict';
 
@@ -12,24 +12,24 @@
 	 *
 	 * @provide app.pages.DetailPageHandler
 	 *
-	 * @require app.pages
+	 * @require app.pages.NubornPageHandler
 	 */
-	app.pages.DetailPageHandler = nu.pages.PageHandler.subClass({
+	app.pages.DetailPageHandler = app.pages.NubornPageHandler.subClass( {
 
 		/**
 		 * @override
 		 * @inheritdoc
 		 */
-		init: function () {
-			this._super({
+		init: function ( ) {
+			this._super( {
 				id: "detail",
-			});
+			} );
 		},
 
 
-		createHtmlElements: function () {
+		createHtmlElements: function ( ) {
 			// getting a local reference of the back button
-			this.html.backButton = this.html.page.find(".back-button");
+			this.html.backButton = this.html.page.find( ".back-button" );
 		},
 
 
@@ -37,49 +37,49 @@
 		 * @override
 		 * @inheritdoc
 		 */
-		pageBeforeShow: function (event, data) {
-			this._super(event, data);
-			this.prepareBackButton();
+		pageBeforeShow: function ( event, data ) {
+			this._super( event, data );
+			this.prepareBackButton( );
 		},
 
 
-		prepareBackButton: function () {
+		prepareBackButton: function ( ) {
 			// when touch start, go to active state
-			nu.widgets.button.Utils.enableUniversalPressMode(this.html.backButton);
+			nu.widgets.button.Utils.enableUniversalPressMode( this.html.backButton );
 
 			// when tap on back button, go back home
-			this.html.backButton.on("tap", this.goBackToHomePage);
+			this.html.backButton.on( "tap", this.goBackToHomePage );
 		},
 
 
-		goBackToHomePage: function () {
-			app.home.navigate({
+		goBackToHomePage: function ( ) {
+			app.home.navigate( {
 				jqmOptions: {
 					reverse: true
 				}
-			});
+			} );
 			// prevent bubbling
 			return false;
 		},
 
 
-		pageBeforeHide: function (event, data) {
-			this._super(event, data);
-			this.html.backButton.off("tap", this.goBackToHomePage);
-			nu.widgets.button.Utils.disableUniversalPressMode(this.html.backButton);
+		pageBeforeHide: function ( event, data ) {
+			this._super( event, data );
+			this.html.backButton.off( "tap", this.goBackToHomePage );
+			nu.widgets.button.Utils.disableUniversalPressMode( this.html.backButton );
 		},
 
 
-		swipeRight: function (event, data) {
-			this.goBackToHomePage();
+		swipeRight: function ( event, data ) {
+			this.goBackToHomePage( );
 		}
-	});
+	} );
 
 	/**
 	 * @property {app.pages.DetailPageHandler} detail
 	 * @member app
 	 * Instance of a page handler for the detail page.
 	 */
-	app.detail = new app.pages.DetailPageHandler();
+	app.detail = new app.pages.DetailPageHandler( );
 
-})(jQuery, nu, app, templates, nu.debug.Log);
+} )( jQuery, nu, app, templates, nu.debug.Log );
