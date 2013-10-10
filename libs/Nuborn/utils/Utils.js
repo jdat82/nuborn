@@ -1,4 +1,4 @@
-(function (window, $, nu, log, undefined) {
+( function ( window, $, nu, log, undefined ) {
 
 	'use strict';
 
@@ -18,8 +18,8 @@
 	 * Checks if Internet is reachable.
 	 * @return {Boolean} The reachability of the internet
 	 */
-	nu.Utils.isNetworkAvailable = function () {
-		if (nu.Utils.isCordova()) {
+	nu.Utils.isNetworkAvailable = function ( ) {
+		if ( nu.Utils.isCordova( ) ) {
 			return navigator.connection.type !== Connection.NONE;
 		}
 		else {
@@ -31,7 +31,7 @@
 	 * Checks if the application is running with PhoneGap (Cordova)
 	 * @return {Boolean} [description]
 	 */
-	nu.Utils.isCordova = function () {
+	nu.Utils.isCordova = function ( ) {
 		return window.cordova;
 	};
 
@@ -39,12 +39,12 @@
 	 * Checks if the device platform is Android.
 	 * @return {Boolean}
 	 */
-	nu.Utils.isAndroid = function () {
-		if (nu.Utils.isCordova()) {
+	nu.Utils.isAndroid = function ( ) {
+		if ( nu.Utils.isCordova( ) ) {
 			return device.platform === "Android";
 		}
 		else {
-			return navigator.userAgent.match("Android");
+			return navigator.userAgent.match( "Android" );
 		}
 	};
 
@@ -52,12 +52,12 @@
 	 * Checks if the device platform is iOS.
 	 * @return {Boolean}
 	 */
-	nu.Utils.isIOS = function () {
-		if (nu.Utils.isCordova()) {
+	nu.Utils.isIOS = function ( ) {
+		if ( nu.Utils.isCordova( ) ) {
 			return device.platform === "iOS";
 		}
 		else {
-			return navigator.userAgent.match(/(iPhone|iPod|iPad)/i);
+			return navigator.userAgent.match( /(iPhone|iPod|iPad)/i );
 		}
 	};
 
@@ -65,22 +65,22 @@
 	 * Checks if the device platform is older than Android 4.
 	 * @return {Boolean}
 	 */
-	nu.Utils.isOldAndroid = function () {
-		if (!nu.Utils.isAndroid()) {
+	nu.Utils.isOldAndroid = function ( ) {
+		if ( !nu.Utils.isAndroid( ) ) {
 			return false;
 		}
-		return nu.Utils.getOSVersion() < 4;
+		return nu.Utils.getOSVersion( ) < 4;
 	};
 
 	/**
 	 * Checks if the device platform is older than iOS 5.
 	 * @return {Boolean}
 	 */
-	nu.Utils.isOldIOS = function () {
-		if (!nu.Utils.isIOS()) {
+	nu.Utils.isOldIOS = function ( ) {
+		if ( !nu.Utils.isIOS( ) ) {
 			return false;
 		}
-		return nu.Utils.getOSVersion() < 5;
+		return nu.Utils.getOSVersion( ) < 5;
 	};
 
 	/**
@@ -89,40 +89,40 @@
 	 * Needs more support.
 	 * @return {Boolean}
 	 */
-	nu.Utils.getOSVersion = function () {
+	nu.Utils.getOSVersion = function ( ) {
 		// if the app is running on PhoneGap, ask for the device version
-		if (nu.Utils.isCordova()) {
-			return parseFloat(device.version, 10);
+		if ( nu.Utils.isCordova( ) ) {
+			return parseFloat( device.version, 10 );
 		}
 		// if it is a web app, ask the navigator user agent
 		else {
 			// getting the user agent into a local variable
 			var agent = navigator.userAgent;
 			// iOS case
-			if (nu.Utils.isIOS()) {
+			if ( nu.Utils.isIOS( ) ) {
 				// removing the first part of the user agent
-				var versionIndex = agent.indexOf("OS") + 2;
-				agent = agent.slice(versionIndex);
+				var versionIndex = agent.indexOf( "OS" ) + 2;
+				agent = agent.slice( versionIndex );
 				// removing the end of the user agent
-				var lastIndex = agent.indexOf(")") === -1 ? 0 : agent.indexOf(")");
-				agent = agent.substring(0, lastIndex);
+				var lastIndex = agent.indexOf( ")" ) === -1 ? 0 : agent.indexOf( ")" );
+				agent = agent.substring( 0, lastIndex );
 				// replacing all underscores with points
-				agent = agent.replace(/_/g, ".");
+				agent = agent.replace( /_/g, "." );
 				// parse the agent tg get the version as a float
-				var version = parseFloat(agent);
+				var version = parseFloat( agent );
 				// returning the version
 				return version;
 			}
 			// Android case
-			else if (nu.Utils.isAndroid()) {
+			else if ( nu.Utils.isAndroid( ) ) {
 				// removing the first part of the user agent
-				var versionIndex = agent.indexOf("Android") + 7;
-				agent = agent.slice(versionIndex);
+				var versionIndex = agent.indexOf( "Android" ) + 7;
+				agent = agent.slice( versionIndex );
 				// removing the end of the user agent
-				var lastIndex = agent.indexOf(";") === -1 ? 0 : agent.indexOf(";");
-				agent = agent.substring(0, lastIndex);
+				var lastIndex = agent.indexOf( ";" ) === -1 ? 0 : agent.indexOf( ";" );
+				agent = agent.substring( 0, lastIndex );
 				// parse the agent to get the version as a float
-				var version = parseInt(agent);
+				var version = parseInt( agent );
 				// returning the version
 				return version;
 			}
@@ -136,25 +136,25 @@
 	 * Loads JavaScript library contained in the js/lazy folder.
 	 * @param  {String} library The library to load
 	 */
-	nu.Utils.loadLazyLib = function (library) {
-		$.ajax({
+	nu.Utils.loadLazyLib = function ( library ) {
+		$.ajax( {
 			url: "js/lazy/" + library,
 			dataType: "script",
 			async: false
-		});
+		} );
 	};
 
-	nu.Utils.blockEvent = function (event) {
-		event.preventDefault();
+	nu.Utils.blockEvent = function ( event ) {
+		event.preventDefault( );
 		return false;
 	};
 
-	nu.Utils.disableScroll = function () {
-		$(document).on("touchmove", nu.Utils.blockEvent);
+	nu.Utils.disableScroll = function ( ) {
+		$( document ).on( "touchmove", nu.Utils.blockEvent );
 	};
 
-	nu.Utils.enableScroll = function () {
-		$(document).off("touchmove", nu.Utils.blockEvent);
+	nu.Utils.enableScroll = function ( ) {
+		$( document ).off( "touchmove", nu.Utils.blockEvent );
 	};
 
 	/**
@@ -164,36 +164,36 @@
 	 * @return {String} return.name Hash name
 	 * @return {Object} return.params Hash parameters
 	 */
-	nu.Utils.deserializeHash = function (hash) {
+	nu.Utils.deserializeHash = function ( hash ) {
 		var result = {
 			name: "",
 			params: ""
 		};
-		if (!hash || !hash.length)
+		if ( !hash || !hash.length )
 			hash = window.location.hash;
 
 		// adding the raw source, can be useful for regexp searchs for instance
 		result.hash = hash;
 
 		// no hash, no op.
-		var hashIndex = hash.lastIndexOf("#");
-		if (hashIndex < 0)
+		var hashIndex = hash.lastIndexOf( "#" );
+		if ( hashIndex < 0 )
 			return result;
 
 		// removing part before hash
-		hash = hash.substr(hashIndex);
+		hash = hash.substr( hashIndex );
 
 		// is there hash parameters too ?
-		var questionMarkIndex = hash.indexOf("?");
+		var questionMarkIndex = hash.indexOf( "?" );
 		questionMarkIndex = questionMarkIndex < 0 ? hash.length : questionMarkIndex + 1;
 
 		// extracting hash name
-		result.name = hash.substr(0, questionMarkIndex);
-		if (result.name && result.name.length)
-			result.name = result.name.replace(/(.*#)|(\?.*)/g, "");
+		result.name = hash.substr( 0, questionMarkIndex );
+		if ( result.name && result.name.length )
+			result.name = result.name.replace( /(.*#)|(\?.*)/g, "" );
 
 		// extracting hash parameters
-		result.params = nu.Utils.deserializeHashParameters(hash.substr(questionMarkIndex));
+		result.params = nu.Utils.deserializeHashParameters( hash.substr( questionMarkIndex ) );
 
 		return result;
 	};
@@ -203,25 +203,25 @@
 	 * @param {String} hash Minimum significant pattern is "?key=value"
 	 * @return {Object} Simple key/value object.
 	 */
-	nu.Utils.deserializeHashParameters = function (hash) {
+	nu.Utils.deserializeHashParameters = function ( hash ) {
 
 		var result = {};
-		if (!hash || !hash.length)
+		if ( !hash || !hash.length )
 			return result;
 
 		// extracting hash parameters substring
-		var hashParameters = hash.substr(hash.indexOf("?") + 1);
-		if (!hashParameters || !hashParameters.length)
+		var hashParameters = hash.substr( hash.indexOf( "?" ) + 1 );
+		if ( !hashParameters || !hashParameters.length )
 			return result;
 
 		// parsing key=value pairs
-		var paramsArray = hashParameters.split("&");
-		paramsArray.forEach(function (param) {
-			var keyValueArray = param.split("=");
-			if (!keyValueArray || !keyValueArray.length)
+		var paramsArray = hashParameters.split( "&" );
+		paramsArray.forEach( function ( param ) {
+			var keyValueArray = param.split( "=" );
+			if ( !keyValueArray || !keyValueArray.length )
 				return;
-			result[keyValueArray[0]] = decodeURIComponent(keyValueArray[1]);
-		});
+			result[ keyValueArray[ 0 ] ] = decodeURIComponent( keyValueArray[ 1 ] );
+		} );
 
 		return result;
 	};
@@ -231,34 +231,34 @@
 	 * @param {Object} parameters Simple key/value object.
 	 * @return {String} following pattern "key1=value[&key2=value&...]"
 	 */
-	nu.Utils.serializeHashParameters = function (parameters) {
+	nu.Utils.serializeHashParameters = function ( parameters ) {
 
 		var result = "";
-		if (!parameters)
+		if ( !parameters )
 			return result;
 
-		var paramsArray = [];
-		for (var key in parameters) {
-			paramsArray.push(key + "=" + encodeURIComponent(parameters[key]));
+		var paramsArray = [ ];
+		for ( var key in parameters ) {
+			paramsArray.push( key + "=" + encodeURIComponent( parameters[ key ] ) );
 		}
 
-		result = paramsArray.join("&");
+		result = paramsArray.join( "&" );
 		return result;
 	};
 
 	/**
 	 * Clone a javascript object.
 	 */
-	nu.Utils.clone = function (objectToClone) {
-		return JSON.parse(JSON.stringify(objectToClone));
+	nu.Utils.clone = function ( objectToClone ) {
+		return JSON.parse( JSON.stringify( objectToClone ) );
 	};
 
 	/**
 	 * Shortcut for JSON.stringify(object, null, "    ")
 	 */
-	nu.Utils.toJSON = function (object) {
-		var clone = $.extend(true, {}, object);
-		return JSON.stringify(clone, null, "    ");
+	nu.Utils.toJSON = function ( object ) {
+		var clone = $.extend( true, {}, object );
+		return JSON.stringify( clone, null, "    " );
 	};
 
 	/**
@@ -267,16 +267,16 @@
 	 * @param {String} pageId page ID.
 	 *	Don't provide the character "#" in pageId.
 	 */
-	nu.Utils.refreshPage = function (pageId) {
-		pageId = pageId || $.mobile.activePage.attr("id");
-		debug && log.i("Refreshing page: " + pageId);
+	nu.Utils.refreshPage = function ( pageId ) {
+		pageId = pageId || $.mobile.activePage.attr( "id" );
+		debug && log.i( "Refreshing page: " + pageId );
 		$.mobile.changePage(
 			"#" + pageId, {
 				allowSamePageTransition: true,
 				transition: 'none',
 				showLoadMsg: false,
 				changeHash: false
-			});
+			} );
 	};
 
 	/**
@@ -284,19 +284,16 @@
 	 * If in a phonegap app, hide native splashscreen.
 	 * @param {nu.widgets.SplashScreen} splashscreen Web splashscreen. Useless in phonegap app.
 	 */
-	nu.Utils.hideSplashScreen = function (splashscreen) {
-		var self = this;
+	nu.Utils.hideSplashScreen = function ( splashscreen ) {
 		// if the splashscreen is handled from web
-		if (splashscreen) {
-			setTimeout(function () {
-				// hide splashscreen after 2 seconds
-				splashscreen.hide(true);
-			}, 2000);
+		if ( splashscreen ) {
+			// hide splashscreen after 2 seconds
+			splashscreen.hide( true );
 		}
 		// if the splashscreen is handled natively with iOS
-		else if (this.isCordova() && this.isIOS()) {
+		else if ( this.isCordova( ) && this.isIOS( ) ) {
 			// hide it immediately via cordova
-			navigator.splashscreen.hide();
+			navigator.splashscreen.hide( );
 		}
 	};
 
@@ -306,7 +303,7 @@
 	 * weinre : true if you want weinre support
 	 * livereload : true if you want livereload support
 	 */
-	nu.Utils.installDebugScripts = function () {
+	nu.Utils.installDebugScripts = function ( ) {
 
 		/**
 		 * Adding livereload support for development only.
@@ -314,13 +311,13 @@
 		 * Generate something like this in body :
 		 *   <script src="http://<hostname>:35729/livereload.js"></script>
 		 */
-		if (debug && livereload) {
-			var lr = document.createElement('script');
-			lr.src = ('https:' == window.location.protocol ? 'https://' : 'http://') + window.location.hostname + ":35729/livereload.js";
+		if ( debug && livereload ) {
+			var lr = document.createElement( 'script' );
+			lr.src = ( 'https:' == window.location.protocol ? 'https://' : 'http://' ) + window.location.hostname + ":35729/livereload.js";
 			lr.type = 'text/javascript';
 			lr.async = 'true';
-			var s = document.getElementsByTagName('script')[0];
-			s.parentNode.insertBefore(lr, s);
+			var s = document.getElementsByTagName( 'script' )[ 0 ];
+			s.parentNode.insertBefore( lr, s );
 		}
 
 		/**
@@ -329,14 +326,14 @@
 		 * Generate something like this in body :
 		 *   <script src="http://<hostname>::8080/target/target-script-min.js#weinre"></script>
 		 */
-		if (debug && weinre) {
-			var lr = document.createElement('script');
-			lr.src = ('https:' == window.location.protocol ? 'https://' : 'http://') + window.location.hostname +
+		if ( debug && weinre ) {
+			var lr = document.createElement( 'script' );
+			lr.src = ( 'https:' == window.location.protocol ? 'https://' : 'http://' ) + window.location.hostname +
 				":8080/target/target-script-min.js#weinre";
 			lr.type = 'text/javascript';
 			lr.async = 'true';
-			var s = document.getElementsByTagName('script')[0];
-			s.parentNode.insertBefore(lr, s);
+			var s = document.getElementsByTagName( 'script' )[ 0 ];
+			s.parentNode.insertBefore( lr, s );
 		}
 
 	};
@@ -347,21 +344,21 @@
 	 * @param {String} string
 	 * @param {Array} params Array of values (converted as string)
 	 */
-	nu.Utils.replaceWith = function (string, params) {
-		if (!params)
+	nu.Utils.replaceWith = function ( string, params ) {
+		if ( !params )
 			return string;
-		if (!(params instanceof Array))
-			params = [params];
+		if ( !( params instanceof Array ) )
+			params = [ params ];
 
-		var regex = new RegExp("\\{[0-9]\\}");
-		for (var paramsIndex = 0, paramsLength = params.length; paramsIndex < paramsLength; paramsIndex++) {
-			var m = regex.exec(string);
-			if (m === null) {
+		var regex = new RegExp( "\\{[0-9]\\}" );
+		for ( var paramsIndex = 0, paramsLength = params.length; paramsIndex < paramsLength; paramsIndex++ ) {
+			var m = regex.exec( string );
+			if ( m === null ) {
 				return string;
 			}
 			else {
-				for (var i = 0, lg = m.length; i < lg; i++) {
-					string = string.replace(m[i], params[paramsIndex]);
+				for ( var i = 0, lg = m.length; i < lg; i++ ) {
+					string = string.replace( m[ i ], params[ paramsIndex ] );
 				}
 			}
 		}
@@ -385,4 +382,4 @@
 	// 	};
 	// }
 
-})(this, jQuery, nu, nu.debug.Log)
+} )( this, jQuery, nu, nu.debug.Log )

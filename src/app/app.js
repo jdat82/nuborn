@@ -51,6 +51,9 @@
 
     function init( ) {
 
+        // starting JQM
+        $.mobile.initializePage( );
+
         if ( !utils.isCordova( ) || !utils.isIOS( ) ) {
             // Application splashscreen instance
             splashscreen = new nu.widgets.SplashScreen( {
@@ -60,9 +63,6 @@
         }
 
         downloadMetadataAndStart( );
-
-        // starting JQM
-        $.mobile.initializePage( );
     }
 
     /**
@@ -71,18 +71,18 @@
 
     function downloadMetadataAndStart( ) {
 
-        // load something...
-        //$.when(promise).done(function () {
-        // there is a very annoying JQM bug : we need to add our first page navigation at the end of the event loop.
-        // so that's the setTimeout job in here.
-        // window.setTimeout( function ( ) {
-        // loading in DOM first page app
-        nu.pages.PageEventsManager.get( ).loadFirstPage( app.home.settings.id, splashscreen );
-        // }, 100 );
-        //}).fail(function () {
-        //   // TODO handle properly. Redirect to an error page which will give options to user like restart the app, send an email, etc.
-        //  alert("Oops... Something went wrong.");
-        //});
+        var promise = app.manager.FakeManager.init( );
+        $.when( promise ).done( function ( ) {
+            window.setTimeout( function ( ) {
+                // there is a very annoying JQM bug : we need to add our first page navigation at the end of the event loop.
+                // so that's the setTimeout job in here.
+                // loading in DOM first page app
+                nu.pages.PageEventsManager.get( ).loadFirstPage( app.home.settings.id, splashscreen );
+            }, 100 );
+        } ).fail( function ( ) {
+            // TODO handle properly. Redirect to an error page which will give options to user like restart the app, send an email, etc.
+            alert( "Oops... Something went wrong." );
+        } );
     }
 
     // when the Document is Ready, call app.ready

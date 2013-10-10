@@ -16,7 +16,7 @@
     }
 }
 .fade-out {
-    @include animation(fade-out .3s forwards);
+    @include animation(fade-out 1s forwards);
 }
 
 
@@ -48,7 +48,7 @@
     }
 }
 
-// biggest size to normal size
+// bigger size to normal size
 @include keyframes(scale-top-to-bottom) {
     from{
         @include transform(scale(1.2,1.2));
@@ -61,7 +61,7 @@
     @include animation(scale-top-to-bottom #{$speed}s forwards, fade-in #{$speed}s forwards);
 }
 
-// lowest size to normal size
+// lower size to normal size
 @include keyframes(scale-bottom-to-top) {
     from{
         @include transform(scale(.8,.8));
