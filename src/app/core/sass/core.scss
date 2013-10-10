@@ -65,6 +65,7 @@ li{
 		font-size: 1.6em; // don't use rem here as this font size should be dependent on the header bar font size which can vary.
 		padding: 0 $padding;
 		line-height: 1.6em;
+		position: absolute;
 
 		&:active{
 			color: $red;
