@@ -1,0 +1,6 @@
+<ul>
+    <li data-icon="&#xe000;">Accueil</li>
+    <li data-icon="&#xe001;">Profil</li>
+    <li data-icon="&#xe003;">Paramètres</li>
+	<li data-icon="&#xe005;">Aide</li>
+</ul>

@@ -34,7 +34,7 @@
 		createHtmlElements: function ( ) {
 			var page = this.html.page;
 			this.html.menuButton = page.find( "div.menu-button" );
-			this.html.menu = page.find( "#home-menu" );
+			this.html.menu = page.find( "#menu" );
 			this.html.carousel = page.find( "#carousel" );
 			this.html.carouselWrapper = page.find( "#carousel-wrapper" );
 			this.html.news = page.find( "#news" );
@@ -59,23 +59,6 @@
 				}, {
 					title: "Person of Interest",
 					image: "http://src.sencha.io/http://www.tuxboard.com/photos/2013/01/Person-of-Interest-saison-1-VOSTFR-640x640.jpg"
-				} ]
-			};
-
-			// Create the data to display in the menu
-			this.data.menu = {
-				items: [ {
-					title: "Accueil",
-					icon: "home"
-				}, {
-					title: "Profil",
-					icon: "profile"
-				}, {
-					title: "Paramètres",
-					icon: "settings"
-				}, {
-					title: "Aide",
-					icon: "help"
 				} ]
 			};
 
@@ -309,20 +292,11 @@
 			// getting a local reference of the menu
 			var menu = this.html.menu;
 			// add template to carousel wrapper, rendered with previous data
-			menu.append( templates.menu_cell.render( this.data.menu ) );
+			menu.append( templates.menu.render( ) );
 
-			// handle pressed state on li
-			menu.on( "vmousedown", "li", function ( event ) {
-				var self = $( this );
-				self.addClass( "pressed" );
-				self.one( "vmouseup vmousemove", function ( event ) {
-					self.removeClass( "pressed" );
-				} );
-			} );
 			// handle tap on li
 			menu.on( "tap", "li", function ( event ) {
 				var self = $( this );
-				self.removeClass( "pressed" );
 				log.w( "This feature has note been implented yet" );
 				menu.panel( "close" );
 			} );
@@ -334,16 +308,6 @@
 		handleMenuButton: function ( ) {
 			// getting a local reference of the menu button
 			var menuButton = this.html.menuButton;
-			// when touch start, go to active state
-			menuButton.on( "vmousedown", function ( ) {
-				// making the menu button active
-				menuButton.addClass( "pressed" );
-				// when touch end, go to normal state
-				menuButton.one( "vmouseup vmousemove", function ( ) {
-					// making the menu button normal
-					menuButton.removeClass( "pressed" );
-				} );
-			} );
 
 			// getting a local reference of the menu
 			var menu = this.html.menu;

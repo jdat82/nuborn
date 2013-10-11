@@ -1,7 +1,7 @@
 <div id="home" data-role="page">
-	<div id="home-menu" data-role="panel" data-swipe-close="false" data-display="overlay"></div>
+	<div id="menu" data-role="panel" data-swipe-close="false" data-display="overlay"></div>
 	<div data-role="header">
-		<div class="menu-button left" data-icon="&#x22;"></div>
+		<div class="menu-button left" data-icon="&#xe004;"></div>
 		<div class="title">Accueil</div>
 	</div>
 	<div data-role="content">
