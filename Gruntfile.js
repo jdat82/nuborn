@@ -448,7 +448,6 @@ module.exports = function ( grunt ) {
 			"fonts/Champagne/*",
 			"fonts/Icons/fonts/*",
 			"img/*",
-			"!*.appcache"
 		],
 
 		/**
@@ -474,7 +473,7 @@ module.exports = function ( grunt ) {
 		},
 
 		concurrent: {
-			server: [ 'connect-server', 'watch' ]
+			web: [ 'connect-server', 'watch' ]
 		}
 
 	} );
@@ -522,14 +521,14 @@ module.exports = function ( grunt ) {
 	} );
 
 	/**
-	 * Registering a task to launch the web server.
+	 * Registering an alias task to launch the web server.
 	 */
-	grunt.registerTask( "connect-server", [ "configureProxies:web", "connect:web" ] );
+	grunt.registerTask( "server", [ "configureProxies:web", "connect:web" ] );
 
 	/**
-	 * Registering a task to launch the web server and the watcher at one go.
+	 * Registering an alias task to launch the watcher.
 	 */
-	grunt.registerTask( "server", [ "concurrent:server" ] );
+	grunt.registerTask( "watcher", [ "watch" ] );
 
 	/**
 	 * Receive a task name and if no target specified find active targets and execute the active ones.

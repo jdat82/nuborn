@@ -28,7 +28,7 @@
 		padding: 10px;
 		border-bottom-left-radius: 5px;
 		border-bottom-right-radius: 5px;
-		
+
 	}
 }
 
@@ -55,7 +55,7 @@
 
 	li {
 		padding: 5px;
-		background-color: $soft-white;
+		background-color: $softWhite;
 		padding: 5px;
 		overflow: hidden;
 		border-bottom: 1px solid;
@@ -70,7 +70,7 @@
 		};
 
 		&.pressed {
-			background-color: $cell-pressed;
+			background-color: $cellPressed;
 		}
 
 		div {

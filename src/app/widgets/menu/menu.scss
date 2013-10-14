@@ -1,0 +1,87 @@
+/**
+ * @provide menu
+ * @require effects
+ */
+
+.menu {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    border-width: 0px;
+    border-style: solid;
+    border-color: rgba(black, .8);
+    @include transition(border-width .3s, height 0s .3s);
+
+    .overlay {
+        position: absolute;
+        top:0; left:0; right:0; bottom:0;
+        background-color: rgba(black, 0);
+        @include transition(background-color .3s);
+    }
+
+    ul {
+        margin-top: $headerHeight;
+        margin-left: -$headerHeight;
+        width: $headerHeight;
+        list-style: none;
+
+        li {
+            margin-top: 1rem;
+            display: block;
+            text-align: center;
+            visibility: hidden;
+            width: 100%;
+            opacity: 0;
+            font-size: 2rem;
+            color: rgba($textColor, .7);
+            @include transition(transform 0.3s, opacity 0.2s);
+            @include transform(translate3d(-100%,0,0));
+        }
+    }
+
+    &.menu-show {
+        height: 100%;
+        border-width: .5rem .5rem .5rem $headerHeight;
+        @include transition(border-width .3s);
+
+        .overlay {
+            background-color: rgba(black, .4);
+            @include transition(background-color .5s);
+        }
+
+        ul li {
+            visibility: visible;
+            opacity: 1;
+            @include transform(translate3d(0,0,0));
+
+            &:nth-child(5) {
+               @include transition-delay(0.05s);
+            }
+
+            &:nth-child(4) {
+                @include transition-delay(0.1s);
+            }
+
+            &:nth-child(3) {
+                @include transition-delay(0.15s);
+            }
+
+            &:nth-child(2) {
+                @include transition-delay(0.2s);
+            }
+
+            &:first-child {
+                @include transition-delay(0.25s);
+                margin-top: 0;
+            }
+
+            &:active {
+                color: $textColor;
+                @include squeeze-and-glow();
+            }
+        }
+    }
+}

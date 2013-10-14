@@ -1,0 +1,9 @@
+<div id="settings" data-role="page">
+	<div data-role="header">
+		<div class="menu-button left" data-icon="&#x22;"></div>
+		<div class="title">Paramètres</div>
+	</div>
+	<div data-role="content">
+
+	</div>
+</div>

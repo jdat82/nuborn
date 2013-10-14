@@ -27,7 +27,6 @@
 
 		/**
 		 * Shows the splashscreen.
-		 * @param  {Boolean} animated Defines if the transition should be animated
 		 */
 		show: function ( ) {
 

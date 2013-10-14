@@ -62,6 +62,9 @@
             splashscreen.show( );
         }
 
+        app.menu = new app.widgets.Menu( {
+            id: "menu"
+        } );
         downloadMetadataAndStart( );
     }
 

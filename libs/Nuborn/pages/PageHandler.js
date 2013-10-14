@@ -340,6 +340,10 @@
             else {
                 throw "This page handler has no valid page";
             }
+        },
+
+        isVisible: function ( ) {
+            return this.data.isVisible;
         }
 
     } );

@@ -37,15 +37,24 @@
 
 // squeeze
 @include keyframes(squeeze) {
-    0%{
+    from{
         @include scale(1,1);
     }
-    50%{
-        @include scale(1.05,1);
+    to{
+        @include scale(1.1,1);
     }
-    100%{
-        @include scale(1,1);
+}
+
+@include keyframes(glow) {
+    from {
+        text-shadow: 0 0 0px white;
     }
+    to {
+        text-shadow: 0 0 20px white;
+    }
+}
+@mixin squeeze-and-glow($speed: 0.3){
+    @include animation(squeeze #{$speed}s forwards, glow #{$speed}s forwards);
 }
 
 // bigger size to normal size

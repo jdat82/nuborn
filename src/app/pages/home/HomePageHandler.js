@@ -34,7 +34,6 @@
 		createHtmlElements: function ( ) {
 			var page = this.html.page;
 			this.html.menuButton = page.find( "div.menu-button" );
-			this.html.menu = page.find( "#menu" );
 			this.html.carousel = page.find( "#carousel" );
 			this.html.carouselWrapper = page.find( "#carousel-wrapper" );
 			this.html.news = page.find( "#news" );
@@ -266,7 +265,6 @@
 
 			this._super( event, data );
 
-			this.prepareMenu( );
 			this.handleMenuButton( );
 			this.prepareCarousel( );
 			this.prepareNews( );
@@ -285,46 +283,18 @@
 		},
 
 		/**
-		 * Prepare the data to be displayed in the menu panel. <br/>
-		 * Also handle pressed states and taps of the menu items.
-		 */
-		prepareMenu: function ( ) {
-			// getting a local reference of the menu
-			var menu = this.html.menu;
-			// add template to carousel wrapper, rendered with previous data
-			menu.append( templates.menu.render( ) );
-
-			// handle tap on li
-			menu.on( "tap", "li", function ( event ) {
-				var self = $( this );
-				log.w( "This feature has note been implented yet" );
-				menu.panel( "close" );
-			} );
-		},
-
-		/**
 		 * Handle the menu button.
 		 */
 		handleMenuButton: function ( ) {
 			// getting a local reference of the menu button
 			var menuButton = this.html.menuButton;
 
-			// getting a local reference of the menu
-			var menu = this.html.menu;
 			// when tap on menu button, open menu panel
 			menuButton.on( "tap", function ( ) {
 				// opening menu panel
-				menu.panel( "open" );
+				app.menu.toggleMenu( );
 				// prevent bubbling
 				return false;
-			} );
-			// disabling scroll when the menu is open
-			menu.on( "panelbeforeopen", function ( event, ui ) {
-				utils.disableScroll( );
-			} );
-			// enabling scroll when the menu is closed
-			menu.on( "panelbeforeclose", function ( event, ui ) {
-				utils.enableScroll( );
 			} );
 		},
 

@@ -1,0 +1,10 @@
+<nav id="{{id}}" class="menu">
+    <ul>
+        <li id="home-menu-item" data-icon="&#x24;"></li>
+        <li id="profile-menu-item" data-icon="&#x23;"></li>
+        <li id="settings-menu-item" data-icon="&#x2c;"></li>
+        <li id="help-menu-item" data-icon="&#x21;"></li>
+        <li id="legal-notices-menu-item" data-icon="&#x26;"></li>
+    </ul>
+    <div class="overlay"/>
+</nav>

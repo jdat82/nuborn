@@ -19,10 +19,10 @@ $redActive: #d44a3b;
 
 // text
 $textColor: white;
-$soft-white: #F3F3F3;
+$softWhite: rgba(white,.5);
 
 // cell
-$cell-pressed: rgba(130, 170, 209, 0.5);
+$cellPressed: rgba(130, 170, 209, 0.5);
 
 // sizing: common
 $padding: .5rem;
