@@ -34,7 +34,7 @@
 
         goToHome: function ( ) {
             app.menu.toggleMenu( );
-            !app.home.isVisible( ) && app.home.navigate( );
+            !app.home.isVisible( ) && navigate( this.html.menu, app.home );
         },
 
         goToProfile: function ( ) {
@@ -43,7 +43,7 @@
 
         goToSettings: function ( ) {
             app.menu.toggleMenu( );
-            !app.settings.isVisible( ) && app.settings.navigate( );
+            !app.settings.isVisible( ) && navigate( this.html.menu, app.settings );
         },
 
         goToHelp: function ( ) {
@@ -55,6 +55,12 @@
         },
 
     } );
+
+    function navigate( menu, pageHandler ) {
+        menu.one( 'transitionend webkitTransitionEnd otransitionend MSTransitionEnd', function ( ) {
+            pageHandler.navigate( );
+        } );
+    }
 
     // /**
     //  * Gets the shared instance of app.widgets.Menu class.
