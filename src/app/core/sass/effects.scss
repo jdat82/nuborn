@@ -50,8 +50,14 @@
         text-shadow: 0 0 0px white;
     }
     to {
-        text-shadow: 0 0 20px white;
+        text-shadow: 0 0 10px white;
     }
+}
+@mixin glow($speed: 0.3){
+    @include animation(glow #{$speed}s forwards);
+}
+@mixin squeeze($speed: 0.3){
+    @include animation(squeeze #{$speed}s forwards);
 }
 @mixin squeeze-and-glow($speed: 0.3){
     @include animation(squeeze #{$speed}s forwards, glow #{$speed}s forwards);

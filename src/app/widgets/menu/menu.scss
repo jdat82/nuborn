@@ -37,7 +37,8 @@
             opacity: 0;
             font-size: 2rem;
             color: rgba($textColor, .7);
-            @include transition(transform 0.3s, opacity 0.2s);
+            text-shadow: 0 0 10px rgba($textColor, .7);
+            @include transition(transform 0.3s, opacity 0.3s);
             @include transform(translate3d(-100%,0,0));
         }
     }
@@ -80,7 +81,7 @@
 
             &:active {
                 color: $textColor;
-                @include squeeze-and-glow();
+                text-shadow: 0 0 10px $textColor;
             }
         }
     }
