@@ -66,7 +66,7 @@
          * @param  {Object} data
          */
         pageInit: function ( event, data ) {
-            debug && log.i( "page init of " + event.currentTarget.id );
+            DEBUG && log.i( "page init of " + event.currentTarget.id );
 
             // page parameters are passed in on "pageinit" event
             // so controller in singleton mode will keep their page parameters
@@ -88,7 +88,7 @@
          * @param  {Object} data
          */
         pageCreate: function ( event, data ) {
-            debug && log.i( "page create of '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "page create of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -97,7 +97,7 @@
          * @param  {Object} data
          */
         pageBeforeHide: function ( event, data ) {
-            debug && log.i( "page before hide of '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "page before hide of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -108,7 +108,7 @@
          * @param  {Object} data
          */
         pageHide: function ( event, data ) {
-            debug && log.i( "page hide of '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "page hide of '" + event.currentTarget.id + "'" );
 
             if ( !this.settings.singleton ) {
                 // Cleaning references to HTML elements & data objects
@@ -130,7 +130,7 @@
             if ( !this.settings.singleton )
                 this.data.pageParams = nu.Utils.deserializeHash( ).params;
 
-            debug && log.i( "page before show of '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "page before show of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -139,7 +139,7 @@
          * @param  {Object} data
          */
         pageShow: function ( event, data ) {
-            debug && log.i( "page show of '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "page show of '" + event.currentTarget.id + "'" );
             if ( this.data.isFirst ) {
                 nu.Utils.hideSplashScreen( this.data.splashscreen );
                 delete this.data.isFirst;
@@ -153,7 +153,7 @@
          * @param  {Object} data
          */
         pageBeforeChange: function ( event, data ) {
-            debug && log.i( "page before change of '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "page before change of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -162,7 +162,7 @@
          * @param  {Object} data
          */
         pageChange: function ( event, data ) {
-            debug && log.i( "page change of '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "page change of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -171,7 +171,7 @@
          * @param  {Object} data
          */
         pageBeforeLoad: function ( event, data ) {
-            debug && log.i( "page before load of '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "page before load of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -180,7 +180,7 @@
          * @param  {Object} data
          */
         pageLoad: function ( event, data ) {
-            debug && log.i( "page load of '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "page load of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -191,7 +191,7 @@
          * @param  {Object} data
          */
         pageRemove: function ( event, data ) {
-            debug && log.i( "page remove of '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "page remove of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -200,7 +200,7 @@
          * @param  {Object} data
          */
         swipeLeft: function ( event, data ) {
-            debug && log.i( "swipe left on '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "swipe left on '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -209,7 +209,7 @@
          * @param  {Object} data
          */
         swipeRight: function ( event, data ) {
-            debug && log.i( "swipe right on '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "swipe right on '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -271,8 +271,8 @@
 
             if ( templateId && templates[ templateId ] ) {
                 if ( !document.getElementById( pageId ) ) {
-                    debug && log.i( "loading #" + pageId );
-                    debug && log.i( "templateData: " + nu.Utils.toJSON( templateData ) );
+                    DEBUG && log.i( "loading #" + pageId );
+                    DEBUG && log.i( "templateData: " + nu.Utils.toJSON( templateData ) );
                     $( templates[ templateId ].render( templateData ) ).appendTo( "body" );
                 }
             }
@@ -320,7 +320,7 @@
                     options.jqmOptions.dataUrl += "?" + serializedParams;
             }
 
-            debug && log.i( "options: " + nu.Utils.toJSON( options ) );
+            DEBUG && log.i( "options: " + nu.Utils.toJSON( options ) );
 
             if ( templateId && templates[ templateId ] ) {
 
@@ -329,7 +329,7 @@
 
                 // changing page with a delay if any
                 window.setTimeout( function ( ) {
-                    debug && log.i( "navigating to #" + pageId );
+                    DEBUG && log.i( "navigating to #" + pageId );
                     $.mobile.changePage( "#" + pageId, options.jqmOptions );
                     // calling callback after page change if any
                     if ( options.callback ) {

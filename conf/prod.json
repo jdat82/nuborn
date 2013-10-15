@@ -2,7 +2,10 @@
 	"uglify": {
 		"compress": {
 			"global_defs": {
-				"debug": false,
+				"DEBUG": false,
+				"INFO": true,
+				"WARN": true,
+				"ERROR": true,
 				"livereload": false,
 				"weinre": false
 			},

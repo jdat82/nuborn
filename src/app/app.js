@@ -1,4 +1,4 @@
-( function ( window, $, nu, utils, log, undefined ) {
+( function ( window, $, nu, utils, Log, undefined ) {
 
     'use strict';
 
@@ -32,17 +32,17 @@
 
     function ready( ) {
         if ( !utils.isCordova( ) ) {
-            debug && log.i( "Used as a Web App" );
+            Log.i( "Used as a Web App" );
             init( );
         }
         else {
-            debug && log.i( "Used as a Hybrid App" );
+            Log.i( "Used as a Hybrid App" );
             // $.mobile.defaultHomeScroll = 0;
             document.addEventListener( "deviceready", init, false );
         }
 
         // installing scripts that will help remote debugging
-        debug && utils.installDebugScripts( );
+        DEBUG && utils.installDebugScripts( );
     }
 
     /**

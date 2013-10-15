@@ -1,4 +1,4 @@
-(function (window, $, nu, log, undefined) {
+( function ( window, $, nu, log, undefined ) {
 
 	'use strict';
 
@@ -15,29 +15,29 @@
 	 * @require nu.cache
 	 * @require nu.debug.Log
 	 */
-	nu.cache.AppCache = Object.subClass({
-		init: function () {
+	nu.cache.AppCache = Object.subClass( {
+		init: function ( ) {
 			// if application cache is not supported, this is a no-op.
-			if (!Modernizr.applicationcache) return;
+			if ( !Modernizr.applicationcache ) return;
 
 			var appCache = window.applicationCache;
 
-			appCache.addEventListener('updateready', function (e) {
-				debug && log.i("New hotness available !");
-				if (appCache.status === appCache.UPDATEREADY) {
+			appCache.addEventListener( 'updateready', function ( e ) {
+				DEBUG && log.i( "New hotness available !" );
+				if ( appCache.status === appCache.UPDATEREADY ) {
 					// new downloaded content available
-					appCache.swapCache();
-					if (!debug) {
-						if (confirm('A new version of this site is available. Load it ?'))
-							window.location.reload();
+					appCache.swapCache( );
+					if ( !DEBUG ) {
+						if ( confirm( 'A new version of this site is available. Load it ?' ) )
+							window.location.reload( );
 					}
 					else
-						window.location.reload();
+						window.location.reload( );
 				}
-			}, false);
+			}, false );
 		}
 
-	});
+	} );
 
 	/**
 	 * Gets the shared instance of AppCache class.
@@ -46,16 +46,16 @@
 	 * @static
 	 * @method get
 	 */
-	nu.cache.AppCache.get = function () {
-		if (!nu.cache.AppCache.SINGLETON_INSTANCE)
-			nu.cache.AppCache.SINGLETON_INSTANCE = new nu.cache.AppCache();
+	nu.cache.AppCache.get = function ( ) {
+		if ( !nu.cache.AppCache.SINGLETON_INSTANCE )
+			nu.cache.AppCache.SINGLETON_INSTANCE = new nu.cache.AppCache( );
 		return nu.cache.AppCache.SINGLETON_INSTANCE;
 	};
 
 	// When DOM is ready, starting the cache.
-	$(function () {
+	$( function ( ) {
 		// first access will initialize the cache manager
-		nu.cache.AppCache.get();
-	});
+		nu.cache.AppCache.get( );
+	} );
 
-})(this, jQuery, nu, nu.debug.Log);
+} )( this, jQuery, nu, nu.debug.Log );

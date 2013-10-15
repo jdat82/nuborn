@@ -269,7 +269,7 @@
      */
     nu.Utils.refreshPage = function ( pageId ) {
         pageId = pageId || $.mobile.activePage.attr( "id" );
-        debug && log.i( "Refreshing page: " + pageId );
+        DEBUG && log.i( "Refreshing page: " + pageId );
         $.mobile.changePage(
             "#" + pageId, {
                 allowSamePageTransition: true,
@@ -311,7 +311,7 @@
          * Generate something like this in body :
          *   <script src="http://<hostname>:35729/livereload.js"></script>
          */
-        if ( debug && livereload ) {
+        if ( DEBUG && livereload ) {
             var lr = document.createElement( 'script' );
             lr.src = ( 'https:' == window.location.protocol ? 'https://' : 'http://' ) + window.location.hostname + ":35729/livereload.js";
             lr.type = 'text/javascript';
@@ -326,7 +326,7 @@
          * Generate something like this in body :
          *   <script src="http://<hostname>::8080/target/target-script-min.js#weinre"></script>
          */
-        if ( debug && weinre ) {
+        if ( DEBUG && weinre ) {
             var lr = document.createElement( 'script' );
             lr.src = ( 'https:' == window.location.protocol ? 'https://' : 'http://' ) + window.location.hostname +
                 ":8080/target/target-script-min.js#weinre";

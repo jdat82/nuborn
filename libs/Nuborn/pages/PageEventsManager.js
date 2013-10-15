@@ -128,7 +128,7 @@
 			// hash.name contains current page id if filled
 			var hash = nu.Utils.deserializeHash( );
 			var pageId = hash.name || defaultPageId;
-			debug && log.i( "First page is: " + pageId );
+			DEBUG && log.i( "First page is: " + pageId );
 
 			var pageHandler = this.getPageHandler( pageId );
 
@@ -407,7 +407,7 @@
 					return false;
 				}
 
-				debug && log.i( "intercepted hash link: #" + hash.name );
+				DEBUG && log.i( "intercepted hash link: #" + hash.name );
 				if ( app[ hash.name ] ) {
 					app[ hash.name ].navigate( {
 						pageParams: hash.params

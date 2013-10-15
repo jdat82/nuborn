@@ -34,7 +34,7 @@
                 var $el = $( this );
                 $el.waypoint( "destroy" );
                 $el.waypoint( function ( direction ) {
-                    debug && log.i( "scrolling " + direction );
+                    DEBUG && log.i( "scrolling " + direction );
                     ( direction === "down" ? $header.addClass( "mini" ) : $header.removeClass( "mini" ) );
                     ( direction === "down" ? $content.addClass( "mini" ) : $content.removeClass( "mini" ) );
                 }, {

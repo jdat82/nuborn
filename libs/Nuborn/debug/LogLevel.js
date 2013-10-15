@@ -1,4 +1,4 @@
-(function (nu) {
+( function ( nu ) {
 
 	'use strict';
 
@@ -11,10 +11,10 @@
 	 * @require nu.debug
 	 */
 	nu.debug.LogLevel = {
-		ALL: "ALL",
 		INFO: "INFO",
+		WARN: "WARN",
 		ERROR: "ERROR",
-		WARN: "WARN"
+		NOLOG: "NOLOG"
 	};
 
-})(nu);
+} )( nu );
