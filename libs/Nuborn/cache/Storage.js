@@ -1,4 +1,4 @@
-(function ($, nu, undefined) {
+( function ( $, nu, localStorage, undefined ) {
 
 	'use strict';
 
@@ -12,44 +12,74 @@
 	 *
 	 * @require nu.cache
 	 */
-	nu.cache.Storage = {};
+	nu.cache.Storage = {
 
-	/**
-	 * Saves the object with the specified key.
-	 * @param {String} key    The key for the saved object
-	 * @param {Object|String|Number} object The object to save
-	 */
-	nu.cache.Storage.set = function (key, object) {
-		// stringifying the object as JSON
-		var string = JSON.stringify(object);
-		// saving the stringify result into local storage
-		localStorage.setItem(key, string);
-	};
+		/**
+		 * Saves the object with the specified key.
+		 * @param {String} key    The key for the saved object
+		 * @param {Object|String|Number} object The object to save
+		 */
+		set: function ( key, object ) {
+			// stringifying the object as JSON
+			var string = JSON.stringify( object );
+			// saving the stringify result into local storage
+			localStorage.setItem( key, string );
+		},
 
-	/**
-	 * Gets the previously saved object with the specified key.
-	 * @param  {String} key The key for the saved object
-	 * @return {Object|String|Number}     The previously saved object with the specified key
-	 */
-	nu.cache.Storage.get = function (key) {
-		// getting previously saved object with the specified key from local storage
-		var string = localStorage.getItem(key);
-		// if string is not null, proceed
-		if (string) {
-			// declaring the resulting object
+		/**
+		 * Append object to the specified key.
+		 * @param {String} key    The key for the saved object
+		 * @param {Object} object The object to save
+		 */
+		append: function ( key, object ) {
+			// stringifying the object as JSON
+			var string = JSON.stringify( object );
+			// getting existing value
+			var item = localStorage.getItem( key );
+			// appending to existing value
+			item += string;
+			// saving the stringify result into local storage
+			localStorage.setItem( key, string );
+		},
+
+
+		/**
+		 * Gets the previously saved object with the specified key.
+		 * @param  {String} key The key for the saved object
+		 * @return {Object|String|Number}     The previously saved object with the specified key
+		 */
+		get: function ( key ) {
+
+			if ( !key ) return;
+
+			// getting previously saved object with the specified key from local storage
+			var string = localStorage.getItem( key );
+
+			if ( !string || !string.length ) return string;
+
+			// if string is not null, proceed
 			var object = null;
 			try {
 				// parsing the string as JSON to get the object
-				object = JSON.parse(string);
+				object = JSON.parse( string );
 			}
-			catch (error) {
+			catch ( error ) {
 				// if an error occured during parsing JSON, set result object as the string
 				object = string;
 			}
+
 			// returning the object
 			return object;
+		},
+
+		/**
+		 * If key, remove the associated item if any.
+		 */
+		clear: function ( key ) {
+			if ( !key ) return;
+			localStorage.removeItem( key );
 		}
-		return null;
+
 	};
 
-})(jQuery, nu)
+} )( jQuery, nu, localStorage )

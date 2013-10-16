@@ -18,14 +18,16 @@
      */
     nu.debug.MemoryChannel = nu.debug.AbstractChannel.subClass( {
 
+        /**
+         * @constructor
+         */
         init: function ( settings ) {
             this._super( settings );
             this.stack = [ ];
         },
 
         /**
-         * Log the value parameter with the level specified.
-         * @param  {nu.debug.LogItem} item to log
+         * @inheritdoc
          */
         log: function ( logItem ) {
             this._super( logItem );
@@ -33,9 +35,7 @@
         },
 
         /**
-         * List logs eventually for a given level from the stack memory.
-         * @param  {String} a {@link nu.debug.LogLevel nu.debug.LogLevel} element.
-         * @returns {Array} Array of {@link nu.debug.LogItem nu.debug.LogItem} elements.
+         * @inheritdoc
          */
         list: function ( level ) {
 
@@ -51,9 +51,7 @@
         },
 
         /**
-         * Print logs eventually for a given level from the stack memory.
-         * @param  {String} a {@link nu.debug.LogLevel nu.debug.LogLevel} element.
-         * @returns {String} Log.
+         * @inheritdoc
          */
         print: function ( level ) {
             var print = "";
@@ -61,9 +59,8 @@
             if ( level && !nu.debug.LogLevel.hasOwnProperty( level ) )
                 return print;
 
-            this.stack.forEach( function ( logItem, index, stack ) {
-                if ( logItem.level === level || !level )
-                    print += logItem.toString( "%d    %l    %m" ) + "\n";
+            this.list( level ).forEach( function ( logItem, index, stack ) {
+                print += logItem.toString( "%d    %l    %m" ) + "\n";
             } );
 
             return print;
@@ -71,8 +68,7 @@
 
 
         /**
-         * Clear logs eventually for a given level from the stack memory.
-         * @param  {String} a {@link nu.debug.LogLevel nu.debug.LogLevel} element.
+         * @inheritdoc
          */
         clear: function ( level ) {
 

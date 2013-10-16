@@ -18,13 +18,15 @@
      */
     nu.debug.ConsoleChannel = nu.debug.AbstractChannel.subClass( {
 
+        /**
+         * @constructor
+         */
         init: function ( settings ) {
             this._super( settings );
         },
 
         /**
-         * Log the value parameter with the level specified.
-         * @param  {nu.debug.LogItem} item to log
+         * @inheritdoc
          */
         log: function ( logItem ) {
             this._super( logItem );

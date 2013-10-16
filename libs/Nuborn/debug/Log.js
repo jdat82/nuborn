@@ -71,7 +71,9 @@
             // creating channels based on settings
             this.channels = {};
             if ( this.settings.console ) this.channels.console = new nu.debug.ConsoleChannel( );
-            if ( this.settings.storage ) this.channels.storage = new nu.debug.StorageChannel( this.settings.storageKey );
+            if ( this.settings.storage ) this.channels.storage = new nu.debug.StorageChannel( {
+                storageKey: this.settings.storageKey
+            } );
             if ( this.settings.memory ) this.channels.memory = new nu.debug.MemoryChannel( );
         },
 

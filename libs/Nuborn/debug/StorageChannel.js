@@ -1,4 +1,4 @@
-( function ( window, $, nu, undefined ) {
+( function ( window, $, nu, Storage, undefined ) {
 
     'use strict';
 
@@ -20,102 +20,91 @@
      */
     nu.debug.StorageChannel = nu.debug.AbstractChannel.subClass( {
 
-        init: function ( storageKey ) {
-            this._super( );
-            this.settings = {
-                storageKey: storageKey
-            };
+        /**
+         * @constructor
+         */
+        init: function ( settings ) {
+            this._super( settings );
         },
 
         /**
-         * Log the value parameter with the level specified.
-         * @param  {nu.debug.LogItem} item to log
+         * @inheritdoc
+         * WARNING : completely ineficient. Serialize and deserialize an array with all the log items every time.
+         * Use with caution or implement something more friendly if this is a problem.
          */
         log: function ( logItem ) {
             this._super( logItem );
+            var logs = Storage.get( this.settings.storageKey );
+            if ( !logs )
+                logs = [ ];
+            logs.push( logItem.toString( "%d    %l    %m" ) );
+            Storage.set( this.settings.storageKey, logs );
+        },
 
-            // getting the log object
-            var log = nu.debug.Log.getStoraged( );
-            // unshifting the correct value into the correct array member with the date
-            log[ level ].unshift( logItem );
-            log[ LogLevel.ALL ].unshift( logItem );
-            // saving log object into the storage
-            nu.debug.Log.setStoraged( log );
+        /**
+         * @inheritdoc
+         */
+        list: function ( level ) {
+            var stack = Storage.get( this.settings.storageKey );
+
+            // no level, retun all
+            if ( !level )
+                return stack || [ ];
+
+            // invalid level, noop.
+            if ( !nu.debug.LogLevel.hasOwnProperty( level ) )
+                return [ ];
+
+            // specific level
+            return stack.filter( function ( string, index, stack ) {
+                return string.contains( level );
+            } );
+        },
+
+        /**
+         * @inheritdoc
+         * No level filtering. Level paramter will be ignored.
+         */
+        print: function ( level ) {
+            var print = "";
+
+            // invalid level, noop.
+            if ( level && !nu.debug.LogLevel.hasOwnProperty( level ) )
+                return print;
+
+            // filtering then concatenating a big string
+            this.list( level ).forEach( function ( string, index, stack ) {
+                print += string + "\n";
+            } );
+
+            return print;
+        },
+
+
+        /**
+         * @inheritdoc
+         */
+        clear: function ( level ) {
+
+            // no specific level, clear all
+            if ( !level ) {
+                Storage.clear( this.settings.storageKey );
+                return;
+            }
+
+            // invalid level, noop.
+            if ( !nu.debug.LogLevel.hasOwnProperty( level ) )
+                return;
+
+            // specific level, keeping other levels
+            var stack = this.list( ).filter( function ( string, index, stack ) {
+                return !string.contains( level );
+            } );
+
+            // saving
+            Storage.set( this.settings.storageKey, stack );
         }
-
 
     } );
 
-    // /**
-    //  * Gets the saved logs object or a new one.
-    //  * @return {Object} The saved object containing infos, errors and warnings logs, or a new one
-    //  */
-    // nu.debug.Log.getStoraged = function ( ) {
-    //     // getting logs from object storage
-    //     var log = nu.cache.Storage.get( nu.debug.Log.STORAGE_KEY );
-    //     // if log is null, create a new one and save it
-    //     if ( !log ) {
-    //         // creating the new log object
-    //         log = {};
-    //         for ( var level in LogLevel )
-    //             log[ level ] = [ ]
-    //             // saving the object to the object storage
-    //         nu.debug.Log.setStoraged( log );
-    //     }
-    //     // return the log object
-    //     return log;
-    // };
-
-    // /**
-    //  * Saves the log parameter into storage.
-    //  * @param {Object} log The log object to save
-    //  */
-    // nu.debug.Log.setStoraged = function ( log ) {
-    //     nu.cache.Storage.set( nu.debug.Log.STORAGE_KEY, log );
-    // };
-
-    // /**
-    //  * List log of type from the storage.
-    //  * @param  {String} type The type of log to list
-    //  */
-    // nu.debug.Log.listStoraged = function ( type ) {
-    //     var log = nu.debug.Log.getStoraged( );
-    //     var array = log[ type ];
-
-    //     if ( !array ) {
-    //         console.log( "The type " + type + "is incorrect" );
-    //         return;
-    //     }
-
-    //     if ( array.length === 0 ) {
-    //         console.log( "There is no logs with type" + type );
-    //         return;
-    //     }
-
-    //     type !== LogLevel.ALL && console.log( "List of logs with type " + type + " :" );
-    //     for ( var i = 0, len = array.length; i < len; i++ ) {
-    //         console.log( "    * " + array[ i ] );
-    //     }
-    //     type !== LogLevel.ALL && console.log( "End of logs with type " + type );
-    // };
-
-    // /**
-    //  * Clear logs of type from storaged.
-    //  * @param  {String} type The type of log to clear
-    //  */
-    // nu.debug.Log.clearStoraged = function ( type ) {
-    //     // getting the log object
-    //     var log = nu.debug.Log.getStoraged( );
-    //     // check if the type is specified and correct
-    //     if ( type === LogLevel.INFO || type === LogLevel.ERROR || type === LogLevel.WARN ) {
-    //         log[ type ] = [ ];
-    //     }
-    //     // if no type is specified or is incorrect, clear all
-    //     else if ( type === LogLevel.ALL ) {
-    //         for ( var level in LogLevel )
-    //             log[ level ] = [ ]
-    //     }
-    //     nu.debug.Log.setStoraged( log );
-    // };
-
-} )( this, jQuery, nu );
+} )( this, jQuery, nu, nu.cache.Storage );
