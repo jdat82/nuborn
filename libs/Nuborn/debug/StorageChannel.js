@@ -3,8 +3,10 @@
     'use strict';
 
     /**
-     * Common behaviors for all loggers.
      * @class nu.debug.StorageChannel
+     * @extends nu.debug.AbstractChannel
+     *
+     * Keep logs in local storage.
      *
      * @provide nu.debug.StorageChannel
      *

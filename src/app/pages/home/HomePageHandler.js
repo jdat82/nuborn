@@ -311,17 +311,7 @@
 		prepareNews: function ( ) {
 			// add template to news, rendered with news data
 			var news = this.html.news;
-
 			news.append( templates.news_cell.render( this.data.news ) );
-
-			news.on( "vmousedown", "li", function ( ) {
-				var item = $( this );
-				item.addClass( "pressed" );
-				item.one( "vmouseup vmousemove", function ( ) {
-					item.removeClass( "pressed" );
-				} );
-			} );
-
 			news.on( "tap", "li", function ( event ) {
 				var newsId = event.currentTarget.dataset.newsId;
 				app.detail.navigate( {

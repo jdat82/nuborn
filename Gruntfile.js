@@ -43,7 +43,7 @@ module.exports = function ( grunt ) {
 			//"libs/Gsap/TweenLite.min.js", /** Animations */
 			//"libs/Gsap/TimelineLite.min.js", /** Animations */
 			"libs/jQuery/*.min.js", /** jQuery is required */
-			"libs/jQueryWaypoints/*.min.js", /** jQuery Waypoints plugin */
+			// "libs/jQueryWaypoints/*.min.js", /** jQuery Waypoints plugin */
 			"libs/Modernizr/*.js",
 			"src/app/mobileinit.js", /** jQuery Mobile pre-initialization */
 			"libs/jQueryMobile/*.js", /** jQuery Mobile is required **/

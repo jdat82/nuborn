@@ -4,6 +4,7 @@
 
 	/**
 	 * @enum
+	 *
 	 * Enumeration of log levels.
 	 *
 	 * @provide nu.debug.LogLevel

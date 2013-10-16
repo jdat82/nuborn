@@ -4,6 +4,7 @@
 
     /**
      * @class app.pages.NubornPageHandler
+     * @extends nu.pages.PageHandler
      *
      * Override nu.pages.PageHandler to add some custom behavior to the default page handler.
      *
@@ -22,7 +23,7 @@
             // Very important : you need to place the waypoints registration at the end of the event loop
             // to let JQM terminate the page life cycle properly.
             // For some reason, there is a conflict between JQM and jQuery Waypoint
-            window.setTimeout( $.proxy( this, "resizeOnScroll" ), 100 );
+            // window.setTimeout( $.proxy( this, "resizeOnScroll" ), 10 );
         },
 
         resizeOnScroll: function ( ) {

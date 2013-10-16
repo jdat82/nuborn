@@ -3,8 +3,9 @@
 	'use strict';
 
 	/**
-	 * Common behaviors for all loggers.
 	 * @class nu.debug.AbstractChannel
+	 *
+	 * Common behaviors for all loggers.
 	 *
 	 * @provide nu.debug.AbstractChannel
 	 *

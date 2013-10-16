@@ -2,7 +2,9 @@
 
     'use strict';
 
-    // default settings
+    /**
+     * Default settings
+     */
     var defaults = {
         /**
          * Defines if the logs should be sent to console.
@@ -34,6 +36,9 @@
     /**
      * @class nu.debug.Log
      * @singleton
+     *
+     * Entry point for logs.
+     * As a default, console is enabled but neither memory nor local storage logs.
      *
      * @provide nu.debug.Log
      *
@@ -92,6 +97,15 @@
          */
         e: function ( value ) {
             log( this, value, LogLevel.ERROR );
+        },
+
+        /**
+         * Returns a channel
+         * @param {String} channelName Name of an existing channel
+         * @returns {nu.debug.AbstractChannel} An abstract channel implementation
+         */
+        getChannel: function ( channelName ) {
+
         }
 
     };

@@ -4,6 +4,8 @@
 
     /**
      * @class app.widgets.Menu
+     * @extends nu.widgets.Menu
+     *
      * Nuborn general menu.
      *
      * @provide app.widgets.Menu

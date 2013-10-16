@@ -3,8 +3,10 @@
     'use strict';
 
     /**
-     * Common behaviors for all loggers.
      * @class nu.debug.ConsoleChannel
+     * @extends nu.debug.AbstractChannel
+     *
+     * Use the native console to log items.
      *
      * @provide nu.debug.ConsoleChannel
      *

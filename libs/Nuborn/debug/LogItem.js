@@ -4,6 +4,7 @@
 
 	/**
 	 * @class nu.debug.LogItem
+	 *
 	 * A log item represented by a message, a level and a date
 	 *
 	 * @provide nu.debug.LogItem
