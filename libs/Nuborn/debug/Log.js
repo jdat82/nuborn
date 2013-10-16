@@ -105,7 +105,7 @@
          * @returns {nu.debug.AbstractChannel} An abstract channel implementation
          */
         getChannel: function ( channelName ) {
-
+            return this.channels[ channelName ];
         }
 
     };

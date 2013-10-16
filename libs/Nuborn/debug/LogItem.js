@@ -39,10 +39,19 @@
 
 		/**
 		 * The string representation of the log item (message).
+		 * @param {String} format to use to create the toString representation.
+		 *     tokens : %d : message / %m : message / %l : level
 		 * @return {String} The message of the log item.
 		 */
-		toString: function ( ) {
-			return "[" + this.date + "]    " + this.message;
+		toString: function ( pattern ) {
+
+			if ( !pattern )
+				pattern = "[%d]    %m";
+
+			pattern = pattern.replace( "%d", this.date );
+			pattern = pattern.replace( "%m", this.message );
+			pattern = pattern.replace( "%l", this.level );
+			return pattern;
 		}
 	} );
 
