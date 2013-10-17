@@ -1,24 +1,24 @@
-( function ( window, $, nu, Storage, undefined ) {
+( function ( window, $, nu, LocalStorage, undefined ) {
 
     'use strict';
 
     /**
-     * @class nu.debug.StorageChannel
+     * @class nu.debug.LocalStorageChannel
      * @extends nu.debug.AbstractChannel
      *
      * Keep logs in local storage.
      *
-     * @provide nu.debug.StorageChannel
+     * @provide nu.debug.LocalStorageChannel
      *
      * @require nu.debug.LogLevel
      *
      * @require nu.debug.LogItem
      *
-     * @require nu.cache.Storage
+     * @require nu.cache.LocalStorage
      *
      * @require nu.debug.AbstractChannel
      */
-    nu.debug.StorageChannel = nu.debug.AbstractChannel.subClass( {
+    nu.debug.LocalStorageChannel = nu.debug.AbstractChannel.subClass( {
 
         /**
          * @constructor
@@ -34,18 +34,18 @@
          */
         log: function ( logItem ) {
             this._super( logItem );
-            var logs = Storage.get( this.settings.storageKey );
+            var logs = LocalStorage.get( this.settings.storageKey );
             if ( !logs )
                 logs = [ ];
             logs.push( logItem.toString( "%d    %l    %m" ) );
-            Storage.set( this.settings.storageKey, logs );
+            LocalStorage.set( this.settings.storageKey, logs );
         },
 
         /**
          * @inheritdoc
          */
         list: function ( level ) {
-            var stack = Storage.get( this.settings.storageKey );
+            var stack = LocalStorage.get( this.settings.storageKey );
 
             // no level, retun all
             if ( !level )
@@ -88,7 +88,7 @@
 
             // no specific level, clear all
             if ( !level ) {
-                Storage.clear( this.settings.storageKey );
+                LocalStorage.clear( this.settings.storageKey );
                 return;
             }
 
@@ -102,9 +102,9 @@
             } );
 
             // saving
-            Storage.set( this.settings.storageKey, stack );
+            LocalStorage.set( this.settings.storageKey, stack );
         }
 
     } );
 
-} )( this, jQuery, nu, nu.cache.Storage );
+} )( this, jQuery, nu, nu.cache.LocalStorage );

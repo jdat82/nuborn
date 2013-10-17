@@ -12,7 +12,7 @@
          */
         console: true,
         /**
-         * Defines if the logs should be saved to storage.
+         * Defines if the logs should be saved in the local storage.
          * @type {Boolean}
          */
         storage: false,
@@ -50,7 +50,7 @@
      *
      * @require nu.debug.ConsoleChannel
      *
-     * @require nu.debug.StorageChannel
+     * @require nu.debug.LocalStorageChannel
      *
      * @require nu.debug.MemoryChannel
      */
@@ -70,11 +70,22 @@
 
             // creating channels based on settings
             this.channels = {};
-            if ( this.settings.console ) this.channels.console = new nu.debug.ConsoleChannel( );
-            if ( this.settings.storage ) this.channels.storage = new nu.debug.StorageChannel( {
-                storageKey: this.settings.storageKey
-            } );
-            if ( this.settings.memory ) this.channels.memory = new nu.debug.MemoryChannel( );
+
+            // console channel
+            this.settings.console && ( this.channels.console = new nu.debug.ConsoleChannel( ) );
+
+            // local storage channel
+            if ( this.settings.storage && Modernizr.localstorage ) {
+                this.channels.storage = new nu.debug.LocalStorageChannel( {
+                    storageKey: this.settings.storageKey
+                } );
+            }
+            else if ( this.settings.storage && !Modernizr.localstorage ) {
+                this.settings.storage = false;
+            }
+
+            // memory channel
+            this.settings.memory && ( this.channels.memory = new nu.debug.MemoryChannel( ) );
         },
 
         /**
@@ -182,12 +193,5 @@
      * We don't want to force him to initialize if not needed.
      */
     nu.debug.Log.init( );
-
-    /**
-     * Deactivated for now cause doesn't work as expected.
-     */
-    // window.onerror = function (message, url, line) {
-    //  nu.debug.Log.error(message);
-    // }
 
 } )( this, jQuery, nu, nu.debug.LogLevel, nu.debug.LogItem );

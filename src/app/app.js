@@ -1,4 +1,4 @@
-( function ( window, $, nu, utils, Log, undefined ) {
+( function ( window, $, nu, Utils, Log, undefined ) {
 
     'use strict';
 
@@ -31,7 +31,7 @@
      */
 
     function ready( ) {
-        if ( !utils.isCordova( ) ) {
+        if ( !Utils.isCordova( ) ) {
             Log.i( "Used as a Web App" );
             init( );
         }
@@ -42,7 +42,7 @@
         }
 
         // installing scripts that will help remote debugging
-        DEBUG && utils.installDebugScripts( );
+        DEBUG && Utils.installDebugScripts( );
     }
 
     /**
@@ -51,10 +51,17 @@
 
     function init( ) {
 
+        /**
+         * Context instance which holds contextual data.
+         */
+        app.context = new nu.core.Context( {
+            synchronizeInLocalStorage: true
+        } );
+
         // starting JQM
         $.mobile.initializePage( );
 
-        if ( !utils.isCordova( ) || !utils.isIOS( ) ) {
+        if ( !Utils.isCordova( ) || !Utils.isIOS( ) ) {
             // Application splashscreen instance
             splashscreen = new nu.widgets.SplashScreen( {
                 title: "NUBORN"
@@ -62,9 +69,12 @@
             splashscreen.show( );
         }
 
+        // global menu
         app.menu = new app.widgets.Menu( {
             id: "menu"
         } );
+
+        // loading mandatory data then going to first page
         downloadMetadataAndStart( );
     }
 
@@ -88,7 +98,7 @@
         } );
     }
 
-    // when the Document is Ready, call app.ready
+    // when the Document is ready, we too
     $( ready );
 
 } )( this, jQuery, nu, nu.Utils, nu.debug.Log );

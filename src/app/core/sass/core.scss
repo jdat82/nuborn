@@ -102,6 +102,7 @@ li{
 		top: $headerHeight;
 		bottom: 0; left: 0; right: 0;
 		overflow: scroll;
+		// -webkit-backface-visibility: hidden;
 		-webkit-overflow-scrolling: touch;
 	// }
 

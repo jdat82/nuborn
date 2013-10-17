@@ -3,16 +3,16 @@
 	'use strict';
 
 	/**
-	 * @class nu.cache.Storage
+	 * @class nu.cache.LocalStorage
 	 * @singleton
 	 *
 	 * Help for saving objects into the local storage memory.
 	 *
-	 * @provide nu.cache.Storage
+	 * @provide nu.cache.LocalStorage
 	 *
 	 * @require nu.cache
 	 */
-	nu.cache.Storage = {
+	nu.cache.LocalStorage = {
 
 		/**
 		 * Saves the object with the specified key.
@@ -75,7 +75,7 @@
 		/**
 		 * If key, remove the associated item if any.
 		 */
-		clear: function ( key ) {
+		remove: function ( key ) {
 			if ( !key ) return;
 			localStorage.removeItem( key );
 		}
