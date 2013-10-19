@@ -1,4 +1,4 @@
-( function ( $, nu, app, utils, log, templates, undefined ) {
+( function ( $, nu, app, Utils, Log, templates, undefined ) {
 
 	'use strict';
 
@@ -280,6 +280,12 @@
 
 			// Initializing Carousel with the Swipe library
 			this.html.carousel.Swipe( );
+
+			// iScroll polyfill for deficient devices (everyone except apple of course)
+			// if ( window.IScroll ) {
+			// 	DEBUG && Log.i( "initializing iScroll" );
+			// 	this.data.iscroll = new IScroll( "#toto" );
+			// }
 		},
 
 		/**
