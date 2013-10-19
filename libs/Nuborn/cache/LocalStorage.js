@@ -55,7 +55,7 @@
 			// getting previously saved object with the specified key from local storage
 			var string = localStorage.getItem( key );
 
-			if ( !string || !string.length ) return string;
+			if ( string === undefined || string === null ) return string;
 
 			// if string is not null, proceed
 			var object = null;
