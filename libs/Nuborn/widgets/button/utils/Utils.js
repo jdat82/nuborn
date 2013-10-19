@@ -1,4 +1,4 @@
-(function ($, nu, undefined) {
+( function ( $, nu, undefined ) {
 
 	'use strict';
 
@@ -15,31 +15,16 @@
 	nu.widgets.button.Utils = {
 
 		/**
-		 * Handle active state on button the portable way.
-		 * i.e compatible with Android 2.3 and browsers without :active pseudo class support.
-		 */
-		onvmousedown: function () {
-			var button = $(this)
-			// making the button active
-			button.addClass("pressed")
-			// when touch end, go to normal state
-			button.one("vmouseup vmousemove", function () {
-				// making the button normal
-				button.removeClass("pressed")
-			})
-		},
-
-		/**
 		 * Enable button's press mode.
 		 *
 		 * {@link #onvmousedown See onvmousedown}
 		 */
-		enableUniversalPressMode: function (button) {
-			if (!button) return;
+		enableUniversalPressMode: function ( element ) {
+			if ( !element ) return;
 			// getting a jQuery reference
-			if (!button.context) button = $(button)
-			// enabling press mode	
-			button.on("vmousedown", this.onvmousedown)
+			element = $( element );
+			// enabling press mode
+			element.on( "vmousedown", onvmousedown )
 		},
 
 		/**
@@ -47,14 +32,30 @@
 		 *
 		 * {@link #onvmousedown See onvmousedown}
 		 */
-		disableUniversalPressMode: function (button) {
-			if (!button) return;
+		disableUniversalPressMode: function ( element ) {
+			if ( !element ) return;
 			// getting a jQuery reference
-			if (!button.context) button = $(button)
+			element = $( element );
 			// disabling press mode
-			button.off("vmousedown", this.onvmousedown)
+			element.off( "vmousedown", onvmousedown );
 		}
 
+	};
+
+	/**
+	 * Handle active state on button the portable way.
+	 * i.e compatible with Android 2.3 and browsers without :active pseudo class support.
+	 */
+
+	function onvmousedown( ) {
+		var element = $( this );
+		// making the element active
+		element.addClass( "pressed" );
+		// when touch end, go to normal state
+		element.one( "vmouseup vmousemove", function ( ) {
+			// making the element normal
+			element.removeClass( "pressed" )
+		} );
 	}
 
-})(jQuery, nu)
+} )( jQuery, nu )

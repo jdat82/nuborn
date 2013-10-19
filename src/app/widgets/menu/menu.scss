@@ -54,7 +54,7 @@
     }
 }
 
-.csstransforms3d .menu {
+.csstransforms3d.animationfriendly .menu {
 
     @include transition(border-width .3s, height 0s .3s);
 

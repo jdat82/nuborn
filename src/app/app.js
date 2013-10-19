@@ -31,6 +31,14 @@
      */
 
     function ready( ) {
+
+        Log.init( {
+            memory: true
+        } );
+
+        // installing scripts that will help remote debugging
+        DEBUG && Utils.installDebugScripts( );
+
         if ( !Utils.isCordova( ) ) {
             Log.i( "Used as a Web App" );
             init( );
@@ -40,9 +48,6 @@
             // $.mobile.defaultHomeScroll = 0;
             document.addEventListener( "deviceready", init, false );
         }
-
-        // installing scripts that will help remote debugging
-        DEBUG && Utils.installDebugScripts( );
     }
 
     /**
@@ -84,17 +89,31 @@
 
     function downloadMetadataAndStart( ) {
 
-        var promise = app.manager.FakeManager.init( );
-        $.when( promise ).done( function ( ) {
+        // sample manager that returns a promise
+        var fakePromise = app.manager.FakeManager.init( );
+
+        // all polyfills mandatory at startup are loaded now
+        var polyfillsPromise = app.manager.PolyfillManager.init( );
+
+        // widget that test the device to discover its abilities
+        var stressTestWidget = new nu.widgets.StressTest( );
+        var stressTestPromise = stressTestWidget.play( );
+
+        // when all promises are resolved, we can go ahead
+        $.when( fakePromise, polyfillsPromise, stressTestPromise ).done( function ( ) {
             window.setTimeout( function ( ) {
+
                 // there is a very annoying JQM bug : we need to add our first page navigation at the end of the event loop.
                 // so that's the setTimeout job in here.
                 // loading in DOM first page app
                 nu.pages.PageEventsManager.get( ).loadFirstPage( app.home.settings.id, splashscreen );
+
             }, 100 );
         } ).fail( function ( ) {
+
             // TODO handle properly. Redirect to an error page which will give options to user like restart the app, send an email, etc.
             alert( "Oops... Something went wrong." );
+
         } );
     }
 

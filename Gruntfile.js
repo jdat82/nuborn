@@ -38,20 +38,29 @@ module.exports = function ( grunt ) {
 		 */
 		js: [
 			"libs/Hogan/*.js",
-			//"libs/Gsap/plugins/*.js", /** Animations */
-			//"libs/Gsap/easing/*.js", /** Animations */
-			//"libs/Gsap/TweenLite.min.js", /** Animations */
-			//"libs/Gsap/TimelineLite.min.js", /** Animations */
-			"libs/jQuery/*.min.js", /** jQuery is required */
-			// "libs/jQueryWaypoints/*.min.js", /** jQuery Waypoints plugin */
+			"libs/jQuery/*.min.js",
+			// "libs/jQueryWaypoints/*.min.js",
 			"libs/Modernizr/*.js",
-			"src/app/mobileinit.js", /** jQuery Mobile pre-initialization */
-			"libs/jQueryMobile/*.js", /** jQuery Mobile is required **/
+			// jQuery Mobile pre-initialization
+			"src/app/mobileinit.js",
+			"libs/jQueryMobile/*.js",
 			"libs/SwipeJS/*.js",
-			// "libs/jQueryJSON/*.js",	/** jQueryJSON is required for old browser **/
-			"gen/*.js", /** Generated sources as templates */
-			"libs/Nuborn/**/*.js", /** Nuborn is required **/
-			"src/**/*.js"
+			// jQueryJSON is required for old browser
+			// "libs/jQueryJSON/*.js",
+			// Generated sources
+			"gen/*.js",
+			// Nuborn && App sources
+			"{libs/Nuborn,src}/**/*.js",
+			// "src/**/*.js",
+			// excluding all async files which will be requested manually
+			"!{libs/Nuborn,src}/**/*-async.js"
+		],
+
+		/**
+		 * These files will be requested manually asynchronously and not merged in the global file.
+		 */
+		asyncJs: [
+			"{libs,src}/**/*-async.{js,min.js}"
 		],
 
 		/**
@@ -70,12 +79,18 @@ module.exports = function ( grunt ) {
 						}
 					} )
 				},
-				files: {
+				files: [ {
 					"<%= platforms.android.folder %>/js/app.min.js": [ "libs/Cordova/cordova.android.js", "<%= js %>" ]
-				}
+				}, {
+					dest: "<%= platforms.android.folder %>/js",
+					src: [ "<%= asyncJs %>" ],
+					expand: true,
+					flatten: true,
+					ext: ".min.js"
+				} ]
 			},
 			ios: {
-				// defining an ANDROID constant in order to allow compilation of ios specific code
+				// defining an IOS constant in order to allow compilation of ios specific code
 				options: {
 					"compress": GruntUtils.extend( true, {}, options.uglify.compress, {
 						"global_defs": {
@@ -85,12 +100,18 @@ module.exports = function ( grunt ) {
 						}
 					} )
 				},
-				files: {
+				files: [ {
 					"<%= platforms.ios.folder %>/js/app.min.js": [ "libs/Cordova/cordova.ios.js", "<%= js %>" ]
-				}
+				}, {
+					dest: "<%= platforms.ios.folder %>/js",
+					src: [ "<%= asyncJs %>" ],
+					expand: true,
+					flatten: true,
+					ext: ".min.js"
+				} ]
 			},
 			web: {
-				// defining an ANDROID constant in order to allow compilation of web specific code
+				// defining a WEB constant in order to allow compilation of web specific code
 				options: {
 					"compress": GruntUtils.extend( true, {}, options.uglify.compress, {
 						"global_defs": {
@@ -100,9 +121,15 @@ module.exports = function ( grunt ) {
 						}
 					} )
 				},
-				files: {
+				files: [ {
 					"<%= platforms.web.folder %>/js/app.min.js": [ "<%= js %>" ]
-				}
+				}, {
+					dest: "<%= platforms.web.folder %>/js",
+					src: [ "<%= asyncJs %>" ],
+					expand: true,
+					flatten: true,
+					ext: ".min.js"
+				} ]
 			}
 		},
 
@@ -112,8 +139,7 @@ module.exports = function ( grunt ) {
 		 * Common teplates for all platforms
 		 */
 		templates: [
-			"libs/Nuborn/**/*.hogan",
-			"src/**/*.hogan"
+			"{libs/Nuborn,src}/**/*.hogan"
 		],
 
 
@@ -143,9 +169,16 @@ module.exports = function ( grunt ) {
 		 * Common css files for all platforms
 		 */
 		css: [
-			"libs/jQueryMobile/*.css", /** jQuery Mobile is required **/
-			"libs/**/*.scss",
-			"src/**/*.scss"
+			"libs/jQueryMobile/*.css",
+			"{libs,src}/**/*.scss",
+			"!{libs/Nuborn,src}/**/*-async.css"
+		],
+
+		/**
+		 * These files will be requested manually asynchronously and not merged in the global file.
+		 */
+		asyncCss: [
+			"{libs,src}/**/*-async.{css,min.css}"
 		],
 
 		/**
@@ -154,19 +187,37 @@ module.exports = function ( grunt ) {
 		nsass: {
 			options: options.sass,
 			android: {
-				files: {
+				files: [ {
 					"<%= platforms.android.folder %>/css/app.min.css": [ "<%= css %>" ]
-				}
+				}, {
+					dest: "<%= platforms.android.folder %>/css",
+					src: [ "<%= asyncCss %>" ],
+					expand: true,
+					flatten: true,
+					ext: ".min.css"
+				} ]
 			},
 			ios: {
-				files: {
+				files: [ {
 					"<%= platforms.ios.folder %>/css/app.min.css": [ "<%= css %>" ]
-				}
+				}, {
+					dest: "<%= platforms.ios.folder %>/css",
+					src: [ "<%= asyncCss %>" ],
+					expand: true,
+					flatten: true,
+					ext: ".min.css"
+				} ]
 			},
 			web: {
-				files: {
+				files: [ {
 					"<%= platforms.web.folder %>/css/app.min.css": [ "<%= css %>" ]
-				}
+				}, {
+					dest: "<%= platforms.web.folder %>/css",
+					src: [ "<%= asyncCss %>" ],
+					expand: true,
+					flatten: true,
+					ext: ".min.css"
+				} ]
 			}
 		},
 
@@ -196,7 +247,6 @@ module.exports = function ( grunt ) {
 		 */
 		html: [
 			"src/**/*.html",
-			"!src/**/templates/*.html"
 		],
 
 		/**
@@ -274,8 +324,7 @@ module.exports = function ( grunt ) {
 		/**
 		 * Static resources common to all platforms.
 		 */
-		hierarchicalStatics: [ "fonts/**" ],
-		flattenedStatics: [ ],
+		hierarchicalStatics: [ "fonts/**", "!fonts/Icons/fonts/icomoon.dev.svg" ],
 
 		/**
 		 * Let's copy some static files.
@@ -285,33 +334,18 @@ module.exports = function ( grunt ) {
 				files: [ {
 					dest: "<%= platforms.android.folder %>/",
 					src: [ "<%= hierarchicalStatics %>" ]
-				}, {
-					dest: "<%= platforms.android.folder %>/",
-					src: [ "<%= flattenedStatics %>" ],
-					expand: true,
-					flatten: true
 				} ]
 			},
 			ios: {
 				files: [ {
 					dest: "<%= platforms.ios.folder %>/",
 					src: [ "<%= hierarchicalStatics %>" ]
-				}, {
-					dest: "<%= platforms.ios.folder %>/",
-					src: [ "<%= flattenedStatics %>" ],
-					expand: true,
-					flatten: true
 				} ]
 			},
 			web: {
 				files: [ {
 					dest: "<%= platforms.web.folder %>/",
 					src: [ "<%= hierarchicalStatics %>" ]
-				}, {
-					dest: "<%= platforms.web.folder %>/",
-					src: [ "<%= flattenedStatics %>" ],
-					expand: true,
-					flatten: true
 				} ]
 			}
 		},
@@ -358,11 +392,11 @@ module.exports = function ( grunt ) {
 				livereload: true
 			},
 			scss: {
-				files: "<%= css %>",
+				files: [ "<%= css %>", "<%= asyncCss %>" ],
 				tasks: [ "nsass", "manifest" ]
 			},
 			js: {
-				files: "<%= js %>",
+				files: [ "<%= js %>", "<%= asyncJs %>" ],
 				tasks: [ "nuglify", "manifest" ]
 			},
 			htmlmin: {
@@ -583,9 +617,9 @@ module.exports = function ( grunt ) {
 		if ( !platforms )
 			return result;
 
-		for ( var targetName in platforms )
-			if ( platforms[ targetName ].active )
-				result.push( targetName );
+		for ( var platform in platforms )
+			if ( platforms[ platform ].active )
+				result.push( platform );
 
 		return result;
 	}

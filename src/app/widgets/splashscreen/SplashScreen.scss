@@ -55,6 +55,6 @@
   100% { @include transform(scaleY(1)); }
 }
 
-.csstransforms3d #splash h1 {
+.csstransforms3d.animationfriendly #splash h1 {
   @include animation(scaleIn 2s);
 }

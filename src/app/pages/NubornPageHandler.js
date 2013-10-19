@@ -20,6 +20,7 @@
 
         pageShow: function ( event, data ) {
             this._super( event, data );
+
             // Very important : you need to place the waypoints registration at the end of the event loop
             // to let JQM terminate the page life cycle properly.
             // For some reason, there is a conflict between JQM and jQuery Waypoint

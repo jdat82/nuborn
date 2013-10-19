@@ -1,9 +1,9 @@
-(function (window, app) {
+( function ( window, app ) {
 
     'use strict';
 
     /**
-     * Manager namespace.
+     * app core namespace.
      *
      * @provide app.core
      *
@@ -11,4 +11,4 @@
      */
     app.core = {};
 
-})(this, app);
+} )( this, app );
