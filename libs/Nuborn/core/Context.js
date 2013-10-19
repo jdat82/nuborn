@@ -3,7 +3,7 @@
     'use strict';
 
     var defaults = {
-        localStorageKey: "context",
+        localStorageKey: "nuborn.context",
         synchronizeInLocalStorage: false
     };
 
