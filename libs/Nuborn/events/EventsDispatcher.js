@@ -1,4 +1,4 @@
-(function ($, nu, undefined) {
+( function ( $, nu, undefined ) {
 
 	'use strict';
 
@@ -16,9 +16,9 @@
 	 *
 	 * @require nu.events
 	 */
-	nu.events.EventsDispatcher = Object.subClass({
-		init: function () {
-			this.emitter = $(this);
+	nu.events.EventsDispatcher = {
+		init: function ( ) {
+			this.emitter = $( this );
 		},
 		/**
 		 * Emit an event <name> having the given <target> and <data> as properties.
@@ -28,45 +28,33 @@
 		 * @param {Mixed} data
 		 *	Events data
 		 */
-		emit: function (name, target, data) {
-			var event = $.Event(name, data);
-			if (target)
+		emit: function ( name, target, data ) {
+			var event = $.Event( name, data );
+			if ( target )
 				event.target = target;
-			this.emitter.trigger(event);
+			this.emitter.trigger( event );
 		},
 		/**
 		 * Register <callback> for events of type <name>
 		 * @param {String} name
 		 * @param {Function} callback
 		 */
-		on: function (name, callback) {
-			this.emitter.on(name, callback);
+		on: function ( name, callback ) {
+			this.emitter.on( name, callback );
 		},
 		/**
 		 * Unregister <callback> for events of type <name>
 		 * @param {String} name
 		 * @param {Function} callback
 		 */
-		off: function (name, callback) {
-			if (callback)
-				this.emitter.off(name, callback);
+		off: function ( name, callback ) {
+			if ( callback )
+				this.emitter.off( name, callback );
 			else
-				this.emitter.off(name);
+				this.emitter.off( name );
 		}
-	})
-
-	/**
-	 * Gets the shared instance of EventsDispatcher class.
-	 * @return {nu.events.EventsDispatcher} The shared instance of EventsDispatcher
-	 *
-	 * @static
-	 * @method get
-	 */
-	nu.events.EventsDispatcher.get = function () {
-		if (!nu.events.EventsDispatcher.SINGLETON_INSTANCE) {
-			nu.events.EventsDispatcher.SINGLETON_INSTANCE = new nu.events.EventsDispatcher();
-		}
-		return nu.events.EventsDispatcher.SINGLETON_INSTANCE;
 	};
 
-})(jQuery, nu)
+	nu.events.EventsDispatcher.init( );
+
+} )( jQuery, nu )
