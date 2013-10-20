@@ -1,4 +1,4 @@
-( function ( window, $, nu, Utils, Log, Context, SplashScreen, EventsDispatcher, undefined ) {
+( function ( window, $, nu, Utils, Log, Context, SplashScreen, EventsDispatcher, pageEventsManager, undefined ) {
 
     'use strict';
 
@@ -109,7 +109,7 @@
                 // there is a very annoying JQM bug : we need to add our first page navigation at the end of the event loop.
                 // so that's the setTimeout job in here.
                 // loading in DOM first page app
-                nu.pages.PageEventsManager.get( ).loadFirstPage( app.home.settings.id );
+                pageEventsManager.loadFirstPage( app.home.settings.id );
 
             }, 100 );
         } ).fail( function ( ) {
@@ -123,4 +123,4 @@
     // when the Document is ready, we too
     $( ready );
 
-} )( this, jQuery, nu, nu.Utils, nu.debug.Log, nu.core.Context, nu.widgets.SplashScreen, nu.events.EventsDispatcher );
+} )( this, jQuery, nu, nu.Utils, nu.debug.Log, nu.core.Context, nu.widgets.SplashScreen, nu.events.EventsDispatcher, nu.pages.PageEventsManager.get( ) );
