@@ -15,7 +15,10 @@
         opacity: 0;
     }
 }
-.fade-out {
+.not-animationfriendly .fade-out {
+    opacity: 0;
+}
+.csstransforms3d.animationfriendly .fade-out {
     @include animation(fade-out 1s forwards);
 }
 
@@ -29,7 +32,10 @@
         opacity: 1;
     }
 }
-.fade-in {
+.not-animationfriendly .fade-in {
+    opacity: 1;
+}
+.csstransforms3d.animationfriendly .fade-in {
     @include animation(fade-in .3s forwards);
 }
 

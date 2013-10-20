@@ -6,11 +6,8 @@
 	 * @class nu.events.EventsDispatcher
 	 * @singleton
 	 *
-	 * Simple events manager to dispatch and listen to custom events.
-	 * All events are attached to the same object the sake of simplicity.
-	 * Behind the scenes, jQuery events mechanism are used.
-	 *
-	 * To get an instance, simply do: nu.events.EventsDispatcher.get()
+	 * Simple events manager to dispatch and listen to custom events.<br>
+	 * Behind the scene, jQuery events mechanism is used.
 	 *
 	 * @provide nu.events.EventsDispatcher
 	 *
@@ -22,16 +19,21 @@
 		},
 		/**
 		 * Emit an event <name> having the given <target> and <data> as properties.
-		 * @param {String} name
-		 * @param {Object} target
-		 *	Event will appears to be triggered by this target
-		 * @param {Mixed} data
-		 *	Events data
+		 * @param {Object} settings
+		 * @param {String} settings.name
+		 * @param {Object} settings.target Event will appears to be triggered by this target
+		 * @param {Mixed} settings.data Events data
 		 */
-		emit: function ( name, target, data ) {
-			var event = $.Event( name, data );
-			if ( target )
-				event.target = target;
+		emit: function ( data ) {
+			if ( !data || !data.name )
+				return;
+
+			var event = $.Event( data.name, {
+				settings: data.settings
+			} );
+
+			data.target && ( event.target = data.target );
+
 			this.emitter.trigger( event );
 		},
 		/**

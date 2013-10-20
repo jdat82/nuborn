@@ -10,7 +10,7 @@
      * @require nu
      */
     nu.core.Constants = {
-        EVENT_STRESS_TEST_DONE: "stress-test-done"
+
     };
 
 } )( nu );

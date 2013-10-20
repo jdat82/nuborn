@@ -1,4 +1,4 @@
-( function ( $, nu, log, undefined ) {
+( function ( $, nu, Log, Utils, pageEventsManager, undefined ) {
 
     'use strict';
 
@@ -15,6 +15,7 @@
      *
      * @require nu.pages.PageEventsManager
      * @require nu.debug.Log
+     * @require nu.Utils
      */
     nu.pages.PageHandler = Object.subClass( {
 
@@ -36,7 +37,7 @@
             this.data = {};
 
             // Regitsering
-            nu.pages.PageEventsManager.get( ).registerPageHandler( this );
+            pageEventsManager.registerPageHandler( this );
         },
 
         /**
@@ -66,13 +67,13 @@
          * @param  {Object} data
          */
         pageInit: function ( event, data ) {
-            DEBUG && log.i( "page init of " + event.currentTarget.id );
+            DEBUG && Log.i( "page init of " + event.currentTarget.id );
 
             // page parameters are passed in on "pageinit" event
             // so controller in singleton mode will keep their page parameters
             // forever
             if ( this.settings.singleton )
-                this.data.pageParams = nu.Utils.deserializeHash( ).params;
+                this.data.pageParams = Utils.deserializeHash( ).params;
 
             // Calling #createHtmlElements
             this.createHtmlElements( );
@@ -88,7 +89,7 @@
          * @param  {Object} data
          */
         pageCreate: function ( event, data ) {
-            DEBUG && log.i( "page create of '" + event.currentTarget.id + "'" );
+            DEBUG && Log.i( "page create of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -97,7 +98,7 @@
          * @param  {Object} data
          */
         pageBeforeHide: function ( event, data ) {
-            DEBUG && log.i( "page before hide of '" + event.currentTarget.id + "'" );
+            DEBUG && Log.i( "page before hide of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -108,7 +109,7 @@
          * @param  {Object} data
          */
         pageHide: function ( event, data ) {
-            DEBUG && log.i( "page hide of '" + event.currentTarget.id + "'" );
+            DEBUG && Log.i( "page hide of '" + event.currentTarget.id + "'" );
 
             if ( !this.settings.singleton ) {
                 // Cleaning references to HTML elements & data objects
@@ -128,9 +129,9 @@
             // controller in prototype mode can receive parameters each time
             // the page is rendered
             if ( !this.settings.singleton )
-                this.data.pageParams = nu.Utils.deserializeHash( ).params;
+                this.data.pageParams = Utils.deserializeHash( ).params;
 
-            DEBUG && log.i( "page before show of '" + event.currentTarget.id + "'" );
+            DEBUG && Log.i( "page before show of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -139,11 +140,10 @@
          * @param  {Object} data
          */
         pageShow: function ( event, data ) {
-            DEBUG && log.i( "page show of '" + event.currentTarget.id + "'" );
+            DEBUG && Log.i( "page show of '" + event.currentTarget.id + "'" );
             if ( this.data.isFirst ) {
-                nu.Utils.hideSplashScreen( this.data.splashscreen );
+                Utils.hideSplashScreen( );
                 delete this.data.isFirst;
-                delete this.data.splashscreen;
             }
         },
 
@@ -153,7 +153,7 @@
          * @param  {Object} data
          */
         pageBeforeChange: function ( event, data ) {
-            DEBUG && log.i( "page before change of '" + event.currentTarget.id + "'" );
+            DEBUG && Log.i( "page before change of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -162,7 +162,7 @@
          * @param  {Object} data
          */
         pageChange: function ( event, data ) {
-            DEBUG && log.i( "page change of '" + event.currentTarget.id + "'" );
+            DEBUG && Log.i( "page change of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -171,7 +171,7 @@
          * @param  {Object} data
          */
         pageBeforeLoad: function ( event, data ) {
-            DEBUG && log.i( "page before load of '" + event.currentTarget.id + "'" );
+            DEBUG && Log.i( "page before load of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -180,7 +180,7 @@
          * @param  {Object} data
          */
         pageLoad: function ( event, data ) {
-            DEBUG && log.i( "page load of '" + event.currentTarget.id + "'" );
+            DEBUG && Log.i( "page load of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -191,7 +191,7 @@
          * @param  {Object} data
          */
         pageRemove: function ( event, data ) {
-            DEBUG && log.i( "page remove of '" + event.currentTarget.id + "'" );
+            DEBUG && Log.i( "page remove of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -200,7 +200,7 @@
          * @param  {Object} data
          */
         swipeLeft: function ( event, data ) {
-            DEBUG && log.i( "swipe left on '" + event.currentTarget.id + "'" );
+            DEBUG && Log.i( "swipe left on '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -209,7 +209,7 @@
          * @param  {Object} data
          */
         swipeRight: function ( event, data ) {
-            DEBUG && log.i( "swipe right on '" + event.currentTarget.id + "'" );
+            DEBUG && Log.i( "swipe right on '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -266,13 +266,13 @@
 
             // creating a new object which contains static page settings plus dynamic page parameters
             // this object will be used by the template engine to fill placeholders
-            var templateData = nu.Utils.clone( this.settings );
+            var templateData = Utils.clone( this.settings );
             templateData = $.extend( true, templateData, pageParams );
 
             if ( templateId && templates[ templateId ] ) {
                 if ( !document.getElementById( pageId ) ) {
-                    DEBUG && log.i( "loading #" + pageId );
-                    DEBUG && log.i( "templateData: " + nu.Utils.toJSON( templateData ) );
+                    DEBUG && Log.i( "loading #" + pageId );
+                    DEBUG && Log.i( "templateData: " + Utils.toJSON( templateData ) );
                     $( templates[ templateId ].render( templateData ) ).appendTo( "body" );
                 }
             }
@@ -315,12 +315,12 @@
             // must contain the hash name without "#" followed by query params
             options.jqmOptions.dataUrl = pageId;
             if ( options.pageParams ) {
-                var serializedParams = nu.Utils.serializeHashParameters( options.pageParams );
+                var serializedParams = Utils.serializeHashParameters( options.pageParams );
                 if ( serializedParams && serializedParams.length )
                     options.jqmOptions.dataUrl += "?" + serializedParams;
             }
 
-            DEBUG && log.i( "options: " + nu.Utils.toJSON( options ) );
+            DEBUG && Log.i( "options: " + Utils.toJSON( options ) );
 
             if ( templateId && templates[ templateId ] ) {
 
@@ -329,7 +329,7 @@
 
                 // changing page with a delay if any
                 window.setTimeout( function ( ) {
-                    DEBUG && log.i( "navigating to #" + pageId );
+                    DEBUG && Log.i( "navigating to #" + pageId );
                     $.mobile.changePage( "#" + pageId, options.jqmOptions );
                     // calling callback after page change if any
                     if ( options.callback ) {
@@ -348,4 +348,4 @@
 
     } );
 
-} )( jQuery, nu, nu.debug.Log )
+} )( jQuery, nu, nu.debug.Log, nu.Utils, nu.pages.PageEventsManager.get( ) )

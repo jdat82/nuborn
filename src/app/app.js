@@ -1,4 +1,4 @@
-( function ( window, $, nu, Utils, Log, undefined ) {
+( function ( window, $, nu, Utils, Log, Context, SplashScreen, EventsDispatcher, undefined ) {
 
     'use strict';
 
@@ -26,7 +26,7 @@
         name: "Nuborn Application"
     };
 
-    /**
+    /*
      * Callback function called when the DOM is ready.
      */
 
@@ -50,7 +50,7 @@
         }
     }
 
-    /**
+    /*
      * Initialize the appllication when DOM & Device (PhoneGap only) are ready.
      */
 
@@ -58,20 +58,23 @@
 
         /**
          * Context instance which holds contextual data.
+         * @type nu.core.Context
          */
-        app.context = new nu.core.Context( {
+        app.context = new Context( {
             synchronizeInLocalStorage: true
         } );
 
         // starting JQM
         $.mobile.initializePage( );
 
+        // show splashscreen
         if ( !Utils.isCordova( ) || !Utils.isIOS( ) ) {
-            // Application splashscreen instance
-            splashscreen = new nu.widgets.SplashScreen( {
-                title: "NUBORN"
+            EventsDispatcher.emit( {
+                name: SplashScreen.EVENT_SHOW,
+                settings: {
+                    title: "NUBORN"
+                }
             } );
-            splashscreen.show( );
         }
 
         // global menu
@@ -83,7 +86,7 @@
         downloadMetadataAndStart( );
     }
 
-    /**
+    /*
      * Download application mandatory data.
      */
 
@@ -106,7 +109,7 @@
                 // there is a very annoying JQM bug : we need to add our first page navigation at the end of the event loop.
                 // so that's the setTimeout job in here.
                 // loading in DOM first page app
-                nu.pages.PageEventsManager.get( ).loadFirstPage( app.home.settings.id, splashscreen );
+                nu.pages.PageEventsManager.get( ).loadFirstPage( app.home.settings.id );
 
             }, 100 );
         } ).fail( function ( ) {
@@ -120,4 +123,4 @@
     // when the Document is ready, we too
     $( ready );
 
-} )( this, jQuery, nu, nu.Utils, nu.debug.Log );
+} )( this, jQuery, nu, nu.Utils, nu.debug.Log, nu.core.Context, nu.widgets.SplashScreen, nu.events.EventsDispatcher );

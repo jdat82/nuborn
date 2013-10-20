@@ -3,9 +3,10 @@
     'use strict';
 
     /**
+     * @class app.manager.PolyfillManager
+     * @singleton
+     *
      * Handle everything related to polyfills.
-     * @Class app.manager.PolyfillManager
-     * @Singleton
      *
      * @provide app.manager.PolyfillManager
      *

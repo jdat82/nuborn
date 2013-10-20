@@ -1,4 +1,4 @@
-( function ( $, nu, Log, LocalStorage, EventsDispatcher, Constants, undefined ) {
+( function ( $, nu, Log, LocalStorage, EventsDispatcher, undefined ) {
 
     'use strict';
 
@@ -8,10 +8,9 @@
 
     /**
      * @class nu.widgets.StressTest
-     * @singleton
      *
      * Play a css animation to evaluate device performances.
-     * When done, add a CSS class to html tag: either animation
+     * When done, add a CSS class to html tag: either animationfriendly or not-animationfriendly.
      *
      * @provide nu.widgets.StressTest
      *
@@ -63,7 +62,7 @@
                 load: [ "js/stresstest-async.min.js" ],
                 complete: function ( ) {
                     // when notified of the test termination, we can notify the caller
-                    EventsDispatcher.on( Constants.EVENT_STRESS_TEST_DONE, function ( ) {
+                    EventsDispatcher.on( nu.widgets.StressTest.EVENT_STRESS_TEST_DONE, function ( ) {
                         Log.i( "Stress test executed" );
                         dfd.resolve( );
                     } );
@@ -85,4 +84,10 @@
         $( "html" ).addClass( "not-animationfriendly" );
     }
 
-} )( jQuery, nu, nu.debug.Log, nu.cache.LocalStorage, nu.events.EventsDispatcher, nu.core.Constants );
+    /**
+     * @event
+     * Fired when stress test is done.
+     */
+    nu.widgets.StressTest.EVENT_STRESS_TEST_DONE = "stresstest/done";
+
+} )( jQuery, nu, nu.debug.Log, nu.cache.LocalStorage, nu.events.EventsDispatcher );

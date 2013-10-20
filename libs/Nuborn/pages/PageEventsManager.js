@@ -1,4 +1,4 @@
-( function ( $, nu, log, undefined ) {
+( function ( $, nu, Log, undefined ) {
 
 	'use strict';
 
@@ -95,7 +95,7 @@
 			var pageHandler = this.pageHandlers[ id ];
 
 			if ( !pageHandler && !this.defaultPageHandler ) {
-				log.w( "No page handler for page '" + id + "' !" );
+				Log.w( "No page handler for page '" + id + "' !" );
 				return undefined;
 			}
 
@@ -121,23 +121,20 @@
 		/**
 		 * Load first page.
 		 * @param {String} defaultPageId Default page ID to use if no ID in current URL.
-		 * @param {nu.widgets.SplashScreen} splashscreen Web splashscreen (optional).
 		 */
-		loadFirstPage: function ( defaultPageId, splashscreen ) {
+		loadFirstPage: function ( defaultPageId ) {
 
 			// hash.name contains current page id if filled
 			var hash = nu.Utils.deserializeHash( );
 			var pageId = hash.name || defaultPageId;
-			DEBUG && log.i( "First page is: " + pageId );
+			DEBUG && Log.i( "First page is: " + pageId );
 
 			var pageHandler = this.getPageHandler( pageId );
 
 			if ( pageHandler ) {
 				if ( !window.location.hash )
 					window.location.hash = "#" + pageId;
-				// memorizing first page handler to handle splashscreen removal
 				pageHandler.data.isFirst = true;
-				pageHandler.data.splashscreen = splashscreen;
 				// loading page into DOM
 				pageHandler.navigate( {
 					pageParams: hash.params
@@ -407,7 +404,7 @@
 					return false;
 				}
 
-				DEBUG && log.i( "intercepted hash link: #" + hash.name );
+				DEBUG && Log.i( "intercepted hash link: #" + hash.name );
 				if ( app[ hash.name ] ) {
 					app[ hash.name ].navigate( {
 						pageParams: hash.params

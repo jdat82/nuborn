@@ -3,9 +3,10 @@
     'use strict';
 
     /**
+     * @class app.manager.FakeManager
+     * @singleton
+     *
      * Fake Manager for demonstration purposes.
-     * @Class app.manager.FakeManager
-     * @Singleton
      *
      * @provide app.manager.FakeManager
      *

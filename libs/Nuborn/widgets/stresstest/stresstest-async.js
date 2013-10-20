@@ -1,4 +1,4 @@
-( function ( $, nu, Log, LocalStorage, EventsDispatcher, Constants, Modernizr, undefined ) {
+( function ( $, nu, Log, LocalStorage, EventsDispatcher, StressTest, Modernizr, undefined ) {
 
     'use strict';
 
@@ -38,7 +38,7 @@
                 document.removeEventListener( 'fps', onFPSMeterEvent );
                 computeResults( results );
                 testDone( );
-            }, 5000 );
+            }, 10000 );
         }
 
     } ] );
@@ -50,7 +50,7 @@
         } );
         var avg = sum / results.length;
         // putting the right class to the DOM
-        if ( avg > 30 ) {
+        if ( avg > 35 ) {
             $( "html" ).addClass( "animationfriendly" );
             LocalStorage.set( "animationfriendly", true );
             Log.i( "This browser is animation friendly" );
@@ -64,7 +64,9 @@
 
     function testDone( ) {
         // notifying listeners that the test is done
-        EventsDispatcher.emit( Constants.EVENT_STRESS_TEST_DONE );
+        EventsDispatcher.emit( {
+            name: StressTest.EVENT_STRESS_TEST_DONE
+        } );
     }
 
-} )( jQuery, nu, nu.debug.Log, nu.cache.LocalStorage, nu.events.EventsDispatcher, nu.core.Constants, Modernizr );
+} )( jQuery, nu, nu.debug.Log, nu.cache.LocalStorage, nu.events.EventsDispatcher, nu.widgets.StressTest, Modernizr );

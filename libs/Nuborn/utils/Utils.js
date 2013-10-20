@@ -280,20 +280,18 @@
     };
 
     /**
-     * If in a web app, wait 2 seconds and hide web splashscreen.
-     * If in a phonegap app, hide native splashscreen.
-     * @param {nu.widgets.SplashScreen} splashscreen Web splashscreen. Useless in phonegap app.
+     * If in a phonegap iOS app, hide native splashscreen.
+     * Else, hide web splashscreen.
      */
-    nu.Utils.hideSplashScreen = function ( splashscreen ) {
-        // if the splashscreen is handled from web
-        if ( splashscreen ) {
-            // hide splashscreen after 2 seconds
-            splashscreen.hide( true );
-        }
+    nu.Utils.hideSplashScreen = function ( ) {
         // if the splashscreen is handled natively with iOS
-        else if ( this.isCordova( ) && this.isIOS( ) ) {
-            // hide it immediately via cordova
+        if ( this.isCordova( ) && this.isIOS( ) ) {
             navigator.splashscreen.hide( );
+        }
+        else {
+            nu.events.EventsDispatcher.emit( {
+                name: nu.widgets.SplashScreen.EVENT_HIDE
+            } );
         }
     };
 
