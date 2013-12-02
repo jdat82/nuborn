@@ -15,11 +15,24 @@
      */
     app.core.uris = new nu.core.UriManager( {
         networks: {
-
+            "backend": {
+                "host": NETWORK,
+                "default": true
+            },
+            "mock": {
+                "host": "mock/"
+            },
+            current: {
+                host: getCurrentHost( )
+            }
         },
         services: {
 
         }
     } );
+
+    function getCurrentHost( ) {
+        return location.protocol + "//" + location.host;
+    }
 
 } )( nu, app );

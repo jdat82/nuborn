@@ -17,21 +17,14 @@ html * {
 	-moz-user-select: -moz-none;
 	-ms-user-select: none;
 	user-select: none;
-
-	@include vendorize(box-sizing, border-box);
 }
 
 input, textarea {
 	-moz-user-select: text;
 }
 
-ul{
-	padding: 0;
-	margin: 0;
-}
+[data-role=page] {
 
-li{
-	list-style: none;
 }
 
 [data-role=header]{
@@ -44,12 +37,6 @@ li{
 		position: absolute;
 		top:0; right: 0; left: 0;
 	// }
-
-	&.mini {
-		height: $headerHeight/2;
-		line-height: $headerHeight/2;
-		font-size: .5rem;
-	}
 
 	.title{
 		color: $textColor;
@@ -64,7 +51,7 @@ li{
 		color: $textColor;
 		font-size: 1.6em; // don't use rem here as this font size should be dependent on the header bar font size which can vary.
 		padding: 0 $padding;
-		line-height: 1.6em;
+		line-height: 1.8em;
 		position: absolute;
 
 		&:active{
@@ -104,8 +91,4 @@ li{
 		top: $headerHeight;
 		bottom: 0; left: 0; right: 0;
 	// }
-
-	&.mini {
-		top: $headerHeight/2;
-	}
 }

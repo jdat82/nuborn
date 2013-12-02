@@ -6,8 +6,11 @@
 				"INFO": true,
 				"WARN": true,
 				"ERROR": true,
-				"livereload": true,
-				"weinre": false
+				"LIVERELOAD": true,
+				"LIVERELOAD_PORT": 35735,
+				"WEINRE": true,
+				"WEINRE_PORT": 8085,
+				"NETWORK": "http://localhost:9005"
 			},
 			"dead_code": true
 		},

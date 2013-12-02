@@ -19,12 +19,12 @@ String.prototype.contains = function ( value, caseInsensitive ) {
 		return false;
 	}
 	// registering this and value parameter as local variables
-	var self = this.toString( );
-	var val = value.toString( );
+	var self = this.toString();
+	var val = value.toString();
 	// if case insensitive search is asked, transform values to lower case
 	if ( caseInsensitive ) {
-		self = self.toLowerCase( );
-		val = val.toLowerCase( );
+		self = self.toLowerCase();
+		val = val.toLowerCase();
 	}
 	// if String.indexOf returns -1, the string does not contain the value
 	return self.indexOf( val ) !== -1;
@@ -38,7 +38,7 @@ String.prototype.contains = function ( value, caseInsensitive ) {
  * @ignore
  * Clears the array and keep reference.
  */
-Array.prototype.clear = function ( ) {
+Array.prototype.clear = function () {
 	this.splice( 0, this.length );
 };
 
@@ -50,16 +50,16 @@ if ( !Array.prototype.filter ) {
 		'use strict';
 
 		if ( !this ) {
-			throw new TypeError( );
+			throw new TypeError();
 		}
 
 		var objects = Object( this );
 		var len = objects.length >>> 0;
 		if ( typeof fun !== 'function' ) {
-			throw new TypeError( );
+			throw new TypeError();
 		}
 
-		var res = [ ];
+		var res = [];
 		var thisp = arguments[ 1 ];
 		for ( var i in objects ) {
 			if ( objects.hasOwnProperty( i ) ) {
@@ -100,10 +100,10 @@ if ( !Array.prototype.filter ) {
  * })
  * var child = new Child("Bobby")
  */
-( function ( ) {
+( function () {
 
 	var initializing = false,
-		superPattern = /xyz/.test( function ( ) {
+		superPattern = /xyz/.test( function () {
 			xyz;
 		} ) ? /\b_super\b/ : /.*/;
 
@@ -112,14 +112,14 @@ if ( !Array.prototype.filter ) {
 		var _super = this.prototype;
 
 		initializing = true;
-		var proto = new this( );
+		var proto = new this();
 		initializing = false;
 
 		for ( var name in properties ) {
 
 			proto[ name ] = typeof properties[ name ] == "function" && typeof _super[ name ] == "function" && superPattern.test( properties[ name ] ) ?
 				( function ( name, fn ) {
-				return function ( ) {
+				return function () {
 					var tmp = this._super;
 					this._super = _super[ name ];
 					var ret = fn.apply( this, arguments );
@@ -129,7 +129,7 @@ if ( !Array.prototype.filter ) {
 			} )( name, properties[ name ] ) : properties[ name ];
 		}
 
-		function Class( ) {
+		function Class() {
 			// All construction is actually done in the init method
 			if ( !initializing && this.init )
 				this.init.apply( this, arguments );
@@ -143,7 +143,7 @@ if ( !Array.prototype.filter ) {
 
 		return Class;
 	};
-} )( );
+} )();
 
 
 /* -------------------------------------------------------------------------------------------------------------------------------------------- */
@@ -157,7 +157,7 @@ if ( !Array.prototype.filter ) {
 
 // MIT license
 
-( function ( ) {
+( function () {
 	var lastTime = 0;
 	var vendors = [ 'ms', 'moz', 'webkit', 'o' ];
 	for ( var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x ) {
@@ -167,9 +167,9 @@ if ( !Array.prototype.filter ) {
 
 	if ( !window.requestAnimationFrame )
 		window.requestAnimationFrame = function ( callback, element ) {
-			var currTime = new Date( ).getTime( );
+			var currTime = new Date().getTime();
 			var timeToCall = Math.max( 0, 16 - ( currTime - lastTime ) );
-			var id = window.setTimeout( function ( ) {
+			var id = window.setTimeout( function () {
 					callback( currTime + timeToCall );
 				},
 				timeToCall );
@@ -181,4 +181,20 @@ if ( !Array.prototype.filter ) {
 		window.cancelAnimationFrame = function ( id ) {
 			clearTimeout( id );
 		};
-}( ) );
+}() );
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------- */
+/* performance.now() polyfill
+/* -------------------------------------------------------------------------------------------------------------------------------------------- */
+
+( function ( window ) {
+	if ( window.performance ) {
+		window.performance.now = window.performance.now || window.performance.webkitNow || window.performance.msNow || window.performance.mozNow;
+	}
+	if ( !window.performance ) {
+		window.performance = {};
+	}
+	if ( !window.performance.now ) {
+		window.performance.now = Date.now;
+	}
+}( window ) );

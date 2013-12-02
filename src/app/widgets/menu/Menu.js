@@ -1,4 +1,4 @@
-( function ( $, nu, log, undefined ) {
+( function ( $, nu, Log, SettingsManager, undefined ) {
 
     'use strict';
 
@@ -34,48 +34,41 @@
             this.html.menu.find( "#legal-notices-menu-item" ).on( "click", $.proxy( this, "goToLegalNotices" ) );
         },
 
-        goToHome: function ( ) {
-            app.menu.toggleMenu( );
-            !app.home.isVisible( ) && navigate( this.html.menu, app.home );
+        goToHome: function () {
+            app.menu.toggleMenu();
+            !app.home.isVisible() && navigate( this.html.menu, app.home );
         },
 
-        goToProfile: function ( ) {
-            log.w( "not implemented yet" );
+        goToProfile: function () {
+            Log.w( "not implemented yet" );
         },
 
-        goToSettings: function ( ) {
-            app.menu.toggleMenu( );
-            !app.settings.isVisible( ) && navigate( this.html.menu, app.settings );
+        goToSettings: function () {
+            app.menu.toggleMenu();
+            !app.settings.isVisible() && navigate( this.html.menu, app.settings );
         },
 
-        goToHelp: function ( ) {
-            log.w( "not implemented yet" );
+        goToHelp: function () {
+            app.menu.toggleMenu();
+            !app.help.isVisible() && navigate( this.html.menu, app.help );
         },
 
-        goToLegalNotices: function ( ) {
-            log.w( "not implemented yet" );
+        goToLegalNotices: function () {
+            app.menu.toggleMenu();
+            !app.legalNotices.isVisible() && navigate( this.html.menu, app.legalNotices );
         },
 
     } );
 
     function navigate( menu, pageHandler ) {
-        menu.one( 'transitionend webkitTransitionEnd otransitionend MSTransitionEnd', function ( ) {
-            pageHandler.navigate( );
-        } );
+        if ( SettingsManager.animationFriendly() ) {
+            menu.one( 'transitionend webkitTransitionEnd otransitionend MSTransitionEnd', function () {
+                pageHandler.navigate();
+            } );
+        }
+        else {
+            pageHandler.navigate();
+        }
     }
 
-    // /**
-    //  * Gets the shared instance of app.widgets.Menu class.
-    //  * @return {app.widgets.Menu} The shared instance of the general menu.
-    //  *
-    //  * @static
-    //  * @method get
-    //  */
-    // app.widgets.Menu.get = function ( ) {
-    //     if ( !app.widgets.Menu.SINGLETON_INSTANCE ) {
-    //         app.widgets.Menu.SINGLETON_INSTANCE = new app.widgets.Menu( );
-    //     }
-    //     return app.widgets.Menu.SINGLETON_INSTANCE;
-    // };
-
-} )( jQuery, nu, nu.debug.Log );
+} )( jQuery, nu, nu.debug.Log, app.manager.SettingsManager );

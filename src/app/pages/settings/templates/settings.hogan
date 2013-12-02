@@ -1,9 +1,12 @@
 <div id="settings" data-role="page">
 	<div data-role="header">
-		<div class="menu-button left" data-icon="&#x22;"></div>
+		<div class="menu-button left icon-menu"></div>
 		<div class="title">Paramètres</div>
 	</div>
 	<div data-role="content">
-
+        <ul>
+            <li><div>Activer les animations</div><input id="animate" type="checkbox" data-icon1="&#9679;" data-icon2="&#9679;" /></li>
+            <li><div>Conserver les logs</div><input id="logs" type="checkbox" data-icon1="&#9679;" data-icon2="&#9679;" /></li>
+        </ul>
 	</div>
 </div>

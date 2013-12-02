@@ -2,21 +2,17 @@
 
     'use strict';
 
-    var defaults = {
-        localStorageKey: "animationfriendly"
-    };
-
     /**
      * @class nu.widgets.StressTest
      *
      * Play a css animation to evaluate device performances.
-     * When done, add a CSS class to html tag: either animationfriendly or not-animationfriendly.
+     * When done, add a CSS class to html tag: either animationfriendly or no-animationfriendly.
      *
      * @provide nu.widgets.StressTest
      *
      * @require nu.widgets
      */
-    nu.widgets.StressTest = Object.subClass( {
+    var StressTest = nu.widgets.StressTest = Object.subClass( {
 
         /**
          * @constructor
@@ -28,66 +24,97 @@
         /**
          *
          */
-        play: function ( ) {
+        play: function () {
 
-            var dfd = $.Deferred( );
+            var dfd = $.Deferred();
 
             // if no local storage on device, we face an old browser, so we make a safety choice : no animation for this device
             if ( !Modernizr.localstorage ) {
-                declareNotAnimationFriendly( );
+                declareNotAnimationFriendly();
                 setTimeout( dfd.resolve, 50 );
-                return dfd.promise( );
+                return dfd.promise();
             }
 
-            var alreadyInDom = $( "html" ).hasClass( "animationfriendly" ) || $( "html" ).hasClass( "not-animationfriendly" ) || false;
+            // checking local storage and dom
+            var alreadyInDom = $( "html" ).hasClass( StressTest.KEY_ANIMATIONFRIENDLY ) || $( "html" ).hasClass( StressTest.KEY_NO_ANIMATIONFRIENDLY ) || false;
             if ( !alreadyInDom ) {
                 // getting local storage value to define right css class on html tag
                 var animationFriendly = LocalStorage.get( this.settings.localStorageKey );
                 // if we found a value and it is true,
                 if ( animationFriendly ) {
-                    declareAnimationFriendly( );
+                    declareAnimationFriendly();
                     setTimeout( dfd.resolve, 50 );
-                    return dfd.promise( );
+                    return dfd.promise();
                 }
                 // if we found a value and it is false
                 if ( animationFriendly !== undefined && animationFriendly !== null && !animationFriendly ) {
-                    declareNotAnimationFriendly( );
+                    declareNotAnimationFriendly();
                     setTimeout( dfd.resolve, 50 );
-                    return dfd.promise( );
+                    return dfd.promise();
                 }
+            }
+
+            // checking transform support
+            if ( !Modernizr.csstransforms3d || !Modernizr.cssanimations ) {
+                Log.i( "No transform or animation support !" );
+                declareNotAnimationFriendly();
+                setTimeout( dfd.resolve, 50 );
+                return dfd.promise();
             }
 
             // if no value in local storage, we never executed it, so we go ahead with the test
             Modernizr.load( [ {
                 load: [ "js/stresstest-async.min.js" ],
-                complete: function ( ) {
+                complete: function () {
                     // when notified of the test termination, we can notify the caller
-                    EventsDispatcher.on( nu.widgets.StressTest.EVENT_STRESS_TEST_DONE, function ( ) {
+                    EventsDispatcher.on( StressTest.EVENT_STRESS_TEST_DONE, function () {
                         Log.i( "Stress test executed" );
-                        dfd.resolve( );
+                        dfd.resolve();
                     } );
                 }
             } ] );
 
-            return dfd.promise( );
+            return dfd.promise();
         }
 
     } );
-
-    function declareAnimationFriendly( ) {
-        Log.i( "This browser is animation friendly" );
-        $( "html" ).addClass( "animationfriendly" );
-    }
-
-    function declareNotAnimationFriendly( ) {
-        Log.i( "This browser is NOT animation friendly" );
-        $( "html" ).addClass( "not-animationfriendly" );
-    }
 
     /**
      * @event
      * Fired when stress test is done.
      */
     nu.widgets.StressTest.EVENT_STRESS_TEST_DONE = "stresstest/done";
+
+    /**
+     * CSS class name that mean "this browser is animation frienldy".
+     */
+    nu.widgets.StressTest.KEY_ANIMATIONFRIENDLY = "animationfriendly";
+
+    /**
+     * CSS class name that mean "this browser is NOT animation frienldy".
+     */
+    nu.widgets.StressTest.KEY_NO_ANIMATIONFRIENDLY = "no-animationfriendly";
+
+
+    /*
+     * Private variables.
+     */
+    var defaults = {
+        localStorageKey: StressTest.KEY_ANIMATIONFRIENDLY
+    };
+
+    function declareAnimationFriendly() {
+        Log.i( "This browser is animation friendly" );
+        Modernizr.addTest( StressTest.KEY_ANIMATIONFRIENDLY, function () {
+            return true;
+        } );
+    }
+
+    function declareNotAnimationFriendly() {
+        Log.i( "This browser is NOT animation friendly" );
+        Modernizr.addTest( StressTest.KEY_ANIMATIONFRIENDLY, function () {
+            return false;
+        } );
+    }
 
 } )( jQuery, nu, nu.debug.Log, nu.cache.LocalStorage, nu.events.EventsDispatcher );

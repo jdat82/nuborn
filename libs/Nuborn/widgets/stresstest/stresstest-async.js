@@ -13,15 +13,15 @@
     // loading script asynchronously
     Modernizr.load( [ {
         load: [ "js/fpsmeter-async.min.js" ],
-        complete: function ( ) {
+        complete: function () {
 
             // checking status
             if ( !window.FPSMeter )
-                testDone( );
+                testDone();
 
             Log.i( "FPSMeter loaded" );
 
-            var results = [ ];
+            var results = [];
 
             var onFPSMeterEvent = function ( evt ) {
                 DEBUG && Log.i( "fps:" + evt.fps );
@@ -30,14 +30,14 @@
 
             document.addEventListener( 'fps', onFPSMeterEvent, false );
 
-            FPSMeter.run( );
+            FPSMeter.run();
 
             // after 5 seconds, stop the meter and analyse the results
-            setTimeout( function ( ) {
-                FPSMeter.stop( );
+            setTimeout( function () {
+                FPSMeter.stop();
                 document.removeEventListener( 'fps', onFPSMeterEvent );
                 computeResults( results );
-                testDone( );
+                testDone();
             }, 10000 );
         }
 
@@ -50,19 +50,14 @@
         } );
         var avg = sum / results.length;
         // putting the right class to the DOM
-        if ( avg > 35 ) {
-            $( "html" ).addClass( "animationfriendly" );
-            LocalStorage.set( "animationfriendly", true );
-            Log.i( "This browser is animation friendly" );
-        }
-        else {
-            $( "html" ).addClass( "not-animationfriendly" );
-            LocalStorage.set( "animationfriendly", false );
-            Log.i( "This browser is NOT animation friendly" );
-        }
+        Modernizr.addTest( StressTest.KEY_ANIMATIONFRIENDLY, function () {
+            var isAnimationFriendly = avg >= 30;
+            LocalStorage.set( StressTest.KEY_ANIMATIONFRIENDLY, isAnimationFriendly );
+            return isAnimationFriendly;
+        } );
     }
 
-    function testDone( ) {
+    function testDone() {
         // notifying listeners that the test is done
         EventsDispatcher.emit( {
             name: StressTest.EVENT_STRESS_TEST_DONE

@@ -4,7 +4,7 @@
 
 	/**
 	 * @class app.pages.HomePageHandler
-	 * @extends nu.pages.PageHandler
+	 * @extends app.pages.NubornPageHandler
 	 *
 	 * The Page Handler of the home page.
 	 *
@@ -261,9 +261,9 @@
 		 * @override
 		 * @inheritdoc
 		 */
-		pageInit: function ( event, data ) {
+		pageInit: function ( event ) {
 
-			this._super( event, data );
+			this._super( event );
 
 			this.handleMenuButton( );
 			this.prepareCarousel( );
@@ -292,11 +292,8 @@
 		 * Handle the menu button.
 		 */
 		handleMenuButton: function ( ) {
-			// getting a local reference of the menu button
-			var menuButton = this.html.menuButton;
-
 			// when tap on menu button, open menu panel
-			menuButton.on( "tap", function ( ) {
+			this.html.menuButton.on( "tap", function ( ) {
 				// opening menu panel
 				app.menu.toggleMenu( );
 				// prevent bubbling

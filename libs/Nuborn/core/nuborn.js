@@ -5,6 +5,7 @@
  * @provide nu
  *
  * @require primitives
+ * @require define
  */
 window.nu = {
 

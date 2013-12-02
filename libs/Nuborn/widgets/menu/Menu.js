@@ -30,28 +30,26 @@
             this.data.isMenuShown = false;
         },
 
-        toggleMenu: function ( ) {
-            this.data.isMenuShown ? this.hide( ) : this.show( );
+        toggleMenu: function () {
+            this.data.isMenuShown ? this.hide() : this.show();
             this.data.isMenuShown = !this.data.isMenuShown;
         },
 
         /**
          * Shows the menu.
          */
-        show: function ( ) {
+        show: function () {
             // deactivating scroll capacity during splashscreen
-            nu.Utils.disableScroll( );
-
+            nu.Utils.disableScroll();
             this.html.menu.addClass( "menu-show" );
         },
 
         /**
          * Hides the menu.
          */
-        hide: function ( ) {
+        hide: function () {
             // reactivating scroll capacity
-            nu.Utils.enableScroll( );
-
+            nu.Utils.enableScroll();
             this.html.menu.removeClass( "menu-show" );
         }
 

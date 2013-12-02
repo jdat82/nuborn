@@ -3,6 +3,14 @@
 	'use strict';
 
 	/**
+	 * Default settings.<br>
+	 * <ul><li>pattern: [%d]    %m</li></ul>
+	 */
+	var defaults = {
+		pattern: "[%d]    %m"
+	};
+
+	/**
 	 * @class nu.debug.LogItem
 	 *
 	 * A log item represented by a message, a level and a date
@@ -46,7 +54,7 @@
 		toString: function ( pattern ) {
 
 			if ( !pattern )
-				pattern = "[%d]    %m";
+				pattern = defaults.pattern;
 
 			pattern = pattern.replace( "%d", this.date );
 			pattern = pattern.replace( "%m", this.message );
@@ -54,5 +62,13 @@
 			return pattern;
 		}
 	} );
+
+	/**
+	 * Allows to override some defaults like the string pattern.
+	 * @static
+	 */
+	nu.debug.LogItem.defaults = function ( settings ) {
+		defaults = settings;
+	}
 
 } )( nu, nu.debug.LogLevel );

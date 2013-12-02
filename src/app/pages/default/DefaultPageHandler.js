@@ -1,4 +1,4 @@
-(function ($, nu, app, utils, log, undefined) {
+( function ( $, nu, app, utils, log, undefined ) {
 
     'use strict';
 
@@ -14,45 +14,46 @@
      *
      * @require app.pages
      */
-    app.pages.DefaultPageHandler = nu.pages.PageHandler.subClass({
+    app.pages.DefaultPageHandler = nu.pages.PageHandler.subClass( {
 
-        init: function () {
-            this._super({
+        init: function ( ) {
+            this._super( {
                 id: "default",
                 "default": true
-            });
+            } );
         },
 
         /**
          * Override default behavior.
          */
-        load: function (pageParams) {
+        load: function ( pageParams ) {
 
-            var hash = utils.deserializeHash();
+            debug && log.i( "Using default page handler" );
+
+            var hash = utils.deserializeHash( );
 
             // If the default page handler is invoke, it means nuborn hasn't found any page handler for the current hash name.
             var ph; // = <find the right page handler>;
 
             // transferring first page properties to the right page handler
             ph.data.isFirst = this.data.isFirst;
-            ph.data.splashscreen = this.data.splashscreen;
-            ph.load(pageParams);
+            ph.load( pageParams );
         },
 
         /**
          * Override default behavior.
          */
-        navigate: function (options) {
+        navigate: function ( options ) {
             // app dependant
         }
 
-    });
+    } );
 
     /**
      * @property {app.pages.SubmitPageHandler} submit
      * @member app
      * Instance of a page handler for the submit page.
      */
-    app["default"] = new app.pages.DefaultPageHandler();
+    app[ "default" ] = new app.pages.DefaultPageHandler( );
 
-})(jQuery, nu, app, nu.Utils, nu.debug.Log);
+} )( jQuery, nu, app, nu.Utils, nu.debug.Log );

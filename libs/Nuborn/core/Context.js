@@ -2,10 +2,14 @@
 
     'use strict';
 
+    // defaults settings
     var defaults = {
         localStorageKey: "nuborn.context",
         synchronizeInLocalStorage: false
     };
+
+    // private property
+    var data;
 
     /**
      * @class nu.core.Context
@@ -27,7 +31,7 @@
 
             // loading data from local storage if need be
             if ( this.settings.synchronizeInLocalStorage && Modernizr.localstorage ) {
-                this.data = $.extend( true, {}, LocalStorage.get( this.settings.localStorageKey ) );
+                data = $.extend( true, {}, LocalStorage.get( this.settings.localStorageKey ) );
             }
             // deactivating local storage synchronization if unavailable
             else if ( this.settings.synchronizeInLocalStorage && !Modernizr.localstorage ) {
@@ -36,7 +40,7 @@
             }
             // default
             else {
-                this.data = {};
+                data = {};
             }
         },
 
@@ -46,10 +50,10 @@
          */
         set: function ( key, value ) {
             if ( key )
-                this.data[ key ] = value;
+                data[ key ] = value;
 
             if ( this.settings.synchronizeInLocalStorage )
-                LocalStorage.set( this.settings.localStorageKey, this.data );
+                LocalStorage.set( this.settings.localStorageKey, data );
         },
 
         /**
@@ -57,14 +61,18 @@
          */
         get: function ( key ) {
             if ( key )
-                return this.data[ key ];
+                return data[ key ];
+        },
+
+        list: function ( ) {
+            return data;
         },
 
         /**
          * Reset context. Reset also synchronized data in local storage if activated.
          */
         clear: function ( ) {
-            this.data = {};
+            data = {};
             if ( this.settings.synchronizeInLocalStorage )
                 LocalStorage.remove( this.settings.localStorageKey );
         },
