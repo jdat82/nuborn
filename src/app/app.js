@@ -11,7 +11,12 @@
      *
      * @provide app
      *
-     * @require nu
+     * @require nu.Utils
+     * @require nu.debug.Log
+     * @require nu.core.Context
+     * @require nu.widgets.SplashScreen
+     * @require nu.events.EventsDispatcher
+     * @require nu.pages.PageEventsManager
      */
     window[ "app" ] = {
 
@@ -30,18 +35,18 @@
      * Callback function called when the DOM is ready.
      */
 
-    function ready( ) {
+    function ready() {
 
         Log.init( {
-            memory: true
+            storageKey: "nuborn.logs"
         } );
 
         // installing scripts that will help remote debugging
-        DEBUG && Utils.installDebugScripts( );
+        DEBUG && Utils.installDebugScripts();
 
-        if ( !Utils.isCordova( ) ) {
+        if ( !Utils.isCordova() ) {
             Log.i( "Used as a Web App" );
-            init( );
+            init();
         }
         else {
             Log.i( "Used as a Hybrid App" );
@@ -54,21 +59,24 @@
      * Initialize the appllication when DOM & Device (PhoneGap only) are ready.
      */
 
-    function init( ) {
+    function init() {
 
         /**
          * Context instance which holds contextual data.
          * @type nu.core.Context
          */
         app.context = new Context( {
+            localStorageKey: "nuborn.context",
             synchronizeInLocalStorage: true
         } );
 
+        createUserId();
+
         // starting JQM
-        $.mobile.initializePage( );
+        $.mobile.initializePage();
 
         // show splashscreen
-        if ( !Utils.isCordova( ) || !Utils.isIOS( ) ) {
+        if ( !Utils.isCordova() || !Utils.isIOS() ) {
             EventsDispatcher.emit( {
                 name: SplashScreen.EVENT_SHOW,
                 settings: {
@@ -83,28 +91,30 @@
         } );
 
         // loading mandatory data then going to first page
-        downloadMetadataAndStart( );
+        downloadMetadataAndStart();
     }
 
     /*
      * Download application mandatory data.
      */
 
-    function downloadMetadataAndStart( ) {
+    function downloadMetadataAndStart() {
 
         // sample manager that returns a promise
-        var fakePromise = app.manager.FakeManager.init( );
+        var fakePromise = app.manager.FakeManager.init();
 
         // all polyfills mandatory at startup are loaded now
-        var polyfillsPromise = app.manager.PolyfillManager.init( );
+        var polyfillsPromise = app.manager.PolyfillManager.init();
 
         // widget that test the device to discover its abilities
-        var stressTestWidget = new nu.widgets.StressTest( );
-        var stressTestPromise = stressTestWidget.play( );
+        var stressTestWidget = new nu.widgets.StressTest();
+        var stressTestPromise = stressTestWidget.play();
 
         // when all promises are resolved, we can go ahead
-        $.when( fakePromise, polyfillsPromise, stressTestPromise ).done( function ( ) {
-            window.setTimeout( function ( ) {
+        $.when( fakePromise, polyfillsPromise, stressTestPromise ).done( function () {
+            window.setTimeout( function () {
+
+                app.manager.PolyfillManager.checkTouchOverflowSupport();
 
                 // there is a very annoying JQM bug : we need to add our first page navigation at the end of the event loop.
                 // so that's the setTimeout job in here.
@@ -112,7 +122,7 @@
                 pageEventsManager.loadFirstPage( app.home.settings.id );
 
             }, 100 );
-        } ).fail( function ( ) {
+        } ).fail( function () {
 
             // TODO handle properly. Redirect to an error page which will give options to user like restart the app, send an email, etc.
             alert( "Oops... Something went wrong." );
@@ -120,7 +130,13 @@
         } );
     }
 
+    function createUserId() {
+        var userId = app.context.get( app.core.Constants.USER_ID );
+        if ( !userId )
+            app.context.set( app.core.Constants.USER_ID, Utils.guid() );
+    }
+
     // when the Document is ready, we too
     $( ready );
 
-} )( this, jQuery, nu, nu.Utils, nu.debug.Log, nu.core.Context, nu.widgets.SplashScreen, nu.events.EventsDispatcher, nu.pages.PageEventsManager.get( ) );
+} )( this, jQuery, nu, nu.Utils, nu.debug.Log, nu.core.Context, nu.widgets.SplashScreen, nu.events.EventsDispatcher, nu.pages.PageEventsManager.get() );

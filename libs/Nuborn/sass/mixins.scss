@@ -2,11 +2,12 @@
  * @provide mixins
  */
 
-/**
+/*
  * FYI : animation property accepts these arguments :
  * name, duration, timingFunction, iteration, delay, direction, fillMode, playState
  * http://www.w3.org/TR/css3-animations/#animation-shorthand-property
  */
+
 @mixin animation($animations...) {
   -webkit-animation: $animations;
   -moz-animation: $animations;
@@ -56,6 +57,14 @@
 	#{$property}: #{$value};
 }
 
+@mixin vendorize-value($property, $value) {
+    #{$property}: -webkit-#{$value};
+    #{$property}: -moz-#{$value};
+    #{$property}: -ms-#{$value};
+    #{$property}: -o-#{$value};
+    #{$property}: #{$value};
+}
+
 @mixin mq($mq) {
 	@if $mq == non-retina {
 		// @media
@@ -77,21 +86,28 @@
 		}
 	}
 
-	@if $mq == normal {
+	@if $mq == smartphone {
 		@media
-		only screen and (max-width: 320px) {
-			/* Small screen <= 320px */
+        only screen and (max-width: 420px) {
+        // only screen and (max-width: 23rem) {
 			@content;
 		}
 	}
 
-	@if $mq == large {
-		@media
-		only screen and (min-width: 321px) {
-			/* Small screen > 320px */
+	@if $mq == tablet {
+        @media
+        only screen and (min-width: 421px) and (max-width: 1280px) {
+		// only screen and (min-width: 23.1rem) and (max-width: 70rem) {
 			@content;
 		}
 	}
+
+    @if $mq == desktop {
+        @media
+        only screen and (min-width: 1281px) {
+            @content;
+        }
+    }
 }
 
 @mixin background($image, $x, $y, $width, $height){

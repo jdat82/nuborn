@@ -34,7 +34,9 @@
             this.html = {};
 
             // Data : data of the page
-            this.data = {};
+            this.data = {
+                visible: false
+            };
 
             // Regitsering
             pageEventsManager.registerPageHandler( this );
@@ -44,9 +46,8 @@
          * Called for the pagebeforecreate event. <br/>
          * Also register page into HTML elements.
          * @param  {Object} event
-         * @param  {Object} data
          */
-        pageBeforeCreate: function ( event, data ) {
+        pageBeforeCreate: function ( event ) {
             // Registering the page into HTML elements
             var page = event.currentTarget;
             this.html.page = $( page );
@@ -64,31 +65,29 @@
          * Populate page parameters by reading url hash part in PageHandler#data#pageParams.
          * Also create PageHandler#html and PageHandler#data properties.
          * @param  {Object} event
-         * @param  {Object} data
          */
-        pageInit: function ( event, data ) {
+        pageInit: function ( event ) {
             DEBUG && Log.i( "page init of " + event.currentTarget.id );
 
             // page parameters are passed in on "pageinit" event
             // so controller in singleton mode will keep their page parameters
             // forever
             if ( this.settings.singleton )
-                this.data.pageParams = Utils.deserializeHash( ).params;
+                this.data.pageParams = Utils.deserializeHash().params;
 
             // Calling #createHtmlElements
-            this.createHtmlElements( );
+            this.createHtmlElements();
 
             // Calling #createDataElements if exists
-            this.createDataElements( );
+            this.createDataElements();
 
         },
 
         /**
          * Called for the pagecreate event.
          * @param  {Object} event
-         * @param  {Object} data
          */
-        pageCreate: function ( event, data ) {
+        pageCreate: function ( event ) {
             DEBUG && Log.i( "page create of '" + event.currentTarget.id + "'" );
         },
 
@@ -110,13 +109,13 @@
          */
         pageHide: function ( event, data ) {
             DEBUG && Log.i( "page hide of '" + event.currentTarget.id + "'" );
-
+            this.data.visible = false;
             if ( !this.settings.singleton ) {
                 // Cleaning references to HTML elements & data objects
                 // as they will be recreated every time we go back to the page
-                this.html.page.remove( );
-                this.deleteHtmlElements( );
-                this.deleteDataElements( );
+                this.html.page.remove();
+                this.deleteHtmlElements();
+                this.deleteDataElements();
             }
         },
 
@@ -129,7 +128,7 @@
             // controller in prototype mode can receive parameters each time
             // the page is rendered
             if ( !this.settings.singleton )
-                this.data.pageParams = Utils.deserializeHash( ).params;
+                this.data.pageParams = Utils.deserializeHash().params;
 
             DEBUG && Log.i( "page before show of '" + event.currentTarget.id + "'" );
         },
@@ -141,8 +140,9 @@
          */
         pageShow: function ( event, data ) {
             DEBUG && Log.i( "page show of '" + event.currentTarget.id + "'" );
+            this.data.visible = true;
             if ( this.data.isFirst ) {
-                Utils.hideSplashScreen( );
+                Utils.hideSplashScreen();
                 delete this.data.isFirst;
             }
         },
@@ -215,21 +215,21 @@
         /**
          * Create all references to HTML elements.
          */
-        createHtmlElements: function ( ) {
+        createHtmlElements: function () {
             nu.debug.Log.w( "This method should be overriden" );
         },
 
         /**
          * Create all references to data objects.
          */
-        createDataElements: function ( ) {
+        createDataElements: function () {
             nu.debug.Log.w( "This method should be overriden" );
         },
 
         /**
          * Delete all references to HTML elements.
          */
-        deleteHtmlElements: function ( ) {
+        deleteHtmlElements: function () {
             if ( this.html ) {
                 for ( var key in this.html ) {
                     delete this.html[ key ];
@@ -240,7 +240,7 @@
         /**
          * Delete all references to data objects.
          */
-        deleteDataElements: function ( ) {
+        deleteDataElements: function () {
             if ( this.data ) {
                 for ( var key in this.data ) {
                     delete this.data[ key ];
@@ -308,7 +308,8 @@
             options = $.extend( true, {
                 jqmOptions: {},
                 pageParams: undefined,
-                delay: 0
+                delay: 0,
+                callback: undefined
             }, options );
 
             // the JQM tricky way to pass parameters between pages is to use the dataUrl option
@@ -328,12 +329,12 @@
                 this.load( options.pageParams );
 
                 // changing page with a delay if any
-                window.setTimeout( function ( ) {
+                window.setTimeout( function () {
                     DEBUG && Log.i( "navigating to #" + pageId );
                     $.mobile.changePage( "#" + pageId, options.jqmOptions );
                     // calling callback after page change if any
                     if ( options.callback ) {
-                        options.callback( );
+                        options.callback();
                     }
                 }, options.delay );
             }
@@ -342,10 +343,10 @@
             }
         },
 
-        isVisible: function ( ) {
-            return this.data.isVisible;
+        isVisible: function () {
+            return this.data.visible;
         }
 
     } );
 
-} )( jQuery, nu, nu.debug.Log, nu.Utils, nu.pages.PageEventsManager.get( ) )
+} )( jQuery, nu, nu.debug.Log, nu.Utils, nu.pages.PageEventsManager.get() )

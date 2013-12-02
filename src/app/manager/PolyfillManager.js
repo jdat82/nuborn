@@ -17,27 +17,22 @@
         /**
          * Download all mandatory polyfills and notify the caller with a Deferred when done.
          */
-        init: function ( ) {
+        init: function () {
 
-            var dfd = $.Deferred( );
+            var dfd = $.Deferred();
 
             setTimeout( dfd.resolve, 50 );
 
-            return dfd.promise( );
+            return dfd.promise();
         },
 
         /**
          * Add a Modernizr class to the html tag to reflect the test status : overflowtouch and no-overflowtouch.
          */
-        checkTouchOverflowSupport: function ( ) {
+        checkTouchOverflowSupport: function () {
             // checking if device is capable of handling overflow: scroll
             // will add also a css class to the body ([no-]overflowtouch)
-            Modernizr.testStyles( '#modernizr { -webkit-overflow-scrolling:touch }', function ( elem, rule ) {
-                Modernizr.addTest(
-                    'overflowtouch',
-                    window.getComputedStyle && window.getComputedStyle( elem ).getPropertyValue( '-webkit-overflow-scrolling' ) == 'touch'
-                );
-            } );
+            // Modernizr.addTest( 'overflowscrolling', testAllProps( 'overflowScrolling', 'touch', true ) );
         }
 
     };

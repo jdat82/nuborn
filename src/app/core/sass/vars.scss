@@ -11,6 +11,7 @@ $orange: #ff8000;
 // $red: #ba4234; // jolie mais un peu fade
 $red: #e23343;
 $redActive: #d44a3b;
+$green: #29c14e;
 
 // flashy colors
 // $orange: #f04c00; // hypnotic orange
@@ -19,14 +20,14 @@ $redActive: #d44a3b;
 
 // text
 $textColor: white;
-$softWhite: rgba(white,.5);
+$softWhite: #DDD;
+$softBlack: #333;
 
-// cell
-$cellPressed: rgba(130, 170, 209, 0.5);
+$selected: #666666;
 
 // sizing: common
 $padding: .5rem;
-$margin: 4%;
+$margin: 2%;
 
 // sizing: headers
 $headerHeight: 6 * $padding;

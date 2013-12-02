@@ -2,7 +2,7 @@
 
     'use strict';
 
-    /**
+    /*
      * Default settings
      */
     var defaults = {
@@ -57,6 +57,19 @@
     nu.debug.Log = {
 
         /**
+         * Constant to be used when defining defaults or requesting a channel.
+         */
+        CHANNEL_MEMORY: "memory",
+        /**
+         * Constant to be used when defining defaults or requesting a channel.
+         */
+        CHANNEL_STORAGE: "storage",
+        /**
+         * Constant to be used when defining defaults or requesting a channel.
+         */
+        CHANNEL_CONSOLE: "console",
+
+        /**
          * @constructor
          */
         init: function ( settings ) {
@@ -68,24 +81,15 @@
                 console.log( "Logs deactivated" );
             }
 
+            if ( !Modernizr.localstorage ) {
+                this.settings[ this.CHANNEL_STORAGE ] = false;
+            }
+
             // creating channels based on settings
             this.channels = {};
-
-            // console channel
-            this.settings.console && ( this.channels.console = new nu.debug.ConsoleChannel( ) );
-
-            // local storage channel
-            if ( this.settings.storage && Modernizr.localstorage ) {
-                this.channels.storage = new nu.debug.LocalStorageChannel( {
-                    storageKey: this.settings.storageKey
-                } );
-            }
-            else if ( this.settings.storage && !Modernizr.localstorage ) {
-                this.settings.storage = false;
-            }
-
-            // memory channel
-            this.settings.memory && ( this.channels.memory = new nu.debug.MemoryChannel( ) );
+            this.channel( this.CHANNEL_CONSOLE, this.settings[ this.CHANNEL_CONSOLE ] );
+            this.channel( this.CHANNEL_MEMORY, this.settings[ this.CHANNEL_MEMORY ] );
+            this.channel( this.CHANNEL_STORAGE, this.settings[ this.CHANNEL_STORAGE ] );
         },
 
         /**
@@ -114,16 +118,51 @@
 
         /**
          * Returns a channel
-         * @param {String} channelName Name of an existing channel
-         * @returns {nu.debug.AbstractChannel} An abstract channel implementation
+         * @param {String} channelName Name of an existing channel. One of CHANNEL_MEMORY, CHANNEL_STORAGE, CHANNEL_CONSOLE.
+         * @param {Boolean} enabled a boolean to enable or disable the channel represented by channelName.
+         * @returns {nu.debug.AbstractChannel} An abstract channel implementation if only channelName is provided. Nothing else.
          */
-        getChannel: function ( channelName ) {
-            return this.channels[ channelName ];
+        channel: function ( channelName, enabled ) {
+
+            if ( enabled === undefined )
+                return this.channels[ channelName ];
+
+            // console channel
+            if ( channelName === this.CHANNEL_CONSOLE ) {
+                if ( enabled )
+                    this.channels[ this.CHANNEL_CONSOLE ] = new nu.debug.ConsoleChannel();
+                else
+                    delete this.channels[ this.CHANNEL_CONSOLE ];
+
+                this.settings[ this.CHANNEL_CONSOLE ] = enabled;
+            }
+
+            // local storage channel
+            else if ( channelName === this.CHANNEL_STORAGE ) {
+                if ( enabled )
+                    this.channels[ this.CHANNEL_STORAGE ] = new nu.debug.LocalStorageChannel( {
+                        storageKey: this.settings.storageKey
+                    } );
+                else
+                    delete this.channels[ this.CHANNEL_STORAGE ];
+
+                this.settings[ this.CHANNEL_STORAGE ] = enabled;
+            }
+
+            // memory channel
+            else if ( channelName === this.CHANNEL_MEMORY ) {
+                if ( enabled )
+                    this.channels[ this.CHANNEL_MEMORY ] = new nu.debug.MemoryChannel();
+                else
+                    delete this.channels[ this.CHANNEL_MEMORY ];
+
+                this.settings[ this.CHANNEL_MEMORY ] = enabled;
+            }
         }
 
     };
 
-    /**
+    /*
      * Log the value parameter with the level specified.
      * @param  {nu.debug.Log} log Entry point containing settings and loggers instances
      * @param  {String} value The value to log
@@ -137,10 +176,10 @@
         }
 
         // getting the value as a string
-        var val = value.toString( );
+        var val = value.toString();
 
         // declaring date of the current log action
-        var date = new Date( );
+        var date = new Date();
 
         var settings = Log.settings;
         var channels = Log.channels;
@@ -154,21 +193,21 @@
 
         // if logging in console
         if ( settings.console ) {
-            channels.console.log( logItem );
+            channels[ Log.CHANNEL_CONSOLE ].log( logItem );
         }
 
         // if logging in memory
         if ( settings.memory ) {
-            channels.memory.log( logItem );
+            channels[ Log.CHANNEL_MEMORY ].log( logItem );
         }
 
         // if logging in storage
         if ( settings.storage ) {
-            channels.storage.log( logItem );
+            channels[ Log.CHANNEL_STORAGE ].log( logItem );
         }
     }
 
-    /**
+    /*
      * Whether or not we shoud log based on the current log level.
      * @param {nu.debug.LogLevel} level
      */
@@ -188,10 +227,10 @@
         }
     }
 
-    /**
+    /*
      * Initializing with defaults settings in case the developer starts to log without initializing anything.
      * We don't want to force him to initialize if not needed.
      */
-    nu.debug.Log.init( );
+    nu.debug.Log.init();
 
 } )( this, jQuery, nu, nu.debug.LogLevel, nu.debug.LogItem );

@@ -1,10 +1,10 @@
-( function ( $, nu, app, utils, log, templates, undefined ) {
+( function ( $, nu, app, Utils, Log, templates, SettingsManager, undefined ) {
 
 	'use strict';
 
 	/**
 	 * @class app.pages.SettingsPageHandler
-	 * @extends nu.pages.PageHandler
+	 * @extends app.pages.NubornPageHandler
 	 *
 	 * The Page Handler of the settings page.
 	 *
@@ -33,6 +33,8 @@
 		createHtmlElements: function ( ) {
 			var page = this.html.page;
 			this.html.menuButton = page.find( "div.menu-button" );
+			this.html.animateCheckbox = page.find( "#animate" );
+			this.html.logsCheckbox = page.find( "#logs" );
 		},
 
 		/**
@@ -45,9 +47,35 @@
 		 * @override
 		 * @inheritdoc
 		 */
-		pageInit: function ( event, data ) {
-			this._super( event, data );
-			this.handleMenuButton( );
+		pageInit: function ( event ) {
+			this._super( event );
+			this.handleMenuButton();
+			this.handleAnimateCheckbox();
+			this.handleLogsCheckbox();
+		},
+
+		/**
+		 * (De)Activate animations in all application.
+		 */
+		handleAnimateCheckbox: function () {
+			// handling change event
+			this.html.animateCheckbox.change( function () {
+				SettingsManager.toggleAnimationFriendly();
+			} );
+			// initializing default state
+			this.html.animateCheckbox.prop( "checked", SettingsManager.animationFriendly() );
+		},
+
+		/**
+		 * (De)Activate logs recording in local storage for debugging purposes.
+		 */
+		handleLogsCheckbox: function () {
+			// handling change event
+			this.html.logsCheckbox.change( function () {
+				SettingsManager.toggleLogsRecording();
+			} );
+			// initializing default state
+			this.html.logsCheckbox.prop( "checked", SettingsManager.logsRecording() );
 		},
 
 		/**
@@ -62,18 +90,32 @@
 		 * Handle the menu button.
 		 */
 		handleMenuButton: function ( ) {
-			// getting a local reference of the menu button
-			var menuButton = this.html.menuButton;
-
 			// when tap on menu button, open menu panel
-			menuButton.on( "tap", function ( ) {
+			this.html.menuButton.on( "tap", function ( ) {
 				// opening menu panel
 				app.menu.toggleMenu( );
 				// prevent bubbling
 				return false;
 			} );
+		},
+
+		swipeRight: function ( event ) {
+			swipeCheckbox( event, this.html.animateCheckbox, true );
+			swipeCheckbox( event, this.html.logsCheckbox, true );
+		},
+
+		swipeLeft: function ( event ) {
+			swipeCheckbox( event, this.html.animateCheckbox, false );
+			swipeCheckbox( event, this.html.logsCheckbox, false );
 		}
 	} );
+
+	function swipeCheckbox( event, checkbox, check ) {
+		if ( event.target.id === checkbox.attr( "id" ) ) {
+			checkbox.prop( "checked", check );
+			checkbox.change();
+		}
+	}
 
 	/**
 	 * @property {app.pages.SettingsPageHandler} settings
@@ -82,4 +124,4 @@
 	 */
 	app.settings = new app.pages.SettingsPageHandler( );
 
-} )( jQuery, nu, app, nu.Utils, nu.debug.Log, templates )
+} )( jQuery, nu, app, nu.Utils, nu.debug.Log, templates, app.manager.SettingsManager )

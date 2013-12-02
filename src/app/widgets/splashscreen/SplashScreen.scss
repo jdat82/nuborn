@@ -15,7 +15,15 @@
   color: $textColor;
 
   & > div {
-    height: 8rem;
+    @include mq(smartphone){
+      height: 8rem;
+    }
+    @include mq(tablet){
+      height: 12rem;
+    }
+    @include mq(desktop){
+      height: 16rem;
+    }
   }
 
   h1 {
@@ -26,16 +34,32 @@
 
     font: {
       family: "Champagne";
-      size: 3rem;
       weight: 900;
       variant: small-caps;
+    }
+    @include mq(smartphone){
+      font-size: 3rem;
+    }
+    @include mq(tablet){
+      font-size: 5rem;
+    }
+    @include mq(desktop){
+      font-size: 7rem;
     }
 
     &:first-letter {
       display: block;
       padding:0  .2em;
       letter-spacing: 0;
-      font-size: 3.3rem;
+      @include mq(smartphone){
+        font-size: 3.3rem;
+      }
+      @include mq(tablet){
+        font-size: 5.3rem;
+      }
+      @include mq(desktop){
+        font-size: 7.3rem;
+      }
       font-weight: 900;
       color: $red;
     }

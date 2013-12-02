@@ -4,7 +4,7 @@
 
 	/**
 	 * @class app.pages.OfflinePageHandler
-	 * @extends nu.pages.PageHandler
+	 * @extends app.pages.NubornPageHandler
 	 *
 	 * The Page Handler of the offline page
 	 *

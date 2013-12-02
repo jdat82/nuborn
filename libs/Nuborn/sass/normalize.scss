@@ -1,24 +1,33 @@
 /**
  * @provide normalize
+ * @require vars
  */
 
 /*
  * The page should take 100% of the viewport even if smaller.
  */
 body {
-	min-height: 100%;
-    margin: 0;
-    padding: 0;
+    min-height: 100%;
 }
 
-.ui-mobile label {
-    margin: 0;
+p {
+    padding: $padding 0;
+}
+
+li{
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
 }
 
 *,
-*:after,
+*::after,
 *::before {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }

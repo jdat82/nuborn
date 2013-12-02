@@ -36,7 +36,7 @@
             this._super( logItem );
             var logs = LocalStorage.get( this.settings.storageKey );
             if ( !logs )
-                logs = [ ];
+                logs = [];
             logs.push( logItem.toString( "%d    %l    %m" ) );
             LocalStorage.set( this.settings.storageKey, logs );
         },
@@ -49,11 +49,11 @@
 
             // no level, retun all
             if ( !level )
-                return stack || [ ];
+                return stack || [];
 
             // invalid level, noop.
             if ( !nu.debug.LogLevel.hasOwnProperty( level ) )
-                return [ ];
+                return [];
 
             // specific level
             return stack.filter( function ( string, index, stack ) {
@@ -88,7 +88,7 @@
 
             // no specific level, clear all
             if ( !level ) {
-                LocalStorage.clear( this.settings.storageKey );
+                LocalStorage.remove( this.settings.storageKey );
                 return;
             }
 
@@ -97,7 +97,7 @@
                 return;
 
             // specific level, keeping other levels
-            var stack = this.list( ).filter( function ( string, index, stack ) {
+            var stack = this.list().filter( function ( string, index, stack ) {
                 return !string.contains( level );
             } );
 

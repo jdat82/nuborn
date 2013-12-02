@@ -19,21 +19,21 @@
 		 * @constructor
 		 * Creates a new Page Events Manager.
 		 */
-		init: function ( ) {
+		init: function () {
 			// initializing members
 			this.pageHandlers = {};
 			this.currentPageHandler = null;
 			this.previousPageHandler = null;
 
 			// binding page events to the manager
-			this.bindPageEvents( );
-			this.interceptHashLinks( );
+			this.bindPageEvents();
+			this.interceptHashLinks();
 		},
 
 		/**
 		 * Bind page events.
 		 */
-		bindPageEvents: function ( ) {
+		bindPageEvents: function () {
 			// Declaring page selector string
 			var pageSelector = "[data-role=page]";
 			// Binding all jQuery Mobile page events
@@ -56,7 +56,7 @@
 		/**
 		 * Unbind page events.
 		 */
-		unbindPageEvent: function ( ) {
+		unbindPageEvent: function () {
 			// Unbinding all jQuery Mobile page events
 			$( document ).off( "pagebeforecreate" );
 			$( document ).off( "pageinit" );
@@ -125,7 +125,7 @@
 		loadFirstPage: function ( defaultPageId ) {
 
 			// hash.name contains current page id if filled
-			var hash = nu.Utils.deserializeHash( );
+			var hash = nu.Utils.deserializeHash();
 			var pageId = hash.name || defaultPageId;
 			DEBUG && Log.i( "First page is: " + pageId );
 
@@ -134,6 +134,7 @@
 			if ( pageHandler ) {
 				if ( !window.location.hash )
 					window.location.hash = "#" + pageId;
+				// memorizing first page handler to handle splashscreen removal
 				pageHandler.data.isFirst = true;
 				// loading page into DOM
 				pageHandler.navigate( {
@@ -145,9 +146,8 @@
 		/**
 		 * Called for pagebeforecreate event.
 		 * @param {Object} event
-		 * @param {Object} data
 		 */
-		pageBeforeCreate: function ( event, data ) {
+		pageBeforeCreate: function ( event ) {
 			// getting page handler from the event
 			var pageHandler = this.getPageHandlerFromEvent( event );
 			// stop process if no page handler has been found
@@ -161,15 +161,14 @@
 			this.currentPageHandler = pageHandler;
 
 			// dispatching the event to current active page handler
-			pageHandler.pageBeforeCreate( event, data );
+			pageHandler.pageBeforeCreate( event );
 		},
 
 		/**
 		 * Called for pageinit event.
 		 * @param {Object} event
-		 * @param {Object} data
 		 */
-		pageInit: function ( event, data ) {
+		pageInit: function ( event ) {
 			// getting page handler from the event
 			var pageHandler = this.getPageHandlerFromEvent( event );
 			// stop process if no page handler has been found
@@ -178,15 +177,14 @@
 			}
 
 			// dispatching the event to current active page handler
-			pageHandler.pageInit( event, data );
+			pageHandler.pageInit( event );
 		},
 
 		/**
 		 * Called for pagecreate event.
 		 * @param {Object} event
-		 * @param {Object} data
 		 */
-		pageCreate: function ( event, data ) {
+		pageCreate: function ( event ) {
 			// getting page handler from the event
 			var pageHandler = this.getPageHandlerFromEvent( event );
 			// stop process if no page handler has been found
@@ -195,7 +193,7 @@
 			}
 
 			// dispatching the event to current active page handler
-			pageHandler.pageCreate( event, data );
+			pageHandler.pageCreate( event );
 		},
 
 		/**
@@ -212,7 +210,6 @@
 			}
 
 			// dispatching the event to current active page handler
-			pageHandler.data.isVisible = false;
 			pageHandler.pageHide( event, data );
 		},
 
@@ -334,7 +331,6 @@
 			}
 
 			// dispatching the event to current active page handler
-			pageHandler.data.isVisible = true;
 			pageHandler.pageShow( event, data );
 		},
 
@@ -358,9 +354,8 @@
 		/**
 		 * Called for swipeleft event.
 		 * @param {Object} event
-		 * @param {Object} data
 		 */
-		swipeLeft: function ( event, data ) {
+		swipeLeft: function ( event ) {
 			// getting page handler from the event
 			var pageHandler = this.getPageHandlerFromEvent( event );
 			// stop process if no page handler has been found
@@ -369,15 +364,14 @@
 			}
 
 			// dispatching the event to current active page handler
-			pageHandler.swipeLeft( event, data );
+			pageHandler.swipeLeft( event );
 		},
 
 		/**
 		 * Called for swiperight event.
 		 * @param {Object} event
-		 * @param {Object} data
 		 */
-		swipeRight: function ( event, data ) {
+		swipeRight: function ( event ) {
 			// getting page handler from the event
 			var pageHandler = this.getPageHandlerFromEvent( event );
 			// stop process if no page handler has been found
@@ -386,21 +380,21 @@
 			}
 
 			// dispatching the event to current active page handler
-			pageHandler.swipeRight( event, data );
+			pageHandler.swipeRight( event );
 		},
 
 		/**
 		 * Intercept links which starts with a #.
 		 * The page manager will load the linked template and navigate to it.
 		 */
-		interceptHashLinks: function ( ) {
+		interceptHashLinks: function () {
 			$( document ).on( "click", "a", function ( event ) {
 				var el = event.currentTarget;
 				var hash = nu.Utils.deserializeHash( el.href );
-				var preventDefault = !( el.dataset.intercept === "true" );
+				var preventDefault = ( el.dataset.intercept === "false" );
 				// if it is not a hash link, nothing to do
 				if ( !hash.name || !hash.name.length || preventDefault ) {
-					event.preventDefault( );
+					event.preventDefault();
 					return false;
 				}
 
@@ -409,7 +403,7 @@
 					app[ hash.name ].navigate( {
 						pageParams: hash.params
 					} );
-					event.preventDefault( );
+					event.preventDefault();
 					return false;
 				}
 			} );
@@ -424,9 +418,9 @@
 	 * @static
 	 * @method get
 	 */
-	nu.pages.PageEventsManager.get = function ( ) {
+	nu.pages.PageEventsManager.get = function () {
 		if ( !nu.pages.PageEventsManager.SINGLETON_INSTANCE ) {
-			nu.pages.PageEventsManager.SINGLETON_INSTANCE = new nu.pages.PageEventsManager( );
+			nu.pages.PageEventsManager.SINGLETON_INSTANCE = new nu.pages.PageEventsManager();
 		}
 		return nu.pages.PageEventsManager.SINGLETON_INSTANCE;
 	};

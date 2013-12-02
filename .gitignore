@@ -3,7 +3,8 @@
 **.sublime-workspace
 .sass-cache/
 node_modules/
-docs/gen/
+docs/docco/gen
+docs/jsduck/gen
 gen/
 **.off
 

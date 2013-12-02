@@ -1,4 +1,4 @@
-( function ( window, $, nu, log, undefined ) {
+( function ( window, $, nu, Log, undefined ) {
 
 	'use strict';
 
@@ -23,7 +23,7 @@
 			var appCache = window.applicationCache;
 
 			appCache.addEventListener( 'updateready', function ( e ) {
-				DEBUG && log.i( "New hotness available !" );
+				DEBUG && Log.i( "New hotness available !" );
 				if ( appCache.status === appCache.UPDATEREADY ) {
 					// new downloaded content available
 					appCache.swapCache( );

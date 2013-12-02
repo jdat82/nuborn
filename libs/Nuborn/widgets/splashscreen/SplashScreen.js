@@ -1,101 +1,131 @@
-( function ( $, nu, Log, EventsDispatcher, undefined ) {
+( function ( window, $, nu, Log, EventsDispatcher, undefined ) {
 
-    'use strict';
+	'use strict';
 
-    var defaults = {
-        id: "splash",
-        title: "Nuborn"
-    };
+	var defaults = {
+		id: "splash",
+		title: "Nuborn",
+		minDelay: 3000
+	};
 
-    /**
-     * @class nu.widgets.SplashScreen
-     * Controls the splashscreen of the application.
-     *
-     * @provide nu.widgets.SplashScreen
-     *
-     * @require nu.widgets
-     */
-    var SplashScreen = nu.widgets.SplashScreen = Object.subClass( {
+	/**
+	 * @class nu.widgets.SplashScreen
+	 * Controls the splashscreen of the application.
+	 *
+	 * @provide nu.widgets.SplashScreen
+	 *
+	 * @require nu.widgets
+	 * @require nu.debug.Log
+	 * @require nu.events.EventsDispatcher
+	 */
+	var SplashScreen = nu.widgets.SplashScreen = Object.subClass( {
 
-        /**
-         * @constructor
-         * @param  {Object} settings
-         */
-        init: function ( settings ) {
-            this.settings = $.extend( true, defaults, settings );
-            // inflates the splashscreen
-            this.element = $( templates.SplashScreen.render( this.settings ) );
-        },
+		/**
+		 * @constructor
+		 * @param  {Object} settings
+		 */
+		init: function ( settings ) {
+			this.settings = $.extend( true, defaults, settings );
+			// inflates the splashscreen
+			this.element = $( templates.SplashScreen.render( this.settings ) );
+		},
 
-        /**
-         * Shows the splashscreen.
-         */
-        show: function ( ) {
+		/**
+		 * Shows the splashscreen.
+		 */
+		show: function () {
 
-            // deactivating scroll capacity during splashscreen
-            nu.Utils.disableScroll( );
+			Log.i( "SplashScreen show" );
 
-            // adding the splashscreen at the end of the document body
-            $( "body" ).append( this.element );
-        },
+			// deactivating scroll capacity during splashscreen
+			nu.Utils.disableScroll();
 
-        /**
-         * Hides the splashscreen.
-         * @param  {Boolean} animated Defines if the transition should be animated
-         */
-        hide: function ( ) {
+			// adding the splashscreen at the end of the document body
+			$( "body" ).append( this.element );
 
-            // reactivating scroll capacity
-            nu.Utils.enableScroll( );
+			this.showTime = window.performance.now();
+		},
 
-            this.element.addClass( "fade-out" );
+		/**
+		 * Hides the splashscreen.
+		 * @param  {Boolean} animated Defines if the transition should be animated
+		 */
+		hide: function () {
 
-            var self = this;
-            this.element.one( 'animationend webkitAnimationEnd oanimationend MSAnimationEnd', function ( ) {
-                self.element.remove( );
-            } );
-        }
+			Log.i( "SplashScreen hide" );
 
-    } );
+			var self = this;
+			var destroySplashscreen = function () {
 
-    /*
-     * Current splashscreen instance.
-     */
-    var instance;
+				// reactivating scroll capacity
+				nu.Utils.enableScroll();
 
-    /**
-     * @event
-     * Show splashscreen.
-     */
-    SplashScreen.EVENT_SHOW = "splashscreen/show";
-    /**
-     * @event
-     * Hide splashscreen.
-     */
-    SplashScreen.EVENT_HIDE = "splashscreen/hide";
+				if ( Modernizr.animationfriendly && Modernizr.csstransforms3d ) {
+					self.element.addClass( "fade-out" );
+					self.element.one( 'animationend webkitAnimationEnd oanimationend MSAnimationEnd', function () {
+						self.element.remove();
+					} );
+				}
+				else {
+					self.element.remove();
+				}
+			};
 
-    /*
-     * Handle events lifecycle.
-     */
+			if ( this.settings.minDelay ) {
+				var delay = window.performance.now() - this.showTime;
+				if ( this.settings.minDelay > delay ) {
+					setTimeout( destroySplashscreen, this.settings.minDelay - delay );
+				}
+				else {
+					destroySplashscreen();
+				}
+			}
+			else {
+				destroySplashscreen();
+			}
+		}
 
-    function handleSplashScreenEvents( ) {
-        EventsDispatcher.on( SplashScreen.EVENT_SHOW, onShow );
-        EventsDispatcher.on( SplashScreen.EVENT_HIDE, onHide );
-    }
+	} );
 
-    function onShow( event ) {
-        DEBUG && Log.i( "SplashScreen show" );
-        instance && instance.hide( );
-        instance = new SplashScreen( event.settings );
-        instance.show( );
-    }
+	/*
+	 * Current splashscreen instance.
+	 */
+	var instance;
 
-    function onHide( event ) {
-        DEBUG && Log.i( "SplashScreen hide" );
-        instance && instance.hide( );
-    }
+	/**
+	 * @event
+	 * Show splashscreen.
+	 */
+	SplashScreen.EVENT_SHOW = "splashscreen/show";
+	/**
+	 * @event
+	 * Hide splashscreen.
+	 */
+	SplashScreen.EVENT_HIDE = "splashscreen/hide";
 
-    // listening...
-    handleSplashScreenEvents( );
+	/*
+	 * Handle events lifecycle.
+	 */
 
-} )( jQuery, nu, nu.debug.Log, nu.events.EventsDispatcher );
+	function handleSplashScreenEvents() {
+		EventsDispatcher.on( SplashScreen.EVENT_SHOW, onShow );
+		EventsDispatcher.on( SplashScreen.EVENT_HIDE, onHide );
+	}
+
+	function onShow( event ) {
+		DEBUG && Log.i( "Event SplashScreen show" );
+		instance && instance.hide();
+		instance = new SplashScreen( event.settings );
+		instance.show();
+	}
+
+	function onHide( event ) {
+		DEBUG && Log.i( "Event SplashScreen hide" );
+		instance && instance.hide();
+		instance = null;
+	}
+
+	// listening...
+	handleSplashScreenEvents();
+
+} )( window, jQuery, nu, nu.debug.Log, nu.events.EventsDispatcher );

@@ -1,6 +1,6 @@
 <div id="home" data-role="page">
 	<div data-role="header">
-		<div class="menu-button left" data-icon="&#x22;"></div>
+		<div class="menu-button left icon-menu"></div>
 		<div class="title">Accueil</div>
 	</div>
 	<div data-role="content">

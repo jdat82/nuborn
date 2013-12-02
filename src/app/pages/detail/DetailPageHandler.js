@@ -4,7 +4,7 @@
 
 	/**
 	 * @class app.pages.DetailPageHandler
-	 * @extends nu.pages.PageHandler
+	 * @extends app.pages.NubornPageHandler
 	 *
 	 * The Page Handler of the detail page
 	 *
@@ -20,14 +20,14 @@
 		 * @override
 		 * @inheritdoc
 		 */
-		init: function ( ) {
+		init: function () {
 			this._super( {
 				id: "detail",
 			} );
 		},
 
 
-		createHtmlElements: function ( ) {
+		createHtmlElements: function () {
 			// getting a local reference of the back button
 			this.html.backButton = this.html.page.find( ".back-button" );
 		},
@@ -39,11 +39,11 @@
 		 */
 		pageBeforeShow: function ( event, data ) {
 			this._super( event, data );
-			this.prepareBackButton( );
+			this.prepareBackButton();
 		},
 
 
-		prepareBackButton: function ( ) {
+		prepareBackButton: function () {
 			// when touch start, go to active state
 			nu.widgets.button.Utils.enableUniversalPressMode( this.html.backButton );
 
@@ -52,7 +52,7 @@
 		},
 
 
-		goBackToHomePage: function ( ) {
+		goBackToHomePage: function () {
 			app.home.navigate( {
 				jqmOptions: {
 					reverse: true
@@ -70,8 +70,9 @@
 		},
 
 
-		swipeRight: function ( event, data ) {
-			this.goBackToHomePage( );
+		swipeRight: function ( event ) {
+			this._super( event );
+			this.goBackToHomePage();
 		}
 	} );
 
@@ -80,6 +81,6 @@
 	 * @member app
 	 * Instance of a page handler for the detail page.
 	 */
-	app.detail = new app.pages.DetailPageHandler( );
+	app.detail = new app.pages.DetailPageHandler();
 
 } )( jQuery, nu, app, templates, nu.debug.Log );

@@ -1,0 +1,9 @@
+<div id="help" data-role="page">
+	<div data-role="header">
+		<div class="menu-button left icon-menu"></div>
+		<div class="title">Aide</div>
+	</div>
+	<div data-role="content">
+
+	</div>
+</div>

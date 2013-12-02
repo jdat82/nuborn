@@ -9,84 +9,84 @@
  /**
   * Hardware acceleration.
   */
-.ha {
+ .ha {
     @include transform3d(translateZ(0));
-}
+ }
 
 /**
  * Position absolute.
  */
 .pa {
-   position:absolute;
+	position:absolute;
 }
 
 /**
  * Position relative.
  */
- .pr {
-   position:relative;
- }
+.pr {
+	position:relative;
+}
 
 /**
  * Float right.
  */
- .fr {
-   float:right;
- }
+.fr {
+	float:right;
+}
 
 /**
  * Float left.
  */
- .fl {
-   float:left;
- }
+.fl {
+	float:left;
+}
 
 /**
  * Clear both.
  */
- .cb {
-   clear:both;
- }
+.cb {
+	clear:both;
+}
 
 /**
  * Display inline-block.
  */
- .dib {
-   display:inline-block;
- }
+.dib {
+	display:inline-block;
+}
 
 /**
  * Display block.
  */
- .db {
-   display:block;
- }
+.db {
+	display:block;
+}
 
 /**
  * Display none.
  */
- .dn {
-   display: none;
- }
+.dn {
+	display: none;
+}
 
 /**
  * Overflow hidden.
  */
- .ovhid {
-   overflow:hidden;
- }
+.ovhid {
+	overflow:hidden;
+}
 
- .fullwidth {
-   width:100%;
- }
+.fullwidth {
+	width:100%;
+}
 
- .fullheight {
-   height:100%;
- }
+.fullheight {
+	height:100%;
+}
 
- .fullscreen {
-    position: fixed;
-    top: 0; left: 0; bottom: 0; right: 0;
+.fullscreen {
+	position: fixed;
+  top: 0; left: 0; bottom: 0; right: 0;
 }
 
 .vam {
