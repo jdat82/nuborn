@@ -1,18 +1,20 @@
-( function ( $, nu, localStorage, undefined ) {
+/*
+ * @provide nu.cache.LocalStorage
+ * @require nu
+ */
+define( "nu.cache.LocalStorage", function ( require, exports, module ) {
 
 	'use strict';
+
+	var $ = jQuery;
 
 	/**
 	 * @class nu.cache.LocalStorage
 	 * @singleton
 	 *
 	 * Help for saving objects into the local storage memory.
-	 *
-	 * @provide nu.cache.LocalStorage
-	 *
-	 * @require nu.cache
 	 */
-	nu.cache.LocalStorage = {
+	var LocalStorage = {
 
 		/**
 		 * Saves the object with the specified key.
@@ -82,4 +84,6 @@
 
 	};
 
-} )( jQuery, nu, localStorage )
+	module.exports = LocalStorage;
+
+} );

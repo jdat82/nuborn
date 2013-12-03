@@ -1,22 +1,24 @@
-/**
- * @class nu
- * @singleton
- *
+/*
  * @provide nu
- *
  * @require primitives
  * @require define
  */
-window.nu = {
+define( "nu", function ( require, exports, module ) {
 
     /**
-     * Current version of Nuborn.
+     * @class nu
+     * @singleton
      */
-    version: "0.0.1",
+    module.exports = {
 
-    /**
-     * Core package.
-     */
-    core: {}
+        /**
+         * Current version of Nuborn.
+         */
+        version: "0.0.1",
 
-};
+        /**
+         * Core package.
+         */
+        core: {}
+    };
+} );

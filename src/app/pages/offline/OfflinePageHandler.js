@@ -1,33 +1,33 @@
-( function ( $, nu, app, templates, log, undefined ) {
+/*
+ * @provide app.pages.OfflinePageHandler
+ * @require app.pages.NubornPageHandler
+ */
+define( "app.pages.OfflinePageHandler", function ( require, exports, module ) {
 
 	'use strict';
+
+	var NubornPageHandler = require( "app.pages.NubornPageHandler" );
 
 	/**
 	 * @class app.pages.OfflinePageHandler
 	 * @extends app.pages.NubornPageHandler
 	 *
 	 * The Page Handler of the offline page
-	 *
-	 * {@link app#offline app.offline is an instance of this page handler}
-	 *
-	 * @provide app.pages.OfflinePageHandler
-	 *
-	 * @require app.pages.NubornPageHandler
 	 */
-	app.pages.OfflinePageHandler = app.pages.NubornPageHandler.subClass( {
+	var OfflinePageHandler = NubornPageHandler.subClass( {
 
 		/**
 		 * @override
 		 * @inheritdoc
 		 */
-		init: function ( ) {
+		init: function () {
 			this._super( {
 				id: "offline",
 			} );
 		},
 
 
-		createHtmlElements: function ( ) {},
+		createHtmlElements: function () {},
 
 
 		/**
@@ -45,11 +45,6 @@
 
 	} );
 
-	/**
-	 * @property {app.pages.OfflinePageHandler} offline
-	 * @member app
-	 * Instance of a page handler for the offline page.
-	 */
-	app.offline = new app.pages.OfflinePageHandler( );
+	module.exports = OfflinePageHandler;
 
-} )( jQuery, nu, app, templates, nu.debug.Log );
+} );

@@ -1,6 +1,11 @@
-( function ( $, nu, undefined ) {
+/*
+ * @provide nu.events.EventsDispatcher
+ */
+define( "nu.events.EventsDispatcher", function ( require, exports, module ) {
 
 	'use strict';
+
+	var $ = jQuery;
 
 	/**
 	 * @class nu.events.EventsDispatcher
@@ -8,13 +13,9 @@
 	 *
 	 * Simple events manager to dispatch and listen to custom events.<br>
 	 * Behind the scene, jQuery events mechanism is used.
-	 *
-	 * @provide nu.events.EventsDispatcher
-	 *
-	 * @require nu.events
 	 */
-	nu.events.EventsDispatcher = {
-		init: function ( ) {
+	var EventsDispatcher = {
+		init: function () {
 			this.emitter = $( this );
 		},
 		/**
@@ -57,6 +58,8 @@
 		}
 	};
 
-	nu.events.EventsDispatcher.init( );
+	EventsDispatcher.init();
 
-} )( jQuery, nu )
+	module.exports = EventsDispatcher;
+
+} );

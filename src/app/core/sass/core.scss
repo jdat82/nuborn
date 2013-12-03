@@ -23,8 +23,15 @@ input, textarea {
 	-moz-user-select: text;
 }
 
-[data-role=page] {
+li:nth-child(even) {
+    background-color: rgba(black,.1);
+}
+li:nth-child(odd) {
+    background-color: rgba(white,.1);
+}
 
+[data-role=page] {
+	background-image: url("../img/bg.png");
 }
 
 [data-role=header]{

@@ -1,6 +1,17 @@
-( function ( $, nu, Log, Utils, pageEventsManager, undefined ) {
+/*
+ * @provide nu.pages.PageHandler
+ * @require nu.pages.PageEventsManager
+ * @require nu.debug.Log
+ * @require nu.Utils
+ */
+define( "nu.pages.PageHandler", function ( require, exports, module ) {
 
     'use strict';
+
+    var $ = jQuery;
+    var pageEventsManager = require( "nu.pages.PageEventsManager" ).instance;
+    var Utils = require( "nu.Utils" );
+    var Log = require( "nu.debug.Log" );
 
     /**
      * @class nu.pages.PageHandler
@@ -10,14 +21,8 @@
      * to another page, it is removed from the DOM.
      * As page parameters are set on "pageinit" event, singleton controllers received them
      * once only.
-     *
-     * @provide nu.pages.PageHandler
-     *
-     * @require nu.pages.PageEventsManager
-     * @require nu.debug.Log
-     * @require nu.Utils
      */
-    nu.pages.PageHandler = Object.subClass( {
+    var PageHandler = Object.subClass( {
 
         /**
          * Initialize a fresh new Page Handler.
@@ -39,7 +44,7 @@
             };
 
             // Regitsering
-            pageEventsManager.registerPageHandler( this );
+            // pageEventsManager.registerPageHandler( this );
         },
 
         /**
@@ -216,14 +221,14 @@
          * Create all references to HTML elements.
          */
         createHtmlElements: function () {
-            nu.debug.Log.w( "This method should be overriden" );
+            Log.w( "This method should be overriden" );
         },
 
         /**
          * Create all references to data objects.
          */
         createDataElements: function () {
-            nu.debug.Log.w( "This method should be overriden" );
+            Log.w( "This method should be overriden" );
         },
 
         /**
@@ -349,4 +354,6 @@
 
     } );
 
-} )( jQuery, nu, nu.debug.Log, nu.Utils, nu.pages.PageEventsManager.get() )
+    module.exports = PageHandler;
+
+} );

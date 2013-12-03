@@ -1,6 +1,12 @@
-( function ( nu, LogLevel, undefined ) {
+/*
+ * @provide nu.debug.LogItem
+ * @require nu.debug.LogLevel
+ */
+define( "nu.debug.LogItem", function ( require, exports, module ) {
 
 	'use strict';
+
+	var LogLevel = require( "nu.debug.LogLevel" );
 
 	/**
 	 * Default settings.<br>
@@ -14,12 +20,8 @@
 	 * @class nu.debug.LogItem
 	 *
 	 * A log item represented by a message, a level and a date
-	 *
-	 * @provide nu.debug.LogItem
-	 *
-	 * @require nu.debug.LogLevel
 	 */
-	nu.debug.LogItem = Object.subClass( {
+	var LogItem = Object.subClass( {
 
 		/**
 		 * @constructor
@@ -67,8 +69,10 @@
 	 * Allows to override some defaults like the string pattern.
 	 * @static
 	 */
-	nu.debug.LogItem.defaults = function ( settings ) {
+	LogItem.defaults = function ( settings ) {
 		defaults = settings;
-	}
+	};
 
-} )( nu, nu.debug.LogLevel );
+	module.exports = LogItem;
+
+} );

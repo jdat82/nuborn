@@ -1,26 +1,30 @@
-( function ( $, nu, app, Utils, Log, templates, SettingsManager, undefined ) {
+/*
+ * @provide app.pages.SettingsPageHandler
+ * @require app.pages.NubornPageHandler
+ * @require nu.debug.Log
+ */
+define( "app.pages.SettingsPageHandler", function ( require, exports, module ) {
 
 	'use strict';
+
+	var $ = jQuery;
+	var Log = require( "nu.debug.Log" );
+	var SettingsManager = require( "app.manager.SettingsManager" );
+	var NubornPageHandler = require( "app.pages.NubornPageHandler" );
 
 	/**
 	 * @class app.pages.SettingsPageHandler
 	 * @extends app.pages.NubornPageHandler
 	 *
 	 * The Page Handler of the settings page.
-	 *
-	 * {@link app#settings app.settings is an instance of this page handler}
-	 *
-	 * @provide app.pages.SettingsPageHandler
-	 *
-	 * @require app.pages.NubornPageHandler
 	 */
-	app.pages.SettingsPageHandler = app.pages.NubornPageHandler.subClass( {
+	var SettingsPageHandler = NubornPageHandler.subClass( {
 
 		/**
 		 * @override
 		 * @inheritdoc
 		 */
-		init: function ( ) {
+		init: function () {
 			this._super( {
 				id: "settings"
 			} );
@@ -30,7 +34,7 @@
 		 * @override
 		 * @inheritdoc
 		 */
-		createHtmlElements: function ( ) {
+		createHtmlElements: function () {
 			var page = this.html.page;
 			this.html.menuButton = page.find( "div.menu-button" );
 			this.html.animateCheckbox = page.find( "#animate" );
@@ -41,7 +45,7 @@
 		 * @override
 		 * @inheritdoc
 		 */
-		createDataElements: function ( ) {},
+		createDataElements: function () {},
 
 		/**
 		 * @override
@@ -89,11 +93,12 @@
 		/**
 		 * Handle the menu button.
 		 */
-		handleMenuButton: function ( ) {
+		handleMenuButton: function () {
 			// when tap on menu button, open menu panel
-			this.html.menuButton.on( "tap", function ( ) {
+			this.html.menuButton.on( "tap", function () {
+				var menu = require( "#menu" );
 				// opening menu panel
-				app.menu.toggleMenu( );
+				menu.toggleMenu();
 				// prevent bubbling
 				return false;
 			} );
@@ -117,11 +122,6 @@
 		}
 	}
 
-	/**
-	 * @property {app.pages.SettingsPageHandler} settings
-	 * @member app
-	 * Instance of a page handler for the settings page.
-	 */
-	app.settings = new app.pages.SettingsPageHandler( );
+	module.exports = SettingsPageHandler;
 
-} )( jQuery, nu, app, nu.Utils, nu.debug.Log, templates, app.manager.SettingsManager )
+} );

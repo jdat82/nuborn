@@ -1,20 +1,24 @@
-( function ( $, nu, app, templates, log, undefined ) {
+/*
+ * @provide app.pages.DetailPageHandler
+ * @require app.pages.NubornPageHandler
+ * @require nu.debug.Log
+ * @require nu.widgets.button.Utils
+ */
+define( "app.pages.DetailPageHandler", function ( require, exports, module ) {
 
 	'use strict';
+	var $ = jQuery;
+	var Log = require( "nu.debug.Log" );
+	var ButtonUtils = require( "nu.widgets.button.Utils" );
+	var NubornPageHandler = require( "app.pages.NubornPageHandler" );
 
 	/**
 	 * @class app.pages.DetailPageHandler
 	 * @extends app.pages.NubornPageHandler
 	 *
 	 * The Page Handler of the detail page
-	 *
-	 * {@link app#detail app.detail is an instance of this page handler}
-	 *
-	 * @provide app.pages.DetailPageHandler
-	 *
-	 * @require app.pages.NubornPageHandler
 	 */
-	app.pages.DetailPageHandler = app.pages.NubornPageHandler.subClass( {
+	var DetailPageHandler = NubornPageHandler.subClass( {
 
 		/**
 		 * @override
@@ -45,7 +49,7 @@
 
 		prepareBackButton: function () {
 			// when touch start, go to active state
-			nu.widgets.button.Utils.enableUniversalPressMode( this.html.backButton );
+			ButtonUtils.enableUniversalPressMode( this.html.backButton );
 
 			// when tap on back button, go back home
 			this.html.backButton.on( "tap", this.goBackToHomePage );
@@ -53,7 +57,8 @@
 
 
 		goBackToHomePage: function () {
-			app.home.navigate( {
+			var homePage = require( "#home" );
+			homePage.navigate( {
 				jqmOptions: {
 					reverse: true
 				}
@@ -66,7 +71,7 @@
 		pageBeforeHide: function ( event, data ) {
 			this._super( event, data );
 			this.html.backButton.off( "tap", this.goBackToHomePage );
-			nu.widgets.button.Utils.disableUniversalPressMode( this.html.backButton );
+			ButtonUtils.disableUniversalPressMode( this.html.backButton );
 		},
 
 
@@ -76,11 +81,6 @@
 		}
 	} );
 
-	/**
-	 * @property {app.pages.DetailPageHandler} detail
-	 * @member app
-	 * Instance of a page handler for the detail page.
-	 */
-	app.detail = new app.pages.DetailPageHandler();
+	module.exports = DetailPageHandler;
 
-} )( jQuery, nu, app, templates, nu.debug.Log );
+} );

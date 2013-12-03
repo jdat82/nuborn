@@ -1,17 +1,16 @@
-// ( function ( window, $, nu, Log, undefined ) {
+/*
+ * @provide app.core.Base
+ * @require nu
+ */
 define( "app.core.Base", function ( require, exports, module ) {
 
     'use strict';
 
-    // var $ = require( "jQuery" );
+    var $ = jQuery;
 
     /**
      * @class app.manager.SettingsManager
      * Base class for every other class.
-     *
-     * @provide app.core.Base
-     *
-     * @require app.core
      */
     module.exports = Object.subClass( {
 

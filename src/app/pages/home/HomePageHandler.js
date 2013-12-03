@@ -1,26 +1,30 @@
-( function ( $, nu, app, Utils, Log, templates, undefined ) {
+/*
+ * @provide app.pages.HomePageHandler
+ * @require #detail
+ * @require app.pages.NubornPageHandler
+ * @require nu.debug.Log
+ */
+define( "app.pages.HomePageHandler", function ( require, exports, module ) {
 
 	'use strict';
+
+	var $ = jQuery;
+	var Log = require( "nu.debug.Log" );
+	var NubornPageHandler = require( "app.pages.NubornPageHandler" );
 
 	/**
 	 * @class app.pages.HomePageHandler
 	 * @extends app.pages.NubornPageHandler
 	 *
 	 * The Page Handler of the home page.
-	 *
-	 * {@link app#home app.home is an instance of this page handler}
-	 *
-	 * @provide app.pages.HomePageHandler
-	 *
-	 * @require app.pages.NubornPageHandler
 	 */
-	app.pages.HomePageHandler = app.pages.NubornPageHandler.subClass( {
+	var HomePageHandler = NubornPageHandler.subClass( {
 
 		/**
 		 * @override
 		 * @inheritdoc
 		 */
-		init: function ( ) {
+		init: function () {
 			this._super( {
 				id: "home",
 				singleton: true
@@ -31,7 +35,7 @@
 		 * @override
 		 * @inheritdoc
 		 */
-		createHtmlElements: function ( ) {
+		createHtmlElements: function () {
 			var page = this.html.page;
 			this.html.menuButton = page.find( "div.menu-button" );
 			this.html.carousel = page.find( "#carousel" );
@@ -43,7 +47,7 @@
 		 * @override
 		 * @inheritdoc
 		 */
-		createDataElements: function ( ) {
+		createDataElements: function () {
 			// Create the data to display in the carousel
 			this.data.carousel = {
 				cards: [ {
@@ -265,9 +269,9 @@
 
 			this._super( event );
 
-			this.handleMenuButton( );
-			this.prepareCarousel( );
-			this.prepareNews( );
+			this.handleMenuButton();
+			this.prepareCarousel();
+			this.prepareNews();
 		},
 
 		/**
@@ -279,7 +283,7 @@
 			this._super( event, data );
 
 			// Initializing Carousel with the Swipe library
-			this.html.carousel.Swipe( );
+			this.html.carousel.Swipe();
 
 			// iScroll polyfill for deficient devices (everyone except apple of course)
 			// if ( window.IScroll ) {
@@ -291,11 +295,12 @@
 		/**
 		 * Handle the menu button.
 		 */
-		handleMenuButton: function ( ) {
+		handleMenuButton: function () {
 			// when tap on menu button, open menu panel
-			this.html.menuButton.on( "tap", function ( ) {
+			this.html.menuButton.on( "tap", function () {
+				var menu = require( "#menu" );
 				// opening menu panel
-				app.menu.toggleMenu( );
+				menu.toggleMenu();
 				// prevent bubbling
 				return false;
 			} );
@@ -306,18 +311,19 @@
 		 * -- Load the data <br/>
 		 * -- Render the data
 		 */
-		prepareCarousel: function ( ) {
+		prepareCarousel: function () {
 			// add template to carousel wrapper, rendered with carousel data
 			this.html.carouselWrapper.html( templates.card.render( this.data.carousel ) );
 		},
 
-		prepareNews: function ( ) {
+		prepareNews: function () {
 			// add template to news, rendered with news data
 			var news = this.html.news;
 			news.append( templates.news_cell.render( this.data.news ) );
 			news.on( "tap", "li", function ( event ) {
+				var detailPage = require( "#detail" );
 				var newsId = event.currentTarget.dataset.newsId;
-				app.detail.navigate( {
+				detailPage.navigate( {
 					pageParams: {
 						id: newsId
 					}
@@ -327,11 +333,6 @@
 		}
 	} );
 
-	/**
-	 * @property {app.pages.HomePageHandler} home
-	 * @member app
-	 * Instance of a page handler for the home page.
-	 */
-	app.home = new app.pages.HomePageHandler( );
+	module.exports = HomePageHandler;
 
-} )( jQuery, nu, app, nu.Utils, nu.debug.Log, templates )
+} );

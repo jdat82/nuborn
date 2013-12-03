@@ -1,22 +1,24 @@
-( function ( $, nu, app, utils, log, undefined ) {
+/*
+ * @provide app.pages.DefaultPageHandler
+ */
+define( "app.pages.DefaultPageHandler", function ( require, exports, module ) {
 
     'use strict';
+
+    var $ = jQuery;
+    var Utils = require( "nu.Utils" );
+    var Log = require( "nu.debug.Log" );
+    var PageHandler = require( "nu.pages.PageHandler" );
 
     /**
      * @class app.pages.DefaultPageHandler
      * @extends nu.pages.PageHandler
      *
      * The default Page Handler when no other page handler was found.
-     *
-     * {@link app#default app.default is an instance of this page handler}
-     *
-     * @provide app.pages.DefaultPageHandler
-     *
-     * @require app.pages
      */
-    app.pages.DefaultPageHandler = nu.pages.PageHandler.subClass( {
+    var DefaultPageHandler = PageHandler.subClass( {
 
-        init: function ( ) {
+        init: function () {
             this._super( {
                 id: "default",
                 "default": true
@@ -30,7 +32,7 @@
 
             debug && log.i( "Using default page handler" );
 
-            var hash = utils.deserializeHash( );
+            var hash = utils.deserializeHash();
 
             // If the default page handler is invoke, it means nuborn hasn't found any page handler for the current hash name.
             var ph; // = <find the right page handler>;
@@ -49,11 +51,6 @@
 
     } );
 
-    /**
-     * @property {app.pages.SubmitPageHandler} submit
-     * @member app
-     * Instance of a page handler for the submit page.
-     */
-    app[ "default" ] = new app.pages.DefaultPageHandler( );
+    module.exports = new DefaultPageHandler();
 
-} )( jQuery, nu, app, nu.Utils, nu.debug.Log );
+} );

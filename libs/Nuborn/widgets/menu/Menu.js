@@ -1,16 +1,19 @@
-( function ( $, nu, log, undefined ) {
+/*
+ * @provide nu.widgets.Menu
+ * @require nu.Utils
+ */
+define( "nu.widgets.Menu", function ( require, exports, module ) {
 
     'use strict';
+
+    var $ = jQuery;
+    var Utils = require( "nu.Utils" );
 
     /**
      * @class nu.widgets.Menu
      * Default behavior of a menu.
-     *
-     * @provide nu.widgets.Menu
-     *
-     * @require nu.widgets
      */
-    nu.widgets.Menu = Object.subClass( {
+    var Menu = Object.subClass( {
 
         /**
          * @constructor
@@ -40,7 +43,7 @@
          */
         show: function () {
             // deactivating scroll capacity during splashscreen
-            nu.Utils.disableScroll();
+            Utils.disableScroll();
             this.html.menu.addClass( "menu-show" );
         },
 
@@ -49,10 +52,11 @@
          */
         hide: function () {
             // reactivating scroll capacity
-            nu.Utils.enableScroll();
+            Utils.enableScroll();
             this.html.menu.removeClass( "menu-show" );
         }
 
     } );
 
-} )( jQuery, nu, nu.debug.Log );
+    module.exports = Menu;
+} );

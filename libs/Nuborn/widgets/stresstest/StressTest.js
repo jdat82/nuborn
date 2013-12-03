@@ -1,18 +1,24 @@
-( function ( $, nu, Log, LocalStorage, EventsDispatcher, undefined ) {
+/*
+ * @provide nu.widgets.StressTest
+ * @require nu.cache.LocalStorage
+ * @require nu.events.EventsDispatcher
+ */
+define( "nu.widgets.StressTest", function ( require, exports, module ) {
 
     'use strict';
+
+    var $ = jQuery;
+    var Log = require( "nu.debug.Log" );
+    var LocalStorage = require( "nu.cache.LocalStorage" );
+    var EventsDispatcher = require( "nu.events.EventsDispatcher" );
 
     /**
      * @class nu.widgets.StressTest
      *
      * Play a css animation to evaluate device performances.
      * When done, add a CSS class to html tag: either animationfriendly or no-animationfriendly.
-     *
-     * @provide nu.widgets.StressTest
-     *
-     * @require nu.widgets
      */
-    var StressTest = nu.widgets.StressTest = Object.subClass( {
+    var StressTest = Object.subClass( {
 
         /**
          * @constructor
@@ -83,17 +89,17 @@
      * @event
      * Fired when stress test is done.
      */
-    nu.widgets.StressTest.EVENT_STRESS_TEST_DONE = "stresstest/done";
+    StressTest.EVENT_STRESS_TEST_DONE = "stresstest/done";
 
     /**
      * CSS class name that mean "this browser is animation frienldy".
      */
-    nu.widgets.StressTest.KEY_ANIMATIONFRIENDLY = "animationfriendly";
+    StressTest.KEY_ANIMATIONFRIENDLY = "animationfriendly";
 
     /**
      * CSS class name that mean "this browser is NOT animation frienldy".
      */
-    nu.widgets.StressTest.KEY_NO_ANIMATIONFRIENDLY = "no-animationfriendly";
+    StressTest.KEY_NO_ANIMATIONFRIENDLY = "no-animationfriendly";
 
 
     /*
@@ -117,4 +123,6 @@
         } );
     }
 
-} )( jQuery, nu, nu.debug.Log, nu.cache.LocalStorage, nu.events.EventsDispatcher );
+    module.exports = StressTest;
+
+} );

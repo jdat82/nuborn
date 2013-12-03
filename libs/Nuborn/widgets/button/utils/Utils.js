@@ -1,18 +1,19 @@
-( function ( $, nu, undefined ) {
+/*
+ * @provide nu.widgets.button.Utils
+ */
+define( "nu.widgets.button.Utils", function ( require, exports, module ) {
 
 	'use strict';
+
+	var $ = jQuery;
 
 	/**
 	 * @class nu.widgets.button.Utils
 	 * @singleton
 	 *
 	 * Utility methods for buttons.
-	 *
-	 * @provide nu.widgets.button.Utils
-	 *
-	 * @require nu.widgets.button
 	 */
-	nu.widgets.button.Utils = {
+	var Utils = {
 
 		/**
 		 * Enable button's press mode.
@@ -47,15 +48,17 @@
 	 * i.e compatible with Android 2.3 and browsers without :active pseudo class support.
 	 */
 
-	function onvmousedown( ) {
+	function onvmousedown() {
 		var element = $( this );
 		// making the element active
 		element.addClass( "pressed" );
 		// when touch end, go to normal state
-		element.one( "vmouseup vmousemove", function ( ) {
+		element.one( "vmouseup vmousemove", function () {
 			// making the element normal
-			element.removeClass( "pressed" )
+			element.removeClass( "pressed" );
 		} );
 	}
 
-} )( jQuery, nu )
+	module.exports = Utils;
+
+} );

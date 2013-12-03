@@ -1,4 +1,7 @@
-( function ( nu ) {
+/*
+ * @provide nu.debug.LogLevel
+ */
+define( "nu.debug.LogLevel", function ( require, exports, module ) {
 
 	'use strict';
 
@@ -6,16 +9,14 @@
 	 * @enum
 	 *
 	 * Enumeration of log levels.
-	 *
-	 * @provide nu.debug.LogLevel
-	 *
-	 * @require nu.debug
 	 */
-	nu.debug.LogLevel = {
+	var LogLevel = {
 		INFO: "INFO",
 		WARN: "WARN",
 		ERROR: "ERROR",
 		NOLOG: "NOLOG"
 	};
 
-} )( nu );
+	module.exports = LogLevel;
+
+} );

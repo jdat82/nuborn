@@ -1,6 +1,21 @@
-( function ( window, $, nu, LogLevel, LogItem, undefined ) {
+/*
+ * @provide nu.debug.Log
+ * @require nu.debug.LogLevel
+ * @require nu.debug.LogItem
+ * @require nu.debug.ConsoleChannel
+ * @require nu.debug.LocalStorageChannel
+ * @require nu.debug.MemoryChannel
+ */
+define( "nu.debug.Log", function ( require, exports, module ) {
 
     'use strict';
+
+    var $ = jQuery;
+    var LogLevel = require( "nu.debug.LogLevel" );
+    var LogItem = require( "nu.debug.LogItem" );
+    var LocalStorageChannel = require( "nu.debug.LocalStorageChannel" );
+    var MemoryChannel = require( "nu.debug.MemoryChannel" );
+    var ConsoleChannel = require( "nu.debug.ConsoleChannel" );
 
     /*
      * Default settings
@@ -38,23 +53,9 @@
      * @singleton
      *
      * Entry point for logs.
-     * As a default, console is enabled but neither memory nor local storage logs.
-     *
-     * @provide nu.debug.Log
-     *
-     * @require nu.debug
-     *
-     * @require nu.debug.LogLevel
-     *
-     * @require nu.debug.LogItem
-     *
-     * @require nu.debug.ConsoleChannel
-     *
-     * @require nu.debug.LocalStorageChannel
-     *
-     * @require nu.debug.MemoryChannel
+     * As a default, console is enabled but neither memory nor local storage logs.     *
      */
-    nu.debug.Log = {
+    var Log = {
 
         /**
          * Constant to be used when defining defaults or requesting a channel.
@@ -130,7 +131,7 @@
             // console channel
             if ( channelName === this.CHANNEL_CONSOLE ) {
                 if ( enabled )
-                    this.channels[ this.CHANNEL_CONSOLE ] = new nu.debug.ConsoleChannel();
+                    this.channels[ this.CHANNEL_CONSOLE ] = new ConsoleChannel();
                 else
                     delete this.channels[ this.CHANNEL_CONSOLE ];
 
@@ -140,7 +141,7 @@
             // local storage channel
             else if ( channelName === this.CHANNEL_STORAGE ) {
                 if ( enabled )
-                    this.channels[ this.CHANNEL_STORAGE ] = new nu.debug.LocalStorageChannel( {
+                    this.channels[ this.CHANNEL_STORAGE ] = new LocalStorageChannel( {
                         storageKey: this.settings.storageKey
                     } );
                 else
@@ -152,7 +153,7 @@
             // memory channel
             else if ( channelName === this.CHANNEL_MEMORY ) {
                 if ( enabled )
-                    this.channels[ this.CHANNEL_MEMORY ] = new nu.debug.MemoryChannel();
+                    this.channels[ this.CHANNEL_MEMORY ] = new MemoryChannel();
                 else
                     delete this.channels[ this.CHANNEL_MEMORY ];
 
@@ -231,6 +232,8 @@
      * Initializing with defaults settings in case the developer starts to log without initializing anything.
      * We don't want to force him to initialize if not needed.
      */
-    nu.debug.Log.init();
+    Log.init();
 
-} )( this, jQuery, nu, nu.debug.LogLevel, nu.debug.LogItem );
+    module.exports = Log;
+
+} );
