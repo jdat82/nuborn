@@ -10,13 +10,6 @@
         text-shadow: 1px 1px #BBB;
     }
 
-    li:nth-child(odd) {
-        background-color: rgba(black,.1);
-    }
-    li:nth-child(even) {
-        background-color: rgba(white,.1);
-    }
-
     /*
      * umbrUI checkboxes by @simurai
      * Usage: <input type="checkbox" data-icon1="P" data-icon2="v" />

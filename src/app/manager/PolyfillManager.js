@@ -1,18 +1,18 @@
-( function ( window, $, app, nu, Log ) {
+/*
+ * @provide app.manager.PolyfillManager
+ */
+define( "app.manager.PolyfillManager", function ( require, exports, module ) {
 
     'use strict';
+
+    var $ = jQuery;
 
     /**
      * @class app.manager.PolyfillManager
      * @singleton
-     *
      * Handle everything related to polyfills.
-     *
-     * @provide app.manager.PolyfillManager
-     *
-     * @require app.manager
      */
-    app.manager.PolyfillManager = {
+    module.exports = {
 
         /**
          * Download all mandatory polyfills and notify the caller with a Deferred when done.
@@ -37,4 +37,4 @@
 
     };
 
-} )( this, jQuery, app, nu, nu.debug.Log );
+} );

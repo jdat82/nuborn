@@ -1,4 +1,9 @@
-( function ( $, nu, Log, LocalStorage, undefined ) {
+/*
+ * @provide nu.core.Context
+ * @require nu.debug.Log
+ * @require nu.cache.LocalStorage
+ */
+define( "nu.core.Context", function ( require, exports, module ) {
 
     'use strict';
 
@@ -11,16 +16,16 @@
     // private property
     var data;
 
+    var $ = jQuery;
+    var LocalStorage = require( "nu.cache.LocalStorage" );
+    var Log = require( "nu.debug.Log" );
+
     /**
      * @class nu.core.Context
      *
      * Simple context class to store temporary data.
-     *
-     * @provide nu.core.Context
-     *
-     * @require nu
      */
-    nu.core.Context = Object.subClass( {
+    var Context = Object.subClass( {
 
         /**
          * @constructor
@@ -64,18 +69,20 @@
                 return data[ key ];
         },
 
-        list: function ( ) {
+        list: function () {
             return data;
         },
 
         /**
          * Reset context. Reset also synchronized data in local storage if activated.
          */
-        clear: function ( ) {
+        clear: function () {
             data = {};
             if ( this.settings.synchronizeInLocalStorage )
                 LocalStorage.remove( this.settings.localStorageKey );
         },
     } );
 
-} )( jQuery, nu, nu.debug.Log, nu.cache.LocalStorage );
+    module.exports = Context;
+
+} );

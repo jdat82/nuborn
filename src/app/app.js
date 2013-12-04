@@ -1,41 +1,56 @@
-( function ( window, $, nu, Utils, Log, Context, SplashScreen, EventsDispatcher, pageEventsManager, undefined ) {
+/*
+ * @provide app
+ * @require app.Constants
+ * @require #home
+ * @require app.manager.FakeManager
+ * @require app.manager.PolyfillManager
+ * @require app.widgets.Menu
+ * @require nu.debug.Log
+ * @require nu.core.Context
+ * @require nu.events.EventsDispatcher
+ * @require nu.pages.PageEventsManager
+ * @require nu.Utils
+ * @require nu.widgets.SplashScreen
+ * @require nu.widgets.StressTest
+ */
+( function ( undefined ) {
 
     'use strict';
 
-    var splashscreen;
+    var $ = jQuery,
+        AppCache, Utils, Log, Context, SplashScreen, EventsDispatcher, pageEventsManager, menu, context,
+        FakeManager, PolyfillManager, StressTest, Constants, homePage;
 
-    /**
-     * @class app
-     * @singleton
-     * Application entry point.
-     *
-     * @provide app
-     *
-     * @require nu.Utils
-     * @require nu.debug.Log
-     * @require nu.core.Context
-     * @require nu.widgets.SplashScreen
-     * @require nu.events.EventsDispatcher
-     * @require nu.pages.PageEventsManager
-     */
-    window[ "app" ] = {
+    define( "app", function ( require, exports, module ) {
 
         /**
-         * Application current version.
+         * @class app
+         * @singleton
+         * Application entry point.
          */
-        version: "0.1.0",
+        module.exports = {
+            /**
+             * Application current version.
+             */
+            version: "0.1.0",
 
-        /**
-         * Application name.
-         */
-        name: "Nuborn Application"
-    };
+            /**
+             * Application name.
+             */
+            name: "Nuborn Application"
+        };
+    } );
+
 
     /*
      * Callback function called when the DOM is ready.
      */
 
     function ready() {
+
+        AppCache = require( "nu.cache.AppCache" );
+        Utils = require( "nu.Utils" );
+        Log = require( "nu.debug.Log" );
 
         Log.init( {
             storageKey: "nuborn.logs"
@@ -61,34 +76,13 @@
 
     function init() {
 
-        /**
-         * Context instance which holds contextual data.
-         * @type nu.core.Context
-         */
-        app.context = new Context( {
-            localStorageKey: "nuborn.context",
-            synchronizeInLocalStorage: true
-        } );
-
-        createUserId();
+        context = require( "#context" );
 
         // starting JQM
         $.mobile.initializePage();
 
         // show splashscreen
-        if ( !Utils.isCordova() || !Utils.isIOS() ) {
-            EventsDispatcher.emit( {
-                name: SplashScreen.EVENT_SHOW,
-                settings: {
-                    title: "NUBORN"
-                }
-            } );
-        }
-
-        // global menu
-        app.menu = new app.widgets.Menu( {
-            id: "menu"
-        } );
+        showSplashScreen();
 
         // loading mandatory data then going to first page
         downloadMetadataAndStart();
@@ -100,26 +94,32 @@
 
     function downloadMetadataAndStart() {
 
+        FakeManager = require( "app.manager.FakeManager" );
+        PolyfillManager = require( "app.manager.PolyfillManager" );
+        StressTest = require( "nu.widgets.StressTest" );
+        pageEventsManager = require( "nu.pages.PageEventsManager" ).instance;
+        homePage = require( "#home" );
+
         // sample manager that returns a promise
-        var fakePromise = app.manager.FakeManager.init();
+        var fakePromise = FakeManager.init();
 
         // all polyfills mandatory at startup are loaded now
-        var polyfillsPromise = app.manager.PolyfillManager.init();
+        var polyfillsPromise = PolyfillManager.init();
 
         // widget that test the device to discover its abilities
-        var stressTestWidget = new nu.widgets.StressTest();
+        var stressTestWidget = new StressTest();
         var stressTestPromise = stressTestWidget.play();
 
         // when all promises are resolved, we can go ahead
         $.when( fakePromise, polyfillsPromise, stressTestPromise ).done( function () {
             window.setTimeout( function () {
 
-                app.manager.PolyfillManager.checkTouchOverflowSupport();
+                PolyfillManager.checkTouchOverflowSupport();
 
                 // there is a very annoying JQM bug : we need to add our first page navigation at the end of the event loop.
                 // so that's the setTimeout job in here.
                 // loading in DOM first page app
-                pageEventsManager.loadFirstPage( app.home.settings.id );
+                pageEventsManager.loadFirstPage( homePage.settings.id );
 
             }, 100 );
         } ).fail( function () {
@@ -130,13 +130,22 @@
         } );
     }
 
-    function createUserId() {
-        var userId = app.context.get( app.core.Constants.USER_ID );
-        if ( !userId )
-            app.context.set( app.core.Constants.USER_ID, Utils.guid() );
+    function showSplashScreen() {
+
+        EventsDispatcher = require( "nu.events.EventsDispatcher" );
+        SplashScreen = require( "nu.widgets.SplashScreen" );
+
+        if ( !Utils.isCordova() || !Utils.isIOS() ) {
+            EventsDispatcher.emit( {
+                name: SplashScreen.EVENT_SHOW,
+                settings: {
+                    title: "NUBORN"
+                }
+            } );
+        }
     }
 
-    // when the Document is ready, we too
+    // when the Document is ready, GO GO GO
     $( ready );
 
-} )( this, jQuery, nu, nu.Utils, nu.debug.Log, nu.core.Context, nu.widgets.SplashScreen, nu.events.EventsDispatcher, nu.pages.PageEventsManager.get() );
+} )();

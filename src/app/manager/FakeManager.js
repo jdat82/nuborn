@@ -1,29 +1,29 @@
-( function ( window, $, app ) {
+/*
+ * @provide app.manager.FakeManager
+ */
+define( "app.manager.FakeManager", function ( require, exports, module ) {
 
     'use strict';
+
+    var $ = jQuery;
 
     /**
      * @class app.manager.FakeManager
      * @singleton
-     *
      * Fake Manager for demonstration purposes.
-     *
-     * @provide app.manager.FakeManager
-     *
-     * @require app.manager
      */
-    app.manager.FakeManager = {
+    module.exports = {
 
-        init: function ( ) {
-            var dfd = $.Deferred( );
+        init: function () {
+            var dfd = $.Deferred();
 
-            window.setTimeout( function ( ) {
-                dfd.resolve( );
+            window.setTimeout( function () {
+                dfd.resolve();
             }, 3000 );
 
-            return dfd.promise( );
+            return dfd.promise();
         }
 
     };
 
-} )( this, jQuery, app );
+} );

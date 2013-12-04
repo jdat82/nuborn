@@ -1,19 +1,19 @@
-( function ( $, nu, Log, SettingsManager, undefined ) {
+define( "app.widgets.Menu", function ( require, exports, module ) {
 
     'use strict';
+
+    var $ = jQuery;
+    var Log = require( "nu.debug.Log" );
+    var SettingsManager = require( "app.manager.SettingsManager" );
+    var BaseMenu = require( "nu.widgets.Menu" );
 
     /**
      * @class app.widgets.Menu
      * @extends nu.widgets.Menu
      *
      * Nuborn general menu.
-     *
-     * @provide app.widgets.Menu
-     *
-     * @require app.widgets
-     * @require nu.widgets.Menu
      */
-    app.widgets.Menu = nu.widgets.Menu.subClass( {
+    var Menu = BaseMenu.subClass( {
 
         /**
          * @constructor
@@ -35,8 +35,9 @@
         },
 
         goToHome: function () {
-            app.menu.toggleMenu();
-            !app.home.isVisible() && navigate( this.html.menu, app.home );
+            var homePage = require( "#home" );
+            this.toggleMenu();
+            !homePage.isVisible() && navigate( this.html.menu, homePage );
         },
 
         goToProfile: function () {
@@ -44,18 +45,21 @@
         },
 
         goToSettings: function () {
-            app.menu.toggleMenu();
-            !app.settings.isVisible() && navigate( this.html.menu, app.settings );
+            var settingsPage = require( "#settings" );
+            this.toggleMenu();
+            !settingsPage.isVisible() && navigate( this.html.menu, settingsPage );
         },
 
         goToHelp: function () {
-            app.menu.toggleMenu();
-            !app.help.isVisible() && navigate( this.html.menu, app.help );
+            var helpPage = require( "#help" );
+            this.toggleMenu();
+            !helpPage.isVisible() && navigate( this.html.menu, helpPage );
         },
 
         goToLegalNotices: function () {
-            app.menu.toggleMenu();
-            !app.legalNotices.isVisible() && navigate( this.html.menu, app.legalNotices );
+            var legalNoticesPage = require( "#legalNotices" );
+            this.toggleMenu();
+            !legalNoticesPage.isVisible() && navigate( this.html.menu, legalNoticesPage );
         },
 
     } );
@@ -71,4 +75,6 @@
         }
     }
 
-} )( jQuery, nu, nu.debug.Log, app.manager.SettingsManager );
+    module.exports = Menu;
+
+} );

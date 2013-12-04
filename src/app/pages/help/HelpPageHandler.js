@@ -1,6 +1,17 @@
-( function ( $, nu, app, utils, log, templates, undefined ) {
+/*
+ * @provide app.pages.HelpPageHandler
+ * @require app.pages.NubornPageHandler
+ * @require nu.debug.Log
+ * @require nu.Utils
+ */
+define( "app.pages.HelpPageHandler", function ( require, exports, module ) {
 
 	'use strict';
+
+	var $ = jQuery;
+	var Utils = require( "nu.Utils" );
+	var Log = require( "nu.debug.Log" );
+	var NubornPageHandler = require( "app.pages.NubornPageHandler" );
 
 	/**
 	 * @class app.pages.HelpPageHandler
@@ -8,13 +19,8 @@
 	 *
 	 * The Page Handler of the help page.
 	 *
-	 * {@link app#help app.help is an instance of this page handler}
-	 *
-	 * @provide app.pages.HelpPageHandler
-	 *
-	 * @require app.pages.NubornPageHandler
 	 */
-	app.pages.HelpPageHandler = app.pages.NubornPageHandler.subClass( {
+	var HelpPageHandler = NubornPageHandler.subClass( {
 
 		/**
 		 * @override
@@ -64,19 +70,15 @@
 		handleMenuButton: function () {
 			// when tap on menu button, open menu panel
 			this.html.menuButton.on( "tap", function () {
+				var menu = require( "#menu" );
 				// opening menu panel
-				app.menu.toggleMenu();
+				menu.toggleMenu();
 				// prevent bubbling
 				return false;
 			} );
 		}
 	} );
 
-	/**
-	 * @property {app.pages.HelpPageHandler} help
-	 * @member app
-	 * Instance of a page handler for the help page.
-	 */
-	app.help = new app.pages.HelpPageHandler();
+	module.exports = HelpPageHandler;
 
-} )( jQuery, nu, app, nu.Utils, nu.debug.Log, templates )
+} );

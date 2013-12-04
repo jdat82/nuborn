@@ -1,27 +1,29 @@
-( function ( $, nu, Log, undefined ) {
+/*
+ * @provide nu.pages.PageEventsManager
+ * @require nu.debug.Log
+ */
+define( "nu.pages.PageEventsManager", function ( require, exports, module ) {
 
 	'use strict';
 
+	var $ = jQuery;
+	var Log = require( "nu.debug.Log" );
+	var Utils = require( "nu.Utils" );
+
 	/**
 	 * @class nu.pages.PageEventsManager
-	 * @singleton
 	 *
 	 * Page events manager Class. <br/>
 	 * Used to dispatch jQuery Mobile page events.
-	 *
-	 * @provide nu.pages.PageEventsManager
-	 *
-	 * @require nu.pages
-	 * @require nu.debug.Log
 	 */
-	nu.pages.PageEventsManager = Object.subClass( {
+	var PageEventsManager = Object.subClass( {
 		/**
 		 * @constructor
 		 * Creates a new Page Events Manager.
 		 */
 		init: function () {
 			// initializing members
-			this.pageHandlers = {};
+			// this.pageHandlers = {};
 			this.currentPageHandler = null;
 			this.previousPageHandler = null;
 
@@ -74,16 +76,16 @@
 		 * Page handlers have to register to the page events manager to be notified when jQuery Mobile page events are triggered.
 		 * @param  {nu.pages.PageHandler} pageHandler
 		 */
-		registerPageHandler: function ( pageHandler ) {
+		// registerPageHandler: function ( pageHandler ) {
 
-			if ( !pageHandler || !pageHandler.settings || !pageHandler.settings.id )
-				return;
+		// 	if ( !pageHandler || !pageHandler.settings || !pageHandler.settings.id )
+		// 		return;
 
-			if ( pageHandler.settings[ "default" ] )
-				this.defaultPageHandler = pageHandler;
-			else
-				this.pageHandlers[ pageHandler.settings.id ] = pageHandler;
-		},
+		// 	if ( pageHandler.settings[ "default" ] )
+		// 		this.defaultPageHandler = pageHandler;
+		// 	else
+		// 		this.pageHandlers[ pageHandler.settings.id ] = pageHandler;
+		// },
 
 		/**
 		 * Returns the page handler from the given id.
@@ -92,7 +94,12 @@
 		 */
 		getPageHandler: function ( id ) {
 
-			var pageHandler = this.pageHandlers[ id ];
+			var pageHandler;
+
+			try {
+				pageHandler = require( "#" + id );
+			}
+			catch ( exception ) {}
 
 			if ( !pageHandler && !this.defaultPageHandler ) {
 				Log.w( "No page handler for page '" + id + "' !" );
@@ -125,7 +132,7 @@
 		loadFirstPage: function ( defaultPageId ) {
 
 			// hash.name contains current page id if filled
-			var hash = nu.Utils.deserializeHash();
+			var hash = Utils.deserializeHash();
 			var pageId = hash.name || defaultPageId;
 			DEBUG && Log.i( "First page is: " + pageId );
 
@@ -390,7 +397,7 @@
 		interceptHashLinks: function () {
 			$( document ).on( "click", "a", function ( event ) {
 				var el = event.currentTarget;
-				var hash = nu.Utils.deserializeHash( el.href );
+				var hash = Utils.deserializeHash( el.href );
 				var preventDefault = ( el.dataset.intercept === "false" );
 				// if it is not a hash link, nothing to do
 				if ( !hash.name || !hash.name.length || preventDefault ) {
@@ -399,8 +406,9 @@
 				}
 
 				DEBUG && Log.i( "intercepted hash link: #" + hash.name );
-				if ( app[ hash.name ] ) {
-					app[ hash.name ].navigate( {
+				var pageHandler = require( "#" + hash.name );
+				if ( pageHandler ) {
+					pageHandler.navigate( {
 						pageParams: hash.params
 					} );
 					event.preventDefault();
@@ -412,17 +420,11 @@
 	} );
 
 	/**
-	 * Gets the shared instance of PageEventsManager class.
-	 * @return {nu.pages.PageEventsManager} The shared instance of Page Events Manager
-	 *
-	 * @static
-	 * @method get
+	 * @singleton
+	 * @property {nu.pages.PageEventsManager} instance The shared instance of PageEventsManager
 	 */
-	nu.pages.PageEventsManager.get = function () {
-		if ( !nu.pages.PageEventsManager.SINGLETON_INSTANCE ) {
-			nu.pages.PageEventsManager.SINGLETON_INSTANCE = new nu.pages.PageEventsManager();
-		}
-		return nu.pages.PageEventsManager.SINGLETON_INSTANCE;
-	};
+	PageEventsManager.instance = new PageEventsManager();
 
-} )( jQuery, nu, nu.debug.Log )
+	module.exports = PageEventsManager;
+
+} );

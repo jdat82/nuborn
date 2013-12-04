@@ -1,20 +1,23 @@
-( function ( $, nu, app, utils, log, templates, undefined ) {
+/*
+ * @provide app.pages.LegalNoticesPageHandler
+ * @require app.pages.NubornPageHandler
+ * @require nu.debug.Log
+ */
+define( "app.pages.LegalNoticesPageHandler", function ( require, exports, module ) {
 
 	'use strict';
+
+	var $ = jQuery;
+	var Log = require( "nu.debug.Log" );
+	var NubornPageHandler = require( "app.pages.NubornPageHandler" );
 
 	/**
 	 * @class app.pages.LegalNoticesPageHandler
 	 * @extends app.pages.NubornPageHandler
 	 *
 	 * The Page Handler of the legalNotices page.
-	 *
-	 * {@link app#legalNotices app.legalNotices is an instance of this page handler}
-	 *
-	 * @provide app.pages.LegalNoticesPageHandler
-	 *
-	 * @require app.pages.NubornPageHandler
 	 */
-	app.pages.LegalNoticesPageHandler = app.pages.NubornPageHandler.subClass( {
+	var LegalNoticesPageHandler = NubornPageHandler.subClass( {
 
 		/**
 		 * @override
@@ -65,19 +68,15 @@
 		handleMenuButton: function () {
 			// when tap on menu button, open menu panel
 			this.html.menuButton.on( "tap", function () {
+				var menu = require( "#menu" );
 				// opening menu panel
-				app.menu.toggleMenu();
+				menu.toggleMenu();
 				// prevent bubbling
 				return false;
 			} );
 		}
 	} );
 
-	/**
-	 * @property {app.pages.LegalNoticesPageHandler} legalNotices
-	 * @member app
-	 * Instance of a page handler for the legalNotices page.
-	 */
-	app.legalNotices = new app.pages.LegalNoticesPageHandler();
+	module.exports = LegalNoticesPageHandler;
 
-} )( jQuery, nu, app, nu.Utils, nu.debug.Log, templates )
+} );

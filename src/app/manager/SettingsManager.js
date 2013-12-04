@@ -1,6 +1,19 @@
-( function ( window, $, nu, app, Log, Constants, LocalStorage, StressTest, undefined ) {
+/*
+ * @provide app.manager.SettingsManager
+ * @require nu.debug.Log
+ * @require app.Constants
+ * @require nu.cache.LocalStorage
+ * @require nu.widgets.StressTest
+ */
+define( "app.manager.SettingsManager", function ( require, exports, module ) {
 
     'use strict';
+
+    var $ = jQuery;
+    var Log = require( "nu.debug.Log" );
+    var Constants = require( "app.Constants" );
+    var LocalStorage = require( "nu.cache.LocalStorage" );
+    var StressTest = require( "nu.widgets.StressTest" );
 
     /*
      * Private data.
@@ -11,16 +24,11 @@
      * @class app.manager.SettingsManager
      * @singleton
      * Service that manage application settings.
-     *
-     * @provide app.manager.SettingsManager
-     *
-     * @require app.manager
      */
-    app.manager.SettingsManager = {
+    module.exports = {
 
         /**
-         *
-         *
+         * @constructor
          */
         init: function () {},
 
@@ -96,4 +104,4 @@
         }
     };
 
-} )( window, jQuery, nu, app, nu.debug.Log, app.core.Constants, nu.cache.LocalStorage, nu.widgets.StressTest );
+} );

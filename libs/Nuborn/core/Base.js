@@ -1,17 +1,12 @@
-// ( function ( window, $, nu, Log, undefined ) {
 define( "app.core.Base", function ( require, exports, module ) {
 
     'use strict';
 
-    // var $ = require( "jQuery" );
+    var $ = jQuery;
 
     /**
      * @class app.manager.SettingsManager
      * Base class for every other class.
-     *
-     * @provide app.core.Base
-     *
-     * @require app.core
      */
     module.exports = Object.subClass( {
 
@@ -39,14 +34,3 @@ define( "app.core.Base", function ( require, exports, module ) {
     } );
 
 } );
-
-// ( function () {
-//     var Base = require( "app.core.Base" );
-//     var Toto = Base.subClass( {
-//         init: function () {
-//             this._super();
-//             console.log( "Toto" );
-//         }
-//     } );
-//     var toto = new Toto();
-// } )();

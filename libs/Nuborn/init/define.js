@@ -1,11 +1,9 @@
-var require, define;
-
 /**
- * @provide define
  * Copied from cordova project.
  */
-( function () {
+( function ( window, undefined ) {
 
+    if ( window.define && window.require ) return;
 
     var modules = {},
         // Stack of moduleIds currently being built.
@@ -68,4 +66,4 @@ var require, define;
     };
 
     define.moduleMap = modules;
-} )();
+} )( window );

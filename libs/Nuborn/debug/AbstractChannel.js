@@ -1,4 +1,9 @@
-( function ( window, $, nu, undefined ) {
+/*
+ * @provide nu.debug.AbstractChannel
+ * @require nu.debug.LogLevel
+ * @require nu.debug.LogItem
+ */
+define( "nu.debug.AbstractChannel", function ( require, exports, module ) {
 
 	'use strict';
 
@@ -6,14 +11,8 @@
 	 * @class nu.debug.AbstractChannel
 	 *
 	 * Common behaviors for all loggers.
-	 *
-	 * @provide nu.debug.AbstractChannel
-	 *
-	 * @require nu.debug.LogLevel
-	 *
-	 * @require nu.debug.LogItem
 	 */
-	nu.debug.AbstractChannel = Object.subClass( {
+	var AbstractChannel = Object.subClass( {
 
 		/**
 		 * @constructor
@@ -53,4 +52,6 @@
 
 	} );
 
-} )( this, jQuery, nu );
+	module.exports = AbstractChannel;
+
+} );

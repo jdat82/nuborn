@@ -1,25 +1,26 @@
-( function ( window, $, nu, log, undefined ) {
+/*
+ * @provide nu.Utils
+ */
+define( "nu.Utils", function ( require, exports, module ) {
 
 	'use strict';
+
+	var $ = jQuery;
 
 	/***
 	 * @class nu.Utils
 	 * @singleton
 	 *
 	 * Utilities class.
-	 *
-	 * @provide nu.Utils
-	 *
-	 * @require nu
 	 */
-	nu.Utils = {};
+	var Utils = {};
 
 	/**
 	 * Checks if Internet is reachable.
 	 * @return {Boolean} The reachability of the internet
 	 */
-	nu.Utils.isNetworkAvailable = function ( ) {
-		if ( nu.Utils.isCordova( ) ) {
+	Utils.isNetworkAvailable = function () {
+		if ( Utils.isCordova() ) {
 			return navigator.connection.type !== Connection.NONE;
 		}
 		else {
@@ -31,7 +32,7 @@
 	 * Checks if the application is running with PhoneGap (Cordova)
 	 * @return {Boolean} [description]
 	 */
-	nu.Utils.isCordova = function ( ) {
+	Utils.isCordova = function () {
 		return window.cordova;
 	};
 
@@ -39,8 +40,8 @@
 	 * Checks if the device platform is Android.
 	 * @return {Boolean}
 	 */
-	nu.Utils.isAndroid = function ( ) {
-		if ( nu.Utils.isCordova( ) ) {
+	Utils.isAndroid = function () {
+		if ( Utils.isCordova() ) {
 			return device.platform === "Android";
 		}
 		else {
@@ -52,8 +53,8 @@
 	 * Checks if the device platform is iOS.
 	 * @return {Boolean}
 	 */
-	nu.Utils.isIOS = function ( ) {
-		if ( nu.Utils.isCordova( ) ) {
+	Utils.isIOS = function () {
+		if ( Utils.isCordova() ) {
 			return device.platform === "iOS";
 		}
 		else {
@@ -65,22 +66,22 @@
 	 * Checks if the device platform is older than Android 4.
 	 * @return {Boolean}
 	 */
-	nu.Utils.isOldAndroid = function ( ) {
-		if ( !nu.Utils.isAndroid( ) ) {
+	Utils.isOldAndroid = function () {
+		if ( !Utils.isAndroid() ) {
 			return false;
 		}
-		return nu.Utils.getOSVersion( ) < 4;
+		return Utils.getOSVersion() < 4;
 	};
 
 	/**
 	 * Checks if the device platform is older than iOS 5.
 	 * @return {Boolean}
 	 */
-	nu.Utils.isOldIOS = function ( ) {
-		if ( !nu.Utils.isIOS( ) ) {
+	Utils.isOldIOS = function () {
+		if ( !Utils.isIOS() ) {
 			return false;
 		}
-		return nu.Utils.getOSVersion( ) < 5;
+		return Utils.getOSVersion() < 5;
 	};
 
 	/**
@@ -89,9 +90,9 @@
 	 * Needs more support.
 	 * @return {Boolean}
 	 */
-	nu.Utils.getOSVersion = function ( ) {
+	Utils.getOSVersion = function () {
 		// if the app is running on PhoneGap, ask for the device version
-		if ( nu.Utils.isCordova( ) ) {
+		if ( Utils.isCordova() ) {
 			return parseFloat( device.version, 10 );
 		}
 		// if it is a web app, ask the navigator user agent
@@ -99,7 +100,7 @@
 			// getting the user agent into a local variable
 			var agent = navigator.userAgent;
 			// iOS case
-			if ( nu.Utils.isIOS( ) ) {
+			if ( Utils.isIOS() ) {
 				// removing the first part of the user agent
 				var versionIndex = agent.indexOf( "OS" ) + 2;
 				agent = agent.slice( versionIndex );
@@ -114,7 +115,7 @@
 				return version;
 			}
 			// Android case
-			else if ( nu.Utils.isAndroid( ) ) {
+			else if ( Utils.isAndroid() ) {
 				// removing the first part of the user agent
 				var versionIndex = agent.indexOf( "Android" ) + 7;
 				agent = agent.slice( versionIndex );
@@ -136,7 +137,7 @@
 	 * Loads JavaScript library contained in the js/lazy folder.
 	 * @param  {String} library The library to load
 	 */
-	nu.Utils.loadLazyLib = function ( library ) {
+	Utils.loadLazyLib = function ( library ) {
 		$.ajax( {
 			url: "js/lazy/" + library,
 			dataType: "script",
@@ -144,17 +145,17 @@
 		} );
 	};
 
-	nu.Utils.blockEvent = function ( event ) {
-		event.preventDefault( );
+	Utils.blockEvent = function ( event ) {
+		event.preventDefault();
 		return false;
 	};
 
-	nu.Utils.disableScroll = function ( ) {
-		$( document ).on( "touchmove", nu.Utils.blockEvent );
+	Utils.disableScroll = function () {
+		$( document ).on( "touchmove", Utils.blockEvent );
 	};
 
-	nu.Utils.enableScroll = function ( ) {
-		$( document ).off( "touchmove", nu.Utils.blockEvent );
+	Utils.enableScroll = function () {
+		$( document ).off( "touchmove", Utils.blockEvent );
 	};
 
 	/**
@@ -164,7 +165,7 @@
 	 * @return {String} return.name Hash name
 	 * @return {Object} return.params Hash parameters
 	 */
-	nu.Utils.deserializeHash = function ( hash ) {
+	Utils.deserializeHash = function ( hash ) {
 		var result = {
 			name: "",
 			params: ""
@@ -193,7 +194,7 @@
 			result.name = result.name.replace( /(.*#)|(\?.*)/g, "" );
 
 		// extracting hash parameters
-		result.params = nu.Utils.deserializeParameters( hash.substr( questionMarkIndex ) );
+		result.params = Utils.deserializeParameters( hash.substr( questionMarkIndex ) );
 
 		return result;
 	};
@@ -203,7 +204,7 @@
 	 * @param {String} hash Minimum significant pattern is "?key=value"
 	 * @return {Object} Simple key/value object.
 	 */
-	nu.Utils.deserializeParameters = function ( hash ) {
+	Utils.deserializeParameters = function ( hash ) {
 
 		var result = {};
 		if ( !hash || !hash.length )
@@ -231,13 +232,13 @@
 	 * @param {Object} parameters Simple key/value object.
 	 * @return {String} following pattern "key1=value[&key2=value&...]"
 	 */
-	nu.Utils.serializeHashParameters = function ( parameters ) {
+	Utils.serializeHashParameters = function ( parameters ) {
 
 		var result = "";
 		if ( !parameters )
 			return result;
 
-		var paramsArray = [ ];
+		var paramsArray = [];
 		for ( var key in parameters ) {
 			paramsArray.push( key + "=" + encodeURIComponent( parameters[ key ] ) );
 		}
@@ -249,14 +250,14 @@
 	/**
 	 * Clone a javascript object.
 	 */
-	nu.Utils.clone = function ( objectToClone ) {
+	Utils.clone = function ( objectToClone ) {
 		return JSON.parse( JSON.stringify( objectToClone ) );
 	};
 
 	/**
 	 * Shortcut for JSON.stringify(object, null, "    ")
 	 */
-	nu.Utils.toJSON = function ( object ) {
+	Utils.toJSON = function ( object ) {
 		var clone = $.extend( true, {}, object );
 		return JSON.stringify( clone, null, "    " );
 	};
@@ -267,7 +268,7 @@
 	 * @param {String} pageId page ID.
 	 *  Don't provide the character "#" in pageId.
 	 */
-	nu.Utils.refreshPage = function ( pageId ) {
+	Utils.refreshPage = function ( pageId ) {
 		pageId = pageId || $.mobile.activePage.attr( "id" );
 		DEBUG && log.i( "Refreshing page: " + pageId );
 		$.mobile.changePage(
@@ -283,14 +284,16 @@
 	 * If in a phonegap iOS app, hide native splashscreen.
 	 * Else, hide web splashscreen.
 	 */
-	nu.Utils.hideSplashScreen = function ( ) {
+	Utils.hideSplashScreen = function () {
 		// if the splashscreen is handled natively with iOS
-		if ( this.isCordova( ) && this.isIOS( ) ) {
-			navigator.splashscreen.hide( );
+		if ( Utils.isCordova() && Utils.isIOS() ) {
+			navigator.splashscreen.hide();
 		}
 		else {
-			nu.events.EventsDispatcher.emit( {
-				name: nu.widgets.SplashScreen.EVENT_HIDE
+			var EventsDispatcher = require( "nu.events.EventsDispatcher" ); // @ignore
+			var SplashScreen = require( "nu.widgets.SplashScreen" ); // @ignore
+			EventsDispatcher.emit( {
+				name: SplashScreen.EVENT_HIDE
 			} );
 		}
 	};
@@ -301,7 +304,7 @@
 	 * weinre : true if you want weinre support
 	 * livereload : true if you want livereload support
 	 */
-	nu.Utils.installDebugScripts = function ( ) {
+	Utils.installDebugScripts = function () {
 
 		/**
 		 * Adding livereload support for development only.
@@ -342,7 +345,7 @@
 	 * @param {String} string
 	 * @param {Array} params Array of values (converted as string)
 	 */
-	nu.Utils.replaceWith = function ( string, params ) {
+	Utils.replaceWith = function ( string, params ) {
 		if ( !params )
 			return string;
 		if ( !( params instanceof Array ) )
@@ -367,9 +370,9 @@
 	/**
 	 * Generate a random GUID.
 	 */
-	nu.Utils.guid = function ( ) {
+	Utils.guid = function () {
 		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace( /[xy]/g, function ( c ) {
-			var r = Math.random( ) * 16 | 0,
+			var r = Math.random() * 16 | 0,
 				v = c == 'x' ? r : ( r & 0x3 | 0x8 );
 			return v.toString( 16 );
 		} );
@@ -378,12 +381,12 @@
 	/**
 	 * Generate a random color as HEX format.
 	 */
-	nu.Utils.randomHexColor = function ( ) {
-		return '#' + Math.floor( Math.random( ) * 16777215 ).toString( 16 );
+	Utils.randomHexColor = function () {
+		return '#' + Math.floor( Math.random() * 16777215 ).toString( 16 );
 	};
 
-	nu.Utils.randomRgbaColor = function ( opacity, hex ) {
-		var hex = hex || nu.Utils.randomHexColor( ).replace( '#', '' );
+	Utils.randomRgbaColor = function ( opacity, hex ) {
+		var hex = hex || Utils.randomHexColor().replace( '#', '' );
 		var r = parseInt( hex.substring( 0, 2 ), 16 );
 		var g = parseInt( hex.substring( 2, 4 ), 16 );
 		var b = parseInt( hex.substring( 4, 6 ), 16 );
@@ -392,8 +395,8 @@
 		return result;
 	};
 
-	nu.Utils.randomHexColorWithLuminance = function ( lum, hex ) {
-		var hex = hex || nu.Utils.randomHexColor( );
+	Utils.randomHexColorWithLuminance = function ( lum, hex ) {
+		var hex = hex || Utils.randomHexColor();
 
 		// validate hex string
 		hex = String( hex ).replace( /[^0-9a-f]/gi, '' );
@@ -414,8 +417,8 @@
 		return rgb;
 	};
 
-	nu.Utils.randomRgbColor = function ( ) {
-		var hex = nu.Utils.randomHexColor( );
+	Utils.randomRgbColor = function () {
+		var hex = Utils.randomHexColor();
 		var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec( hex );
 		return result ? {
 			r: parseInt( result[ 1 ], 16 ),
@@ -427,8 +430,8 @@
 	/**
 	 * Return a random item from an array.
 	 */
-	nu.Utils.randomItemFromArray = function ( array ) {
-		return array[ Math.floor( Math.random( ) * array.length ) ];
+	Utils.randomItemFromArray = function ( array ) {
+		return array[ Math.floor( Math.random() * array.length ) ];
 	};
 
 	// handle old browsers when JSON object is missing
@@ -447,4 +450,6 @@
 	// 	};
 	// }
 
-} )( this, jQuery, nu, nu.debug.Log )
+	module.exports = Utils;
+
+} );

@@ -1,24 +1,25 @@
-( function ( window, $, nu, LocalStorage, undefined ) {
+/*
+ * @provide nu.debug.LocalStorageChannel
+ * @require nu.debug.LogLevel
+ * @require nu.debug.LogItem
+ * @require nu.cache.LocalStorage
+ * @require nu.debug.AbstractChannel
+ */
+define( "nu.debug.LocalStorageChannel", function ( require, exports, module ) {
 
     'use strict';
+
+    var AbstractChannel = require( "nu.debug.AbstractChannel" );
+    var LocalStorage = require( "nu.cache.LocalStorage" );
+    var LogLevel = require( "nu.debug.LogLevel" );
 
     /**
      * @class nu.debug.LocalStorageChannel
      * @extends nu.debug.AbstractChannel
      *
      * Keep logs in local storage.
-     *
-     * @provide nu.debug.LocalStorageChannel
-     *
-     * @require nu.debug.LogLevel
-     *
-     * @require nu.debug.LogItem
-     *
-     * @require nu.cache.LocalStorage
-     *
-     * @require nu.debug.AbstractChannel
      */
-    nu.debug.LocalStorageChannel = nu.debug.AbstractChannel.subClass( {
+    var LocalStorageChannel = AbstractChannel.subClass( {
 
         /**
          * @constructor
@@ -52,7 +53,7 @@
                 return stack || [];
 
             // invalid level, noop.
-            if ( !nu.debug.LogLevel.hasOwnProperty( level ) )
+            if ( !LogLevel.hasOwnProperty( level ) )
                 return [];
 
             // specific level
@@ -69,7 +70,7 @@
             var print = "";
 
             // invalid level, noop.
-            if ( level && !nu.debug.LogLevel.hasOwnProperty( level ) )
+            if ( level && !LogLevel.hasOwnProperty( level ) )
                 return print;
 
             // filtering then concatenating a big string
@@ -93,7 +94,7 @@
             }
 
             // invalid level, noop.
-            if ( !nu.debug.LogLevel.hasOwnProperty( level ) )
+            if ( !LogLevel.hasOwnProperty( level ) )
                 return;
 
             // specific level, keeping other levels
@@ -107,4 +108,6 @@
 
     } );
 
-} )( this, jQuery, nu, nu.cache.LocalStorage );
+    module.exports = LocalStorageChannel;
+
+} );

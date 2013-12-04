@@ -1,19 +1,20 @@
-( function ( nu, app, undefined ) {
+/*
+ * @provide app.core.uris
+ * @require nu.core.UriManager
+ */
+define( "app.core.uris", function ( require, exports, module ) {
 
     'use strict';
+
+    var UriManager = require( "nu.core.UriManager" );
 
     /**
      * Declaration of all urls used in the application.
      *
      * @property {nu.core.UriManager} uris
      * @member app
-     *
-     * @provide app.core.uris
-     *
-     * @require nu.core.UriManager
-     * @require app.core
      */
-    app.core.uris = new nu.core.UriManager( {
+    module.exports = new UriManager( {
         networks: {
             "backend": {
                 "host": NETWORK,
@@ -23,7 +24,7 @@
                 "host": "mock/"
             },
             current: {
-                host: getCurrentHost( )
+                host: getCurrentHost()
             }
         },
         services: {
@@ -31,8 +32,8 @@
         }
     } );
 
-    function getCurrentHost( ) {
+    function getCurrentHost() {
         return location.protocol + "//" + location.host;
     }
 
-} )( nu, app );
+} );

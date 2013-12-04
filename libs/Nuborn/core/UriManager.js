@@ -1,16 +1,23 @@
-(function ($, nu, log, undefined) {
+/*
+ * @provide nu.core.UriManager
+ * @require nu.debug.Log
+ */
+define( "nu.core.UriManager", function ( require, exports, module ) {
 
     'use strict';
 
-    function initNetworksAndServices(instance, settings) {
+    function initNetworksAndServices( instance, settings ) {
         var defaults = {
             networks: {},
             services: {}
         };
-        settings = $.extend(true, defaults, settings);
+        settings = $.extend( true, defaults, settings );
         instance.networks = settings.networks;
         instance.services = settings.services;
     }
+
+    var $ = jQuery;
+    var Log = require( "nu.debug.Log" );
 
     /**
      * @class nu.core.UriManager
@@ -21,21 +28,16 @@
      * - Allows to declare a default network which will be used when no one is specified on a service
      * - Allows to declare service urls network independent
      * - Allows to handle several configurations on the same application like local services, remote services and mock services.
-     *
-     * @provide nu.core.UriManager
-     *
-     * @require nu
-     * @require nu.debug.Log
      */
-    nu.core.UriManager = Object.subClass({
+    var UriManager = Object.subClass( {
 
         /**
          * Initialize network and services properties.
          *
          * @param {Object} settings
          */
-        init: function (settings) {
-            this.extend(settings);
+        init: function ( settings ) {
+            this.extend( settings );
         },
 
         /**
@@ -44,24 +46,24 @@
          * @param {String} id Service path key
          * @param {Object} params Parameters to use when replacing placeholders
          */
-        get: function (id, params) {
+        get: function ( id, params ) {
 
-            if (!id)
+            if ( !id )
                 return;
 
-            if (!this.services && !this.services[id])
+            if ( !this.services && !this.services[ id ] )
                 return;
 
             var host = "";
-            var value = this.services[id];
+            var value = this.services[ id ];
 
             // When specifying a service path, you can use the shortand notation with a simple string
             // or an object with a url and network properties.
             var path = "";
-            if (value instanceof Object) {
-                if (value && value.path) {
-                    if (value.network) {
-                        host = this.getHost(value.network);
+            if ( value instanceof Object ) {
+                if ( value && value.path ) {
+                    if ( value.network ) {
+                        host = this.getHost( value.network );
                     }
                     path = value.path;
                 }
@@ -71,11 +73,11 @@
             }
 
             // if no explicit host, using the default one
-            if (host === "" && this.defaultNetwork && this.defaultNetwork.host) {
+            if ( host === "" && this.defaultNetwork && this.defaultNetwork.host ) {
                 host = this.defaultNetwork.host;
             }
 
-            var service = nu.Utils.replaceWith(path, params);
+            var service = nu.Utils.replaceWith( path, params );
 
             // Revoir la gestion du mock pour fonctionner par url sans passer par le contexte.
             // en mode mock on remplace le point d'interrogation par un underscore plus filesystem friendly
@@ -90,9 +92,9 @@
          * Returns <networkName>'s' host.
          * @param {String} networkName name of the network to use
          */
-        getHost: function (networkName) {
-            if (networkName && this.networks && this.networks[networkName]) {
-                return this.networks[networkName].host;
+        getHost: function ( networkName ) {
+            if ( networkName && this.networks && this.networks[ networkName ] ) {
+                return this.networks[ networkName ].host;
             }
         },
 
@@ -100,9 +102,9 @@
          * Returns <networkName>'s network object.
          * @param {String} networkName name of the network to use
          */
-        getNetwork: function (networkName) {
-            if (networkName && this.networks && this.networks[networkName]) {
-                return this.networks[networkName];
+        getNetwork: function ( networkName ) {
+            if ( networkName && this.networks && this.networks[ networkName ] ) {
+                return this.networks[ networkName ];
             }
         },
 
@@ -111,10 +113,10 @@
          * To add new configurations.
          * @param {Object} settings.
          */
-        extend: function (settings) {
-            if (!settings)
+        extend: function ( settings ) {
+            if ( !settings )
                 return;
-            initNetworksAndServices(this, settings);
+            initNetworksAndServices( this, settings );
             this.findDefaultNetwork();
         },
 
@@ -135,9 +137,9 @@
             //     }
             // }
             // sinon on regarde si un réseau possède le flag "default"
-            for (var name in this.networks) {
-                nwk = this.networks[name];
-                if (nwk["default"]) {
+            for ( var name in this.networks ) {
+                nwk = this.networks[ name ];
+                if ( nwk[ "default" ] ) {
                     this.defaultNetwork = nwk;
                     return nwk;
                 }
@@ -149,7 +151,7 @@
          * Returns raw data used as settings.
          */
         raw: function () {
-            return nu.Utils.clone(this.settings);
+            return nu.Utils.clone( this.settings );
         },
 
 
@@ -192,6 +194,8 @@
         //     return $.it.context.ajaxMock;
         // }
 
-    });
+    } );
 
-})(jQuery, nu, nu.debug.Log);
+    module.exports = UriManager;
+
+} );

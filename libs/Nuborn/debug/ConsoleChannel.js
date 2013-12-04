@@ -1,22 +1,23 @@
-( function ( window, $, nu, LogLevel, undefined ) {
+/*
+ * @provide nu.debug.ConsoleChannel
+ * @require nu.debug.LogLevel
+ * @require nu.debug.LogItem
+ * @require nu.debug.AbstractChannel
+ */
+define( "nu.debug.ConsoleChannel", function ( require, exports, module ) {
 
     'use strict';
+
+    var AbstractChannel = require( "nu.debug.AbstractChannel" );
+    var LogLevel = require( "nu.debug.LogLevel" );
 
     /**
      * @class nu.debug.ConsoleChannel
      * @extends nu.debug.AbstractChannel
      *
      * Use the native console to log items.
-     *
-     * @provide nu.debug.ConsoleChannel
-     *
-     * @require nu.debug.LogLevel
-     *
-     * @require nu.debug.LogItem
-     *
-     * @require nu.debug.AbstractChannel
      */
-    nu.debug.ConsoleChannel = nu.debug.AbstractChannel.subClass( {
+    var ConsoleChannel = AbstractChannel.subClass( {
 
         /**
          * @constructor
@@ -33,17 +34,19 @@
 
             switch ( logItem.level ) {
             case LogLevel.INFO:
-                console.log( logItem.toString( ) );
+                console.log( logItem.toString() );
                 break;
             case LogLevel.WARN:
-                console.warn( logItem.toString( ) );
+                console.warn( logItem.toString() );
                 break;
             case LogLevel.ERROR:
-                console.error( logItem.toString( ) );
+                console.error( logItem.toString() );
                 break;
             }
         }
 
     } );
 
-} )( this, jQuery, nu, nu.debug.LogLevel );
+    module.exports = ConsoleChannel;
+
+} );

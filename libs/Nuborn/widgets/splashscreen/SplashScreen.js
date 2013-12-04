@@ -1,6 +1,11 @@
-( function ( window, $, nu, Log, EventsDispatcher, undefined ) {
+define( "nu.widgets.SplashScreen", function ( require, exports, module ) {
 
 	'use strict';
+
+	var $ = jQuery;
+	var Log = require( "nu.debug.Log" );
+	var EventsDispatcher = require( "nu.events.EventsDispatcher" );
+	var Utils = require( "nu.Utils" );
 
 	var defaults = {
 		id: "splash",
@@ -11,14 +16,8 @@
 	/**
 	 * @class nu.widgets.SplashScreen
 	 * Controls the splashscreen of the application.
-	 *
-	 * @provide nu.widgets.SplashScreen
-	 *
-	 * @require nu.widgets
-	 * @require nu.debug.Log
-	 * @require nu.events.EventsDispatcher
 	 */
-	var SplashScreen = nu.widgets.SplashScreen = Object.subClass( {
+	var SplashScreen = Object.subClass( {
 
 		/**
 		 * @constructor
@@ -27,7 +26,7 @@
 		init: function ( settings ) {
 			this.settings = $.extend( true, defaults, settings );
 			// inflates the splashscreen
-			this.element = $( templates.SplashScreen.render( this.settings ) );
+			this.element = $( templates[ "SplashScreen" ].render( this.settings ) );
 		},
 
 		/**
@@ -38,7 +37,7 @@
 			Log.i( "SplashScreen show" );
 
 			// deactivating scroll capacity during splashscreen
-			nu.Utils.disableScroll();
+			Utils.disableScroll();
 
 			// adding the splashscreen at the end of the document body
 			$( "body" ).append( this.element );
@@ -58,7 +57,7 @@
 			var destroySplashscreen = function () {
 
 				// reactivating scroll capacity
-				nu.Utils.enableScroll();
+				Utils.enableScroll();
 
 				if ( Modernizr.animationfriendly && Modernizr.csstransforms3d ) {
 					self.element.addClass( "fade-out" );
@@ -128,4 +127,6 @@
 	// listening...
 	handleSplashScreenEvents();
 
-} )( window, jQuery, nu, nu.debug.Log, nu.events.EventsDispatcher );
+	module.exports = SplashScreen;
+
+} );

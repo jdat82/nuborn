@@ -1,6 +1,12 @@
-( function ( $, nu, Log, LocalStorage, EventsDispatcher, StressTest, Modernizr, undefined ) {
+( function () {
 
     'use strict';
+
+    var $ = jQuery;
+    var Log = require( "nu.debug.Log" );
+    var LocalStorage = require( "nu.cache.LocalStorage" );
+    var EventsDispatcher = require( "nu.events.EventsDispatcher" );
+    var StressTest = require( "nu.widgets.StressTest" );
 
     // load template
     // insert in DOM
@@ -64,4 +70,4 @@
         } );
     }
 
-} )( jQuery, nu, nu.debug.Log, nu.cache.LocalStorage, nu.events.EventsDispatcher, nu.widgets.StressTest, Modernizr );
+} );

@@ -1,22 +1,23 @@
-( function ( $, nu, app, log, undefined ) {
+/*
+ * @provide app.pages.NubornPageHandler
+ * @require nu.pages.PageHandler
+ * @require nu.debug.Log
+ */
+define( "app.pages.NubornPageHandler", function ( require, exports, module ) {
 
     'use strict';
+
+    var $ = jQuery;
+    var Log = require( "nu.debug.Log" );
+    var PageHandler = require( "nu.pages.PageHandler" );
 
     /**
      * @class app.pages.NubornPageHandler
      * @extends nu.pages.PageHandler
      *
      * Override nu.pages.PageHandler to add some custom behavior to the default page handler.
-     *
-     * @provide app.pages.NubornPageHandler
-     *
-     * @require nu.pages.PageHandler
-     *
-     * @require nu.debug.Log
-     *
-     * @require app.pages
      */
-    app.pages.NubornPageHandler = nu.pages.PageHandler.subClass( {
+    var NubornPageHandler = module.exports = PageHandler.subClass( {
 
         pageShow: function ( event, data ) {
             this._super( event, data );
@@ -27,12 +28,12 @@
             // window.setTimeout( $.proxy( this, "resizeOnScroll" ), 10 );
         },
 
-        resizeOnScroll: function ( ) {
+        resizeOnScroll: function () {
             var $page = this.html.page;
             var $header = $page.find( "[data-role=header]" );
             var $content = $page.find( "[data-role=content]" );
             var $waypoints = this.data.$waypoints = $page.find( ".waypoint" );
-            $waypoints.each( function ( ) {
+            $waypoints.each( function () {
                 var $el = $( this );
                 $el.waypoint( "destroy" );
                 $el.waypoint( function ( direction ) {
@@ -47,4 +48,4 @@
         }
     } );
 
-} )( jQuery, nu, app, nu.debug.Log );
+} );
