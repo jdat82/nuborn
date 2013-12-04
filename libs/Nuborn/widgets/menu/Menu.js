@@ -1,7 +1,3 @@
-/*
- * @provide nu.widgets.Menu
- * @require nu.Utils
- */
 define( "nu.widgets.Menu", function ( require, exports, module ) {
 
     'use strict';

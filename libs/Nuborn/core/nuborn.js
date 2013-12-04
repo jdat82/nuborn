@@ -1,7 +1,5 @@
 /*
  * @provide nu
- * @require primitives
- * @require define
  */
 define( "nu", function ( require, exports, module ) {
 
@@ -16,9 +14,5 @@ define( "nu", function ( require, exports, module ) {
          */
         version: "0.0.1",
 
-        /**
-         * Core package.
-         */
-        core: {}
     };
 } );

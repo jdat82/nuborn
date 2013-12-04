@@ -1,14 +1,3 @@
-/*
- * @provide app.widgets.Menu
- * @require #home
- * @require #legalNotices
- * @require #detail
- * @require #help
- * @require #settings
- * @require app.manager.SettingsManager
- * @require nu.debug.Log
- * @require nu.widgets.Menu
- */
 define( "app.widgets.Menu", function ( require, exports, module ) {
 
     'use strict';

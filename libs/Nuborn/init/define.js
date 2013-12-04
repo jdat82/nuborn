@@ -1,5 +1,4 @@
 /**
- * @provide define
  * Copied from cordova project.
  */
 ( function ( window, undefined ) {

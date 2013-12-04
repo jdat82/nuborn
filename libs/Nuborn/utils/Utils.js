@@ -290,8 +290,8 @@ define( "nu.Utils", function ( require, exports, module ) {
 			navigator.splashscreen.hide();
 		}
 		else {
-			var EventsDispatcher = require( "nu.events.EventsDispatcher" );
-			var SplashScreen = require( "nu.widgets.SplashScreen" );
+			var EventsDispatcher = require( "nu.events.EventsDispatcher" ); // @ignore
+			var SplashScreen = require( "nu.widgets.SplashScreen" ); // @ignore
 			EventsDispatcher.emit( {
 				name: SplashScreen.EVENT_HIDE
 			} );

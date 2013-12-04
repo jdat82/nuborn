@@ -1,7 +1,3 @@
-/*
- * @provide app.core.Base
- * @require nu
- */
 define( "app.core.Base", function ( require, exports, module ) {
 
     'use strict';
@@ -38,14 +34,3 @@ define( "app.core.Base", function ( require, exports, module ) {
     } );
 
 } );
-
-// ( function () {
-//     var Base = require( "app.core.Base" );
-//     var Toto = Base.subClass( {
-//         init: function () {
-//             this._super();
-//             console.log( "Toto" );
-//         }
-//     } );
-//     var toto = new Toto();
-// } )();

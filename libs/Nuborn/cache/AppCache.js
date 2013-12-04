@@ -1,7 +1,3 @@
-/*
- * @provide nu.cache.AppCache
- * @require nu.debug.Log
- */
 define( "nu.cache.AppCache", function ( require, exports, module ) {
 
 	'use strict';
@@ -41,16 +37,12 @@ define( "nu.cache.AppCache", function ( require, exports, module ) {
 
 	} );
 
+	/**
+	 * Gets the shared instance of AppCache class.
+	 * @return {nu.cache.AppCache} The shared instance of the cache manager.
+	 * @property {AppCache} instance
+	 */
+	AppCache.instance = new AppCache();
+
 	module.exports = AppCache;
-
-	// When DOM is ready, starting the cache.
-	$( function () {
-		/**
-		 * Gets the shared instance of AppCache class.
-		 * @return {nu.cache.AppCache} The shared instance of the cache manager.
-		 * @property {AppCache} instance
-		 */
-		AppCache.instance = new nu.cache.AppCache();
-	} );
-
 } );

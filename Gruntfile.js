@@ -35,25 +35,24 @@ module.exports = function ( grunt ) {
         },
 
         /**
-         * Common javascript files for all  platforms
+         * Common javascript libraries files for all platforms
          */
-        js: [
+        jsLibs: [
             "libs/Hogan/*.js",
             "libs/jQuery/*.min.js",
-            // "libs/jQueryWaypoints/*.min.js",
             "libs/Modernizr/*.js",
-            // jQuery Mobile pre-initialization
-            "src/app/mobileinit.js",
+            "{libs/Nuborn,src/app}/init/*.js", // jQuery Mobile pre-initialization
             "libs/jQueryMobile/*.js",
             "libs/SwipeJS/*.js",
-            // jQueryJSON is required for old browser
-            // "libs/jQueryJSON/*.js",
-            // Generated sources
-            "gen/*.js",
-            // Nuborn && App sources
-            "{libs/Nuborn,src}/**/*.js",
-            // excluding all async files which will be requested manually
-            "!{libs/Nuborn,src}/**/*-async.js"
+            "gen/*.js", // Generated sources
+        ],
+
+        /**
+         * Common javascript sources files for all platforms
+         */
+        jsApp: [
+            "{libs/Nuborn,src}/**/*.js", // Nuborn && App sources
+            "!{libs/Nuborn,src}/**/*-async.js" // excluding all async files which will be requested manually
         ],
 
         /**
@@ -77,10 +76,11 @@ module.exports = function ( grunt ) {
                             "IOS": false,
                             "WEB": false
                         }
-                    } )
+                    } ),
+                    "ignore": "<%= jsLibs %>"
                 },
                 files: [ {
-                    "<%= platforms.android.folder %>/js/app.min.js": [ "libs/Cordova/cordova.android.js", "<%= js %>" ]
+                    "<%= platforms.android.folder %>/js/app.min.js": [ "libs/Cordova/cordova.android.js", "<%= jsLibs %>", "<%= jsApp %>" ]
                 }, {
                     dest: "<%= platforms.android.folder %>/js",
                     src: [ "<%= asyncJs %>" ],
@@ -98,10 +98,11 @@ module.exports = function ( grunt ) {
                             "IOS": true,
                             "WEB": false
                         }
-                    } )
+                    } ),
+                    "ignore": "<%= jsLibs %>"
                 },
                 files: [ {
-                    "<%= platforms.ios.folder %>/js/app.min.js": [ "libs/Cordova/cordova.ios.js", "<%= js %>" ]
+                    "<%= platforms.ios.folder %>/js/app.min.js": [ "libs/Cordova/cordova.ios.js", "<%= jsLibs %>", "<%= jsApp %>" ]
                 }, {
                     dest: "<%= platforms.ios.folder %>/js",
                     src: [ "<%= asyncJs %>" ],
@@ -119,10 +120,11 @@ module.exports = function ( grunt ) {
                             "IOS": false,
                             "WEB": true
                         }
-                    } )
+                    } ),
+                    "ignore": [ "<%= jsLibs %>", "<%= asyncJs %>" ]
                 },
                 files: [ {
-                    "<%= platforms.web.folder %>/js/app.min.js": [ "<%= js %>" ]
+                    "<%= platforms.web.folder %>/js/app.min.js": [ "<%= jsLibs %>", "<%= jsApp %>" ]
                 }, {
                     dest: "<%= platforms.web.folder %>/js",
                     src: [ "<%= asyncJs %>" ],
@@ -407,7 +409,7 @@ module.exports = function ( grunt ) {
                 tasks: [ "nsass", "manifest" ]
             },
             js: {
-                files: [ "<%= js %>", "<%= asyncJs %>" ],
+                files: [ "<%= jsLibs%>", , "<%= jsApp %>", "<%= asyncJs %>" ],
                 tasks: [ "nuglify", "manifest" ]
             },
             htmlmin: {
@@ -722,10 +724,12 @@ module.exports = function ( grunt ) {
             }
         };
 
+        var options = this.data.options;
+
         // resolving patterns and then dependencies order
         this.files.forEach( function ( files ) {
             sass.target.files.push( {
-                src: GruntUtils.resolveDependencies( files.src ),
+                src: GruntUtils.resolveDependencies( files.src, options ),
                 dest: files.dest
             } );
         } );
@@ -751,10 +755,12 @@ module.exports = function ( grunt ) {
             }
         };
 
+        var options = this.data.options;
+
         // resolving patterns and then dependencies order
         this.files.forEach( function ( files ) {
             uglify.target.files.push( {
-                src: GruntUtils.resolveDependencies( files.src ),
+                src: GruntUtils.resolveDependencies( files.src, options ),
                 dest: files.dest
             } );
         } );

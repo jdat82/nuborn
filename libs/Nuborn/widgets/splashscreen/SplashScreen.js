@@ -1,9 +1,3 @@
-/*
- * @provide nu.widgets.SplashScreen
- * @require nu.debug.Log
- * @require nu.events.EventsDispatcher
- * @require nu.Utils
- */
 define( "nu.widgets.SplashScreen", function ( require, exports, module ) {
 
 	'use strict';

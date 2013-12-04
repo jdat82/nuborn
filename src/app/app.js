@@ -18,6 +18,7 @@
     'use strict';
 
     var $ = jQuery;
+    var AppCache = require( "nu.cache.AppCache" );
     var Utils = require( "nu.Utils" );
     var Log = require( "nu.debug.Log" );
     var Context = require( "nu.core.Context" );

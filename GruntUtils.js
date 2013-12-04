@@ -112,12 +112,13 @@ var Util = {
 	 * -- An utility function that sorts files acording to their dependencies
 	 * -- @provide & @require
 	 */
-	resolveDependencies: function ( patterns ) {
+	resolveDependencies: function ( patterns, taskOptions ) {
 		// Get all non sorted sources
 		var sources = grunt.file.expand( patterns );
+		var ignoreList = grunt.file.expand( taskOptions.ignore );
 
-		if ( debug )
-			grunt.log.writeln( "\nSOURCES BEFORE RESOLVE PHASE: \n" + sources.join( "\n" ) + "\n" );
+		debug && grunt.log.writeln( "List of files that will be ignored :" + ignoreList );
+		debug && grunt.log.writeln( "\nSOURCES BEFORE RESOLVE PHASE: \n" + sources.join( "\n" ) + "\n" );
 
 		// Create the compiled object and array
 		var providerMap = {};
@@ -127,35 +128,65 @@ var Util = {
 		var allRequires = [];
 		var allProvides = [];
 
+		var ignoreThisFile = false;
 		// Loop on all sources to find dependences
 		sources.forEach( function ( source ) {
+
+			debug && grunt.log.writeln( "Current source: " + source );
+
+			// tracking files to be ignored
+			ignoreList.indexOf( source ) >= 0 ? ignoreThisFile = true : ignoreThisFile = false;
+
+			debug && grunt.log.writeln( "Ignore:" + ignoreThisFile );
+
 			// Read the content of the source
 			var content = grunt.file.read( source );
-			// Get all documentation block comments
-			var comments = content.match( /\/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*+\//g ) || [];
 
 			// Create requires and provides arrays
 			var requires = [];
 			var provides = [];
 			var provide;
 
-			// Loop on the comments to get the requires and provides
-			comments.forEach( function ( comment ) {
-				requires = requires.concat( comment.match( /(@require).*/g ) || [] );
-				provides = provides.concat( comment.match( /(@provide).*/g ) || [] );
-			} );
+			// skipping regexp search for files in ignoreList
+			if ( !ignoreThisFile ) {
+
+				// searching for require("id") expressions
+				var requireRegexp = /.*require\s*\(\s*"([^"])"\s*\).*/g;
+				var match = requireRegexp.exec( content );
+				while ( match !== null ) {
+					var line = match[ 0 ];
+					var requireName = match[ 1 ];
+					if ( line.indexOf( "@ignore" ) >= 0 ) continue;
+					if ( line.indexOf( "//" ) >= 0 || line.indexOf( "/*" ) >= 0 || line.indexOf( "/**" ) >= 0 ) continue;
+					requires.push( requireName );
+					match = requireRegexp.exec( content );
+				}
+
+				// searching for define("id") expressions
+				var provideRegexp = /.*define\s*\(\s*"(^")"\s*,.*/g;
+				match = provideRegexp.exec( content );
+				while ( match !== null ) {
+					var line = match[ 0 ];
+					var provideName = match[ 1 ];
+					if ( line.indexOf( "@ignore" ) >= 0 ) continue;
+					if ( line.indexOf( "//" ) >= 0 || line.indexOf( "/*" ) >= 0 || line.indexOf( "/**" ) >= 0 ) continue;
+					provides.push( provideName );
+					match = provideRegexp.exec( content );
+				}
+			}
+
 
 			// keeping only one provide per source
 			if ( provides.length ) {
-				provide = provides[ 0 ].replace( "@provide", "" ).trim();
+				provide = provides[ 0 ].trim();
 				allProvides.push( provide );
 			}
 
 			// Find all lines containing @require
-			requires = content.match( /(@require).*/g ) || [];
+			requires = requires || [];
 			for ( var j = 0, lg = requires.length; j < lg; j++ ) {
 				// replace the current value in the array
-				requires[ j ] = requires[ j ].replace( "@require", "" ).trim();
+				requires[ j ] = requires[ j ].trim();
 				// save the value in th allRequires array
 				if ( allRequires.indexOf( require ) === -1 ) {
 					allRequires.push( require );
@@ -218,6 +249,7 @@ var Util = {
 				// checking cyclic dependencies
 					if ( unresolved.indexOf( edge ) >= 0 )
 						grunt.fail.fatal( "Error : " + node.source + " raised cyclic dependencies !" );
+
 					// digging again
 				resolve( edge, resolved, unresolved );
 			} );
