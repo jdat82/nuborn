@@ -724,12 +724,10 @@ module.exports = function ( grunt ) {
             }
         };
 
-        var options = this.data.options;
-
         // resolving patterns and then dependencies order
         this.files.forEach( function ( files ) {
             sass.target.files.push( {
-                src: GruntUtils.resolveDependencies( files.src, options ),
+                src: GruntUtils.resolveSassDependencies( files.src ),
                 dest: files.dest
             } );
         } );
@@ -760,7 +758,7 @@ module.exports = function ( grunt ) {
         // resolving patterns and then dependencies order
         this.files.forEach( function ( files ) {
             uglify.target.files.push( {
-                src: GruntUtils.resolveDependencies( files.src, options ),
+                src: GruntUtils.resolveJavascriptDependencies( files.src, options ),
                 dest: files.dest
             } );
         } );

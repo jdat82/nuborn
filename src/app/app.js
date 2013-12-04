@@ -17,20 +17,9 @@
 
     'use strict';
 
-    var $ = jQuery;
-    var AppCache = require( "nu.cache.AppCache" );
-    var Utils = require( "nu.Utils" );
-    var Log = require( "nu.debug.Log" );
-    var Context = require( "nu.core.Context" );
-    var SplashScreen = require( "nu.widgets.SplashScreen" );
-    var EventsDispatcher = require( "nu.events.EventsDispatcher" );
-    var pageEventsManager = require( "nu.pages.PageEventsManager" ).instance;
-    var Menu = require( "app.widgets.Menu" );
-    var FakeManager = require( "app.manager.FakeManager" );
-    var PolyfillManager = require( "app.manager.PolyfillManager" );
-    var StressTest = require( "nu.widgets.StressTest" );
-    var Constants = require( "app.Constants" );
-    var homePage = require( "#home" );
+    var $ = jQuery,
+        AppCache, Utils, Log, Context, SplashScreen, EventsDispatcher, pageEventsManager, menu, context,
+        FakeManager, PolyfillManager, StressTest, Constants, homePage;
 
     define( "app", function ( require, exports, module ) {
 
@@ -59,6 +48,10 @@
 
     function ready() {
 
+        AppCache = require( "nu.cache.AppCache" );
+        Utils = require( "nu.Utils" );
+        Log = require( "nu.debug.Log" );
+
         Log.init( {
             storageKey: "nuborn.logs"
         } );
@@ -83,7 +76,7 @@
 
     function init() {
 
-        createContext();
+        context = require( "#context" );
 
         // starting JQM
         $.mobile.initializePage();
@@ -100,6 +93,12 @@
      */
 
     function downloadMetadataAndStart() {
+
+        FakeManager = require( "app.manager.FakeManager" );
+        PolyfillManager = require( "app.manager.PolyfillManager" );
+        StressTest = require( "nu.widgets.StressTest" );
+        pageEventsManager = require( "nu.pages.PageEventsManager" ).instance;
+        homePage = require( "#home" );
 
         // sample manager that returns a promise
         var fakePromise = FakeManager.init();
@@ -131,26 +130,11 @@
         } );
     }
 
-    function createContext() {
-        define( "app.context", function ( require, exports, module ) {
-            /**
-             * Context instance which holds contextual data.
-             * @type nu.core.Context
-             */
-            var context = new Context( {
-                localStorageKey: "nuborn.context",
-                synchronizeInLocalStorage: true
-            } );
-
-            // Creating a user ID
-            var userId = app.context.get( Constants.USER_ID );
-            !userId && app.context.set( Constants.USER_ID, Utils.guid() );
-
-            module.exports = context;
-        } );
-    }
-
     function showSplashScreen() {
+
+        EventsDispatcher = require( "nu.events.EventsDispatcher" );
+        SplashScreen = require( "nu.widgets.SplashScreen" );
+
         if ( !Utils.isCordova() || !Utils.isIOS() ) {
             EventsDispatcher.emit( {
                 name: SplashScreen.EVENT_SHOW,
