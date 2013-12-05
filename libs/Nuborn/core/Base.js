@@ -1,35 +1,62 @@
-define( "app.core.Base", function ( require, exports, module ) {
+define( "nu.core.Base", function ( require, exports, module ) {
 
     'use strict';
 
     var $ = jQuery;
 
     /**
-     * @class app.manager.SettingsManager
+     * @private
+     * Defaults settings.
+     */
+    var defaults = {
+
+    };
+
+    /*
+     * @private
+     * Current settings.
+     */
+    var settings = {
+
+    };
+
+    /**
+     * @class nu.core.Base
      * Base class for every other class.
      */
     module.exports = Object.subClass( {
 
         /**
-         * @Constructor
+         * @constructor
+         * Shorcut for calling init, defaults and settings.
+         * @param {Object} defaults Initialize object with a group of default properties.
          * @param {Object} settings Initialize object with a group of properties.
          */
-        init: function ( settings ) {
-            console.log( "Base" );
+        init: function ( defaults, settings ) {
+            // Initiliazing defaults
+            this.defaults( defaults );
+            // Initiliazing settings
+            this.settings( settings );
+            // Used to store DOM references
+            this.html = {};
+            // Used to store runtime data
+            this.data = {};
         },
 
         /**
-         * Set or get defaults settings for this component.
+         * Set or get component's defaults settings.
          */
-        defaults: function ( defaults ) {
-
+        defaults: function ( data ) {
+            if ( !data ) return defaults;
+            defaults = data;
         },
 
         /**
          * Set or get component's settings.
          */
-        settings: function ( settings ) {
-
+        settings: function ( data ) {
+            if ( !data ) return settings;
+            settings = $.extend( true, defaults, data );
         }
     } );
 

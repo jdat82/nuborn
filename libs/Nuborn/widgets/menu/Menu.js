@@ -4,28 +4,33 @@ define( "nu.widgets.Menu", function ( require, exports, module ) {
 
     var $ = jQuery;
     var Utils = require( "nu.Utils" );
+    var Base = require( "nu.core.Base" );
 
     /**
      * @class nu.widgets.Menu
      * Default behavior of a menu.
      */
-    var Menu = Object.subClass( {
+    var Menu = Base.subClass( {
 
         /**
          * @constructor
          * @param  {Object} settings
          */
         init: function ( settings ) {
-            // default settings
-            this.settings = settings ||  {};
-            this.settings.id = this.settings.id || "menu";
-            var templateId = this.settings.templateId || this.settings.id;
-            this.html = {};
-            this.data = {};
 
-            // inflates the menu
+            // Initializing defaults & settings
+            this._super( {
+                id: "menu",
+                templateId: "menu"
+            }, settings );
+
+            var templateId = this.settings().templateId;
+
+            // Inflates the menu
             this.html.menu = $( templates[ templateId ].render( this.settings ) );
             $( "body" ).append( this.html.menu );
+
+            // Storing menu state
             this.data.isMenuShown = false;
         },
 

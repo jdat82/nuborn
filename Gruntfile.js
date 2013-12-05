@@ -21,15 +21,15 @@ module.exports = function ( grunt ) {
          */
         platforms: {
             android: {
-                folder: "build/android/assets/www",
-                active: false
+                folder: "build/nuborn/platforms/android/assets/www",
+                active: true
             },
             ios: {
-                folder: "build/ios/www",
+                folder: "build/nuborn/platforms/ios/www",
                 active: false
             },
             web: {
-                folder: "build/web",
+                folder: "build/nuborn/platforms/web",
                 active: true
             }
         },
@@ -77,10 +77,14 @@ module.exports = function ( grunt ) {
                             "WEB": false
                         }
                     } ),
-                    "ignore": "<%= jsLibs %>"
+                    "ignore": [ "<%= jsLibs %>", "<%= asyncJs %>" ]
                 },
                 files: [ {
-                    "<%= platforms.android.folder %>/js/app.min.js": [ "libs/Cordova/cordova.android.js", "<%= jsLibs %>", "<%= jsApp %>" ]
+                    "<%= platforms.android.folder %>/js/app.min.js": [
+                        "libs/Cordova/android/cordova.js",
+                        "<%= jsLibs %>",
+                        "<%= jsApp %>"
+                    ]
                 }, {
                     dest: "<%= platforms.android.folder %>/js",
                     src: [ "<%= asyncJs %>" ],
@@ -99,10 +103,14 @@ module.exports = function ( grunt ) {
                             "WEB": false
                         }
                     } ),
-                    "ignore": "<%= jsLibs %>"
+                    "ignore": [ "<%= jsLibs %>", "<%= asyncJs %>" ]
                 },
                 files: [ {
-                    "<%= platforms.ios.folder %>/js/app.min.js": [ "libs/Cordova/cordova.ios.js", "<%= jsLibs %>", "<%= jsApp %>" ]
+                    "<%= platforms.ios.folder %>/js/app.min.js": [
+                        "libs/Cordova/ios/cordova.js",
+                        "<%= jsLibs %>",
+                        "<%= jsApp %>"
+                    ]
                 }, {
                     dest: "<%= platforms.ios.folder %>/js",
                     src: [ "<%= asyncJs %>" ],
@@ -409,7 +417,7 @@ module.exports = function ( grunt ) {
                 tasks: [ "nsass", "manifest" ]
             },
             js: {
-                files: [ "<%= jsLibs%>", , "<%= jsApp %>", "<%= asyncJs %>" ],
+                files: [ "<%= jsLibs%>", "<%= jsApp %>", "<%= asyncJs %>" ],
                 tasks: [ "nuglify", "manifest" ]
             },
             htmlmin: {
@@ -435,7 +443,7 @@ module.exports = function ( grunt ) {
             options: {
                 hostname: "*",
                 port: 9005,
-                base: 'build/web',
+                base: '<%= platforms.web.folder %>',
                 keepalive: true,
                 middleware: function ( connect, options ) {
                     return [
@@ -529,6 +537,17 @@ module.exports = function ( grunt ) {
 
         concurrent: {
             web: [ "connect-server", "watch", "weinre" ]
+        },
+
+        exec: {
+            "cordova-prepare": {
+                command: function ( target ) {
+                    return "cordova prepare " + target;
+                },
+                stdout: true,
+                stderror: true,
+                cwd: "build/nuborn"
+            }
         }
 
     } );
@@ -554,19 +573,20 @@ module.exports = function ( grunt ) {
     grunt.loadNpmTasks( 'grunt-concurrent' );
     grunt.loadNpmTasks( 'grunt-weinre' );
     grunt.loadNpmTasks( 'grunt-docco' );
+    grunt.loadNpmTasks( 'grunt-exec' );
 
 
     /**
      * Registering Default Task
      */
-    grunt.registerTask( "default", [ "clean", "hogan", "nuglify", "nsass", "htmlmin", "imagemin", "copy", "manifest" ] );
+    grunt.registerTask( "default", [ "clean", "exec:cordova-prepare", "hogan", "nuglify", "nsass", "htmlmin", "imagemin", "copy", "manifest" ] );
 
 
     /**
      * Registering one alias per target to allow compiling only one target
      */
-    grunt.registerTask( "android", [ "clean:android", "hogan:android", "nuglify:android", "nsass:android", "htmlmin:android", "imagemin:android", "copy:android" ] );
-    grunt.registerTask( "ios", [ "clean:ios", "hogan:ios", "nuglify:ios", "nsass:ios", "htmlmin:ios", "imagemin:ios", "copy:ios" ] );
+    grunt.registerTask( "android", [ "clean:android", "exec:cordova-prepare:android", "hogan:android", "nuglify:android", "nsass:android", "htmlmin:android", "imagemin:android", "copy:android" ] );
+    grunt.registerTask( "ios", [ "clean:ios", "exec:cordova-prepare:ios", "hogan:ios", "nuglify:ios", "nsass:ios", "htmlmin:ios", "imagemin:ios", "copy:ios" ] );
     grunt.registerTask( "web", [ "clean:web", "hogan:web", "nuglify:web", "nsass:web", "htmlmin:web", "imagemin:web", "copy:web", "manifest:web" ] );
 
     /**

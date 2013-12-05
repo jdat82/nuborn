@@ -1,5 +1,5 @@
 // Configuration of jQuery Mobile before it loads
-$(document).on("mobileinit", function () {
+$( document ).on( "mobileinit", function () {
 
 	'use strict';
 
@@ -10,7 +10,7 @@ $(document).on("mobileinit", function () {
 	// $.mobile.touchOverflowEnabled = true;
 
 	// phonegap friendly ?
-	if (window.cordova)
+	if ( window.cordova )
 		$.mobile.phonegapNavigationEnabled = true;
 
 	// not needed
@@ -34,10 +34,10 @@ $(document).on("mobileinit", function () {
 	$.mobile.defaultPageTransition = "none";
 
 	// Default fallback should be no transition at all and not fade
-	for (var key in $.mobile.transitionFallbacks) {
-		$.mobile.transitionFallbacks[key] = "none";
+	for ( var key in $.mobile.transitionFallbacks ) {
+		$.mobile.transitionFallbacks[ key ] = "none";
 	}
 
 	// minimum displacement to consider a swipe event
 	$.event.special.swipe.horizontalDistanceThreshold = 30;
-});
+} );

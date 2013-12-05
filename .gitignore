@@ -9,15 +9,17 @@ gen/
 **.off
 
 # web
-build/web/
+build/nuborn/platforms/web/
 
 # android
-build/android/assets/www/
-build/android/gen/
-build/android/out/
-build/android/build/
-build/android/.gradle/
+build/nuborn/platforms/android/assets/www/
+build/nuborn/platforms/android/gen/
+build/nuborn/platforms/android/bin/
+build/nuborn/platforms/android/.settings
+build/nuborn/platforms/android/.staging
 
 # ios
-build/ios/www/
-build/ios/build/
+build/nuborn/platforms/ios/www/
+build/nuborn/platforms/ios/build/
+build/nuborn/platforms/ios/CordovaLib/build/
+build/nuborn/platforms/ios/**/xcuserdata/

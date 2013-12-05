@@ -53,7 +53,8 @@
         Log = require( "nu.debug.Log" );
 
         Log.init( {
-            storageKey: "nuborn.logs"
+            storageKey: "nuborn.logs",
+            memory: true
         } );
 
         // installing scripts that will help remote debugging
@@ -94,30 +95,20 @@
 
     function downloadMetadataAndStart() {
 
-        FakeManager = require( "app.manager.FakeManager" );
-        PolyfillManager = require( "app.manager.PolyfillManager" );
         StressTest = require( "nu.widgets.StressTest" );
         pageEventsManager = require( "nu.pages.PageEventsManager" ).instance;
         homePage = require( "#home" );
-
-        // sample manager that returns a promise
-        var fakePromise = FakeManager.init();
-
-        // all polyfills mandatory at startup are loaded now
-        var polyfillsPromise = PolyfillManager.init();
 
         // widget that test the device to discover its abilities
         var stressTestWidget = new StressTest();
         var stressTestPromise = stressTestWidget.play();
 
         // when all promises are resolved, we can go ahead
-        $.when( fakePromise, polyfillsPromise, stressTestPromise ).done( function () {
+        $.when( stressTestPromise ).done( function () {
             window.setTimeout( function () {
 
-                PolyfillManager.checkTouchOverflowSupport();
-
                 // there is a very annoying JQM bug : we need to add our first page navigation at the end of the event loop.
-                // so that's the setTimeout job in here.
+                // so that's the setTimeout job in her
                 // loading in DOM first page app
                 pageEventsManager.loadFirstPage( homePage.settings.id );
 

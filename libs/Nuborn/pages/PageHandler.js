@@ -337,6 +337,7 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
                 window.setTimeout( function () {
                     DEBUG && Log.i( "navigating to #" + pageId );
                     $.mobile.changePage( "#" + pageId, options.jqmOptions );
+                    DEBUG && Log.i( "Post change page" );
                     // calling callback after page change if any
                     if ( options.callback ) {
                         options.callback();

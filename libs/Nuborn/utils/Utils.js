@@ -306,6 +306,8 @@ define( "nu.Utils", function ( require, exports, module ) {
 	 */
 	Utils.installDebugScripts = function () {
 
+		var Log = require( "nu.debug.Log" );
+
 		/**
 		 * Adding livereload support for development only.
 		 * Refresh page automatically in conjunction with grunt watcher.
@@ -314,7 +316,9 @@ define( "nu.Utils", function ( require, exports, module ) {
 		 */
 		if ( DEBUG && LIVERELOAD ) {
 			var lr = document.createElement( 'script' );
-			lr.src = ( 'https:' == window.location.protocol ? 'https://' : 'http://' ) + window.location.hostname + ":" + LIVERELOAD_PORT + "/livereload.js";
+			var hostname = REMOTE_HOST || window.location.hostname;
+			lr.src = ( 'https:' == window.location.protocol ? 'https://' : 'http://' ) + hostname + ":" + LIVERELOAD_PORT + "/livereload.js";
+			DEBUG && Log.i( "Installing Livereload script at: " + lr.src );
 			lr.type = 'text/javascript';
 			lr.async = 'true';
 			var s = document.getElementsByTagName( 'script' )[ 0 ];
@@ -329,8 +333,10 @@ define( "nu.Utils", function ( require, exports, module ) {
 		 */
 		if ( DEBUG && WEINRE ) {
 			var lr = document.createElement( 'script' );
-			lr.src = ( 'https:' == window.location.protocol ? 'https://' : 'http://' ) + window.location.hostname +
+			var hostname = REMOTE_HOST || window.location.hostname;
+			lr.src = ( 'https:' == window.location.protocol ? 'https://' : 'http://' ) + hostname +
 				":" + WEINRE_PORT + "/target/target-script-min.js#weinre";
+			DEBUG && Log.i( "Installing Weinre script at: " + lr.src );
 			lr.type = 'text/javascript';
 			lr.async = 'true';
 			var s = document.getElementsByTagName( 'script' )[ 0 ];

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>F52340B6-31FC-4AAF-A1E7-2E5D03948C8A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Nuborn</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>158AE84D-5E9D-4409-BD9F-FC6C516A0346</key>
+		<string>ssh://github.com/jan4dev/nuborn.git</string>
+		<key>CB53FEE1-9966-4468-BEE7-D0ECBE6FAEA3</key>
+		<string>ssh://github.com/jan4dev/nuborn.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>build/nuborn/platforms/ios/Nuborn.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>158AE84D-5E9D-4409-BD9F-FC6C516A0346</key>
+		<string>../../../../../..</string>
+		<key>CB53FEE1-9966-4468-BEE7-D0ECBE6FAEA3</key>
+		<string>../../../../../../../nuborn</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/jan4dev/nuborn.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>158AE84D-5E9D-4409-BD9F-FC6C516A0346</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>CB53FEE1-9966-4468-BEE7-D0ECBE6FAEA3</string>
+			<key>IDESourceControlWCCName</key>
+			<string>nuborn</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>158AE84D-5E9D-4409-BD9F-FC6C516A0346</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Nuborn</string>
+		</dict>
+	</array>
+</dict>
+</plist>

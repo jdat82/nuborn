@@ -1,8 +1,3 @@
-/*
- * @provide nu.widgets.StressTest
- * @require nu.cache.LocalStorage
- * @require nu.events.EventsDispatcher
- */
 define( "nu.widgets.StressTest", function ( require, exports, module ) {
 
     'use strict';
@@ -92,11 +87,13 @@ define( "nu.widgets.StressTest", function ( require, exports, module ) {
     StressTest.EVENT_STRESS_TEST_DONE = "stresstest/done";
 
     /**
+     * @static
      * CSS class name that mean "this browser is animation frienldy".
      */
     StressTest.KEY_ANIMATIONFRIENDLY = "animationfriendly";
 
     /**
+     * @static
      * CSS class name that mean "this browser is NOT animation frienldy".
      */
     StressTest.KEY_NO_ANIMATIONFRIENDLY = "no-animationfriendly";
