@@ -4,7 +4,6 @@ define( "app.widgets.Menu", function ( require, exports, module ) {
 
     var $ = jQuery;
     var Log = require( "nu.debug.Log" );
-    var SettingsManager = require( "app.manager.SettingsManager" );
     var BaseMenu = require( "nu.widgets.Menu" );
 
     /**
@@ -65,6 +64,7 @@ define( "app.widgets.Menu", function ( require, exports, module ) {
     } );
 
     function navigate( menu, pageHandler ) {
+        var SettingsManager = require( "app.manager.SettingsManager" );
         if ( SettingsManager.animationFriendly() ) {
             menu.one( 'transitionend webkitTransitionEnd otransitionend MSTransitionEnd', function () {
                 pageHandler.navigate();

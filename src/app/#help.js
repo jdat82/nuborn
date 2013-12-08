@@ -1,7 +1,3 @@
-/**
- * @provide #help
- * @require app.pages.HelpPageHandler
- */
 define( "#help", function ( require, exports, module ) {
 
     var HelpPageHandler = require( "app.pages.HelpPageHandler" );

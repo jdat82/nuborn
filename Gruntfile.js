@@ -20,16 +20,17 @@ module.exports = function ( grunt ) {
          * Definition of build targets.
          */
         platforms: {
+            root: "build/nuborn",
             android: {
-                folder: "build/nuborn/platforms/android/assets/www",
+                folder: "<%= platforms.root %>/platforms/android/assets/www",
                 active: true
             },
             ios: {
-                folder: "build/nuborn/platforms/ios/www",
-                active: false
+                folder: "<%= platforms.root %>/platforms/ios/www",
+                active: true
             },
             web: {
-                folder: "build/nuborn/platforms/web",
+                folder: "<%= platforms.root %>/platforms/web",
                 active: true
             }
         },
@@ -81,7 +82,7 @@ module.exports = function ( grunt ) {
                 },
                 files: [ {
                     "<%= platforms.android.folder %>/js/app.min.js": [
-                        "libs/Cordova/android/cordova.js",
+                        "<%= platforms.android.folder %>/../../platform_www/*.js",
                         "<%= jsLibs %>",
                         "<%= jsApp %>"
                     ]
@@ -107,7 +108,7 @@ module.exports = function ( grunt ) {
                 },
                 files: [ {
                     "<%= platforms.ios.folder %>/js/app.min.js": [
-                        "libs/Cordova/ios/cordova.js",
+                        "<%= platforms.ios.folder %>/../platform_www/*.js",
                         "<%= jsLibs %>",
                         "<%= jsApp %>"
                     ]
@@ -546,7 +547,7 @@ module.exports = function ( grunt ) {
                 },
                 stdout: true,
                 stderror: true,
-                cwd: "build/nuborn"
+                cwd: "<%= platforms.root %>"
             }
         }
 

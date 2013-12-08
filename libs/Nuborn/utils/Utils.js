@@ -1,6 +1,3 @@
-/*
- * @provide nu.Utils
- */
 define( "nu.Utils", function ( require, exports, module ) {
 
 	'use strict';
@@ -286,7 +283,7 @@ define( "nu.Utils", function ( require, exports, module ) {
 	 */
 	Utils.hideSplashScreen = function () {
 		// if the splashscreen is handled natively with iOS
-		if ( Utils.isCordova() && Utils.isIOS() ) {
+		if ( Utils.isCordova() && navigator.splashscreen ) {
 			navigator.splashscreen.hide();
 		}
 		else {

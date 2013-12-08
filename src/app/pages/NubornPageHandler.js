@@ -1,8 +1,3 @@
-/*
- * @provide app.pages.NubornPageHandler
- * @require nu.pages.PageHandler
- * @require nu.debug.Log
- */
 define( "app.pages.NubornPageHandler", function ( require, exports, module ) {
 
     'use strict';

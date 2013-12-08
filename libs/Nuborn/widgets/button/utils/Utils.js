@@ -1,6 +1,3 @@
-/*
- * @provide nu.widgets.button.Utils
- */
 define( "nu.widgets.button.Utils", function ( require, exports, module ) {
 
 	'use strict';

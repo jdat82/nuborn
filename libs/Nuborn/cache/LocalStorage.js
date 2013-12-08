@@ -1,7 +1,3 @@
-/*
- * @provide nu.cache.LocalStorage
- * @require nu
- */
 define( "nu.cache.LocalStorage", function ( require, exports, module ) {
 
 	'use strict';

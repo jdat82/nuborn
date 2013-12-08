@@ -1,7 +1,3 @@
-/**
- * @provide #offline
- * @require app.pages.OfflinePageHandler
- */
 define( "#offline", function ( require, exports, module ) {
 
     var OfflinePageHandler = require( "app.pages.OfflinePageHandler" );

@@ -1,7 +1,3 @@
-/**
- * @provide #detail
- * @require app.pages.DetailPageHandler
- */
 define( "#detail", function ( require, exports, module ) {
 
     var DetailPageHandler = require( "app.pages.DetailPageHandler" );

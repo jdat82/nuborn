@@ -1,10 +1,3 @@
-/*
- * @provide app.manager.SettingsManager
- * @require nu.debug.Log
- * @require app.Constants
- * @require nu.cache.LocalStorage
- * @require nu.widgets.StressTest
- */
 define( "app.manager.SettingsManager", function ( require, exports, module ) {
 
     'use strict';

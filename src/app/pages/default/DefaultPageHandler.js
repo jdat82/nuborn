@@ -1,6 +1,3 @@
-/*
- * @provide app.pages.DefaultPageHandler
- */
 define( "app.pages.DefaultPageHandler", function ( require, exports, module ) {
 
     'use strict';

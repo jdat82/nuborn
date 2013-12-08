@@ -1,38 +1,38 @@
-/*
- * @provide nu.core.Context
- * @require nu.debug.Log
- * @require nu.cache.LocalStorage
- */
 define( "nu.core.Context", function ( require, exports, module ) {
 
     'use strict';
 
-    // defaults settings
+    /**
+     * Defaults settings
+     */
     var defaults = {
         localStorageKey: "nuborn.context",
         synchronizeInLocalStorage: false
     };
 
-    // private property
-    var data;
+    // Private property
+    var data = {};
 
     var $ = jQuery;
     var LocalStorage = require( "nu.cache.LocalStorage" );
     var Log = require( "nu.debug.Log" );
+    var Base = require( "nu.core.Base" );
 
     /**
      * @class nu.core.Context
+     * @extends nu.core.Base
      *
      * Simple context class to store temporary data.
      */
-    var Context = Object.subClass( {
+    var Context = Base.subClass( {
 
         /**
          * @constructor
          */
         init: function ( settings ) {
+
             // computing runtime settings
-            this.settings = $.extend( true, defaults, settings );
+            this._super( defaults, settings );
 
             // loading data from local storage if need be
             if ( this.settings.synchronizeInLocalStorage && Modernizr.localstorage ) {
@@ -42,10 +42,6 @@ define( "nu.core.Context", function ( require, exports, module ) {
             else if ( this.settings.synchronizeInLocalStorage && !Modernizr.localstorage ) {
                 Log.e( "[CONTEXT] No local storage available for synchronization." );
                 this.settings.synchronizeInLocalStorage = false;
-            }
-            // default
-            else {
-                data = {};
             }
         },
 
@@ -80,7 +76,8 @@ define( "nu.core.Context", function ( require, exports, module ) {
             data = {};
             if ( this.settings.synchronizeInLocalStorage )
                 LocalStorage.remove( this.settings.localStorageKey );
-        },
+        }
+
     } );
 
     module.exports = Context;

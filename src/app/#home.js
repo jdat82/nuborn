@@ -1,7 +1,3 @@
-/**
- * @provide #home
- * @require app.pages.HomePageHandler
- */
 define( "#home", function ( require, exports, module ) {
 
     var HomePageHandler = require( "app.pages.HomePageHandler" );

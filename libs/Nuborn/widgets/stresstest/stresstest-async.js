@@ -32,22 +32,28 @@
             var onFPSMeterEvent = function ( evt ) {
                 DEBUG && Log.i( "fps:" + evt.fps );
                 results.push( evt.fps );
+                if ( !this.meterStarted ) {
+                    this.meterStarted = true;
+                    // after N seconds, stop the meter and analyse the results
+                    stopMeterAfterDelay( onFPSMeterEvent, results );
+                }
             };
 
             document.addEventListener( 'fps', onFPSMeterEvent, false );
 
             FPSMeter.run();
-
-            // after 5 seconds, stop the meter and analyse the results
-            setTimeout( function () {
-                FPSMeter.stop();
-                document.removeEventListener( 'fps', onFPSMeterEvent );
-                computeResults( results );
-                testDone();
-            }, 10000 );
         }
 
     } ] );
+
+    function stopMeterAfterDelay( eventHandler, results ) {
+        setTimeout( function () {
+            FPSMeter.stop();
+            document.removeEventListener( 'fps', eventHandler );
+            computeResults( results );
+            testDone();
+        }, 10000 );
+    }
 
     function computeResults( results ) {
         // computing average FPS
@@ -55,6 +61,7 @@
             return previousValue + currentValue;
         } );
         var avg = sum / results.length;
+        Log.i( "Average FPS: " + avg );
         // putting the right class to the DOM
         Modernizr.addTest( StressTest.KEY_ANIMATIONFRIENDLY, function () {
             var isAnimationFriendly = avg >= 30;

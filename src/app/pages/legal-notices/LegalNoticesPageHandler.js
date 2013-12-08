@@ -1,8 +1,3 @@
-/*
- * @provide app.pages.LegalNoticesPageHandler
- * @require app.pages.NubornPageHandler
- * @require nu.debug.Log
- */
 define( "app.pages.LegalNoticesPageHandler", function ( require, exports, module ) {
 
 	'use strict';

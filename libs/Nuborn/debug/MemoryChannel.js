@@ -1,9 +1,3 @@
-/*
- * @provide nu.debug.MemoryChannel
- * @require nu.debug.LogLevel
- * @require nu.debug.LogItem
- * @require nu.debug.AbstractChannel
- */
 define( "nu.debug.MemoryChannel", function ( require, exports, module ) {
 
     'use strict';

@@ -1,7 +1,3 @@
-/**
- * @provide #default
- * @require app.pages.DefaultPageHandler
- */
 define( "#default", function ( require, exports, module ) {
 
     var DefaultPageHandler = require( "app.pages.DefaultPageHandler" );

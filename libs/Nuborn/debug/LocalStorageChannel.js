@@ -1,10 +1,3 @@
-/*
- * @provide nu.debug.LocalStorageChannel
- * @require nu.debug.LogLevel
- * @require nu.debug.LogItem
- * @require nu.cache.LocalStorage
- * @require nu.debug.AbstractChannel
- */
 define( "nu.debug.LocalStorageChannel", function ( require, exports, module ) {
 
     'use strict';

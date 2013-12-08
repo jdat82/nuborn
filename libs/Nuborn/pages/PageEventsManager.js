@@ -1,7 +1,3 @@
-/*
- * @provide nu.pages.PageEventsManager
- * @require nu.debug.Log
- */
 define( "nu.pages.PageEventsManager", function ( require, exports, module ) {
 
 	'use strict';

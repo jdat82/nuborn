@@ -1,6 +1,3 @@
-/*
- * @provide app.manager.PolyfillManager
- */
 define( "app.manager.PolyfillManager", function ( require, exports, module ) {
 
     'use strict';

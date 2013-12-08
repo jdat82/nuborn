@@ -1,7 +1,3 @@
-/**
- * @provide #settings
- * @require app.pages.SettingsPageHandler
- */
 define( "#settings", function ( require, exports, module ) {
 
     var SettingsPageHandler = require( "app.pages.SettingsPageHandler" );

@@ -1,7 +1,3 @@
-/**
- * @provide #legalNotices
- * @require app.pages.LegalNoticesPageHandler
- */
 define( "#legalNotices", function ( require, exports, module ) {
 
     var LegalNoticesPageHandler = require( "app.pages.LegalNoticesPageHandler" );

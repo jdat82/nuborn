@@ -1,11 +1,3 @@
-/*
- * @provide nu.debug.Log
- * @require nu.debug.LogLevel
- * @require nu.debug.LogItem
- * @require nu.debug.ConsoleChannel
- * @require nu.debug.LocalStorageChannel
- * @require nu.debug.MemoryChannel
- */
 define( "nu.debug.Log", function ( require, exports, module ) {
 
     'use strict';

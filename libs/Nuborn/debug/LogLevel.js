@@ -1,6 +1,3 @@
-/*
- * @provide nu.debug.LogLevel
- */
 define( "nu.debug.LogLevel", function ( require, exports, module ) {
 
 	'use strict';

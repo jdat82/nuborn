@@ -1,9 +1,3 @@
-/*
- * @provide app.pages.DetailPageHandler
- * @require app.pages.NubornPageHandler
- * @require nu.debug.Log
- * @require nu.widgets.button.Utils
- */
 define( "app.pages.DetailPageHandler", function ( require, exports, module ) {
 
 	'use strict';

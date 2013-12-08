@@ -5,22 +5,6 @@ define( "nu.core.Base", function ( require, exports, module ) {
     var $ = jQuery;
 
     /**
-     * @private
-     * Defaults settings.
-     */
-    var defaults = {
-
-    };
-
-    /*
-     * @private
-     * Current settings.
-     */
-    var settings = {
-
-    };
-
-    /**
      * @class nu.core.Base
      * Base class for every other class.
      */
@@ -29,35 +13,23 @@ define( "nu.core.Base", function ( require, exports, module ) {
         /**
          * @constructor
          * Shorcut for calling init, defaults and settings.
-         * @param {Object} defaults Initialize object with a group of default properties.
-         * @param {Object} settings Initialize object with a group of properties.
+         * @param {Object} defaults Defaults settings
+         * @param {Object} settings Runtime settings
          */
         init: function ( defaults, settings ) {
-            // Initiliazing defaults
-            this.defaults( defaults );
+
             // Initiliazing settings
-            this.settings( settings );
+            defaults = defaults || {};
+            settings = settings || {};
+            this.settings = $.extend( true, defaults, settings );
+
             // Used to store DOM references
             this.html = {};
+
             // Used to store runtime data
             this.data = {};
-        },
-
-        /**
-         * Set or get component's defaults settings.
-         */
-        defaults: function ( data ) {
-            if ( !data ) return defaults;
-            defaults = data;
-        },
-
-        /**
-         * Set or get component's settings.
-         */
-        settings: function ( data ) {
-            if ( !data ) return settings;
-            settings = $.extend( true, defaults, data );
         }
+
     } );
 
 } );

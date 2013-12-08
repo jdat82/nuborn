@@ -1,7 +1,3 @@
-/*
- * @provide nu.core.UriManager
- * @require nu.debug.Log
- */
 define( "nu.core.UriManager", function ( require, exports, module ) {
 
     'use strict';

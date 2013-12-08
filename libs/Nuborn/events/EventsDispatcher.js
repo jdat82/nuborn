@@ -1,6 +1,3 @@
-/*
- * @provide nu.events.EventsDispatcher
- */
 define( "nu.events.EventsDispatcher", function ( require, exports, module ) {
 
 	'use strict';
@@ -20,10 +17,10 @@ define( "nu.events.EventsDispatcher", function ( require, exports, module ) {
 		},
 		/**
 		 * Emit an event <name> having the given <target> and <data> as properties.
-		 * @param {Object} settings
-		 * @param {String} settings.name
-		 * @param {Object} settings.target Event will appears to be triggered by this target
-		 * @param {Mixed} settings.data Events data
+		 * @param {Object} data
+		 * @param {String} data.name
+		 * @param {Object} data.target Event will appears to be triggered by this target
+		 * @param {Mixed} data.settings Events data
 		 */
 		emit: function ( data ) {
 			if ( !data || !data.name )

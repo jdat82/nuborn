@@ -1,9 +1,3 @@
-/*
- * @provide app.pages.HelpPageHandler
- * @require app.pages.NubornPageHandler
- * @require nu.debug.Log
- * @require nu.Utils
- */
 define( "app.pages.HelpPageHandler", function ( require, exports, module ) {
 
 	'use strict';

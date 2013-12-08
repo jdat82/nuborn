@@ -1,9 +1,3 @@
-/*
- * @provide nu.debug.ConsoleChannel
- * @require nu.debug.LogLevel
- * @require nu.debug.LogItem
- * @require nu.debug.AbstractChannel
- */
 define( "nu.debug.ConsoleChannel", function ( require, exports, module ) {
 
     'use strict';

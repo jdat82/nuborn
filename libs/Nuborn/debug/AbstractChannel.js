@@ -1,8 +1,3 @@
-/*
- * @provide nu.debug.AbstractChannel
- * @require nu.debug.LogLevel
- * @require nu.debug.LogItem
- */
 define( "nu.debug.AbstractChannel", function ( require, exports, module ) {
 
 	'use strict';

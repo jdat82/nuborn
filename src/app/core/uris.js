@@ -1,7 +1,3 @@
-/*
- * @provide app.core.uris
- * @require nu.core.UriManager
- */
 define( "app.core.uris", function ( require, exports, module ) {
 
     'use strict';

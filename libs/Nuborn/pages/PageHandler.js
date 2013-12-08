@@ -1,9 +1,3 @@
-/*
- * @provide nu.pages.PageHandler
- * @require nu.pages.PageEventsManager
- * @require nu.debug.Log
- * @require nu.Utils
- */
 define( "nu.pages.PageHandler", function ( require, exports, module ) {
 
     'use strict';

@@ -1,6 +1,3 @@
-/*
- * @provide nu
- */
 define( "nu", function ( require, exports, module ) {
 
     /**

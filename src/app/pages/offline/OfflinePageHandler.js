@@ -1,7 +1,3 @@
-/*
- * @provide app.pages.OfflinePageHandler
- * @require app.pages.NubornPageHandler
- */
 define( "app.pages.OfflinePageHandler", function ( require, exports, module ) {
 
 	'use strict';

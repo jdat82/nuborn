@@ -6,8 +6,14 @@ define( "nu.widgets.Menu", function ( require, exports, module ) {
     var Utils = require( "nu.Utils" );
     var Base = require( "nu.core.Base" );
 
+    var defaults = {
+        id: "menu",
+        templateId: "menu"
+    };
+
     /**
      * @class nu.widgets.Menu
+     * @extends nu.core.Base
      * Default behavior of a menu.
      */
     var Menu = Base.subClass( {
@@ -15,16 +21,17 @@ define( "nu.widgets.Menu", function ( require, exports, module ) {
         /**
          * @constructor
          * @param  {Object} settings
+         * Defaults: {
+         * - id: widget id in DOM
+         * - templateId: template identifier
+         * }
          */
         init: function ( settings ) {
 
             // Initializing defaults & settings
-            this._super( {
-                id: "menu",
-                templateId: "menu"
-            }, settings );
+            this._super( defaults, settings );
 
-            var templateId = this.settings().templateId;
+            var templateId = this.settings.templateId;
 
             // Inflates the menu
             this.html.menu = $( templates[ templateId ].render( this.settings ) );

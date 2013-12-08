@@ -6,6 +6,7 @@ define( "nu.widgets.StressTest", function ( require, exports, module ) {
     var Log = require( "nu.debug.Log" );
     var LocalStorage = require( "nu.cache.LocalStorage" );
     var EventsDispatcher = require( "nu.events.EventsDispatcher" );
+    var Base = require( "nu.core.Base" );
 
     /**
      * @class nu.widgets.StressTest
@@ -13,13 +14,13 @@ define( "nu.widgets.StressTest", function ( require, exports, module ) {
      * Play a css animation to evaluate device performances.
      * When done, add a CSS class to html tag: either animationfriendly or no-animationfriendly.
      */
-    var StressTest = Object.subClass( {
+    var StressTest = Base.subClass( {
 
         /**
          * @constructor
          */
         init: function ( settings ) {
-            this.settings = $.extend( true, defaults, settings );
+            this._super( defaults, settings );
         },
 
         /**
@@ -98,13 +99,13 @@ define( "nu.widgets.StressTest", function ( require, exports, module ) {
      */
     StressTest.KEY_NO_ANIMATIONFRIENDLY = "no-animationfriendly";
 
-
-    /*
-     * Private variables.
+    /**
+     * Defaults.
      */
     var defaults = {
         localStorageKey: StressTest.KEY_ANIMATIONFRIENDLY
     };
+
 
     function declareAnimationFriendly() {
         Log.i( "This browser is animation friendly" );
