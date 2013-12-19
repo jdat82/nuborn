@@ -23,11 +23,11 @@ module.exports = function ( grunt ) {
             root: "build/nuborn",
             android: {
                 folder: "<%= platforms.root %>/platforms/android/assets/www",
-                active: true
+                active: false
             },
             ios: {
                 folder: "<%= platforms.root %>/platforms/ios/www",
-                active: true
+                active: false
             },
             web: {
                 folder: "<%= platforms.root %>/platforms/web",
@@ -42,7 +42,8 @@ module.exports = function ( grunt ) {
             "libs/Hogan/*.js",
             "libs/jQuery/*.min.js",
             "libs/Modernizr/*.js",
-            "{libs/Nuborn,src/app}/init/*.js", // jQuery Mobile pre-initialization
+            "libs/FastClick/*.js",
+            "{gen/libs,gen/src,libs/Nuborn,src/app}/init/*.js", // jQuery Mobile pre-initialization
             "libs/jQueryMobile/*.js",
             "libs/SwipeJS/*.js",
             "gen/*.js", // Generated sources
@@ -52,15 +53,16 @@ module.exports = function ( grunt ) {
          * Common javascript sources files for all platforms
          */
         jsApp: [
-            "{libs/Nuborn,src}/**/*.js", // Nuborn && App sources
-            "!{libs/Nuborn,src}/**/*-async.js" // excluding all async files which will be requested manually
+            "{gen/libs,gen/src,libs/Nuborn,src}/**/*.js", // Nuborn && App sources
+            // "gen/coffee.js",
+            "!{gen/libs,gen/src,libs/Nuborn,src}/**/*-async.js" // excluding all async files which will be requested manually
         ],
 
         /**
          * These files will be requested manually asynchronously and not merged in the global file.
          */
         asyncJs: [
-            "{libs,src}/**/*-async.{js,min.js}"
+            "{gen/libs,gen/src,libs,src}/**/*-async.{js,min.js}"
         ],
 
         /**
@@ -131,9 +133,15 @@ module.exports = function ( grunt ) {
                         }
                     } ),
                     "ignore": [ "<%= jsLibs %>", "<%= asyncJs %>" ]
+                    // "sourceMapIn": "gen/coffee.js.map",
+                    // "sourceMap": "<%= platforms.web.folder %>/js/app.min.js.map",
+                    // "sourceMappingURL": "http://localhost:9005/js/app.min.js.map"
                 },
                 files: [ {
-                    "<%= platforms.web.folder %>/js/app.min.js": [ "<%= jsLibs %>", "<%= jsApp %>" ]
+                    "<%= platforms.web.folder %>/js/app.min.js": [
+                        "<%= jsLibs %>",
+                        "<%= jsApp %>"
+                    ]
                 }, {
                     dest: "<%= platforms.web.folder %>/js",
                     src: [ "<%= asyncJs %>" ],
@@ -185,7 +193,7 @@ module.exports = function ( grunt ) {
          * These files will be requested manually asynchronously and not merged in the global file.
          */
         asyncCss: [
-            "{libs,src}/**/*-async.{css,min.css}"
+            "{libs,src}/**/*-async.{css,min.css,scss}"
         ],
 
         /**
@@ -389,13 +397,13 @@ module.exports = function ( grunt ) {
          */
         clean: {
             android: {
-                src: [ "<%= platforms.android.folder %>/*" ]
+                src: [ "<%= platforms.android.folder %>/*", "gen/" ]
             },
             ios: {
-                src: [ "<%= platforms.ios.folder %>/*" ]
+                src: [ "<%= platforms.ios.folder %>/*", "gen/" ]
             },
             web: {
-                src: [ "<%= platforms.web.folder %>/*" ]
+                src: [ "<%= platforms.web.folder %>/*", "gen/" ]
             }
         },
 
@@ -549,8 +557,27 @@ module.exports = function ( grunt ) {
                 stderror: true,
                 cwd: "<%= platforms.root %>"
             }
-        }
+        },
 
+        /**
+         * Compile and tansform coffee scripts files to javascript files.
+         */
+        coffee: {
+            options: {
+                bare: true,
+                join: false,
+                sourceMap: false
+            },
+            common: {
+                files: [ {
+                    dest: 'gen/',
+                    // dest: 'gen/coffee.js',
+                    src: [ '{src,libs/Nuborn}/**/*.coffee' ],
+                    expand: true,
+                    ext: ".js"
+                } ]
+            }
+        }
     } );
 
 
@@ -575,20 +602,20 @@ module.exports = function ( grunt ) {
     grunt.loadNpmTasks( 'grunt-weinre' );
     grunt.loadNpmTasks( 'grunt-docco' );
     grunt.loadNpmTasks( 'grunt-exec' );
-
+    grunt.loadNpmTasks( 'grunt-contrib-coffee' );
 
     /**
      * Registering Default Task
      */
-    grunt.registerTask( "default", [ "clean", "exec:cordova-prepare", "hogan", "nuglify", "nsass", "htmlmin", "imagemin", "copy", "manifest" ] );
+    grunt.registerTask( "default", [ "clean", "exec:cordova-prepare", "coffee", "hogan", "nuglify", "nsass", "htmlmin", "imagemin", "copy", "manifest" ] );
 
 
     /**
      * Registering one alias per target to allow compiling only one target
      */
-    grunt.registerTask( "android", [ "clean:android", "exec:cordova-prepare:android", "hogan:android", "nuglify:android", "nsass:android", "htmlmin:android", "imagemin:android", "copy:android" ] );
-    grunt.registerTask( "ios", [ "clean:ios", "exec:cordova-prepare:ios", "hogan:ios", "nuglify:ios", "nsass:ios", "htmlmin:ios", "imagemin:ios", "copy:ios" ] );
-    grunt.registerTask( "web", [ "clean:web", "hogan:web", "nuglify:web", "nsass:web", "htmlmin:web", "imagemin:web", "copy:web", "manifest:web" ] );
+    grunt.registerTask( "android", [ "clean:android", "exec:cordova-prepare:android", "coffee", "hogan:android", "nuglify:android", "nsass:android", "htmlmin:android", "imagemin:android", "copy:android" ] );
+    grunt.registerTask( "ios", [ "clean:ios", "exec:cordova-prepare:ios", "coffee", "hogan:ios", "nuglify:ios", "nsass:ios", "htmlmin:ios", "imagemin:ios", "copy:ios" ] );
+    grunt.registerTask( "web", [ "clean:web", "coffee", "hogan:web", "nuglify:web", "nsass:web", "htmlmin:web", "imagemin:web", "copy:web", "manifest:web" ] );
 
     /**
      * Alias for hogan + nuglify + manifest tasks.
@@ -596,6 +623,7 @@ module.exports = function ( grunt ) {
     grunt.registerTask( "javascript", [ "javascript code" ] );
     // using grunt.task.run syntax instead the alias one because the hook doesn't work
     grunt.registerTask( "javascript code", function () {
+        grunt.task.run( "coffee" );
         grunt.task.run( "hogan" );
         grunt.task.run( "nuglify" );
         grunt.task.run( "manifest" );

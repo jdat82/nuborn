@@ -8,7 +8,7 @@
 				"ERROR": true,
 				"LIVERELOAD": false,
 				"LIVERELOAD_PORT": 35735,
-				"WEINRE": true,
+				"WEINRE": false,
 				"REMOTE_HOST": "jdat-dev.mbp",
 				"WEINRE_PORT": 8085,
 				"NETWORK": "http://localhost:9005"
