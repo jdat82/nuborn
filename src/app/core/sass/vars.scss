@@ -2,15 +2,36 @@
  * @provide vars
  */
 
-// dark backgrounds
+/**
+ * @var
+ * Background color.
+ */
 $background : #424242;
+/**
+ * @var
+ * Dark background color.
+ */
 $darkBackground : #212121;
-
-// normal colors
+/**
+ * @var
+ * Orange color.
+ */
 $orange: #ff8000;
 // $red: #ba4234; // jolie mais un peu fade
+/**
+ * @var
+ * Red color.
+ */
 $red: #e23343;
+/**
+ * @var
+ * Flashy red color.
+ */
 $redActive: #d44a3b;
+/**
+ * @var
+ * Green color.
+ */
 $green: #29c14e;
 
 // flashy colors
@@ -18,16 +39,38 @@ $green: #29c14e;
 // $red: #be1922;
 // $redActive: #d11b24; // hypnotic red
 
-// text
-$textColor: white;
+/**
+ * @var
+ * Text color.
+ */
+$textColor: #DDD;
+/**
+ * @var
+ * Soft white color.
+ */
 $softWhite: #DDD;
+/**
+ * @var
+ * Soft black color.
+ */
 $softBlack: #333;
-
-$selected: #666666;
-
-// sizing: common
+/**
+ * @var
+ * Selected item background color.
+ */
+$selected: #666;
+/**
+ * @var
+ * Default padding.
+ */
 $padding: .5rem;
+/**
+ * @var
+ * Default margin.
+ */
 $margin: 2%;
-
-// sizing: headers
+/**
+ * @var
+ * Header bar height.
+ */
 $headerHeight: 6 * $padding;

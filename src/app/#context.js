@@ -5,6 +5,7 @@ define( "#context", function ( require, exports, module ) {
     var Utils = require( "nu.Utils" );
 
     /**
+     * @property {nu.core.Context}
      * Context instance which holds contextual data.
      * @type nu.core.Context
      */

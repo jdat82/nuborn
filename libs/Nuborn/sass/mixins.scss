@@ -8,6 +8,9 @@
  * http://www.w3.org/TR/css3-animations/#animation-shorthand-property
  */
 
+/**
+ * Vendorize animations declarations.
+ */
 @mixin animation($animations...) {
   -webkit-animation: $animations;
   -moz-animation: $animations;
@@ -15,6 +18,9 @@
   -o-animation: $animations;
 }
 
+/**
+ * To create a custom animation for every prefix.
+ */
 @mixin keyframes($name) {
   @-webkit-keyframes #{$name} {
     @content;
@@ -30,6 +36,9 @@
   }
 }
 
+/**
+ * To create a linear-gradient for every prefix.
+ */
 @mixin linear-gradient($from, $to) {
 	background-image: $from; /* Old browsers */
 	background-image: -moz-linear-gradient(top, $from 0%, $to 100%); /* FF3.6+ */
@@ -41,6 +50,9 @@
 	background-image: linear-gradient(to bottom, $from 0%, $to 100%); /* W3C */
 }
 
+/**
+ * To create a box shadow for every prefix.
+ */
 @mixin box-shadow($inset, $x, $y, $blur, $spread, $color, $ieDirection) {
 	-moz-box-shadow: $inset $x $y $blur $spread $color;
 	-webkit-box-shadow: $inset $x $y $blur $spread $color;
@@ -49,6 +61,9 @@
 	box-shadow: $inset $x $y $blur $spread $color;
 }
 
+/**
+ * Add all knowns prefixes to the property.
+ */
 @mixin vendorize($property, $value) {
 	-webkit-#{$property}: #{$value};
 	-moz-#{$property}: #{$value};
@@ -57,6 +72,9 @@
 	#{$property}: #{$value};
 }
 
+/**
+ * Add all known prefixes to the value.
+ */
 @mixin vendorize-value($property, $value) {
     #{$property}: -webkit-#{$value};
     #{$property}: -moz-#{$value};
@@ -65,6 +83,10 @@
     #{$property}: #{$value};
 }
 
+/**
+ * To declare media queries.
+ * 3 breakpoints : smartphone, tablet and desktop.
+ */
 @mixin mq($mq) {
 	@if $mq == non-retina {
 		// @media
@@ -120,6 +142,9 @@
 	};
 }
 
+/**
+ * To vertically align a group of inline blocks.
+ */
 @mixin vmiddle(){
     &::before {
         content: '';
@@ -130,6 +155,9 @@
     }
 }
 
+/**
+ * To justify a group of inline blocks.
+ */
 @mixin justify() {
     &::after {
         content: '';

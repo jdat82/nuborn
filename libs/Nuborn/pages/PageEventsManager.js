@@ -49,6 +49,8 @@ define( "nu.pages.PageEventsManager", function ( require, exports, module ) {
 			$( document ).on( "pageshow", pageSelector, $.proxy( this, "pageShow" ) );
 			$( document ).on( "swipeleft", pageSelector, $.proxy( this, "swipeLeft" ) );
 			$( document ).on( "swiperight", pageSelector, $.proxy( this, "swipeRight" ) );
+			$( document ).on( "backbutton", $.proxy( this, "backButton" ) );
+			$( document ).on( "menubutton", $.proxy( this, "menuButton" ) );
 		},
 
 		/**
@@ -66,6 +68,10 @@ define( "nu.pages.PageEventsManager", function ( require, exports, module ) {
 			// $(document).off("pageremove");
 			$( document ).off( "pagehide" );
 			$( document ).off( "pageshow" );
+			$( document ).off( "swipeleft" );
+			$( document ).off( "swiperight" );
+			$( document ).off( "backbutton" );
+			$( document ).off( "menubutton" );
 		},
 
 		/**
@@ -158,10 +164,13 @@ define( "nu.pages.PageEventsManager", function ( require, exports, module ) {
 				return;
 			}
 
-			// registering the current active page handler as the previous one
-			this.previousPageHandler = this.currentPageHandler;
-			// registering new active page handler
-			this.currentPageHandler = pageHandler;
+			// for prototype page handlers, the pagebeforecreate event is always invoked
+			if ( !pageHandler.settings.singleton ) {
+				// registering the current active page handler as the previous one
+				this.previousPageHandler = this.currentPageHandler;
+				// registering new active page handler
+				this.currentPageHandler = pageHandler;
+			}
 
 			// dispatching the event to current active page handler
 			pageHandler.pageBeforeCreate( event );
@@ -244,6 +253,14 @@ define( "nu.pages.PageEventsManager", function ( require, exports, module ) {
 			// stop process if no page handler has been found
 			if ( !pageHandler ) {
 				return;
+			}
+
+			// for singleton page handlers, the pagebeforecreate event is invoked only once, so we dit it in the pagebeforeshow event.
+			if ( pageHandler.settings.singleton ) {
+				// registering the current active page handler as the previous one
+				this.previousPageHandler = this.currentPageHandler;
+				// registering new active page handler
+				this.currentPageHandler = pageHandler;
 			}
 
 			var page = event.currentTarget;
@@ -384,6 +401,22 @@ define( "nu.pages.PageEventsManager", function ( require, exports, module ) {
 
 			// dispatching the event to current active page handler
 			pageHandler.swipeRight( event );
+		},
+
+		backButton: function ( event ) {
+			// "backbutton" is sent by phonegap and page independent
+			var pageHandler = this.currentPageHandler;
+
+			// dispatching the event to current active page handler
+			pageHandler.backButton( event );
+		},
+
+		menuButton: function ( event ) {
+			// "menubutton" is sent by phonegap and page independent
+			var pageHandler = this.currentPageHandler;
+
+			// dispatching the event to current active page handler
+			pageHandler.menuButton( event );
 		},
 
 		/**

@@ -1,6 +1,9 @@
 define( "#menu", function ( require, exports, module ) {
     var Menu = require( "app.widgets.Menu" );
-    // global menu
+    /**
+     * @property {app.widgets.Menu}
+     * Global menu.
+     */
     module.exports = new Menu( {
         id: "menu"
     } );

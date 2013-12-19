@@ -17,9 +17,8 @@ build/nuborn/platforms/android/gen/
 build/nuborn/platforms/android/bin/
 build/nuborn/platforms/android/.settings
 build/nuborn/platforms/android/.staging
+build/nuborn/platforms/android/local.properties
 
 # ios
 build/nuborn/platforms/ios/www/
-build/nuborn/platforms/ios/build/
-build/nuborn/platforms/ios/CordovaLib/build/
-build/nuborn/platforms/ios/**/xcuserdata/
+build/nuborn/platforms/ios/**/*.xcuserdatad/

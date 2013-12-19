@@ -280,6 +280,13 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
             }
         },
 
+        backButton: function ( event ) {
+            DEBUG && Log.i( "back button" );
+        },
+
+        menuButton: function ( event ) {
+            DEBUG && Log.i( "menu button" );
+        },
 
         /**
          * Utility method to navigate from one page to another
@@ -331,7 +338,6 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
                 window.setTimeout( function () {
                     DEBUG && Log.i( "navigating to #" + pageId );
                     $.mobile.changePage( "#" + pageId, options.jqmOptions );
-                    DEBUG && Log.i( "Post change page" );
                     // calling callback after page change if any
                     if ( options.callback ) {
                         options.callback();

@@ -4,6 +4,7 @@ define( "app.Constants", function ( require, exports, module ) {
 
     /**
      * App constants.
+     * @enum app.Constants
      */
     module.exports = {
 

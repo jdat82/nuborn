@@ -324,6 +324,12 @@ define( "app.pages.HomePageHandler", function ( require, exports, module ) {
 				} );
 				return false;
 			} );
+		},
+
+	backButton: function ( event ) {
+			this._super( event );
+			Log.i( "Exiting app" );
+			navigator.app && navigator.app.exitApp && navigator.app.exitApp();
 		}
 	} );
 

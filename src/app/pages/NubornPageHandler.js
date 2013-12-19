@@ -23,6 +23,12 @@ define( "app.pages.NubornPageHandler", function ( require, exports, module ) {
             // window.setTimeout( $.proxy( this, "resizeOnScroll" ), 10 );
         },
 
+        menuButton: function ( event ) {
+            this._super( event );
+            var menu = require( "#menu" );
+            menu.toggleMenu();
+        },
+
         resizeOnScroll: function () {
             var $page = this.html.page;
             var $header = $page.find( "[data-role=header]" );

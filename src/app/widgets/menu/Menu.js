@@ -59,7 +59,7 @@ define( "app.widgets.Menu", function ( require, exports, module ) {
             var legalNoticesPage = require( "#legalNotices" );
             this.toggleMenu();
             !legalNoticesPage.isVisible() && navigate( this.html.menu, legalNoticesPage );
-        },
+        }
 
     } );
 
