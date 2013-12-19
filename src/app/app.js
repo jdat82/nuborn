@@ -63,6 +63,10 @@
 
     function init() {
 
+        // Removing 300 ms classic delay in mobile browsers
+        // http://updates.html5rocks.com/2013/12/300ms-tap-delay-gone-away
+        FastClick.attach( document.body );
+
         // Initiliazing a shared context object
         var context = require( "#context" );
 
