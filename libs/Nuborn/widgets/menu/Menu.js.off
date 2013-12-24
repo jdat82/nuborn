@@ -4,7 +4,7 @@ define( "nu.widgets.Menu", function ( require, exports, module ) {
 
     var $ = jQuery;
     var Utils = require( "nu.Utils" );
-    var Base = require( "nu.core.Base" );
+    var Class = require( "nu.core.Class" );
 
     var defaults = {
         id: "menu",
@@ -13,10 +13,10 @@ define( "nu.widgets.Menu", function ( require, exports, module ) {
 
     /**
      * @class nu.widgets.Menu
-     * @extends nu.core.Base
+     * @extends nu.core.Class
      * Default behavior of a menu.
      */
-    var Menu = Base.subClass( {
+    var Menu = Class.subClass( {
 
         /**
          * @constructor

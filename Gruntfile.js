@@ -43,7 +43,7 @@ module.exports = function ( grunt ) {
             "libs/jQuery/*.min.js",
             "libs/Modernizr/*.js",
             "libs/FastClick/*.js",
-            "{gen/libs,gen/src,libs/Nuborn,src/app}/init/*.js", // jQuery Mobile pre-initialization
+            "{gen/libs/Nuborn,gen/src/app,libs/Nuborn,src/app}/init/*.js", // jQuery Mobile pre-initialization
             "libs/jQueryMobile/*.js",
             "libs/SwipeJS/*.js",
             "gen/*.js", // Generated sources
@@ -383,12 +383,12 @@ module.exports = function ( grunt ) {
 
         docco: {
             app: {
-                src: "<%= jsApp %>",
                 options: {
                     output: 'docs/docco/gen',
                     layout: "linear",
                     css: "docs/docco/docco.css"
-                }
+                },
+                src: "<%= jsApp %>"
             }
         },
 

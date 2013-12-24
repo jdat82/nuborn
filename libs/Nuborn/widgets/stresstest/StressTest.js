@@ -6,7 +6,7 @@ define( "nu.widgets.StressTest", function ( require, exports, module ) {
     var Log = require( "nu.debug.Log" );
     var LocalStorage = require( "nu.cache.LocalStorage" );
     var EventsDispatcher = require( "nu.events.EventsDispatcher" );
-    var Base = require( "nu.core.Base" );
+    var Class = require( "nu.core.Class" );
 
     /**
      * @class nu.widgets.StressTest
@@ -14,7 +14,7 @@ define( "nu.widgets.StressTest", function ( require, exports, module ) {
      * Play a css animation to evaluate device performances.
      * When done, add a CSS class to html tag: either animationfriendly or no-animationfriendly.
      */
-    var StressTest = Base.subClass( {
+    var StressTest = Class.subClass( {
 
         /**
          * @constructor

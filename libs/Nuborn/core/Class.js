@@ -1,11 +1,11 @@
-define( "nu.core.Base", function ( require, exports, module ) {
+define( "nu.core.Class", function ( require, exports, module ) {
 
     'use strict';
 
     var $ = jQuery;
 
     /**
-     * @class nu.core.Base
+     * @class nu.core.Class
      * Base class for every other class.
      */
     module.exports = Object.subClass( {

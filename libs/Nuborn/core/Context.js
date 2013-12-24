@@ -16,15 +16,15 @@ define( "nu.core.Context", function ( require, exports, module ) {
     var $ = jQuery;
     var LocalStorage = require( "nu.cache.LocalStorage" );
     var Log = require( "nu.debug.Log" );
-    var Base = require( "nu.core.Base" );
+    var Class = require( "nu.core.Class" );
 
     /**
      * @class nu.core.Context
-     * @extends nu.core.Base
+     * @extends nu.core.Class
      *
      * Simple context class to store temporary data.
      */
-    var Context = Base.subClass( {
+    var Context = Class.subClass( {
 
         /**
          * @constructor
