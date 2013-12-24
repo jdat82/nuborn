@@ -376,14 +376,14 @@ module.exports = function ( grunt ) {
                     "footer": "Jean DAT"
                     // "tests": true
                 },
-                src: [ "src/", "libs/Nuborn/" ],
+                src: "<%= jsApp %>",
                 dest: "docs/jsduck/gen"
             }
         },
 
         docco: {
             app: {
-                src: [ 'src/**/*.js', "libs/Nuborn/**/*.js" ],
+                src: "<%= jsApp %>",
                 options: {
                     output: 'docs/docco/gen',
                     layout: "linear",
@@ -424,6 +424,10 @@ module.exports = function ( grunt ) {
             scss: {
                 files: [ "<%= css %>", "<%= asyncCss %>" ],
                 tasks: [ "nsass", "manifest" ]
+            },
+            coffee: {
+                files: [ "src/**/*.coffee", "libs/Nuborn/**/*.coffee" ],
+                tasks: [ "coffee" ]
             },
             js: {
                 files: [ "<%= jsLibs%>", "<%= jsApp %>", "<%= asyncJs %>" ],
