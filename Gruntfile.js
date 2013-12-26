@@ -376,7 +376,12 @@ module.exports = function ( grunt ) {
                     "footer": "Jean DAT"
                     // "tests": true
                 },
-                src: "<%= jsApp %>",
+                src: [
+                    "gen/libs",
+                    "gen/src",
+                    "libs/Nuborn",
+                    "src"
+                ],
                 dest: "docs/jsduck/gen"
             }
         },
