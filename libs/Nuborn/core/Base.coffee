@@ -6,7 +6,7 @@ define "nu.core.Base", ( require, exports, module ) ->
 
     ###*
     @class nu.core.Class
-    Base class for every other class.
+    Base class which should be inherited by all other classes.
     ###
     class Base
 

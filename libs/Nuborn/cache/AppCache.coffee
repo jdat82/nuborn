@@ -11,7 +11,7 @@ define "nu.cache.AppCache", ( require, exports, module ) ->
 
 	Cache Manager.
 	Check if a new version of the webapp is available online at startup.
-	Non sense in hybride mode. Useful only in webapp mode.
+	Non sense in hybride mode except if there is no local files. Should be useful only in webapp mode.
 	###
 	class AppCache
 

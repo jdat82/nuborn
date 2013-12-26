@@ -19,7 +19,7 @@ define "nu.widgets.Menu", ( require, exports, module ) ->
     ###*
     @class nu.widgets.Menu
     @extends nu.core.Base
-    Default behavior of a menu.
+    Base class to implement a global menu.
     ###
     class Menu extends Base
 

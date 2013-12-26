@@ -12,7 +12,7 @@ define "app.widgets.Menu", ( require, exports, module ) ->
     ###*
     @class app.widgets.Menu
     @extends nu.widgets.Menu
-    Nuborn general menu.
+    Nuborn Kitchen Sink general menu.
     ###
     class Menu extends BaseMenu
 
