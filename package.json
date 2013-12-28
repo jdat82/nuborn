@@ -26,6 +26,7 @@
     "grunt-weinre": "0.x.x",
     "grunt-docco": "0.3.x",
     "grunt-exec": "~0.4.2",
+    "grunt-autoprefixer": "0.5.x",
     "grunt-contrib-coffee": "~0.7.0"
   }
 }

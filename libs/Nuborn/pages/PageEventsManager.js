@@ -426,8 +426,11 @@ define( "nu.pages.PageEventsManager", function ( require, exports, module ) {
 		interceptHashLinks: function () {
 			$( document ).on( "click", "a", function ( event ) {
 				var el = event.currentTarget;
+				DEBUG && Log.i( "Intercepted link '" + el.href + "'" );
 				var hash = Utils.deserializeHash( el.href );
 				var preventDefault = ( el.dataset.intercept === "false" );
+				if ( preventDefault )
+					DEBUG && Log.i( "Link will not be intercepted " );
 				// if it is not a hash link, nothing to do
 				if ( !hash.name || !hash.name.length || preventDefault ) {
 					event.preventDefault();

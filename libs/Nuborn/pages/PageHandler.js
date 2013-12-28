@@ -198,7 +198,7 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
          * @param  {Object} event
          * @param  {Object} data
          */
-        swipeLeft: function ( event, data ) {
+        swipeLeft: function ( event ) {
             DEBUG && Log.i( "swipe left on '" + event.currentTarget.id + "'" );
         },
 
@@ -207,7 +207,7 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
          * @param  {Object} event
          * @param  {Object} data
          */
-        swipeRight: function ( event, data ) {
+        swipeRight: function ( event ) {
             DEBUG && Log.i( "swipe right on '" + event.currentTarget.id + "'" );
         },
 

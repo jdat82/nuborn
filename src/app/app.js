@@ -67,6 +67,9 @@
         // http://updates.html5rocks.com/2013/12/300ms-tap-delay-gone-away
         FastClick.attach( document.body );
 
+        var Utils = require("nu.Utils");
+        Utils.decorateDOMWithBrowserClass();
+
         // Initiliazing a shared context object
         var context = require( "#context" );
 

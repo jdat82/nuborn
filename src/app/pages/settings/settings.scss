@@ -29,7 +29,7 @@
         -webkit-perspective: 200;
         -webkit-border-image: -webkit-gradient(linear, 100% 0%, 0% 0%, from(rgba(255, 255, 255, 0)), to(rgba(255, 255, 255, 0)), color-stop(0.1, rgba(255, 255, 255, 0.05)), color-stop(0.3, rgba(5, 137, 200, 0.4)), color-stop(0.45, rgba(255, 255, 255, 0.05)), color-stop(0.9, rgba(255, 255, 255, 0.1))) 100% 100%;
         background-image: -webkit-gradient(linear, right top, left top, color-stop(0, hsl(0, 0%, 0%)), color-stop(0.14, hsl(0, 0%, 50%)), color-stop(0.15, hsl(0, 0%, 0%)));
-        -webkit-box-shadow: inset #000 -7px 0 1px, inset #000 0 -5px 10px, inset #000 0 3px 3px;
+        box-shadow: inset #000 -7px 0 1px, inset #000 0 -5px 10px, inset #000 0 3px 3px;
         &:before, &:after {
             font: bold 1.7rem Roboto;
             text-align: center;
@@ -54,26 +54,26 @@
             background-image: -webkit-gradient(linear, 70% top, 40% bottom, from(hsl(0, 0%, 17%)), to(hsl(0, 0%, 12%)));
             border-right: 1px solid transparent;
             -webkit-border-image: -webkit-gradient(linear, left bottom, left top, from(rgba(255, 255, 255, 0)), color-stop(0.2, rgba(255, 255, 255, 0)), color-stop(0.4, rgba(255, 255, 255, 0.5)), to(rgba(255, 255, 255, 0.05))) 10% 100%;
-            -webkit-box-shadow: rgba(0, 0, 0, 0.6) 8px 3px 10px;
-            @include transform(rotateY(-30deg) scaleX(0.9) scaleY(1.1) translateX(-8px));
+            box-shadow: rgba(0, 0, 0, 0.6) 8px 3px 10px;
+            transform: rotateY(-30deg) scaleX(0.9) scaleY(1.1) translateX(-8px);
         }
         &:checked {
             -webkit-border-image: -webkit-gradient(linear, 0% 0%, 100% 0%, from(rgba(255, 255, 255, 0)), to(rgba(255, 255, 255, 0)), color-stop(0.1, rgba(255, 255, 255, 0.05)), color-stop(0.3, rgba(5, 137, 200, 0.4)), color-stop(0.45, rgba(255, 255, 255, 0.05)), color-stop(0.9, rgba(255, 255, 255, 0.1))) 100% 100%;
             background-image: -webkit-gradient(linear, left top, right top, color-stop(0, hsl(0, 0%, 0%)), color-stop(0.14, hsl(0, 0%, 50%)), color-stop(0.15, hsl(0, 0%, 0%)));
-            -webkit-box-shadow: inset #000 7px 0 1px, inset #000 0 -5px 10px, inset #000 0 3px 3px;
+            box-shadow: inset #000 7px 0 1px, inset #000 0 -5px 10px, inset #000 0 3px 3px;
             &:before {
                 background-image: -webkit-gradient(linear, 30% top, 60% bottom, from(hsl(0, 0%, 17%)), to(hsl(0, 0%, 12%)));
                 border-left: 1px solid transparent;
                 -webkit-border-image: -webkit-gradient(linear, left bottom, left top, from(rgba(255, 255, 255, 0)), color-stop(0.2, rgba(255, 255, 255, 0)), color-stop(0.4, rgba(255, 255, 255, 0.5)), to(rgba(255, 255, 255, 0.05))) 10% 100%;
-                -webkit-box-shadow: rgba(0, 0, 0, 0.6) -8px 3px 10px;
-                @include transform(rotateY(30deg) scaleX(0.9) scaleY(1.1) translateX(8px));
+                box-shadow: rgba(0, 0, 0, 0.6) -8px 3px 10px;
+                transform: rotateY(30deg) scaleX(0.9) scaleY(1.1) translateX(8px);
             }
         }
         &:before, &:checked:after {
-            @include transform(none);
+            transform: none;
             background-image: -webkit-gradient(linear, left top, left bottom, from(hsl(0, 0%, 20%)), to(hsl(0, 0%, 15%)));
             -webkit-border-image: none;
-            -webkit-box-shadow: none;
+            box-shadow: none;
             z-index: 2;
         }
         &:after, &:checked:before {
@@ -111,7 +111,7 @@
 .animationfriendly.csstransforms3d #settings {
     input[type="checkbox"] {
         &:before,&:after {
-            @include transition(transform 0.3s, color 0.3s, text-shadow 0.3s);
+            transition: transform 0.3s, color 0.3s, text-shadow 0.3s;
         }
     }
 }

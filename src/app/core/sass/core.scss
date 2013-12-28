@@ -12,11 +12,11 @@
 
 html * {
 	font-family: "Roboto", "Helvetica", "Arial";
-	@include vendorize(user-select, none);
+	user-select: none;
 }
 
 input, textarea {
-	@include vendorize(user-select, text);
+	user-select: text;
 }
 
 li:nth-child(even) {
@@ -28,6 +28,10 @@ li:nth-child(odd) {
 
 [data-role=page] {
 	background-image: url("../img/bg.png");
+}
+
+html.ios-7 [data-role=header] {
+	margin-top: 22px;
 }
 
 [data-role=header]{
@@ -54,7 +58,6 @@ li:nth-child(odd) {
 	}
 
 	.header-button {
-		// color: $textColor;
 		font-size: 1.6em; // don't use rem here as this font size should be dependent on the header bar font size which can vary.
 		padding: 0 $padding;
 		line-height: 1.8em;

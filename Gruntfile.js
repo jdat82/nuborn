@@ -236,6 +236,27 @@ module.exports = function ( grunt ) {
             }
         },
 
+        autoprefixer: {
+            options: {
+                // browsers: [ 'android 4', 'ios 5' ]
+            },
+            android: {
+                files: {
+                    '<%= platforms.android.folder %>/css/app.min.css': '<%= platforms.android.folder %>/css/app.min.css'
+                }
+            },
+            ios: {
+                files: {
+                    '<%= platforms.ios.folder %>/css/app.min.css': '<%= platforms.ios.folder %>/css/app.min.css'
+                }
+            },
+            web: {
+                files: {
+                    '<%= platforms.web.folder %>/css/app.min.css': '<%= platforms.web.folder %>/css/app.min.css'
+                }
+            },
+        },
+
         /**
          * Overwrite the sass generated css by replacing image text url with image data url.
          */
@@ -428,23 +449,19 @@ module.exports = function ( grunt ) {
             },
             scss: {
                 files: [ "<%= css %>", "<%= asyncCss %>" ],
-                tasks: [ "nsass", "manifest" ]
+                tasks: [ "css" ]
             },
             coffee: {
                 files: [ "src/**/*.coffee", "libs/Nuborn/**/*.coffee" ],
                 tasks: [ "coffee" ]
             },
             js: {
-                files: [ "<%= jsLibs%>", "<%= jsApp %>", "<%= asyncJs %>" ],
-                tasks: [ "nuglify", "manifest" ]
+                files: [ "<%= jsLibs%>", "<%= jsApp %>", "<%= asyncJs %>", "<%= templates %>" ],
+                tasks: [ "javascript" ]
             },
             htmlmin: {
                 files: "<%= html %>",
                 tasks: [ "htmlmin", "manifest" ]
-            },
-            hogan: {
-                files: "<%= templates %>",
-                tasks: [ "hogan", "nuglify", "manifest" ]
             },
             all: {
                 files: "Gruntfile.js",
@@ -611,20 +628,21 @@ module.exports = function ( grunt ) {
     grunt.loadNpmTasks( 'grunt-weinre' );
     grunt.loadNpmTasks( 'grunt-docco' );
     grunt.loadNpmTasks( 'grunt-exec' );
+    grunt.loadNpmTasks( 'grunt-autoprefixer' );
     grunt.loadNpmTasks( 'grunt-contrib-coffee' );
 
     /**
      * Registering Default Task
      */
-    grunt.registerTask( "default", [ "clean", "exec:cordova-prepare", "coffee", "hogan", "nuglify", "nsass", "htmlmin", "imagemin", "copy", "manifest" ] );
+    grunt.registerTask( "default", [ "clean", "exec:cordova-prepare", "coffee", "hogan", "nuglify", "nsass", "autoprefixer", "htmlmin", "imagemin", "copy", "manifest" ] );
 
 
     /**
      * Registering one alias per target to allow compiling only one target
      */
-    grunt.registerTask( "android", [ "clean:android", "exec:cordova-prepare:android", "coffee", "hogan:android", "nuglify:android", "nsass:android", "htmlmin:android", "imagemin:android", "copy:android" ] );
-    grunt.registerTask( "ios", [ "clean:ios", "exec:cordova-prepare:ios", "coffee", "hogan:ios", "nuglify:ios", "nsass:ios", "htmlmin:ios", "imagemin:ios", "copy:ios" ] );
-    grunt.registerTask( "web", [ "clean:web", "coffee", "hogan:web", "nuglify:web", "nsass:web", "htmlmin:web", "imagemin:web", "copy:web", "manifest:web" ] );
+    grunt.registerTask( "android", [ "clean:android", "exec:cordova-prepare:android", "coffee", "hogan:android", "nuglify:android", "nsass:android", "autoprefixer:android", "htmlmin:android", "imagemin:android", "copy:android" ] );
+    grunt.registerTask( "ios", [ "clean:ios", "exec:cordova-prepare:ios", "coffee", "hogan:ios", "nuglify:ios", "nsass:ios", "autoprefixer:ios", "htmlmin:ios", "imagemin:ios", "copy:ios" ] );
+    grunt.registerTask( "web", [ "clean:web", "coffee", "hogan:web", "nuglify:web", "nsass:web", "autoprefixer:web", "htmlmin:web", "imagemin:web", "copy:web", "manifest:web" ] );
 
     /**
      * Alias for hogan + nuglify + manifest tasks.
@@ -645,6 +663,7 @@ module.exports = function ( grunt ) {
     // using grunt.task.run syntax instead the alias one because the hook doesn't work
     grunt.registerTask( "css code", function () {
         grunt.task.run( "nsass" );
+        grunt.task.run( "autoprefixer" );
         grunt.task.run( "manifest" );
     } );
 

@@ -6,10 +6,10 @@
 				"INFO": true,
 				"WARN": true,
 				"ERROR": true,
-				"LIVERELOAD": false,
+				"LIVERELOAD": true,
 				"LIVERELOAD_PORT": 35735,
 				"WEINRE": false,
-				"REMOTE_HOST": "jdat-dev.mbp",
+				"REMOTE_HOST": "",
 				"WEINRE_PORT": 8085,
 				"NETWORK": "http://localhost:9005"
 			},

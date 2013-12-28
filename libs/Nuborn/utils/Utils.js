@@ -89,45 +89,57 @@ define( "nu.Utils", function ( require, exports, module ) {
 	 */
 	Utils.getOSVersion = function () {
 		// if the app is running on PhoneGap, ask for the device version
-		if ( Utils.isCordova() ) {
-			return parseFloat( device.version, 10 );
-		}
+		// if ( Utils.isCordova() ) {
+		// 	return parseFloat( device.version, 10 );
+		// }
 		// if it is a web app, ask the navigator user agent
-		else {
-			// getting the user agent into a local variable
-			var agent = navigator.userAgent;
-			// iOS case
-			if ( Utils.isIOS() ) {
-				// removing the first part of the user agent
-				var versionIndex = agent.indexOf( "OS" ) + 2;
-				agent = agent.slice( versionIndex );
-				// removing the end of the user agent
-				var lastIndex = agent.indexOf( ")" ) === -1 ? 0 : agent.indexOf( ")" );
-				agent = agent.substring( 0, lastIndex );
-				// replacing all underscores with points
-				agent = agent.replace( /_/g, "." );
-				// parse the agent tg get the version as a float
-				var version = parseFloat( agent );
-				// returning the version
-				return version;
-			}
-			// Android case
-			else if ( Utils.isAndroid() ) {
-				// removing the first part of the user agent
-				var versionIndex = agent.indexOf( "Android" ) + 7;
-				agent = agent.slice( versionIndex );
-				// removing the end of the user agent
-				var lastIndex = agent.indexOf( ";" ) === -1 ? 0 : agent.indexOf( ";" );
-				agent = agent.substring( 0, lastIndex );
-				// parse the agent to get the version as a float
-				var version = parseInt( agent );
-				// returning the version
-				return version;
-			}
-			else {
-				return NaN;
-			}
+		// else {
+		// getting the user agent into a local variable
+		var agent = navigator.userAgent;
+		// iOS case
+		if ( Utils.isIOS() ) {
+			// removing the first part of the user agent
+			var versionIndex = agent.indexOf( "OS" ) + 2;
+			agent = agent.slice( versionIndex );
+			// removing the end of the user agent
+			var lastIndex = agent.indexOf( ")" ) === -1 ? 0 : agent.indexOf( ")" );
+			agent = agent.substring( 0, lastIndex );
+			// replacing all underscores with points
+			agent = agent.replace( /_/g, "." );
+			// parse the agent tg get the version as a float
+			var version = parseFloat( agent );
+			// returning the version
+			return version;
 		}
+		// Android case
+		else if ( Utils.isAndroid() ) {
+			// removing the first part of the user agent
+			var versionIndex = agent.indexOf( "Android" ) + 7;
+			agent = agent.slice( versionIndex );
+			// removing the end of the user agent
+			var lastIndex = agent.indexOf( ";" ) === -1 ? 0 : agent.indexOf( ";" );
+			agent = agent.substring( 0, lastIndex );
+			// parse the agent to get the version as a float
+			var version = parseInt( agent );
+			// returning the version
+			return version;
+		}
+		else {
+			return NaN;
+		}
+		// }
+	};
+
+	/**
+	 * Simple utility method to add a class to the HTML tag which reflect the current browser/version.
+	 * Of course, you should always use feature detection but there is time when you need to come back to an old
+	 * user-agent snif. To use with great caution.
+	 * Handle only iOS and Android like everything else in Nuborn.
+	 */
+	Utils.decorateDOMWithBrowserClass = function () {
+		var browser = Utils.isIOS() ? "ios" : Utils.isAndroid() ? "android" : "other";
+		var version = Utils.getOSVersion();
+		document.getElementsByTagName( "html" )[ 0 ].classList.add( browser + "-" + version );
 	};
 
 	/**
@@ -147,12 +159,14 @@ define( "nu.Utils", function ( require, exports, module ) {
 		return false;
 	};
 
-	Utils.disableScroll = function () {
-		$( document ).on( "touchmove", Utils.blockEvent );
+	Utils.disableScroll = function ( element ) {
+		var el = element || document;
+		$( el ).on( "touchmove", Utils.blockEvent );
 	};
 
-	Utils.enableScroll = function () {
-		$( document ).off( "touchmove", Utils.blockEvent );
+	Utils.enableScroll = function ( element ) {
+		var el = element || document;
+		$( el ).off( "touchmove", Utils.blockEvent );
 	};
 
 	/**
