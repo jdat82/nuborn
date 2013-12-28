@@ -3,6 +3,7 @@
 **.sublime-workspace
 .sass-cache/
 node_modules/
+gen/
 
 # web
 build/nuborn/platforms/web/
