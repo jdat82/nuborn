@@ -3,7 +3,7 @@ define( "app.pages.DetailPageHandler", function ( require, exports, module ) {
 	'use strict';
 	var $ = jQuery;
 	var Log = require( "nu.debug.Log" );
-	var ButtonUtils = require( "nu.widgets.button.Utils" );
+	var buttonUtils = require( "nu.widgets.button.Utils" ).instance;
 	var NubornPageHandler = require( "app.pages.NubornPageHandler" );
 
 	/**
@@ -43,7 +43,7 @@ define( "app.pages.DetailPageHandler", function ( require, exports, module ) {
 
 		prepareBackButton: function () {
 			// when touch start, go to active state
-			ButtonUtils.enableUniversalPressMode( this.html.backButton );
+			buttonUtils.enableUniversalPressMode( this.html.backButton );
 
 			// when tap on back button, go back home
 			this.html.backButton.on( "tap", this.goBackToHomePage );
@@ -65,7 +65,7 @@ define( "app.pages.DetailPageHandler", function ( require, exports, module ) {
 		pageBeforeHide: function ( event, data ) {
 			this._super( event, data );
 			this.html.backButton.off( "tap", this.goBackToHomePage );
-			ButtonUtils.disableUniversalPressMode( this.html.backButton );
+			buttonUtils.disableUniversalPressMode( this.html.backButton );
 		},
 
 

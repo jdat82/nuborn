@@ -24,7 +24,6 @@
         };
     } );
 
-
     /*
      * Callback function called when the DOM is ready.
      */
@@ -67,7 +66,7 @@
         // http://updates.html5rocks.com/2013/12/300ms-tap-delay-gone-away
         FastClick.attach( document.body );
 
-        var Utils = require("nu.Utils");
+        var Utils = require( "nu.Utils" );
         Utils.decorateDOMWithBrowserClass();
 
         // Initiliazing a shared context object
