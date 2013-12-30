@@ -135,14 +135,21 @@ module.exports = function ( grunt ) {
                     // "sourceMapIn": "gen/coffee.js.map",
                     // Define the sourcemap file name
                     "sourceMap": function ( filepath ) {
-                        return filepath + ".map";
+                        if ( profile !== "prod" )
+                            return filepath + ".map";
+                        else
+                            return ""; // no sourcemap in prod
                     },
                     // Define the sourcemap sourceMappingURL attribute value in the generated js files
                     "sourceMappingURL": function ( filepath ) {
-                        var path = require( "path" );
-                        var dirname = path.dirname( filepath );
-                        filepath = filepath.replace( dirname + "/", "" );
-                        return filepath + ".map";
+                        if ( profile !== "prod" ) {
+                            var path = require( "path" );
+                            var dirname = path.dirname( filepath );
+                            filepath = filepath.replace( dirname + "/", "" );
+                            return filepath + ".map";
+                        }
+                        else
+                            return ""; // no sourcemap in prod
                     },
                     // Define the sourcemap source attribute value (useful to map on a symbolic link)
                     sourceMapRoot: "Nuborn"
