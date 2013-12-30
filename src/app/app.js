@@ -33,12 +33,12 @@
         // Initiliazing application cache
         var AppCache = require( "nu.cache.AppCache" );
         // Default logger
-        var Log = require( "nu.debug.Log" );
+        var log = require( "#log" );
         // Common utilities
         var Utils = require( "nu.Utils" );
 
         // Initiliazing default logger with a local storage key and a memory channel for easy debugging
-        Log.init( {
+        log.tune( {
             storageKey: "nuborn.logs",
             memory: true
         } );
@@ -47,11 +47,11 @@
         DEBUG && Utils.installDebugScripts();
 
         if ( !Utils.isCordova() ) {
-            Log.i( "Used as a Web App" );
+            log.i( "Used as a Web App" );
             init();
         }
         else {
-            Log.i( "Used as a Hybrid App" );
+            log.i( "Used as a Hybrid App" );
             document.addEventListener( "deviceready", init, false );
         }
     }
@@ -92,7 +92,7 @@
 
         // Common utilities
         var Utils = require( "nu.Utils" );
-        var Log = require( "nu.debug.Log" );
+        var log = require( "#log" );
 
         if ( !navigator.splashscreen ) {
 

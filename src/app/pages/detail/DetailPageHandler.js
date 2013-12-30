@@ -2,7 +2,7 @@ define( "app.pages.DetailPageHandler", function ( require, exports, module ) {
 
 	'use strict';
 	var $ = jQuery;
-	var Log = require( "nu.debug.Log" );
+	var log = require( "#log" );
 	var buttonUtils = require( "nu.widgets.button.Utils" ).instance;
 	var NubornPageHandler = require( "app.pages.NubornPageHandler" );
 

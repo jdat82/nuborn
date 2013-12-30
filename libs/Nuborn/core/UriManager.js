@@ -13,7 +13,7 @@ define( "nu.core.UriManager", function ( require, exports, module ) {
     }
 
     var $ = jQuery;
-    var Log = require( "nu.debug.Log" );
+    var log = require( "#log" );
 
     /**
      * @class nu.core.UriManager

@@ -3,8 +3,8 @@ define "nu.widgets.StressTest", ( require, exports, module ) ->
     'use strict'
 
     $ = jQuery
-    Log = require "nu.debug.Log"
-    LocalStorage = require "nu.cache.LocalStorage"
+    log = require "#log"
+    localStorage = require( "nu.cache.LocalStorage" ).instance
     EventsDispatcher = require "nu.events.EventsDispatcher"
     Base = require "nu.core.Base"
 
@@ -39,7 +39,7 @@ define "nu.widgets.StressTest", ( require, exports, module ) ->
             # if !alreadyInDom
 
             # Getting local storage value to define right css class on html tag
-            animationFriendly = LocalStorage.get this.settings.localStorageKey
+            animationFriendly = localStorage.get this.settings.localStorageKey
             # If we found a value and it is true,
             if animationFriendly
                 declareAnimationFriendly()
@@ -58,7 +58,7 @@ define "nu.widgets.StressTest", ( require, exports, module ) ->
                 complete: () ->
                     # When notified of the test termination, we can notify the caller
                     EventsDispatcher.on StressTest.EVENT_STRESS_TEST_DONE, () ->
-                        Log.i "Stress test executed"
+                        log.i "Stress test executed"
                         dfd.resolve()
             } ]
 
@@ -93,12 +93,12 @@ define "nu.widgets.StressTest", ( require, exports, module ) ->
 
 
     declareAnimationFriendly = () ->
-        Log.i "This browser is animation friendly"
+        log.i "This browser is animation friendly"
         Modernizr.addTest StressTest.KEY_ANIMATIONFRIENDLY, () ->
             return true
 
     declareNotAnimationFriendly = () ->
-        Log.i "This browser is NOT animation friendly"
+        log.i "This browser is NOT animation friendly"
         Modernizr.addTest StressTest.KEY_ANIMATIONFRIENDLY, () ->
             return false
 

@@ -3,9 +3,9 @@ define( "app.manager.SettingsManager", function ( require, exports, module ) {
     'use strict';
 
     var $ = jQuery;
-    var Log = require( "nu.debug.Log" );
+    var log = require( "#log" );
     var Constants = require( "app.Constants" );
-    var LocalStorage = require( "nu.cache.LocalStorage" );
+    var localStorage = require( "nu.cache.LocalStorage" ).instance;
     var StressTest = require( "nu.widgets.StressTest" );
 
     /*
@@ -74,26 +74,26 @@ define( "app.manager.SettingsManager", function ( require, exports, module ) {
             $html.addClass( newCssClass );
 
             // saved in localstorage
-            LocalStorage.set( StressTest.KEY_ANIMATIONFRIENDLY, newValue );
+            localStorage.set( StressTest.KEY_ANIMATIONFRIENDLY, newValue );
 
-            Log.i( "Animation friendly: " + newValue );
+            log.i( "Animation friendly: " + newValue );
         },
 
         logsRecording: function () {
-            return Log.channel( Log.CHANNEL_STORAGE ) !== undefined;
+            return log.channel( log.CHANNEL_STORAGE ) !== undefined;
         },
 
         toggleLogsRecording: function () {
-            var storageChannel = Log.channel( Log.CHANNEL_STORAGE );
+            var storageChannel = log.channel( log.CHANNEL_STORAGE );
             var storageEnabled = storageChannel !== undefined;
             // before deactivating the storage channel, I prefer to clear it to avoid an endless growing log
             if ( storageEnabled && storageChannel ) {
                 storageChannel.clear();
             }
             // handling change event
-            Log.channel( Log.CHANNEL_STORAGE, !storageEnabled );
+            log.channel( log.CHANNEL_STORAGE, !storageEnabled );
 
-            Log.i( "Logs recording: " + !storageEnabled );
+            log.i( "Logs recording: " + !storageEnabled );
         }
     };
 

@@ -3,7 +3,7 @@ define( "app.pages.SettingsPageHandler", function ( require, exports, module ) {
 	'use strict';
 
 	var $ = jQuery;
-	var Log = require( "nu.debug.Log" );
+	var log = require( "#log" );
 	var SettingsManager = require( "app.manager.SettingsManager" );
 	var NubornPageHandler = require( "app.pages.NubornPageHandler" );
 

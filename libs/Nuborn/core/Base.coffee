@@ -27,4 +27,8 @@ define "nu.core.Base", ( require, exports, module ) ->
             # Used to store runtime data
             @data = {};
 
+        tune: ( newSettings, extend = true) ->
+            return if !newSettings
+            if !extend then @settings = newSettings else @settings = $.extend true, @settings, newSettings
+
     module.exports = Base

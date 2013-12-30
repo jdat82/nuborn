@@ -3,7 +3,7 @@ define "nu.cache.AppCache", ( require, exports, module ) ->
 	'use strict'
 
 	$ = jQuery
-	Log = require "nu.debug.Log"
+	log = require "#log"
 
 	###*
 	@class nu.cache.AppCache
@@ -27,7 +27,7 @@ define "nu.cache.AppCache", ( require, exports, module ) ->
 
 			newHotness = ( event ) ->
 
-				DEBUG && Log.i "New hotness available !"
+				DEBUG && log.i "New hotness available !"
 
 				if appCache.status is appCache.UPDATEREADY
 					appCache.swapCache()

@@ -6,8 +6,8 @@ Self executing code.
     'use strict'
 
     $ = jQuery
-    Log = require "nu.debug.Log"
-    LocalStorage = require "nu.cache.LocalStorage"
+    log = require "#log"
+    localStorage = require( "nu.cache.LocalStorage" ).instance
     EventsDispatcher = require "nu.events.EventsDispatcher"
     StressTest = require "nu.widgets.StressTest"
 
@@ -18,7 +18,7 @@ Self executing code.
     Aggregate fps values.
     ###
     onFPSMeterEvent = ( evt ) ->
-        DEBUG && Log.i "fps: #{evt.fps}"
+        DEBUG && log.i "fps: #{evt.fps}"
         results.push evt.fps
         if not meterStarted
             meterStarted = true
@@ -34,7 +34,7 @@ Self executing code.
         complete: () ->
             # If Library FPSMeter not present in window, aborting test
             return testDone() if !window.FPSMeter
-            Log.i "FPSMeter loaded"
+            log.i "FPSMeter loaded"
             document.addEventListener 'fps', onFPSMeterEvent, false
             FPSMeter.run()
     } ]
@@ -66,12 +66,12 @@ Self executing code.
 
         avg = sum / results.length
 
-        Log.i "Average FPS: #{avg}"
+        log.i "Average FPS: #{avg}"
 
         # Putting the right class to the DOM
         Modernizr.addTest StressTest.KEY_ANIMATIONFRIENDLY, () ->
             isAnimationFriendly = avg >= 30
-            LocalStorage.set StressTest.KEY_ANIMATIONFRIENDLY, isAnimationFriendly
+            localStorage.set StressTest.KEY_ANIMATIONFRIENDLY, isAnimationFriendly
             return isAnimationFriendly
 
 

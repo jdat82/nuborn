@@ -3,7 +3,7 @@ define( "app.pages.HomePageHandler", function ( require, exports, module ) {
 	'use strict';
 
 	var $ = jQuery;
-	var Log = require( "nu.debug.Log" );
+	var log = require( "#log" );
 	var NubornPageHandler = require( "app.pages.NubornPageHandler" );
 
 	/**
@@ -281,7 +281,7 @@ define( "app.pages.HomePageHandler", function ( require, exports, module ) {
 
 			// iScroll polyfill for deficient devices (everyone except apple of course)
 			// if ( window.IScroll ) {
-			// 	DEBUG && Log.i( "initializing iScroll" );
+			// 	DEBUG && log.i( "initializing iScroll" );
 			// 	this.data.iscroll = new IScroll( "#toto" );
 			// }
 		},
@@ -326,9 +326,9 @@ define( "app.pages.HomePageHandler", function ( require, exports, module ) {
 			} );
 		},
 
-	backButton: function ( event ) {
+		backButton: function ( event ) {
 			this._super( event );
-			Log.i( "Exiting app" );
+			log.i( "Exiting app" );
 			navigator.app && navigator.app.exitApp && navigator.app.exitApp();
 		}
 	} );

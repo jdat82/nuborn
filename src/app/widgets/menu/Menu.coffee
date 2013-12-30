@@ -4,7 +4,7 @@ define "app.widgets.Menu", ( require, exports, module ) ->
 
 
     $ = jQuery
-    Log = require "nu.debug.Log"
+    log = require "#log"
     BaseMenu = require "nu.widgets.Menu"
 
 
@@ -40,7 +40,7 @@ define "app.widgets.Menu", ( require, exports, module ) ->
             if not homePage.isVisible() then navigate @html.menu, homePage
 
         goToProfile: () ->
-            Log.w "not implemented yet"
+            log.w "not implemented yet"
 
         goToSettings: () ->
             settingsPage = require "#settings"

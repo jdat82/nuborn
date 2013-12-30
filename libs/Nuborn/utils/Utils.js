@@ -317,7 +317,7 @@ define( "nu.Utils", function ( require, exports, module ) {
 	 */
 	Utils.installDebugScripts = function () {
 
-		var Log = require( "nu.debug.Log" );
+		var log = require( "#log" );
 
 		/**
 		 * Adding livereload support for development only.
@@ -329,7 +329,7 @@ define( "nu.Utils", function ( require, exports, module ) {
 			var lr = document.createElement( 'script' );
 			var hostname = REMOTE_HOST || window.location.hostname;
 			lr.src = ( 'https:' == window.location.protocol ? 'https://' : 'http://' ) + hostname + ":" + LIVERELOAD_PORT + "/livereload.js";
-			DEBUG && Log.i( "Installing Livereload script at: " + lr.src );
+			DEBUG && log.i( "Installing Livereload script at: " + lr.src );
 			lr.type = 'text/javascript';
 			lr.async = 'true';
 			var s = document.getElementsByTagName( 'script' )[ 0 ];
@@ -347,7 +347,7 @@ define( "nu.Utils", function ( require, exports, module ) {
 			var hostname = REMOTE_HOST || window.location.hostname;
 			lr.src = ( 'https:' == window.location.protocol ? 'https://' : 'http://' ) + hostname +
 				":" + WEINRE_PORT + "/target/target-script-min.js#weinre";
-			DEBUG && Log.i( "Installing Weinre script at: " + lr.src );
+			DEBUG && log.i( "Installing Weinre script at: " + lr.src );
 			lr.type = 'text/javascript';
 			lr.async = 'true';
 			var s = document.getElementsByTagName( 'script' )[ 0 ];
@@ -457,12 +457,12 @@ define( "nu.Utils", function ( require, exports, module ) {
 	// 	JSON = {};
 	// 	// bind JSON stringify to jQuery JSON "toJSON" method
 	// 	JSON.stringify = $.toJSON || function(object){
-	// 		nu.Log.e("JSON.stringify could not be loaded : returning empty string !");
+	// 		nu.log.e("JSON.stringify could not be loaded : returning empty string !");
 	// 		return object instanceof Array ? "[]" : object instanceof Object ? "{}" : "";
 	// 	};
 	// 	// bind JSON stringify to jQuery JSON "evalJSON" method
 	// 	JSON.parse = $.evalJSON || function(string){
-	// 		nu.Log.e("JSON.parse could not be loaded : returning empty object !");
+	// 		nu.log.e("JSON.parse could not be loaded : returning empty object !");
 	// 		return {};
 	// 	};
 	// }

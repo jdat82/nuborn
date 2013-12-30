@@ -3,7 +3,7 @@ define( "nu.pages.PageEventsManager", function ( require, exports, module ) {
 	'use strict';
 
 	var $ = jQuery;
-	var Log = require( "nu.debug.Log" );
+	var log = require( "#log" );
 	var Utils = require( "nu.Utils" );
 
 	/**
@@ -104,7 +104,7 @@ define( "nu.pages.PageEventsManager", function ( require, exports, module ) {
 			catch ( exception ) {}
 
 			if ( !pageHandler && !this.defaultPageHandler ) {
-				Log.w( "No page handler for page '" + id + "' !" );
+				log.w( "No page handler for page '" + id + "' !" );
 				return undefined;
 			}
 
@@ -136,7 +136,7 @@ define( "nu.pages.PageEventsManager", function ( require, exports, module ) {
 			// hash.name contains current page id if filled
 			var hash = Utils.deserializeHash();
 			var pageId = hash.name || defaultPageId;
-			DEBUG && Log.i( "First page is: " + pageId );
+			DEBUG && log.i( "First page is: " + pageId );
 
 			var pageHandler = this.getPageHandler( pageId );
 
@@ -426,18 +426,18 @@ define( "nu.pages.PageEventsManager", function ( require, exports, module ) {
 		interceptHashLinks: function () {
 			$( document ).on( "click", "a", function ( event ) {
 				var el = event.currentTarget;
-				DEBUG && Log.i( "Intercepted link '" + el.href + "'" );
+				DEBUG && log.i( "Intercepted link '" + el.href + "'" );
 				var hash = Utils.deserializeHash( el.href );
 				var preventDefault = ( el.dataset.intercept === "false" );
 				if ( preventDefault )
-					DEBUG && Log.i( "Link will not be intercepted " );
+					DEBUG && log.i( "Link will not be intercepted " );
 				// if it is not a hash link, nothing to do
 				if ( !hash.name || !hash.name.length || preventDefault ) {
 					event.preventDefault();
 					return false;
 				}
 
-				DEBUG && Log.i( "intercepted hash link: #" + hash.name );
+				DEBUG && log.i( "intercepted hash link: #" + hash.name );
 				var pageHandler = require( "#" + hash.name );
 				if ( pageHandler ) {
 					pageHandler.navigate( {

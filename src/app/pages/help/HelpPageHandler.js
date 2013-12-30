@@ -4,7 +4,7 @@ define( "app.pages.HelpPageHandler", function ( require, exports, module ) {
 
 	var $ = jQuery;
 	var Utils = require( "nu.Utils" );
-	var Log = require( "nu.debug.Log" );
+	var log = require( "#log" );
 	var NubornPageHandler = require( "app.pages.NubornPageHandler" );
 
 	/**

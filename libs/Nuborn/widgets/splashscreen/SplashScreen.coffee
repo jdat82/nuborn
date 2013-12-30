@@ -3,7 +3,7 @@ define "nu.widgets.SplashScreen", ( require, exports, module ) ->
 	'use strict'
 
 	$ = jQuery
-	Log = require "nu.debug.Log"
+	log = require "#log"
 	EventsDispatcher = require "nu.events.EventsDispatcher"
 	Utils = require "nu.Utils"
 	Base = require "nu.core.Base"
@@ -40,7 +40,7 @@ define "nu.widgets.SplashScreen", ( require, exports, module ) ->
 		###
 		show: () ->
 
-			Log.i "SplashScreen show"
+			log.i "SplashScreen show"
 
 			# Deactivating scroll capacity during splashscreen
 			Utils.disableScroll()
@@ -56,7 +56,7 @@ define "nu.widgets.SplashScreen", ( require, exports, module ) ->
 		###
 		hide: () ->
 
-			Log.i "SplashScreen hide"
+			log.i "SplashScreen hide"
 
 			destroySplashscreen = () =>
 
@@ -110,13 +110,13 @@ define "nu.widgets.SplashScreen", ( require, exports, module ) ->
 		EventsDispatcher.on SplashScreen.EVENT_HIDE, onHide
 
 	onShow = ( event ) ->
-		DEBUG && Log.i "Event SplashScreen show"
+		DEBUG && log.i "Event SplashScreen show"
 		instance.hide() if instance
 		instance = new SplashScreen event.settings
 		instance.show()
 
 	onHide = ( event ) ->
-		DEBUG && Log.i "Event SplashScreen hide"
+		DEBUG && log.i "Event SplashScreen hide"
 		instance.hide() if instance
 		instance = undefined
 

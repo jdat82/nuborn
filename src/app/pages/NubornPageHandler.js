@@ -3,7 +3,7 @@ define( "app.pages.NubornPageHandler", function ( require, exports, module ) {
     'use strict';
 
     var $ = jQuery;
-    var Log = require( "nu.debug.Log" );
+    var log = require( "#log" );
     var PageHandler = require( "nu.pages.PageHandler" );
 
     /**

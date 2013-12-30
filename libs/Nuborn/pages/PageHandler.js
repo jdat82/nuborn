@@ -5,7 +5,7 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
     var $ = jQuery;
     var pageEventsManager = require( "nu.pages.PageEventsManager" ).instance;
     var Utils = require( "nu.Utils" );
-    var Log = require( "nu.debug.Log" );
+    var log = require( "#log" );
 
     /**
      * @class nu.pages.PageHandler
@@ -66,7 +66,7 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
          * @param  {Object} event
          */
         pageInit: function ( event ) {
-            DEBUG && Log.i( "page init of " + event.currentTarget.id );
+            DEBUG && log.i( "page init of " + event.currentTarget.id );
 
             // page parameters are passed in on "pageinit" event
             // so controller in singleton mode will keep their page parameters
@@ -87,7 +87,7 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
          * @param  {Object} event
          */
         pageCreate: function ( event ) {
-            DEBUG && Log.i( "page create of '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "page create of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -96,7 +96,7 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
          * @param  {Object} data
          */
         pageBeforeHide: function ( event, data ) {
-            DEBUG && Log.i( "page before hide of '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "page before hide of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -107,7 +107,7 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
          * @param  {Object} data
          */
         pageHide: function ( event, data ) {
-            DEBUG && Log.i( "page hide of '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "page hide of '" + event.currentTarget.id + "'" );
             this.data.visible = false;
             if ( !this.settings.singleton ) {
                 // Cleaning references to HTML elements & data objects
@@ -129,7 +129,7 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
             if ( !this.settings.singleton )
                 this.data.pageParams = Utils.deserializeHash().params;
 
-            DEBUG && Log.i( "page before show of '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "page before show of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -138,7 +138,7 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
          * @param  {Object} data
          */
         pageShow: function ( event, data ) {
-            DEBUG && Log.i( "page show of '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "page show of '" + event.currentTarget.id + "'" );
             this.data.visible = true;
             if ( this.data.isFirst ) {
                 Utils.hideSplashScreen();
@@ -152,7 +152,7 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
          * @param  {Object} data
          */
         pageBeforeChange: function ( event, data ) {
-            DEBUG && Log.i( "page before change of '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "page before change of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -161,7 +161,7 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
          * @param  {Object} data
          */
         pageChange: function ( event, data ) {
-            DEBUG && Log.i( "page change of '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "page change of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -170,7 +170,7 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
          * @param  {Object} data
          */
         pageBeforeLoad: function ( event, data ) {
-            DEBUG && Log.i( "page before load of '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "page before load of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -179,7 +179,7 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
          * @param  {Object} data
          */
         pageLoad: function ( event, data ) {
-            DEBUG && Log.i( "page load of '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "page load of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -190,7 +190,7 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
          * @param  {Object} data
          */
         pageRemove: function ( event, data ) {
-            DEBUG && Log.i( "page remove of '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "page remove of '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -199,7 +199,7 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
          * @param  {Object} data
          */
         swipeLeft: function ( event ) {
-            DEBUG && Log.i( "swipe left on '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "swipe left on '" + event.currentTarget.id + "'" );
         },
 
         /**
@@ -208,21 +208,21 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
          * @param  {Object} data
          */
         swipeRight: function ( event ) {
-            DEBUG && Log.i( "swipe right on '" + event.currentTarget.id + "'" );
+            DEBUG && log.i( "swipe right on '" + event.currentTarget.id + "'" );
         },
 
         /**
          * Create all references to HTML elements.
          */
         createHtmlElements: function () {
-            Log.w( "This method should be overriden" );
+            log.w( "This method should be overriden" );
         },
 
         /**
          * Create all references to data objects.
          */
         createDataElements: function () {
-            Log.w( "This method should be overriden" );
+            log.w( "This method should be overriden" );
         },
 
         /**
@@ -270,8 +270,8 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
 
             if ( templateId && templates[ templateId ] ) {
                 if ( !document.getElementById( pageId ) ) {
-                    DEBUG && Log.i( "loading #" + pageId );
-                    DEBUG && Log.i( "templateData: " + Utils.toJSON( templateData ) );
+                    DEBUG && log.i( "loading #" + pageId );
+                    DEBUG && log.i( "templateData: " + Utils.toJSON( templateData ) );
                     $( templates[ templateId ].render( templateData ) ).appendTo( "body" );
                 }
             }
@@ -281,11 +281,11 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
         },
 
         backButton: function ( event ) {
-            DEBUG && Log.i( "back button" );
+            DEBUG && log.i( "back button" );
         },
 
         menuButton: function ( event ) {
-            DEBUG && Log.i( "menu button" );
+            DEBUG && log.i( "menu button" );
         },
 
         /**
@@ -327,7 +327,7 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
                     options.jqmOptions.dataUrl += "?" + serializedParams;
             }
 
-            DEBUG && Log.i( "options: " + Utils.toJSON( options ) );
+            DEBUG && log.i( "options: " + Utils.toJSON( options ) );
 
             if ( templateId && templates[ templateId ] ) {
 
@@ -336,7 +336,7 @@ define( "nu.pages.PageHandler", function ( require, exports, module ) {
 
                 // changing page with a delay if any
                 window.setTimeout( function () {
-                    DEBUG && Log.i( "navigating to #" + pageId );
+                    DEBUG && log.i( "navigating to #" + pageId );
                     $.mobile.changePage( "#" + pageId, options.jqmOptions );
                     // calling callback after page change if any
                     if ( options.callback ) {
