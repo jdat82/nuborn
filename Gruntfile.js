@@ -54,7 +54,6 @@ module.exports = function ( grunt ) {
          */
         jsApp: [
             "{gen/libs,gen/src,libs/Nuborn,src}/**/*.js", // Nuborn && App sources
-            // "gen/coffee.js",
             "!{gen/libs,gen/src,libs/Nuborn,src}/**/*-async.js" // excluding all async files which will be requested manually
         ],
 
@@ -132,10 +131,21 @@ module.exports = function ( grunt ) {
                             "WEB": true
                         }
                     } ),
-                    "ignore": [ "<%= jsLibs %>", "<%= asyncJs %>" ]
+                    "ignore": [ "<%= jsLibs %>", "<%= asyncJs %>" ],
                     // "sourceMapIn": "gen/coffee.js.map",
-                    // "sourceMap": "<%= platforms.web.folder %>/js/app.min.js.map",
-                    // "sourceMappingURL": "http://localhost:9005/js/app.min.js.map"
+                    // Define the sourcemap file name
+                    "sourceMap": function ( filepath ) {
+                        return filepath + ".map";
+                    },
+                    // Define the sourcemap sourceMappingURL attribute value in the generated js files
+                    "sourceMappingURL": function ( filepath ) {
+                        var path = require( "path" );
+                        var dirname = path.dirname( filepath );
+                        filepath = filepath.replace( dirname + "/", "" );
+                        return filepath + ".map";
+                    },
+                    // Define the sourcemap source attribute value (useful to map on a symbolic link)
+                    sourceMapRoot: "Nuborn"
                 },
                 files: [ {
                     "<%= platforms.web.folder %>/js/app.min.js": [
@@ -603,7 +613,15 @@ module.exports = function ( grunt ) {
                     ext: ".js"
                 } ]
             }
+        },
+
+        symlink: {
+            web: {
+                src: ".",
+                dest: "<%= platforms.web.folder %>/js/Nuborn"
+            }
         }
+
     } );
 
 
@@ -630,11 +648,12 @@ module.exports = function ( grunt ) {
     grunt.loadNpmTasks( 'grunt-exec' );
     grunt.loadNpmTasks( 'grunt-autoprefixer' );
     grunt.loadNpmTasks( 'grunt-contrib-coffee' );
+    grunt.loadNpmTasks( 'grunt-contrib-symlink' );
 
     /**
      * Registering Default Task
      */
-    grunt.registerTask( "default", [ "clean", "exec:cordova-prepare", "coffee", "hogan", "nuglify", "nsass", "autoprefixer", "htmlmin", "imagemin", "copy", "manifest" ] );
+    grunt.registerTask( "default", [ "clean", "symlink", "exec:cordova-prepare", "coffee", "hogan", "nuglify", "nsass", "autoprefixer", "htmlmin", "imagemin", "copy", "manifest" ] );
 
 
     /**
@@ -642,7 +661,7 @@ module.exports = function ( grunt ) {
      */
     grunt.registerTask( "android", [ "clean:android", "exec:cordova-prepare:android", "coffee", "hogan:android", "nuglify:android", "nsass:android", "autoprefixer:android", "htmlmin:android", "imagemin:android", "copy:android" ] );
     grunt.registerTask( "ios", [ "clean:ios", "exec:cordova-prepare:ios", "coffee", "hogan:ios", "nuglify:ios", "nsass:ios", "autoprefixer:ios", "htmlmin:ios", "imagemin:ios", "copy:ios" ] );
-    grunt.registerTask( "web", [ "clean:web", "coffee", "hogan:web", "nuglify:web", "nsass:web", "autoprefixer:web", "htmlmin:web", "imagemin:web", "copy:web", "manifest:web" ] );
+    grunt.registerTask( "web", [ "clean:web", "symlink:web", "coffee", "hogan:web", "nuglify:web", "nsass:web", "autoprefixer:web", "htmlmin:web", "imagemin:web", "copy:web", "manifest:web" ] );
 
     /**
      * Alias for hogan + nuglify + manifest tasks.
