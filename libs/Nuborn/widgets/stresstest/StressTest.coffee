@@ -31,6 +31,7 @@ define "nu.widgets.StressTest", ( require, exports, module ) ->
             # If no local storage on device, we face an old browser, so we make a safety choice : no animation for this device
             if not Modernizr.localstorage
                 declareNotAnimationFriendly()
+                localStorage.set StressTest.KEY_ANIMATIONFRIENDLY, false
                 setTimeout dfd.resolve, 50
                 return dfd.promise()
 

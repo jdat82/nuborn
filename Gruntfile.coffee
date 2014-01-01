@@ -1,11 +1,3 @@
-GruntUtils = require "./GruntUtils"
-
-
-
-# --- REVERSE PROXY CONFIGURATION
-# --- Used by the connect task
-# proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest
-
 
 
 ###
@@ -13,12 +5,16 @@ Grunt Configuration
 ###
 module.exports = ( grunt ) ->
 
+    # Dependencies
+    utils = require "./GruntUtils"
+    $extend = require "./jQueryExtend"
+
+    # REVERSE PROXY CONFIGURATION. Used by the connect task
+    # proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest
+
     # Externals options which can be context dependent
     profile = grunt.option( "profile" )  || "dev"
     options = grunt.file.readJSON "conf/#{profile}.json"
-    debug = grunt.option "debug"
-
-
 
     ###
     Receive a task name and if no target specified find active targets and execute the active ones.
@@ -32,6 +28,7 @@ module.exports = ( grunt ) ->
     False else.
     ###
     executeTaskForActiveTargetsOnly = ( task ) ->
+
         activePlatforms = activeTargets()
         isGlobalBuild = task is "default"
 
@@ -61,6 +58,7 @@ module.exports = ( grunt ) ->
     Compute an array of active target names.
     ###
     activeTargets = () ->
+
         platforms = grunt.config "platforms"
         result = []
 
@@ -69,7 +67,7 @@ module.exports = ( grunt ) ->
         for platform of platforms
             if platforms[ platform ].active then result.push platform
 
-        debug && grunt.log.writeln JSON.stringify( result, null, "    " )
+        grunt.verbose.debug utils.toJSON( result )
 
         return result
 
@@ -79,12 +77,13 @@ module.exports = ( grunt ) ->
     Return true if task's configuration is platform dependent.
     ###
     isPlatformDependent = ( task ) ->
-        platforms = grunt.config "platforms"
+
+        activePlatforms = activeTargets()
         taskConfiguration = grunt.config task
 
-        if  !taskConfiguration || !platforms || !Object.keys( platforms ).length then return false
+        if  !taskConfiguration || !activePlatforms || !activePlatforms.length then return false
 
-        for platform in platforms
+        for platform in activePlatforms
             if taskConfiguration[ platform ]
                 return true
 
@@ -92,7 +91,9 @@ module.exports = ( grunt ) ->
 
 
 
-
+    ###
+    Grunt Configuration.
+    ###
     grunt.initConfig
 
         ###
@@ -147,7 +148,7 @@ module.exports = ( grunt ) ->
             android:
                 # Defining an ANDROID constant in order to allow compilation of android specific code
                 options:
-                    "compress": GruntUtils.extend( true, {}, options.uglify.compress, {
+                    "compress": $extend( true, {}, options.uglify.compress, {
                         "global_defs": {
                             "ANDROID": true
                             "IOS": false
@@ -171,7 +172,7 @@ module.exports = ( grunt ) ->
             ios:
                 # Defining an IOS constant in order to allow compilation of ios specific code
                 options:
-                    "compress": GruntUtils.extend( true, {}, options.uglify.compress, {
+                    "compress": $extend( true, {}, options.uglify.compress, {
                         "global_defs": {
                             "ANDROID": false
                             "IOS": true
@@ -195,7 +196,7 @@ module.exports = ( grunt ) ->
             web:
                 # Defining a WEB constant in order to allow compilation of web specific code
                 options:
-                    "compress": GruntUtils.extend( true, {}, options.uglify.compress, {
+                    "compress": $extend( true, {}, options.uglify.compress, {
                         "global_defs":
                             "ANDROID": false
                             "IOS": false
@@ -308,6 +309,10 @@ module.exports = ( grunt ) ->
                     ext: ".min.css"
                 } ]
 
+        ###
+        Parse and optimise generated css by adding and removing vendor prefixes.
+        It allows us to code in pure css. No need to use sass mixins or duplicate code with prefixes.
+        ###
         autoprefixer:
             # options:
                 # browsers: [ 'android 4', 'ios 5' ]
@@ -323,6 +328,7 @@ module.exports = ( grunt ) ->
 
         ###
         Overwrite the sass generated css by replacing image text url with image data url.
+        Not used for now.
         ###
         imageEmbed:
             android:
@@ -469,8 +475,6 @@ module.exports = ( grunt ) ->
 
         ###
         Rebuild on every save.
-        Install this chrome extension to have automatic refresh in chrome :
-        - https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
         ###
         watch:
             options:
@@ -523,7 +527,7 @@ module.exports = ( grunt ) ->
                         # reverse Proxy Configuration
                         # proxySnippet
                     ]
-            # web:
+            web: {}
             #     # reverse Proxy Configuration
             #     proxies: [{
             #         context: '/reverse'
@@ -536,10 +540,8 @@ module.exports = ( grunt ) ->
             #     }]
 
         ###
-        I highly recommend installing the grunt devtools chrome extension and the livereload chrome extension
-        to improve seriously productivity when developping for the web.
+        I recommend installing the grunt devtools chrome extension :
         Grunt devtools: https://chrome.google.com/webstore/detail/grunt-devtools/fbiodiodggnlakggeeckkjccjhhjndnb
-        Livereload: https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
         ###
 
         ###
@@ -575,6 +577,10 @@ module.exports = ( grunt ) ->
                     src: [ "<%= appcache %>" ]
                 } ]
 
+        ###
+        Allows us to debug a remote browser (android/ios).
+        iOS tools are so great that we only use weinre for android.
+        ###
         weinre:
             dev:
                 options:
@@ -583,9 +589,16 @@ module.exports = ( grunt ) ->
                     verbose: true
                     debug: true
 
+        ###
+        Allows to launch several commands at once in background.
+        ###
         concurrent:
             web: [ "connect-server", "watch", "weinre" ]
 
+        ###
+        Allows to execute shell commands.
+        Used for cordova compilation.
+        ###
         exec:
             "cordova-prepare":
                 command: ( target ) ->
@@ -611,6 +624,10 @@ module.exports = ( grunt ) ->
                     ext: ".js"
                 } ]
 
+        ###
+        Create a symbolic link in the <build>/js folder used afterward by sourcemaps.
+        It allows the browser to request source code outside of the web server context.
+        ###
         symlink:
             web:
                 src: "."
@@ -659,7 +676,7 @@ module.exports = ( grunt ) ->
     grunt.registerTask "web", [ "clean:web", "symlink:web", "coffee", "hogan:web", "nuglify:web", "nsass:web", "autoprefixer:web", "htmlmin:web", "imagemin:web", "copy:web", "manifest:web" ]
 
     ###
-    Alias for hogan + nuglify + manifest tasks.
+    Alias for everything javascript related.
     ###
     grunt.registerTask "javascript", [ "javascript code" ]
     # using grunt.task.run syntax instead the alias one because the hook doesn't work
@@ -670,7 +687,7 @@ module.exports = ( grunt ) ->
         grunt.task.run "manifest"
 
     ###
-    Alias for nsass + manifest tasks.
+    Alias for everything css related.
     ###
     grunt.registerTask "css", [ "css code" ]
     # using grunt.task.run syntax instead the alias one because the hook doesn't work
@@ -685,17 +702,17 @@ module.exports = ( grunt ) ->
     grunt.registerTask "server", [ "configureProxies:web", "connect:web" ]
 
     ###
-    Registering an alias task to launch the watcher.
+    Registering an alias task to launch the watch server.
     ###
     grunt.registerTask "watcher", [ "watch" ]
 
     ###
-    Weinre alias.
+    Registering an alias task to launch the weinre server.
     ###
     grunt.registerTask "remote", [ "weinre" ]
 
     ###
-    Documentation task.
+    Documentation alias task.
     ###
     grunt.registerTask "docs", [ "jsduck", "docco" ]
 
@@ -733,10 +750,11 @@ module.exports = ( grunt ) ->
             target:
                 files: []
 
+
         # Resolving patterns and then dependencies order
         this.files.forEach ( files ) ->
             sass.target.files.push
-                src: GruntUtils.resolveSassDependencies files.src
+                src: utils.resolveSassDependencies files.src
                 dest: files.dest
 
         # Registering the sass config for execution
@@ -765,7 +783,7 @@ module.exports = ( grunt ) ->
         # Resolving patterns and then dependencies order
         this.files.forEach ( files ) ->
             uglify.target.files.push
-                src: GruntUtils.resolveJavascriptDependencies files.src, options
+                src: utils.resolveJavascriptDependencies files.src, options
                 dest: files.dest
 
         # Registering the uglify config for execution

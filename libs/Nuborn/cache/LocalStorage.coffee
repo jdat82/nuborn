@@ -23,21 +23,6 @@ define "nu.cache.LocalStorage", ( require, exports, module ) ->
 			localStorage.setItem key, string
 
 		###*
-		Append object to the specified key.
-		@param {String} key    The key for the saved object
-		@param {Object} object The object to save
-		###
-		append: ( key, object ) ->
-			# Stringifying the object as JSON
-			string = JSON.stringify object
-			# Getting existing value
-			item = localStorage.getItem key
-			# Appending to existing value
-			item += string
-			# Saving the stringify result into local storage
-			localStorage.setItem key, string
-
-		###*
 		Gets the previously saved object with the specified key.
 		@param  {String} key The key for the saved object
 		@return {Object|String|Number}     The previously saved object with the specified key
@@ -49,7 +34,7 @@ define "nu.cache.LocalStorage", ( require, exports, module ) ->
 			# Getting previously saved object with the specified key from local storage
 			string = localStorage.getItem key
 
-			return if string?
+			return if not string?
 
 			# If string is not null, proceed
 			object = null
