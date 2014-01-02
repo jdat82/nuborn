@@ -119,25 +119,25 @@ module.exports = ( grunt ) ->
             "libs/jQuery/*.min.js",
             "libs/Modernizr/*.js",
             "libs/FastClick/*.js",
-            "{gen/libs/Nuborn,gen/src/app,libs/Nuborn,src/app}/init/*.js", # jQuery Mobile pre-initialization
+            "{gen/src,src}/**/init/*.js", # jQuery Mobile pre-initialization
             "libs/jQueryMobile/*.js",
             "libs/SwipeJS/*.js",
-            "gen/*.js", # Generated sources
+            "gen/templates.js", # Generated sources
         ]
 
         ###
         Common javascript sources files for all platforms
         ###
         jsApp: [
-            "{gen/libs,gen/src,libs/Nuborn,src}/**/*.js", # Nuborn && App sources
-            "!{gen/libs,gen/src,libs/Nuborn,src}/**/*-async.js" # excluding all async files which will be requested manually
+            "{gen/src,src}/**/*.js", # Nuborn && App sources
+            "!{gen/src,src}/**/*-async.js" # excluding all async files which will be requested manually
         ]
 
         ###
         These files will be requested manually asynchronously and not merged in the global file.
         ###
         asyncJs: [
-            "{gen/libs,gen/src,libs,src}/**/*-async.{js,min.js}"
+            "{gen/src,libs,src}/**/*-async.{js,min.js}"
         ]
 
         ###
@@ -237,7 +237,7 @@ module.exports = ( grunt ) ->
         Common teplates for all platforms
         ###
         templates: [
-            "{libs/Nuborn,src}/**/*.hogan"
+            "src/**/*.hogan"
         ]
 
         ###
@@ -262,8 +262,8 @@ module.exports = ( grunt ) ->
         ###
         css: [
             "libs/jQueryMobile/*.css"
-            "{libs,src}/**/*.scss"
-            "!{libs/Nuborn,src}/**/*-async.css"
+            "src/**/*.scss"
+            "!{libs,src}/**/*-async.{css,min.css,scss}"
         ]
 
         ###
@@ -447,9 +447,7 @@ module.exports = ( grunt ) ->
                     "footer": "Jean DAT"
                     # "tests": true
                 src: [
-                    "gen/libs"
                     "gen/src"
-                    "libs/Nuborn"
                     "src"
                 ],
                 dest: "docs/jsduck/gen"
@@ -487,7 +485,7 @@ module.exports = ( grunt ) ->
                 files: [ "<%= css %>", "<%= asyncCss %>" ]
                 tasks: [ "css" ]
             coffee:
-                files: [ "src/**/*.coffee", "libs/Nuborn/**/*.coffee" ]
+                files: [ "src/**/*.coffee" ]
                 tasks: [ "coffee" ]
             js:
                 files: [ "<%= jsLibs%>", "<%= jsApp %>", "<%= asyncJs %>", "<%= templates %>" ]
@@ -619,7 +617,7 @@ module.exports = ( grunt ) ->
                 files: [ {
                     dest: 'gen/'
                     # dest: 'gen/coffee.js'
-                    src: [ '{src,libs/Nuborn}/**/*.coffee' ]
+                    src: [ 'src/**/*.coffee' ]
                     expand: true
                     ext: ".js"
                 } ]
