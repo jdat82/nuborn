@@ -37,7 +37,7 @@ define "nu.core.Context", ( require, exports, module ) ->
 
             # Loading data from local storage if need be
             if @settings.synchronizeInLocalStorage && Modernizr.localstorage
-                @data = $.extend true, {}, localStorage.get( @settings.localStorageKey )
+                $.extend true, @data, localStorage.get( @settings.localStorageKey )
 
             # Deactivating local storage synchronization if unavailable
             else if @settings.synchronizeInLocalStorage && !Modernizr.localstorage

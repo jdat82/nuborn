@@ -1,49 +1,46 @@
-define( "app.pages.HomePageHandler", function ( require, exports, module ) {
+define "app.pages.HomePageHandler", ( require, exports, module ) ->
 
-	'use strict';
+	'use strict'
 
-	var $ = jQuery;
-	var log = require( "#log" );
-	var NubornPageHandler = require( "app.pages.NubornPageHandler" );
+	$ = jQuery
+	log = require "#log"
+	NubornPageHandler = require "app.pages.NubornPageHandler"
 
-	/**
-	 * @class app.pages.HomePageHandler
-	 * @extends app.pages.NubornPageHandler
-	 *
-	 * The Page Handler of the home page.
-	 */
-	var HomePageHandler = NubornPageHandler.subClass( {
+	###*
+	@class app.pages.HomePageHandler
+	@extends app.pages.NubornPageHandler
+	The Page Handler of the home page.
+	###
+	class HomePageHandler extends NubornPageHandler
 
-		/**
-		 * @override
-		 * @inheritdoc
-		 */
-		init: function () {
-			this._super( {
-				id: "home",
+		###*
+		@override
+		@inheritdoc
+		###
+		constructor: () ->
+			super
+				id: "home"
 				singleton: true
-			} );
-		},
 
-		/**
-		 * @override
-		 * @inheritdoc
-		 */
-		createHtmlElements: function () {
-			var page = this.html.page;
-			this.html.menuButton = page.find( "div.menu-button" );
-			this.html.carousel = page.find( "#carousel" );
-			this.html.carouselWrapper = page.find( "#carousel-wrapper" );
-			this.html.news = page.find( "#news" );
-		},
+		###*
+		@override
+		@inheritdoc
+		###
+		createHtmlElements: () ->
+			page = @html.page
+			@html.menuButton = page.find "div.menu-button"
+			@html.carousel = page.find "#carousel"
+			@html.carouselWrapper = page.find "#carousel-wrapper"
+			@html.news = page.find "#news"
 
-		/**
-		 * @override
-		 * @inheritdoc
-		 */
-		createDataElements: function () {
-			// Create the data to display in the carousel
-			this.data.carousel = {
+		###*
+		@override
+		@inheritdoc
+		###
+		createDataElements: () ->
+
+			# Create the data to display in the carousel
+			@data.carousel =
 				cards: [ {
 					title: "The Big Bang Theory",
 					image: "http://src.sencha.io/http://farm3.staticflickr.com/2493/3983699775_cfe70a1224_z.jpg"
@@ -57,10 +54,10 @@ define( "app.pages.HomePageHandler", function ( require, exports, module ) {
 					title: "Person of Interest",
 					image: "http://src.sencha.io/http://www.tuxboard.com/photos/2013/01/Person-of-Interest-saison-1-VOSTFR-640x640.jpg"
 				} ]
-			};
 
-			// Create the data to display in the news
-			this.data.news = {
+
+			# Create the data to display in the news
+			@data.news =
 				items: [ {
 						id: 1,
 						title: "Le créateur des \"Griffin\" se pointe... dans \"Les Simpson\" !",
@@ -105,7 +102,7 @@ define( "app.pages.HomePageHandler", function ( require, exports, module ) {
 						image: "http://src.sencha.io/http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/86/24/20555126.jpg"
 					},
 
-					// ************** //
+					# ************** //
 					{
 						id: 8,
 						title: "\"Nashville\" est renouvelée",
@@ -252,87 +249,72 @@ define( "app.pages.HomePageHandler", function ( require, exports, module ) {
 						image: "http://src.sencha.io/http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/86/24/20555126.jpg"
 					}
 				]
-			};
-		},
 
-		/**
-		 * @override
-		 * @inheritdoc
-		 */
-		pageInit: function ( event ) {
+		###*
+		@override
+		@inheritdoc
+		###
+		pageInit: ( event ) ->
+			super event
+			@handleMenuButton()
+			@prepareCarousel()
+			@prepareNews()
 
-			this._super( event );
+		###*
+		@override
+		@inheritdoc
+		###
+		pageShow: ( event, data ) ->
+			super event, data
 
-			this.handleMenuButton();
-			this.prepareCarousel();
-			this.prepareNews();
-		},
+			# Initializing Carousel with the Swipe library
+			@html.carousel.Swipe()
 
-		/**
-		 * @override
-		 * @inheritdoc
-		 */
-		pageShow: function ( event, data ) {
+			# iScroll polyfill for deficient devices (everyone except apple of course)
+			# if ( window.IScroll ) {
+			# 	DEBUG && log.i( "initializing iScroll" )
+			# 	@data.iscroll = new IScroll( "#toto" )
+			# }
 
-			this._super( event, data );
+		###*
+		Handle the menu button.
+		###
+		handleMenuButton: () ->
+			# When tap on menu button, open menu panel
+			@html.menuButton.on "tap", () ->
+				menu = require "#menu"
+				# Opening menu panel
+				menu.toggleMenu()
+				# Prevent bubbling
+				return false
 
-			// Initializing Carousel with the Swipe library
-			this.html.carousel.Swipe();
+		###*
+		Prepare the carousel. <br/>
+		-- Load the data <br/>
+		-- Render the data
+		###
+		prepareCarousel: () ->
+			# Add template to carousel wrapper, rendered with carousel data
+			@html.carouselWrapper.html templates.card.render @data.carousel
 
-			// iScroll polyfill for deficient devices (everyone except apple of course)
-			// if ( window.IScroll ) {
-			// 	DEBUG && log.i( "initializing iScroll" );
-			// 	this.data.iscroll = new IScroll( "#toto" );
-			// }
-		},
-
-		/**
-		 * Handle the menu button.
-		 */
-		handleMenuButton: function () {
-			// when tap on menu button, open menu panel
-			this.html.menuButton.on( "tap", function () {
-				var menu = require( "#menu" );
-				// opening menu panel
-				menu.toggleMenu();
-				// prevent bubbling
-				return false;
-			} );
-		},
-
-		/**
-		 * Prepare the carousel. <br/>
-		 * -- Load the data <br/>
-		 * -- Render the data
-		 */
-		prepareCarousel: function () {
-			// add template to carousel wrapper, rendered with carousel data
-			this.html.carouselWrapper.html( templates.card.render( this.data.carousel ) );
-		},
-
-		prepareNews: function () {
-			// add template to news, rendered with news data
-			var news = this.html.news;
-			news.append( templates.news_cell.render( this.data.news ) );
-			news.on( "tap", "li", function ( event ) {
-				var detailPage = require( "#detail" );
-				var newsId = event.currentTarget.dataset.newsId;
-				detailPage.navigate( {
-					pageParams: {
+		prepareNews: () ->
+			# Add template to news, rendered with news data
+			news = @html.news
+			news.append templates.news_cell.render @data.news
+			news.on "tap", "li", ( event ) ->
+				detailPage = require "#detail"
+				newsId = event.currentTarget.dataset.newsId
+				detailPage.navigate
+					pageParams:
 						id: newsId
-					}
-				} );
-				return false;
-			} );
-		},
+				return false
 
-		backButton: function ( event ) {
-			this._super( event );
-			log.i( "Exiting app" );
-			navigator.app && navigator.app.exitApp && navigator.app.exitApp();
-		}
-	} );
+		backButton: ( event ) ->
+			super event
+			log.i "Exiting app"
+			navigator.app && navigator.app.exitApp && navigator.app.exitApp()
 
-	module.exports = HomePageHandler;
 
-} );
+
+	module.exports = HomePageHandler
+

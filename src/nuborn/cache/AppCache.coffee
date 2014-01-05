@@ -26,9 +26,7 @@ define "nu.cache.AppCache", ( require, exports, module ) ->
 			appCache = window.applicationCache
 
 			newHotness = ( event ) ->
-
 				DEBUG && log.i "New hotness available !"
-
 				if appCache.status is appCache.UPDATEREADY
 					appCache.swapCache()
 					window.location.reload() if DEBUG or (!DEBUG and confirm 'A new version of this site is available. Load it ?')

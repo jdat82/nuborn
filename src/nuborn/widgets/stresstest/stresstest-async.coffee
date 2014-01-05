@@ -8,7 +8,7 @@ Self executing code.
     $ = jQuery
     log = require "#log"
     localStorage = require( "nu.cache.LocalStorage" ).instance
-    EventsDispatcher = require "nu.events.EventsDispatcher"
+    events = require( "nu.events.EventsDispatcher" ).instance
     StressTest = require "nu.widgets.StressTest"
 
     results = []
@@ -81,7 +81,7 @@ Self executing code.
     ###
     testDone = () ->
         # Notifying listeners that the test is done
-        EventsDispatcher.emit
+        events.emit
             name: StressTest.EVENT_STRESS_TEST_DONE
 
 )()

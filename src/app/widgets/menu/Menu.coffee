@@ -61,7 +61,7 @@ define "app.widgets.Menu", ( require, exports, module ) ->
 
 
     navigate = ( menu, pageHandler ) ->
-        SettingsManager = require "app.manager.SettingsManager"
+        SettingsManager = require( "app.manager.SettingsManager" ).instance
         if SettingsManager.animationFriendly()
             menu.one 'transitionend webkitTransitionEnd otransitionend MSTransitionEnd', () ->
                 pageHandler.navigate()

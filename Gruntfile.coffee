@@ -129,21 +129,21 @@ module.exports = ( grunt ) ->
         Common javascript sources files for all platforms
         ###
         jsApp: [
-            "{gen/src,src}/**/*.js", # Nuborn && App sources
-            "!{gen/src,src}/**/*-async.js" # excluding all async files which will be requested manually
+            "gen/src/**/*.js", # Nuborn && App sources
+            "!gen/src/**/*-async.js" # excluding all async files which will be requested manually
         ]
 
         ###
         These files will be requested manually asynchronously and not merged in the global file.
         ###
         asyncJs: [
-            "{gen/src,libs,src}/**/*-async.{js,min.js}"
+            "{gen/src,libs}/**/*-async.{js,min.js}"
         ]
 
         ###
         Javascript compilation
         ###
-        nuglify:
+        uglify:
             options: options.uglify,
             android:
                 # Defining an ANDROID constant in order to allow compilation of android specific code
@@ -203,8 +203,8 @@ module.exports = ( grunt ) ->
                             "WEB": true
                     } )
                     "ignore": [ "<%= jsLibs %>", "<%= asyncJs %>" ]
-                    # "sourceMapIn": () ->
-                    #     return ""
+                    # Define an entry source map to map coffee files to gen/app.js
+                    # "sourceMapIn": "gen/src/app.js.map"
                     # Define the sourcemap file name
                     "sourceMap": ( filepath ) ->
                         return "#{filepath}.map" if profile isnt "prod"
@@ -215,7 +215,7 @@ module.exports = ( grunt ) ->
                             path = require "path"
                             dirname = path.dirname filepath
                             filepath = filepath.replace "#{dirname}/", ""
-                            return filepath + ".map"
+                            return "#{filepath}.map"
                         else
                             return "" # no sourcemap in prod
                     # Define the sourcemap source attribute value (useful to map on a symbolic link)
@@ -231,6 +231,41 @@ module.exports = ( grunt ) ->
                     expand: true
                     flatten: true
                     ext: ".min.js"
+                } ]
+
+        ###
+        Common coffee sources files for all platforms
+        ###
+        coffeeApp: [
+            "src/**/*.coffee", # Nuborn && App sources
+            "!src/**/*-async.coffee" # excluding all async files which will be requested manually
+        ]
+
+        ###
+        These files will be requested manually asynchronously and not merged in the global file.
+        ###
+        asyncCoffee: [
+            "src/**/*-async.coffee"
+        ]
+
+        ###
+        Compile and tansform coffee scripts files to javascript files.
+        ###
+        coffee:
+            options:
+                bare: true
+                join: true
+                sourceMap: true
+            common:
+                files: [ {
+                    # dest: "gen/"
+                    dest: "gen/src/app.js"
+                    src: "<%= coffeeApp %>"
+                }, {
+                    dest: "gen/"
+                    src: "<%= asyncCoffee %>"
+                    expand: true
+                    ext: ".js"
                 } ]
 
         ###
@@ -606,23 +641,6 @@ module.exports = ( grunt ) ->
                 cwd: "<%= platforms.root %>"
 
         ###
-        Compile and tansform coffee scripts files to javascript files.
-        ###
-        coffee:
-            options:
-                bare: true
-                join: false
-                sourceMap: false
-            common:
-                files: [ {
-                    dest: 'gen/'
-                    # dest: 'gen/coffee.js'
-                    src: [ 'src/**/*.coffee' ]
-                    expand: true
-                    ext: ".js"
-                } ]
-
-        ###
         Create a symbolic link in the <build>/js folder used afterward by sourcemaps.
         It allows the browser to request source code outside of the web server context.
         ###
@@ -663,15 +681,15 @@ module.exports = ( grunt ) ->
     ###
     Registering Default Task
     ###
-    grunt.registerTask "default", [ "clean", "symlink", "exec:cordova-prepare", "coffee", "hogan", "nuglify", "nsass", "autoprefixer", "htmlmin", "imagemin", "copy", "manifest" ]
+    grunt.registerTask "default", [ "clean", "symlink", "exec:cordova-prepare", "coffee", "hogan", "uglify", "nsass", "autoprefixer", "htmlmin", "imagemin", "copy", "manifest" ]
 
 
     ###
     Registering one alias per target to allow compiling only one target
     ###
-    grunt.registerTask "android", [ "clean:android", "exec:cordova-prepare:android", "coffee", "hogan:android", "nuglify:android", "nsass:android", "autoprefixer:android", "htmlmin:android", "imagemin:android", "copy:android" ]
-    grunt.registerTask "ios", [ "clean:ios", "exec:cordova-prepare:ios", "coffee", "hogan:ios", "nuglify:ios", "nsass:ios", "autoprefixer:ios", "htmlmin:ios", "imagemin:ios", "copy:ios" ]
-    grunt.registerTask "web", [ "clean:web", "symlink:web", "coffee", "hogan:web", "nuglify:web", "nsass:web", "autoprefixer:web", "htmlmin:web", "imagemin:web", "copy:web", "manifest:web" ]
+    grunt.registerTask "android", [ "clean:android", "exec:cordova-prepare:android", "coffee", "hogan:android", "uglify:android", "nsass:android", "autoprefixer:android", "htmlmin:android", "imagemin:android", "copy:android" ]
+    grunt.registerTask "ios", [ "clean:ios", "exec:cordova-prepare:ios", "coffee", "hogan:ios", "uglify:ios", "nsass:ios", "autoprefixer:ios", "htmlmin:ios", "imagemin:ios", "copy:ios" ]
+    grunt.registerTask "web", [ "clean:web", "symlink:web", "coffee", "hogan:web", "uglify:web", "nsass:web", "autoprefixer:web", "htmlmin:web", "imagemin:web", "copy:web", "manifest:web" ]
 
     ###
     Alias for everything javascript related.
@@ -681,7 +699,7 @@ module.exports = ( grunt ) ->
     grunt.registerTask "javascript code", () ->
         grunt.task.run "coffee"
         grunt.task.run "hogan"
-        grunt.task.run "nuglify"
+        grunt.task.run "uglify"
         grunt.task.run "manifest"
 
     ###
@@ -768,23 +786,23 @@ module.exports = ( grunt ) ->
     The task is invoked by the above hook for each active platform. Each time, a uglify.target
     configuration is created.
     ###
-    grunt.registerMultiTask "nuglify", "wrapper for grunt-contrib-uglify", () ->
+    # grunt.registerMultiTask "nuglify", "wrapper for grunt-contrib-uglify", () ->
 
-        # Uglify config for the current target
-        uglify =
-            options: this.options()
-            target:
-                files: []
+    #     # Uglify config for the current target
+    #     uglify =
+    #         options: this.options()
+    #         target:
+    #             files: []
 
-        options = this.data.options
+    #     options = this.data.options
 
-        # Resolving patterns and then dependencies order
-        this.files.forEach ( files ) ->
-            uglify.target.files.push
-                src: utils.resolveJavascriptDependencies files.src, options
-                dest: files.dest
+    #     # Resolving patterns and then dependencies order
+    #     this.files.forEach ( files ) ->
+    #         uglify.target.files.push
+    #             src: utils.resolveJavascriptDependencies files.src, options
+    #             dest: files.dest
 
-        # Registering the uglify config for execution
-        grunt.config "uglify", uglify
-        grunt.task.run "uglify:"
+    #     # Registering the uglify config for execution
+    #     grunt.config "uglify", uglify
+    #     grunt.task.run "uglify:"
 

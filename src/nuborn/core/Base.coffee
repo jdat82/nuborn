@@ -16,10 +16,10 @@ define "nu.core.Base", ( require, exports, module ) ->
         @param {Object} defaults Defaults settings
         @param {Object} settings Runtime settings
         ###
-        constructor: ( @defaults = {}, @settings = {} ) ->
+        constructor: ( defaults = {}, settings = {} ) ->
 
             # Initiliazing settings
-            @settings = $.extend true, defaults, settings
+            @settings = $.extend true, {}, defaults, settings
 
             # Used to store DOM references
             @html = {};
@@ -29,6 +29,8 @@ define "nu.core.Base", ( require, exports, module ) ->
 
         tune: ( newSettings, extend = true) ->
             return if !newSettings
-            if !extend then @settings = newSettings else @settings = $.extend true, @settings, newSettings
+            if !extend then @settings = newSettings else $.extend true, @settings, newSettings
+
+
 
     module.exports = Base

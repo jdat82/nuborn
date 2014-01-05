@@ -39,7 +39,7 @@ class GruntUtils
 
 		# Get all non sorted sources
 		sources = grunt.file.expand patterns
-		ignoreList = grunt.file.expand taskOptions.ignore
+		if taskOptions?.ignore then ignoreList = grunt.file.expand taskOptions.ignore
 
 		grunt.verbose.debug "List of files that will be ignored : #{ignoreList}"
 		grunt.verbose.debug "\nSOURCES BEFORE RESOLVE PHASE: \n #{sources.join '\n'} \n"
@@ -55,8 +55,6 @@ class GruntUtils
 		ignoreThisFile = false
 		# Loop on all sources to find dependencies
 		for source in sources
-
-			grunt.verbose.debug "Current source: #{source}"
 
 			# Tracking files to be ignored
 			if source in ignoreList then ignoreThisFile = true else ignoreThisFile = false
@@ -75,25 +73,23 @@ class GruntUtils
 			if !ignoreThisFile
 
 				# Searching for require("id") expressions
-				requireRegexp = /.*require\s*\(\s*"([^"])"\s*\).*/g
+				requireRegexp = /.*require\s*\(\s*"([^"]*)"\s*\).*/g
 				match = requireRegexp.exec content
 				while match?
-					line = match[ 0 ]
+					line = match[ 0 ].trim()
 					requireName = match[ 1 ]
-					continue if line.indexOf( "@ignore" ) >= 0
-					continue if line.indexOf( "//" ) >= 0 or line.indexOf( "/*" ) >= 0 or line.indexOf( "/**" ) >= 0
-					requires.push requireName
+					if not (line.indexOf( "@ignore" ) >= 0 or line.chartAt(0) is "/" and (line.chartAt(1) is "*" or line.chartAt(1) is "/"))
+						requires.push requireName
 					match = requireRegexp.exec content
 
 				# Searching for define("id") expressions
-				provideRegexp = /.*define\s*\(\s*"(^")"\s*,.*/g
+				provideRegexp = /.*define\s*\(\s*"([^"]*)"\s*,.*/g
 				match = provideRegexp.exec content
 				while match?
-					line = match[ 0 ]
+					line = match[ 0 ].trim()
 					provideName = match[ 1 ]
-					continue if line.indexOf( "@ignore" ) >= 0
-					continue if line.indexOf( "//" ) >= 0 or line.indexOf( "/*" ) >= 0 or line.indexOf( "/**" ) >= 0
-					provides.push provideName
+					if not (line.indexOf( "@ignore" ) >= 0 or line.chartAt(0) is "/" and (line.chartAt(1) is "*" or line.chartAt(1) is "/"))
+						provides.push provideName
 					match = provideRegexp.exec content
 
 
@@ -127,10 +123,12 @@ class GruntUtils
 			# Save the object into the compiled dictionnary with the provides as keys
 			providerMap[ provide ] = node
 
+			grunt.verbose.debug "----------------------------------------------------"
+
 		for node in nodes
 			node.edges = []
 			for require in node.requires
-				# First, let's see if every requirehas a prov
+				# First, let's see if every require has a provide
 				if require not in allProvides
 					grunt.fail.warn "Missing provider : #{require} is not provided !", 3
 				# Second, let's change require form from a string (provide) to an object n
@@ -157,10 +155,9 @@ class GruntUtils
 				if edge not in resolved
 					# Checking cyclic dependencies
 					if edge in unresolved
-						grunt.fail.fatal "Error : #{node.source} raised cyclic dependencies !"
-
-				# Digging again
-				resolve( edge, resolved, unresolved )
+						grunt.fail.fatal "Error : #{node.source} raised cyclic dependencies with #{edge.source}!"
+					# Digging again
+					resolve( edge, resolved, unresolved )
 
 			# Adding if not present in list of resolved nodes
 			if node not in resolved
@@ -187,6 +184,7 @@ class GruntUtils
 
 		# Return the results array
 		return results
+
 
 
 

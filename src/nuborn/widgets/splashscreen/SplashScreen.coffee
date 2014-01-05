@@ -4,7 +4,7 @@ define "nu.widgets.SplashScreen", ( require, exports, module ) ->
 
 	$ = jQuery
 	log = require "#log"
-	EventsDispatcher = require "nu.events.EventsDispatcher"
+	events = require( "nu.events.EventsDispatcher" ).instance
 	Utils = require "nu.Utils"
 	Base = require "nu.core.Base"
 
@@ -106,8 +106,8 @@ define "nu.widgets.SplashScreen", ( require, exports, module ) ->
 	Handle events lifecycle.
 	###
 	handleSplashScreenEvents = () ->
-		EventsDispatcher.on SplashScreen.EVENT_SHOW, onShow
-		EventsDispatcher.on SplashScreen.EVENT_HIDE, onHide
+		events.on SplashScreen.EVENT_SHOW, onShow
+		events.on SplashScreen.EVENT_HIDE, onHide
 
 	onShow = ( event ) ->
 		DEBUG && log.i "Event SplashScreen show"

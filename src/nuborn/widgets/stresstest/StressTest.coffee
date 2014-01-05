@@ -5,7 +5,7 @@ define "nu.widgets.StressTest", ( require, exports, module ) ->
     $ = jQuery
     log = require "#log"
     localStorage = require( "nu.cache.LocalStorage" ).instance
-    EventsDispatcher = require "nu.events.EventsDispatcher"
+    events = require( "nu.events.EventsDispatcher" ).instance
     Base = require "nu.core.Base"
 
     ###*
@@ -58,7 +58,7 @@ define "nu.widgets.StressTest", ( require, exports, module ) ->
                 load: [ "js/stresstest-async.min.js" ],
                 complete: () ->
                     # When notified of the test termination, we can notify the caller
-                    EventsDispatcher.on StressTest.EVENT_STRESS_TEST_DONE, () ->
+                    events.on StressTest.EVENT_STRESS_TEST_DONE, () ->
                         log.i "Stress test executed"
                         dfd.resolve()
             } ]
