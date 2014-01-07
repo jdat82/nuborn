@@ -254,7 +254,7 @@ module.exports = ( grunt ) ->
         coffee:
             options:
                 bare: true
-                join: true
+                join: false
                 sourceMap: true
             common:
                 files: [ {
@@ -516,14 +516,11 @@ module.exports = ( grunt ) ->
                     port: 35735
                 interrupt: true
                 debounceDelay: 1000
-            scss:
+            css:
                 files: [ "<%= css %>", "<%= asyncCss %>" ]
                 tasks: [ "css" ]
-            coffee:
-                files: [ "src/**/*.coffee" ]
-                tasks: [ "coffee" ]
             js:
-                files: [ "<%= jsLibs%>", "<%= jsApp %>", "<%= asyncJs %>", "<%= templates %>" ]
+                files: [ "<%= jsLibs%>", "<%= asyncJs %>", "<%= coffeeApp %>", "<%= asyncCoffee %>", "<%= templates %>" ]
                 tasks: [ "javascript" ]
             htmlmin:
                 files: "<%= html %>"
@@ -681,7 +678,7 @@ module.exports = ( grunt ) ->
     ###
     Registering Default Task
     ###
-    grunt.registerTask "default", [ "clean", "symlink", "exec:cordova-prepare", "coffee", "hogan", "uglify", "nsass", "autoprefixer", "htmlmin", "imagemin", "copy", "manifest" ]
+    grunt.registerTask "default", [ "clean", "exec:cordova-prepare", "coffee", "hogan", "uglify", "nsass", "autoprefixer", "htmlmin", "imagemin", "copy", "manifest" ]
 
 
     ###
@@ -740,13 +737,22 @@ module.exports = ( grunt ) ->
     grunt.util.hooker.hook grunt.task, "run", {
         pre: ( task ) ->
 
-            # If there is already a target specified, no hook
-            # specifyng <task>: is also a way to bypass the hook without having a target
-            return if task.match /:/g
+            hookTask = (subTask) ->
+                # If there is already a target specified, no hook
+                # specifyng <subTask>: is also a way to bypass the hook without having a target
+                return if subTask?.match /:/g
 
-            # If task is platform dependent and has active targets : preempt
-            if executeTaskForActiveTargetsOnly task
-                return grunt.util.hooker.preempt true
+                # If subTask is platform dependent and has active targets : preempt
+                if executeTaskForActiveTargetsOnly subTask
+                    return grunt.util.hooker.preempt true
+
+
+            if task instanceof Array and task.length
+                for subTask in task
+                    hookTask subTask
+                return # important to short-circuit default coffee behavior which is to compute results and return them
+            else
+                hookTask task
     }
 
 

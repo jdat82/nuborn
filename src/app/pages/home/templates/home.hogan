@@ -4,7 +4,7 @@
 		<div class="title">Accueil</div>
 	</div>
 	<div data-role="content">
-		<div id="carousel" class="waypoint" data-role="swipe">
+		<div id="carousel" data-role="swipe">
 			<div id="carousel-wrapper" data-role="swipe-wrapper">
 			</div>
 		</div>

@@ -282,7 +282,7 @@ define "nu.Utils", ( require, exports, module ) ->
 		if DEBUG && LIVERELOAD
 			lr = document.createElement 'script'
 			hostname = REMOTE_HOST || window.location.hostname
-			protocol = 'https:' == window.location.protocol ? 'https' : 'http'
+			if 'https:' == window.location.protocol then protocol = 'https' else protocol = 'http'
 			lr.src = "#{protocol}://#{hostname}:#{LIVERELOAD_PORT}/livereload.js"
 
 			DEBUG && log.i "Installing Livereload script at: #{lr.src}"
@@ -301,7 +301,7 @@ define "nu.Utils", ( require, exports, module ) ->
 		if DEBUG && WEINRE
 			lr = document.createElement 'script'
 			hostname = REMOTE_HOST || window.location.hostname
-			protocol = 'https:' == window.location.protocol ? 'https' : 'http'
+			if 'https:' == window.location.protocol then protocol = 'https' else protocol = 'http'
 			lr.src = "#{protocol}://#{hostname}:#{WEINRE_PORT}/target/target-script-min.js#weinre"
 
 			DEBUG && log.i "Installing Weinre script at: #{lr.src}"
