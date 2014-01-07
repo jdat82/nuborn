@@ -1,0 +1,167 @@
+/**
+ * @provide mixins
+ */
+
+/*
+ * FYI : animation property accepts these arguments :
+ * name, duration, timingFunction, iteration, delay, direction, fillMode, playState
+ * http://www.w3.org/TR/css3-animations/#animation-shorthand-property
+ */
+
+/**
+ * Vendorize animations declarations.
+ */
+@mixin animation($animations...) {
+  -webkit-animation: $animations;
+  -moz-animation: $animations;
+  -ms-animation: $animations;
+  -o-animation: $animations;
+}
+
+/**
+ * To create a custom animation for every prefix.
+ */
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+/**
+ * To create a linear-gradient for every prefix.
+ */
+@mixin linear-gradient($from, $to) {
+	background-image: $from; /* Old browsers */
+	background-image: -moz-linear-gradient(top, $from 0%, $to 100%); /* FF3.6+ */
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $from), color-stop(100%,$to)); /* Chrome,Safari4+ */
+	background-image: -webkit-linear-gradient(top, $from 0%, $to 100%); /* Chrome10+,Safari5.1+ */
+	background-image: -o-linear-gradient(top, $from 0%, $to 100%); /* Opera 11.10+ */
+	background-image: -ms-linear-gradient(top, $from 0%, $to 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$from}', endColorstr='#{$to}',GradientType=0 ); /* IE6-9 */
+	background-image: linear-gradient(to bottom, $from 0%, $to 100%); /* W3C */
+}
+
+/**
+ * To create a box shadow for every prefix.
+ */
+@mixin box-shadow($inset, $x, $y, $blur, $spread, $color, $ieDirection) {
+	-moz-box-shadow: $inset $x $y $blur $spread $color;
+	-webkit-box-shadow: $inset $x $y $blur $spread $color;
+	-o-box-shadow: $inset $x $y $blur $spread $color;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#{$color}, Direction=#{$ieDirection}, Strength=#{$spread});
+	box-shadow: $inset $x $y $blur $spread $color;
+}
+
+/**
+ * Add all knowns prefixes to the property.
+ */
+@mixin vendorize($property, $value) {
+	-webkit-#{$property}: #{$value};
+	-moz-#{$property}: #{$value};
+	-ms-#{$property}: #{$value};
+	-o-#{$property}: #{$value};
+	#{$property}: #{$value};
+}
+
+/**
+ * Add all known prefixes to the value.
+ */
+@mixin vendorize-value($property, $value) {
+    #{$property}: -webkit-#{$value};
+    #{$property}: -moz-#{$value};
+    #{$property}: -ms-#{$value};
+    #{$property}: -o-#{$value};
+    #{$property}: #{$value};
+}
+
+/**
+ * To declare media queries.
+ * 3 breakpoints : smartphone, tablet and desktop.
+ */
+@mixin mq($mq) {
+	@if $mq == non-retina {
+		// @media
+		// only screen { //} and (min-width: 320px) {
+		/* Small screen, non-retina */
+		@content;
+		// }
+	}
+	@if $mq == retina {
+		@media
+		only screen and (-webkit-min-device-pixel-ratio: 1.3)      and (min-width: 320px),
+		only screen and (   min--moz-device-pixel-ratio: 1.3)      and (min-width: 320px),
+		only screen and (     -o-min-device-pixel-ratio: 2.6/2)    and (min-width: 320px),
+		only screen and (        min-device-pixel-ratio: 1.3)      and (min-width: 320px),
+		only screen and (                min-resolution: 200dpi) and (min-width: 320px),
+		only screen and (                min-resolution: 1.3dppx)  and (min-width: 320px) {
+			/* Small screen, retina, stuff to override above media query */
+			@content;
+		}
+	}
+
+	@if $mq == smartphone {
+		@media
+        only screen and (max-width: 420px) {
+        // only screen and (max-width: 23rem) {
+			@content;
+		}
+	}
+
+	@if $mq == tablet {
+        @media
+        only screen and (min-width: 421px) and (max-width: 1280px) {
+		// only screen and (min-width: 23.1rem) and (max-width: 70rem) {
+			@content;
+		}
+	}
+
+    @if $mq == desktop {
+        @media
+        only screen and (min-width: 1281px) {
+            @content;
+        }
+    }
+}
+
+@mixin background($image, $x, $y, $width, $height){
+	background-size: $width $height;
+	background-position: $x $y;
+	background-repeat: no-repeat;
+	background-image: url("../img/#{$image}.png");
+	@include mq(retina){
+		background-image: url("../img/#{$image}@2x.png");
+	};
+}
+
+/**
+ * To vertically align a group of inline blocks.
+ */
+@mixin vmiddle(){
+    &::before {
+        content: '';
+        display: inline-block;
+        vertical-align: middle;
+        height: 100%;
+        @content;
+    }
+}
+
+/**
+ * To justify a group of inline blocks.
+ */
+@mixin justify() {
+    &::after {
+        content: '';
+        display: inline-block;
+        width: 100%;
+    }
+}

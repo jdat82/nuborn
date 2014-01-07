@@ -7,7 +7,7 @@
 //////////////////////////////////////// Fade animations //////////////////////////////////////////
 
 // hide
-@include keyframes(fade-out) {
+@keyframes fade-out {
     from{
         opacity: 1;
     }
@@ -19,12 +19,12 @@
     opacity: 0;
 }
 .csstransforms3d.animationfriendly .fade-out {
-    @include animation(fade-out 1s forwards);
+    animation: fade-out 1s forwards;
 }
 
 
 // show
-@include keyframes(fade-in) {
+@keyframes fade-in {
     from{
         opacity: 0;
     }
@@ -36,22 +36,22 @@
     opacity: 1;
 }
 .csstransforms3d.animationfriendly .fade-in {
-    @include animation(fade-in .3s forwards);
+    animation: fade-in .3s forwards;
 }
 
 //////////////////////////////////////// Scale animations //////////////////////////////////////////
 
 // squeeze
-@include keyframes(squeeze) {
+@keyframes squeeze {
     from{
-        @include scale(1,1);
+        transform: scale(1,1);
     }
     to{
-        @include scale(1.1,1);
+        transform: scale(1.1,1);
     }
 }
 
-@include keyframes(glow) {
+@keyframes glow {
     from {
         text-shadow: 0 0 0px white;
     }
@@ -61,72 +61,72 @@
 }
 
 // bigger size to normal size
-@include keyframes(scale-bigger-to-normal) {
+@keyframes scale-bigger-to-normal {
     from{
-        @include transform(scale(1.2,1.2));
+        transform: scale(1.2,1.2);
     }
     to{
-        @include transform(scale(1,1));
+        transform: scale(1,1);
     }
 }
 
 // smaller size to normal size
-@include keyframes(scale-smaller-to-normal) {
+@keyframes scale-smaller-to-normal {
     from{
-        @include transform(scale(.8,.8));
+        transform: scale(.8,.8);
     }
     to{
-        @include transform(scale(1,1));
+        transform: scale(1,1);
     }
 }
 
 // normal size to smaller size
-@include keyframes(scale-normal-to-smaller) {
+@keyframes scale-normal-to-smaller {
     from{
-        @include transform(scale(1,1));
+        transform: scale(1,1);
     }
     to{
-        @include transform(scale(.8,.8));
+        transform: scale(.8,.8);
     }
 }
 
 //////////////////////////////////////// Translates animations //////////////////////////////////////////
 
 // translate bottom
-@include keyframes(translate-bottom){
+@keyframes translate-botto {
     from {
-        @include transform(translateY(-20px));
+        transform: translateY(-20px);
     }
     to {
-        @include transform(translateY(0px));
+        transform: translateY(0px);
     }
 }
 @mixin translate-bottom($speed:0.3) {
-    @include animation(translate-bottom #{$speed}s forwards, fade-in #{$speed}s forwards);
+    animation: translate-bottom #{$speed}s forwards, fade-in #{$speed}s forwards;
 }
 
 // translate right
-@include keyframes(translate-right){
+@keyframes translate-righ {
     from {
-        @include transform(translateX(-100%));
+        transform: translateX(-100%);
     }
     to {
-        @include transform(translateX(0));
+        transform: translateX(0);
     }
 }
 @mixin translate-right($speed:0.3) {
-    @include animation(translate-right #{$speed}s forwards, fade-in #{$speed}s forwards);
+    animation: translate-right #{$speed}s forwards, fade-in #{$speed}s forwards;
 }
 
 // translate left
-@include keyframes(translate-left){
+@keyframes translate-left {
     from {
-        @include transform(translateX(100%));
+        transform: translateX(100%);
     }
     to {
-        @include transform(translateX(0));
+        transform: translateX(0);
     }
 }
 @mixin translate-left($speed:0.3) {
-    @include animation(translate-left #{$speed}s forwards, fade-in #{$speed}s forwards);
+    animation: translate-left #{$speed}s forwards, fade-in #{$speed}s forwards;
 }

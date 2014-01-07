@@ -50,53 +50,58 @@
         ul li {
             visibility: visible;
             opacity: 1;
+
+            &:nth-child(odd),
+            &:nth-child(even) {
+                background-color: transparent;
+            }
         }
     }
 }
 
 .csstransforms3d.animationfriendly .menu {
 
-    @include transition(border-width .3s, height 0s .3s);
+    transition: border-width .3s, height 0s .3s;
 
     .overlay {
-        @include transition(background-color .3s);
+        transition: background-color .3s;
     }
 
     ul li {
-        @include transition(transform 0.3s, opacity 0.3s);
-        @include transform(translate3d(-100%,0,0));
+        transition: transform 0.3s, opacity 0.3s;
+        transform: translate3d(-100%,0,0);
     }
 
     &.menu-show {
 
-        @include transition(border-width .3s);
+        transition: border-width .3s;
 
         .overlay {
-            @include transition(background-color .5s);
+            transition: background-color .5s;
         }
 
         ul li {
 
-            @include transform(translate3d(0,0,0));
+            transform: translate3d(0,0,0);
 
             &:nth-child(5) {
-               @include transition-delay(0.05s);
+               transition-delay: 0.05s;
             }
 
             &:nth-child(4) {
-                @include transition-delay(0.1s);
+                transition-delay: 0.1s;
             }
 
             &:nth-child(3) {
-                @include transition-delay(0.15s);
+                transition-delay: 0.15s;
             }
 
             &:nth-child(2) {
-                @include transition-delay(0.2s);
+                transition-delay: 0.2s;
             }
 
             &:first-child {
-                @include transition-delay(0.25s);
+                transition-delay: 0.25s;
                 margin-top: 0;
             }
 
