@@ -2,7 +2,7 @@
 **.DS_Store
 **.sublime-workspace
 .sass-cache/
-node_modules/
+# node_modules/
 gen/
 
 # web
