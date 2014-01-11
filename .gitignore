@@ -3,6 +3,7 @@
 **.sublime-workspace
 .sass-cache/
 node_modules/
+vendors/
 gen/
 
 # web

@@ -114,30 +114,29 @@ module.exports = ( grunt ) ->
         ###
         Common javascript libraries files for all platforms
         ###
-        jsLibs: [
-            "libs/Hogan/*.js",
-            "libs/jQuery/*.min.js",
-            "libs/Modernizr/*.js",
-            "libs/FastClick/*.js",
-            "{gen/src,src}/**/init/*.js", # jQuery Mobile pre-initialization
-            "libs/jQueryMobile/*.js",
-            "libs/SwipeJS/*.js",
-            "gen/templates.js", # Generated sources
+        jsVendorsFiles: [
+            "vendors/hogan.js/*.min.js"
+            "vendors/jQuery/*.min.js"
+            "vendors/Modernizr/*.js"
+            "vendors/fastclick/*.js"
+            "{gen/src,src}/**/init/*.js" # jQuery Mobile pre-initialization + Application pre-initialization
+            "vendors/jQueryMobile/*.js"
+            "vendors/swipe/*.js"
         ]
 
         ###
         Common javascript sources files for all platforms
         ###
-        jsApp: [
-            "gen/src/**/*.js", # Nuborn && App sources
+        jsAppFiles: [
+            "gen/**/*.js" # Nuborn && App sources
             "!gen/src/**/*-async.js" # excluding all async files which will be requested manually
         ]
 
         ###
         These files will be requested manually asynchronously and not merged in the global file.
         ###
-        asyncJs: [
-            "{gen/src,libs}/**/*-async.{js,min.js}"
+        jsAsyncFiles: [
+            "{vendors,gen}/**/*-async.{js,min.js}"
         ]
 
         ###
@@ -155,16 +154,16 @@ module.exports = ( grunt ) ->
                             "WEB": false
                         }
                     } ),
-                    "ignore": [ "<%= jsLibs %>", "<%= asyncJs %>" ]
+                    "ignore": [ "<%= jsVendorsFiles %>", "<%= jsAsyncFiles %>" ]
                 files: [ {
                     "<%= platforms.android.folder %>/js/app.min.js": [
                         "<%= platforms.android.folder %>/../../platform_www/*.js"
-                        "<%= jsLibs %>"
-                        "<%= jsApp %>"
+                        "<%= jsVendorsFiles %>"
+                        "<%= jsAppFiles %>"
                     ]
                 }, {
                     dest: "<%= platforms.android.folder %>/js"
-                    src: [ "<%= asyncJs %>" ]
+                    src: [ "<%= jsAsyncFiles %>" ]
                     expand: true
                     flatten: true
                     ext: ".min.js"
@@ -179,16 +178,16 @@ module.exports = ( grunt ) ->
                             "WEB": false
                         }
                     } ),
-                    "ignore": [ "<%= jsLibs %>", "<%= asyncJs %>" ]
+                    "ignore": [ "<%= jsVendorsFiles %>", "<%= jsAsyncFiles %>" ]
                 files: [ {
                     "<%= platforms.ios.folder %>/js/app.min.js": [
                         "<%= platforms.ios.folder %>/../platform_www/*.js"
-                        "<%= jsLibs %>"
-                        "<%= jsApp %>"
+                        "<%= jsVendorsFiles %>"
+                        "<%= jsAppFiles %>"
                     ]
                 }, {
                     dest: "<%= platforms.ios.folder %>/js"
-                    src: [ "<%= asyncJs %>" ]
+                    src: [ "<%= jsAsyncFiles %>" ]
                     expand: true
                     flatten: true
                     ext: ".min.js"
@@ -202,7 +201,7 @@ module.exports = ( grunt ) ->
                             "IOS": false
                             "WEB": true
                     } )
-                    "ignore": [ "<%= jsLibs %>", "<%= asyncJs %>" ]
+                    "ignore": [ "<%= jsVendorsFiles %>", "<%= jsAsyncFiles %>" ]
                     # Define an entry source map to map coffee files to gen/app.js
                     # "sourceMapIn": "gen/src/app.js.map"
                     # Define the sourcemap file name
@@ -222,12 +221,12 @@ module.exports = ( grunt ) ->
                     sourceMapRoot: "Nuborn"
                 files: [ {
                     "<%= platforms.web.folder %>/js/app.min.js": [
-                        "<%= jsLibs %>"
-                        "<%= jsApp %>"
+                        "<%= jsVendorsFiles %>"
+                        "<%= jsAppFiles %>"
                     ]
                 }, {
                     dest: "<%= platforms.web.folder %>/js"
-                    src: [ "<%= asyncJs %>" ]
+                    src: [ "<%= jsAsyncFiles %>" ]
                     expand: true
                     flatten: true
                     ext: ".min.js"
@@ -236,7 +235,7 @@ module.exports = ( grunt ) ->
         ###
         Common coffee sources files for all platforms
         ###
-        coffeeApp: [
+        coffeeAppFiles: [
             "src/**/*.coffee", # Nuborn && App sources
             "!src/**/*-async.coffee" # excluding all async files which will be requested manually
         ]
@@ -244,7 +243,7 @@ module.exports = ( grunt ) ->
         ###
         These files will be requested manually asynchronously and not merged in the global file.
         ###
-        asyncCoffee: [
+        coffeeAsyncFiles: [
             "src/**/*-async.coffee"
         ]
 
@@ -260,10 +259,10 @@ module.exports = ( grunt ) ->
                 files: [ {
                     # dest: "gen/"
                     dest: "gen/src/app.js"
-                    src: "<%= coffeeApp %>"
+                    src: "<%= coffeeAppFiles %>"
                 }, {
                     dest: "gen/"
-                    src: "<%= asyncCoffee %>"
+                    src: "<%= coffeeAsyncFiles %>"
                     expand: true
                     ext: ".js"
                 } ]
@@ -292,20 +291,27 @@ module.exports = ( grunt ) ->
                 output: "gen/templates.js"
                 binderName: "hulk"
 
+
+        ###
+        Vendors css files for all platforms
+        ###
+        scssVendorsFiles: [
+            "vendors/jQueryMobile/*.css"
+        ]
+
         ###
         Common css files for all platforms
         ###
-        css: [
-            "libs/jQueryMobile/*.css"
+        scssAppFiles: [
             "src/**/*.scss"
-            "!{libs,src}/**/*-async.{css,min.css,scss}"
+            "!src/**/*-async.{css,min.css,scss}"
         ]
 
         ###
         These files will be requested manually asynchronously and not merged in the global file.
         ###
-        asyncCss: [
-            "{libs,src}/**/*-async.{css,min.css,scss}"
+        scssAsyncFiles: [
+            "src/**/*-async.{css,min.css,scss}"
         ]
 
         ###
@@ -315,30 +321,30 @@ module.exports = ( grunt ) ->
             options: options.sass
             android:
                 files: [ {
-                    "<%= platforms.android.folder %>/css/app.min.css": "<%= css %>"
+                    "<%= platforms.android.folder %>/css/app.min.css": [ "<%= scssVendorsFiles %>", "<%= scssAppFiles %>" ]
                 }, {
                     dest: "<%= platforms.android.folder %>/css"
-                    src: "<%= asyncCss %>"
+                    src: "<%= scssAsyncFiles %>"
                     expand: true
                     flatten: true
                     ext: ".min.css"
                 } ]
             ios:
                 files: [ {
-                    "<%= platforms.ios.folder %>/css/app.min.css": "<%= css %>"
+                    "<%= platforms.ios.folder %>/css/app.min.css": [ "<%= scssVendorsFiles %>", "<%= scssAppFiles %>" ]
                 }, {
                     dest: "<%= platforms.ios.folder %>/css"
-                    src: "<%= asyncCss %>"
+                    src: "<%= scssAsyncFiles %>"
                     expand: true
                     flatten: true
                     ext: ".min.css"
                 } ]
             web:
                 files: [ {
-                    "<%= platforms.web.folder %>/css/app.min.css": "<%= css %>"
+                    "<%= platforms.web.folder %>/css/app.min.css": [ "<%= scssVendorsFiles %>", "<%= scssAppFiles %>" ]
                 }, {
                     dest: "<%= platforms.web.folder %>/css"
-                    src: "<%= asyncCss %>"
+                    src: "<%= scssAsyncFiles %>"
                     expand: true
                     flatten: true
                     ext: ".min.css"
@@ -379,7 +385,7 @@ module.exports = ( grunt ) ->
         ###
         HTML files common to all platforms.
         ###
-        html: [
+        htmlFiles: [
             "src/**/*.html"
         ]
 
@@ -391,21 +397,21 @@ module.exports = ( grunt ) ->
             android:
                 files: [ {
                     dest: "<%= platforms.android.folder %>/"
-                    src: [ "<%= html %>" ]
+                    src: [ "<%= htmlFiles %>" ]
                     expand: true
                     flatten: true
                 } ]
             ios:
                 files: [ {
                     dest: "<%= platforms.ios.folder %>/"
-                    src: [ "<%= html %>" ]
+                    src: [ "<%= htmlFiles %>" ]
                     expand: true
                     flatten: true
                 } ]
             web:
                 files: [ {
                     dest: "<%= platforms.web.folder %>/"
-                    src: [ "<%= html %>" ]
+                    src: [ "<%= htmlFiles %>" ]
                     expand: true
                     flatten: true
                 } ]
@@ -413,7 +419,7 @@ module.exports = ( grunt ) ->
         ###
         Image files common to all platforms
         ###
-        img: [
+        imgFiles: [
             "src/images/*"
         ]
 
@@ -427,21 +433,21 @@ module.exports = ( grunt ) ->
             android:
                 files: [ {
                     dest: "<%= platforms.android.folder %>/img/"
-                    src: "<%= img %>"
+                    src: "<%= imgFiles %>"
                     expand: true
                     flatten: true
                 } ]
             ios:
                 files: [ {
                     dest: "<%= platforms.ios.folder %>/img/"
-                    src: "<%= img %>"
+                    src: "<%= imgFiles %>"
                     expand: true
                     flatten: true
                 } ]
             web:
                 files: [ {
                     dest: "<%= platforms.web.folder %>/img/"
-                    src: "<%= img %>"
+                    src: "<%= imgFiles %>"
                     expand: true
                     flatten: true
                 } ]
@@ -449,7 +455,7 @@ module.exports = ( grunt ) ->
         ###
         Static resources common to all platforms.
         ###
-        hierarchicalStatics: [ "fonts/**" ]
+        hierarchicalStaticsFiles: [ "fonts/**" ]
 
         ###
         Let's copy some static files.
@@ -458,17 +464,17 @@ module.exports = ( grunt ) ->
             android:
                 files: [ {
                     dest: "<%= platforms.android.folder %>/"
-                    src: [ "<%= hierarchicalStatics %>" ]
+                    src: [ "<%= hierarchicalStaticsFiles %>" ]
                 } ]
             ios:
                 files: [ {
                     dest: "<%= platforms.ios.folder %>/"
-                    src: [ "<%= hierarchicalStatics %>" ]
+                    src: [ "<%= hierarchicalStaticsFiles %>" ]
                 } ]
             web:
                 files: [ {
                     dest: "<%= platforms.web.folder %>/"
-                    src: [ "<%= hierarchicalStatics %>" ]
+                    src: [ "<%= hierarchicalStaticsFiles %>" ]
                 } ]
 
         ###
@@ -493,7 +499,7 @@ module.exports = ( grunt ) ->
                     output: 'docs/docco/gen'
                     layout: "linear"
                     css: "docs/docco/docco.css"
-                src: "<%= jsApp %>"
+                src: "<%= jsAppFiles %>"
 
         ###
         Empty the build folder
@@ -517,17 +523,15 @@ module.exports = ( grunt ) ->
                 interrupt: true
                 debounceDelay: 1000
             css:
-                files: [ "<%= css %>", "<%= asyncCss %>" ]
+                files: [ "<%= scssAppFiles %>", "<%= scssAsyncFiles %>" ]
                 tasks: [ "css" ]
             js:
-                files: [ "<%= coffeeApp %>", "<%= asyncCoffee %>" ]
+                files: [ "<%= coffeeAppFiles %>", "<%= coffeeAsyncFiles %>" ]
                 tasks: [ "javascript" ]
             htmlmin:
-                files: "<%= html %>"
+                files: "<%= htmlFiles %>"
                 tasks: [ "htmlmin", "manifest" ]
-            all:
-                files: "Gruntfile.js"
-                tasks: activeTargets().join ","
+
 
         ###
         Very simple web server to ease testing of the web application.
@@ -578,14 +582,15 @@ module.exports = ( grunt ) ->
         Unfortunately, for now, grunt manifest doesn't handle grunt files mechanism.
         So we are sticked with manually excluding folders.
         ###
-        appcache: [
-            "css/*.css",
-            "js/*.js",
-            "!js/*async*",
-            "*.html",
-            "fonts/Roboto/*",
-            "fonts/Champagne/*",
-            "fonts/icomoon/*",
+        manifestFiles: [
+            "css/*.css"
+            "!css/*async*"
+            "js/*.js"
+            "!js/*async*"
+            "*.html"
+            "fonts/Roboto/*"
+            "fonts/Champagne/*"
+            "fonts/icomoon/*"
             "img/*"
         ]
 
@@ -604,7 +609,7 @@ module.exports = ( grunt ) ->
                     basePath: "<%= platforms.web.folder %>"
                 files: [ {
                     dest: "<%= platforms.web.folder %>/manifest.appcache"
-                    src: [ "<%= appcache %>" ]
+                    src: [ "<%= manifestFiles %>" ]
                 } ]
 
         ###

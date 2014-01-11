@@ -1,8 +1,8 @@
 define "nu.core.Base", ( require, exports, module ) ->
 
-    'use strict';
+    'use strict'
 
-    $ = jQuery;
+    $ = jQuery
 
     ###*
     @class nu.core.Class
@@ -22,10 +22,10 @@ define "nu.core.Base", ( require, exports, module ) ->
             @settings = $.extend true, {}, defaults, settings
 
             # Used to store DOM references
-            @html = {};
+            @html = {}
 
             # Used to store runtime data
-            @data = {};
+            @data = {}
 
         tune: ( newSettings, extend = true) ->
             return if !newSettings
