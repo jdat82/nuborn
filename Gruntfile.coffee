@@ -108,7 +108,7 @@ module.exports = ( grunt ) ->
                 active: true
             web:
                 folder: "<%= platforms.root %>/platforms/web"
-                active: false
+                active: true
 
         ###
         Common javascript libraries files for all platforms

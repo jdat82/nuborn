@@ -4,5 +4,6 @@
 		<div class="title">Détail</div>
 	</div>
 	<div data-role="content">
+        <img src="img/under-construction-sign.jpg" width="100%" />
 	</div>
 </div>

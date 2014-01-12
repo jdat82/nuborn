@@ -12,7 +12,8 @@
     height: 0;
     border-width: 0px;
     border-style: solid;
-    border-color: rgba(black, .8);
+    // border-color: rgba(black, .8);
+    border-color: rgba(white, .8);
 
     .overlay {
         position: absolute;
@@ -34,8 +35,10 @@
             width: 100%;
             opacity: 0;
             font-size: 2rem;
-            color: rgba($textColor, .7);
-            text-shadow: 0 0 10px rgba($textColor, .7);
+            // color: rgba($textColor, .7);
+            color: rgba(black, .8);
+            // text-shadow: 0 0 10px rgba($textColor, .7);
+            text-shadow: 0 0 10px rgba(black, 0.3);
         }
     }
 

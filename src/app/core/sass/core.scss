@@ -31,29 +31,36 @@ li:nth-child(odd) {
 }
 
 html.ios-7 [data-role=header] {
-	margin-top: 22px;
+	height: $iOS7HeaderHeight !important;
+	padding-top: 1rem;
 }
 
-[data-role=header]{
-	background-image: url("../img/darkdenim3.png");
-	color: white;
+html[class*=ios] [data-role=header] {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+}
+
+[data-role=header] {
+
+	// background-image: url("../img/darkdenim3.png");
+	// color: white;
+
+	background-color: rgba(white,0.8);
+	background-image: none;
+	color: $softBlack;
+
 	height: $headerHeight;
-	line-height: $padding * 6;
+	line-height: $headerHeight;
 	z-index: 1000;
 	position: relative;
-
-	// @include transition(all .2s);
-
-	// &.fixed {
-		// position: absolute;
-		// top:0; right: 0; left: 0;
-	// }
 
 	.title{
 		text-align: center;
 		font-size: 1.3em; // don't use rem here as this font size should be dependent on the header bar font size which can vary.
 		font-weight: 400;
-		// font-family: Roboto;
 		line-height: 2.3em;
 	}
 
@@ -89,17 +96,18 @@ html.ios-7 [data-role=header] {
 	}
 }
 
+html.ios-7 [data-role=content] {
+	padding-top: $iOS7HeaderHeight !important;
+}
+
+html[class*=ios] [data-role=content] {
+	padding-top: $headerHeight;
+	// overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+
 [data-role=content] {
 	padding: 0px;
 	z-index: 998;
 	position: relative;
-	// @include transition(top .2s);
-	// overflow-y: scroll;
-	// -webkit-overflow-scrolling: touch;
-
-	// &.fixed {
-		// position: absolute;
-		// top: $headerHeight;
-		// bottom: 0; left: 0; right: 0;
-	// }
 }
