@@ -93,7 +93,7 @@
 //////////////////////////////////////// Translates animations //////////////////////////////////////////
 
 // translate bottom
-@keyframes translate-botto {
+@keyframes translate-bottom {
     from {
         transform: translateY(-20px);
     }
@@ -106,7 +106,7 @@
 }
 
 // translate right
-@keyframes translate-righ {
+@keyframes translate-right {
     from {
         transform: translateX(-100%);
     }

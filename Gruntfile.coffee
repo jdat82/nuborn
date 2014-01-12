@@ -8,6 +8,7 @@ module.exports = ( grunt ) ->
     # Dependencies
     utils = require "./GruntUtils"
     $extend = require "./jQueryExtend"
+    hooker = require 'hooker'
 
     # REVERSE PROXY CONFIGURATION. Used by the connect task
     # proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest
@@ -60,14 +61,12 @@ module.exports = ( grunt ) ->
     activeTargets = () ->
 
         platforms = grunt.config "platforms"
-        result = []
 
-        return result if !platforms
+        return [] if !platforms
 
-        for platform of platforms
-            if platforms[ platform ].active then result.push platform
+        result = (platform for platform of platforms when platforms[ platform ].active)
 
-        grunt.verbose.debug utils.toJSON( result )
+        grunt.verbose.debug utils.toJSON result
 
         return result
 
@@ -78,12 +77,12 @@ module.exports = ( grunt ) ->
     ###
     isPlatformDependent = ( task ) ->
 
-        activePlatforms = activeTargets()
+        platforms = grunt.config "platforms"
         taskConfiguration = grunt.config task
 
-        if  !taskConfiguration || !activePlatforms || !activePlatforms.length then return false
+        if  !taskConfiguration || !platforms || !Object.keys(platforms).length then return false
 
-        for platform in activePlatforms
+        for platform of platforms
             if taskConfiguration[ platform ]
                 return true
 
@@ -106,10 +105,10 @@ module.exports = ( grunt ) ->
                 active: false
             ios:
                 folder: "<%= platforms.root %>/platforms/ios/www"
-                active: false
+                active: true
             web:
                 folder: "<%= platforms.root %>/platforms/web"
-                active: true
+                active: false
 
         ###
         Common javascript libraries files for all platforms
@@ -739,26 +738,19 @@ module.exports = ( grunt ) ->
     ###
     Hook that intercept calls to grunt.task.run so as to execute the task for active platforms only.
     ###
-    grunt.util.hooker.hook grunt.task, "run", {
+    hooker.hook grunt.task, "run",
         pre: ( task ) ->
 
-            hookTask = (subTask) ->
-                # If there is already a target specified, no hook
-                # specifyng <subTask>: is also a way to bypass the hook without having a target
-                return if subTask?.match /:/g
+            # If an alias task, nothing to do
+            return if task instanceof Array and task.length
 
-                # If subTask is platform dependent and has active targets : preempt
-                if executeTaskForActiveTargetsOnly subTask
-                    return grunt.util.hooker.preempt true
+            # If there is already a target specified, no hook
+            # specifyng <task>: is also a way to bypass the hook without having a target
+            return if task?.match /:/g
 
-
-            if task instanceof Array and task.length
-                for subTask in task
-                    hookTask subTask
-                return # important to short-circuit default coffee behavior which is to compute results and return them
-            else
-                hookTask task
-    }
+            # If task is platform dependent and has active targets : preempt
+            if executeTaskForActiveTargetsOnly task
+                return hooker.preempt true
 
 
 
@@ -787,33 +779,4 @@ module.exports = ( grunt ) ->
         # Registering the sass config for execution
         grunt.config "sass", sass
         grunt.task.run "sass:"
-
-
-
-    ###
-    Booster for uglify configuration. Automagically sorts files according to their dependencies.
-    Strictly identical to grunt-contrib-uglify configuration as it is a wrapper for it.
-    Will create a uglify/target configuration and compute the final sorted "files" attribute.
-    The task is invoked by the above hook for each active platform. Each time, a uglify.target
-    configuration is created.
-    ###
-    # grunt.registerMultiTask "nuglify", "wrapper for grunt-contrib-uglify", () ->
-
-    #     # Uglify config for the current target
-    #     uglify =
-    #         options: this.options()
-    #         target:
-    #             files: []
-
-    #     options = this.data.options
-
-    #     # Resolving patterns and then dependencies order
-    #     this.files.forEach ( files ) ->
-    #         uglify.target.files.push
-    #             src: utils.resolveJavascriptDependencies files.src, options
-    #             dest: files.dest
-
-    #     # Registering the uglify config for execution
-    #     grunt.config "uglify", uglify
-    #     grunt.task.run "uglify:"
 
