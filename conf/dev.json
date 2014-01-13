@@ -6,7 +6,7 @@
 				"INFO": true,
 				"WARN": true,
 				"ERROR": true,
-				"LIVERELOAD": false,
+				"LIVERELOAD": true,
 				"LIVERELOAD_PORT": 35735,
 				"WEINRE": false,
 				"REMOTE_HOST": "",

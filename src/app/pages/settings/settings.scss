@@ -6,8 +6,12 @@
 #settings {
 
     li {
-        padding: $padding;
-        text-shadow: 1px 1px $softWhite;
+        padding: 2 * $padding;
+        border-bottom: 1px solid #CCC;
+        color: $softBlack;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     /*

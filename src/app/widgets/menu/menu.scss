@@ -3,6 +3,8 @@
  * @require effects
  */
 
+$menuWidth: 6rem;
+
 .menu {
     position: fixed;
     z-index: 1000;
@@ -12,8 +14,7 @@
     height: 0;
     border-width: 0px;
     border-style: solid;
-    // border-color: rgba(black, .8);
-    border-color: rgba(white, .8);
+    border-color: rgba(white, .95);
 
     .overlay {
         // position: absolute;
@@ -27,30 +28,29 @@
 
     ul {
         position: absolute;
-        top: $headerHeight;
-        left: -$headerHeight;
-        width: $headerHeight;
+        top: $headerHeight + 1rem;
+        left: -$menuWidth;
+        width: $menuWidth;
         list-style: none;
         z-index: 10;
 
         li {
-            margin-top: 1rem;
+            margin-top: 1.2rem;
             display: block;
             text-align: center;
             visibility: hidden;
             width: 100%;
             opacity: 0;
-            font-size: 2rem;
-            // color: rgba($textColor, .7);
-            color: rgba(black, .8);
-            // text-shadow: 0 0 10px rgba($textColor, .7);
-            text-shadow: 0 0 10px rgba(black, 0.3);
+            font-size: 3rem;
+            color: $blue;
+            text-shadow: 0 0 10px rgba($blue, 0.3);
         }
     }
 
     &.menu-show {
+
         height: 100%;
-        border-width: .5rem .5rem .5rem $headerHeight;
+        border-width: .5rem .5rem .5rem $menuWidth;
 
         .overlay {
             background-color: rgba(black, .4);
@@ -60,9 +60,8 @@
             visibility: visible;
             opacity: 1;
 
-            &:nth-child(odd),
-            &:nth-child(even) {
-                background-color: transparent;
+            &:active {
+                color: black;
             }
         }
     }
@@ -112,11 +111,6 @@
             &:first-child {
                 transition-delay: 0.25s;
                 margin-top: 0;
-            }
-
-            &:active {
-                color: $textColor;
-                text-shadow: 0 0 10px $textColor;
             }
         }
     }

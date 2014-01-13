@@ -100,10 +100,7 @@ define "app.pages.HomePageHandler", ( require, exports, module ) ->
 						author: "",
 						date: "lundi 6 mai",
 						image: "http://src.sencha.io/http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/86/24/20555126.jpg"
-					},
-
-					# ************** //
-					{
+					}, {
 						id: 8,
 						title: "\"Nashville\" est renouvelée",
 						author: "",
@@ -171,78 +168,6 @@ define "app.pages.HomePageHandler", ( require, exports, module ) ->
 						image: "http://src.sencha.io/http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/88/93/20556957.jpg"
 					}, {
 						id: 19,
-						title: "Le final de \"Mentalist\" !",
-						author: "",
-						date: "lundi 6 mai",
-						image: "http://src.sencha.io/http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/86/24/20555126.jpg"
-					}, {
-						id: 20,
-						title: "\"Nashville\" est renouvelée",
-						author: "",
-						date: "samedi 11 mai",
-						image: "http://src.sencha.io/http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/77/20560903.jpg"
-					}, {
-						id: 21,
-						title: "Matthew Perry est maudit : \"Go On\" est annulée !",
-						author: "",
-						date: "vendredi 10 mai",
-						image: "http://src.sencha.io/http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/54/20560816.jpg"
-					}, {
-						id: 22,
-						title: "Ewan McGregor-Natalie Portman, de \"Star wars\" à \"Jane got a gun\"",
-						author: "",
-						date: "mardi 7 mai",
-						image: "http://src.sencha.io/http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/88/93/20556957.jpg"
-					}, {
-						id: 23,
-						title: "Le final de \"Mentalist\" !",
-						author: "",
-						date: "lundi 6 mai",
-						image: "http://src.sencha.io/http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/86/24/20555126.jpg"
-					}, {
-						id: 24,
-						title: "\"Nashville\" est renouvelée",
-						author: "",
-						date: "samedi 11 mai",
-						image: "http://src.sencha.io/http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/77/20560903.jpg"
-					}, {
-						id: 25,
-						title: "Matthew Perry est maudit : \"Go On\" est annulée !",
-						author: "",
-						date: "vendredi 10 mai",
-						image: "http://src.sencha.io/http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/54/20560816.jpg"
-					}, {
-						id: 26,
-						title: "Ewan McGregor-Natalie Portman, de \"Star wars\" à \"Jane got a gun\"",
-						author: "",
-						date: "mardi 7 mai",
-						image: "http://src.sencha.io/http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/88/93/20556957.jpg"
-					}, {
-						id: 27,
-						title: "Le final de \"Mentalist\" !",
-						author: "",
-						date: "lundi 6 mai",
-						image: "http://src.sencha.io/http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/86/24/20555126.jpg"
-					}, {
-						id: 28,
-						title: "\"Nashville\" est renouvelée",
-						author: "",
-						date: "samedi 11 mai",
-						image: "http://src.sencha.io/http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/77/20560903.jpg"
-					}, {
-						id: 29,
-						title: "Matthew Perry est maudit : \"Go On\" est annulée !",
-						author: "",
-						date: "vendredi 10 mai",
-						image: "http://src.sencha.io/http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/97/54/20560816.jpg"
-					}, {
-						id: 30,
-						title: "Ewan McGregor-Natalie Portman, de \"Star wars\" à \"Jane got a gun\"",
-						author: "",
-						date: "mardi 7 mai",
-						image: "http://src.sencha.io/http://a69.g.akamai.net/n/69/10688/v1/img5.allocine.fr/acmedia/medias/nmedia/18/97/88/93/20556957.jpg"
-					}, {
-						id: 31,
 						title: "Le final de \"Mentalist\" !",
 						author: "",
 						date: "lundi 6 mai",

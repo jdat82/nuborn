@@ -19,15 +19,7 @@ input, textarea {
 	user-select: text;
 }
 
-li:nth-child(even) {
-    background-color: rgba(black,.1);
-}
-li:nth-child(odd) {
-    background-color: rgba(white,.1);
-}
-
 [data-role=page] {
-	background-image: url("../img/bg.png");
 }
 
 html.ios-7 [data-role=header] {
@@ -45,12 +37,10 @@ html[class*=ios] [data-role=header] {
 
 [data-role=header] {
 
-	// background-image: url("../img/darkdenim3.png");
-	// color: white;
-
 	background-color: rgba(white,0.8);
 	background-image: none;
 	color: $softBlack;
+	border-bottom: 1px solid #CCC;
 
 	height: $headerHeight;
 	line-height: $headerHeight;
@@ -69,9 +59,10 @@ html[class*=ios] [data-role=header] {
 		padding: 0 $padding;
 		line-height: 1.8em;
 		position: absolute;
+		color: $blue;
 
 		&:active{
-			color: $red;
+			color: black;
 		}
 
 		&.left {
