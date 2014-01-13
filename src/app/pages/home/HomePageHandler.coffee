@@ -195,11 +195,6 @@ define "app.pages.HomePageHandler", ( require, exports, module ) ->
 			# Initializing Carousel with the Swipe library
 			@html.carousel.Swipe()
 
-			# iScroll polyfill for deficient devices (everyone except apple of course)
-			# if ( window.IScroll ) {
-			# 	DEBUG && log.i( "initializing iScroll" )
-			# 	@data.iscroll = new IScroll( "#toto" )
-			# }
 
 		###*
 		Handle the menu button.
@@ -227,11 +222,18 @@ define "app.pages.HomePageHandler", ( require, exports, module ) ->
 			news = @html.news
 			news.append templates.news_cell.render @data.news
 			news.on "tap", "li", ( event ) ->
+				$selectedNews = $(event.currentTarget)
+				# $thumbnail = $selectedNews.find ".thumbnail"
+				# $thumbnail.addClass "squeeze"
 				detailPage = require "#detail"
-				newsId = event.currentTarget.dataset.newsId
+				newsId = $selectedNews.attr "data-news-id"
+				# $thumbnail.one 'transitionend webkitTransitionEnd otransitionend MSTransitionEnd', ->
 				detailPage.navigate
 					pageParams:
 						id: newsId
+					# callback: ->
+					# 	$thumbnail.removeClass "squeeze"
+
 				return false
 
 		backButton: ( event ) ->

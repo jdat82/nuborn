@@ -271,12 +271,12 @@ define "nu.pages.PageHandler", ( require, exports, module ) ->
             templateId = @settings.templateId || pageId
 
             # Settings defaults
-            options = $.extend( true, {
+            options = $.extend true, {},
                 jqmOptions: {},
                 pageParams: undefined,
                 delay: 0,
                 callback: undefined
-            }, options )
+            , options
 
             # The JQM tricky way to pass parameters between pages is to use the dataUrl option
             # must contain the hash name without "#" followed by query params

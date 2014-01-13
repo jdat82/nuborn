@@ -154,7 +154,7 @@ define "nu.Utils", ( require, exports, module ) ->
 				name: ""
 				params: ""
 
-			hash = window.location.hash if not hash?.length?
+			hash = window.location.hash if not hash?.length
 
 			# Adding the raw source, can be useful for regexp searchs for instance
 			result.hash = hash
@@ -175,7 +175,7 @@ define "nu.Utils", ( require, exports, module ) ->
 
 			# Extracting hash name
 			result.name = hash.substr 0, questionMarkIndex
-			if result?.name?.length? then result.name = result.name.replace /(.*#)|(\?.*)/g, ""
+			if result?.name?.length then result.name = result.name.replace /(.*#)|(\?.*)/g, ""
 
 			# Extracting hash parameters
 			result.params = @deserializeParameters hash.substr questionMarkIndex
@@ -190,17 +190,17 @@ define "nu.Utils", ( require, exports, module ) ->
 		@deserializeParameters = ( hash ) ->
 
 			result = {}
-			if not hash?.length? then return result
+			if not hash?.length then return result
 
 			# Extracting hash parameters substring
 			hashParameters = hash.substr hash.indexOf( "?" ) + 1
-			if not hashParameters?.length? then return result
+			if not hashParameters?.length then return result
 
 			# Parsing key=value pairs
 			paramsArray = hashParameters.split "&"
 			for param in paramsArray
 				keyValueArray = param.split "="
-				if not keyValueArray?.length? then return
+				if not keyValueArray?.length then return
 				result[ keyValueArray[ 0 ] ] = decodeURIComponent keyValueArray[ 1 ]
 
 			return result
