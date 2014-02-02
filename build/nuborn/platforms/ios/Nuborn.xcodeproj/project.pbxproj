@@ -36,6 +36,7 @@
 		59F8FEC42FD249389708383F /* CDVReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A3F80E858A4E0AB4917CB0 /* CDVReachability.m */; };
 		54F6B49DF598453D8D5C6A2C /* SystemConfiguration.framework in Resources */ = {isa = PBXBuildFile; fileRef = C61F37AC9A45434CA84E3322 /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		4EB8A914EACF4CA391AE3A2F /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 9389E9E55FC041B19371FE68 /* CDVSplashScreen.m */; };
+		5412998E55F94CE3BF4EDF44 /* CDVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = BC57F49A1A4445FDA934860B /* CDVLogger.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,8 @@
 		C61F37AC9A45434CA84E3322 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "SystemConfiguration.framework"; path = "System/Library/Frameworks/SystemConfiguration.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 		9389E9E55FC041B19371FE68 /* CDVSplashScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVSplashScreen.m"; path = "org.apache.cordova.splashscreen/CDVSplashScreen.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		1D51A612FA5C4D51872C6821 /* CDVSplashScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVSplashScreen.h"; path = "org.apache.cordova.splashscreen/CDVSplashScreen.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		BC57F49A1A4445FDA934860B /* CDVLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVLogger.m"; path = "org.apache.cordova.console/CDVLogger.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		28214DAE7A8D46AA90101CED /* CDVLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVLogger.h"; path = "org.apache.cordova.console/CDVLogger.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +227,8 @@
 				3C3870FD2A3945659A1111EA /* CDVReachability.h */,
 				9389E9E55FC041B19371FE68 /* CDVSplashScreen.m */,
 				1D51A612FA5C4D51872C6821 /* CDVSplashScreen.h */,
+				BC57F49A1A4445FDA934860B /* CDVLogger.m */,
+				28214DAE7A8D46AA90101CED /* CDVLogger.h */,
 			);
 			name = Plugins;
 			path = "Nuborn/Plugins";
@@ -395,6 +400,7 @@
 				A051CB3A91E542E8836056E4 /* CDVConnection.m in Sources */,
 				59F8FEC42FD249389708383F /* CDVReachability.m in Sources */,
 				4EB8A914EACF4CA391AE3A2F /* CDVSplashScreen.m in Sources */,
+				5412998E55F94CE3BF4EDF44 /* CDVLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
