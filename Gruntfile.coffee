@@ -102,7 +102,7 @@ module.exports = ( grunt ) ->
             root: "build/nuborn"
             android:
                 folder: "<%= platforms.root %>/platforms/android/assets/www"
-                active: false
+                active: true
             ios:
                 folder: "<%= platforms.root %>/platforms/ios/www"
                 active: true
@@ -200,15 +200,15 @@ module.exports = ( grunt ) ->
                             "IOS": false
                             "WEB": true
                     } )
-                    "ignore": [ "<%= jsVendorsFiles %>", "<%= jsAsyncFiles %>" ]
+                    ignore: [ "<%= jsVendorsFiles %>", "<%= jsAsyncFiles %>" ]
                     # Define an entry source map to map coffee files to gen/app.js
                     # "sourceMapIn": "gen/src/app.js.map"
                     # Define the sourcemap file name
-                    "sourceMap": ( filepath ) ->
+                    sourceMap: ( filepath ) ->
                         return "#{filepath}.map" if profile isnt "prod"
                         return "" # no sourcemap in prod
                     # Define the sourcemap sourceMappingURL attribute value in the generated js files
-                    "sourceMappingURL": ( filepath ) ->
+                    sourceMappingURL: ( filepath ) ->
                         if profile isnt "prod"
                             path = require "path"
                             dirname = path.dirname filepath
@@ -253,7 +253,7 @@ module.exports = ( grunt ) ->
             options:
                 bare: true
                 join: false
-                sourceMap: true
+                sourceMap: false
             common:
                 files: [ {
                     # dest: "gen/"
@@ -269,8 +269,8 @@ module.exports = ( grunt ) ->
         ###
         Common teplates for all platforms
         ###
-        templates: [
-            "src/**/*.hogan"
+        templateFiles: [
+            "src/**/*.mustache"
         ]
 
         ###
@@ -278,15 +278,15 @@ module.exports = ( grunt ) ->
         ###
         hogan:
             android:
-                templates: [ "<%= templates %>" ]
+                templates: [ "<%= templateFiles %>" ]
                 output: "gen/templates.js"
                 binderName: "hulk"
             ios:
-                templates: [ "<%= templates %>" ]
+                templates: [ "<%= templateFiles %>" ]
                 output: "gen/templates.js"
                 binderName: "hulk"
             web:
-                templates: [ "<%= templates %>" ]
+                templates: [ "<%= templateFiles %>" ]
                 output: "gen/templates.js"
                 binderName: "hulk"
 
@@ -516,20 +516,20 @@ module.exports = ( grunt ) ->
         ###
         watch:
             options:
-                spawn: false
                 livereload:
                     port: 35735
-                interrupt: true
-                debounceDelay: 1000
             css:
                 files: [ "<%= scssAppFiles %>", "<%= scssAsyncFiles %>" ]
                 tasks: [ "css" ]
             js:
-                files: [ "<%= coffeeAppFiles %>", "<%= coffeeAsyncFiles %>" ]
+                files: [ "<%= coffeeAppFiles %>", "<%= coffeeAsyncFiles %>", "<%= templateFiles %>" ]
                 tasks: [ "javascript" ]
             htmlmin:
                 files: "<%= htmlFiles %>"
                 tasks: [ "htmlmin", "manifest" ]
+            mock:
+                files: "<%= hierarchicalStaticsFiles %>"
+                tasks: [ "copy" ]
 
 
         ###

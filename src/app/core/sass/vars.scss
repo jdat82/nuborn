@@ -80,4 +80,8 @@ $margin: 2%;
  * Header bar height.
  */
 $headerHeight: 6 * $padding;
+/**
+ * @var
+ * Header bar height for iOS7.
+ */
 $iOS7HeaderHeight: $headerHeight + 2 * $padding;

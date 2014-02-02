@@ -58,6 +58,10 @@ define "app.pages.DetailPageHandler", ( require, exports, module ) ->
 			super event
 			@goBackToHomePage()
 
+		backButton: ( event ) ->
+			super event
+			@goBackToHomePage()
+
 
 	module.exports = DetailPageHandler
 

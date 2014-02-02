@@ -36,7 +36,7 @@ define "nu.Utils", ( require, exports, module ) ->
 			if @isCordova()
 				return device.platform is "Android"
 			else
-				return navigator.userAgent.match("Android") != null
+				return navigator.userAgent.match("Android") isnt null
 
 		###*
 		Checks if the device platform is iOS.
