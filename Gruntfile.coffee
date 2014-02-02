@@ -419,7 +419,7 @@ module.exports = ( grunt ) ->
         Image files common to all platforms
         ###
         imgFiles: [
-            "src/images/*"
+            "img/*"
         ]
 
         ###
@@ -454,7 +454,7 @@ module.exports = ( grunt ) ->
         ###
         Static resources common to all platforms.
         ###
-        hierarchicalStaticsFiles: [ "fonts/**" ]
+        hierarchicalStaticsFiles: [ "fonts/**", "mock/**" ]
 
         ###
         Let's copy some static files.
