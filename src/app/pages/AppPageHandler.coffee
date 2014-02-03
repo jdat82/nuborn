@@ -1,4 +1,4 @@
-define "app.pages.NubornPageHandler", ( require, exports, module ) ->
+define "app.pages.AppPageHandler", ( require, exports, module ) ->
 
     'use strict'
 
@@ -7,11 +7,11 @@ define "app.pages.NubornPageHandler", ( require, exports, module ) ->
     PageHandler = require "nu.pages.PageHandler"
 
     ###*
-    @class app.pages.NubornPageHandler
+    @class app.pages.AppPageHandler
     @extends nu.pages.PageHandler
     Override nu.pages.PageHandler to add some custom behavior to the default page handler.
     ###
-    class NubornPageHandler extends PageHandler
+    class AppPageHandler extends PageHandler
 
         pageShow: ( event, data ) ->
             super event, data
@@ -22,5 +22,5 @@ define "app.pages.NubornPageHandler", ( require, exports, module ) ->
             menu.toggleMenu()
 
 
-    module.exports = NubornPageHandler
+    module.exports = AppPageHandler
 

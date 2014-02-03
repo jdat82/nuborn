@@ -4,14 +4,14 @@ define "app.pages.LegalNoticesPageHandler", ( require, exports, module ) ->
 
 	$ = jQuery
 	log = require "#log"
-	NubornPageHandler = require "app.pages.NubornPageHandler"
+	AppPageHandler = require "app.pages.AppPageHandler"
 
 	###*
 	@class app.pages.LegalNoticesPageHandler
-	@extends app.pages.NubornPageHandler
+	@extends app.pages.AppPageHandler
 	The Page Handler of the legalNotices page.
 	###
-	class LegalNoticesPageHandler extends NubornPageHandler
+	class LegalNoticesPageHandler extends AppPageHandler
 
 		###*
 		@override

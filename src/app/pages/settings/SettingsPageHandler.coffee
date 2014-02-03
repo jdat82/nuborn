@@ -5,14 +5,14 @@ define "app.pages.SettingsPageHandler", ( require, exports, module ) ->
 	$ = jQuery
 	log = require "#log"
 	SettingsManager = require( "app.manager.SettingsManager" ).instance
-	NubornPageHandler = require "app.pages.NubornPageHandler"
+	AppPageHandler = require "app.pages.AppPageHandler"
 
 	###*
 	@class app.pages.SettingsPageHandler
-	@extends app.pages.NubornPageHandler
+	@extends app.pages.AppPageHandler
 	The Page Handler of the settings page.
 	###
-	class SettingsPageHandler extends NubornPageHandler
+	class SettingsPageHandler extends AppPageHandler
 
 		###*
 		@override

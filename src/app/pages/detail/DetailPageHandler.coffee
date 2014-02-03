@@ -5,14 +5,14 @@ define "app.pages.DetailPageHandler", ( require, exports, module ) ->
 	$ = jQuery
 	log = require "#log"
 	buttonUtils = require( "nu.widgets.button.Utils" ).instance
-	NubornPageHandler = require "app.pages.NubornPageHandler"
+	AppPageHandler = require "app.pages.AppPageHandler"
 
 	###*
 	@class app.pages.DetailPageHandler
-	@extends app.pages.NubornPageHandler
+	@extends app.pages.AppPageHandler
 	The Page Handler of the detail page
 	###
-	class DetailPageHandler extends NubornPageHandler
+	class DetailPageHandler extends AppPageHandler
 
 		###*
 		@override

@@ -148,6 +148,10 @@
   font-weight: bold;
 }
 
+.blur-grayscale {
+  -webkit-filter: blur(2px) grayscale(100%);
+}
+
 // les scrollbars ne fonctionnent pas bien dans safari mobile
 // pour qu'elles n'apparaissent que s'il faut scroller, on ne les affiche
 // que si la classe .show-scrollbar est présente

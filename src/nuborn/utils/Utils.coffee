@@ -120,16 +120,6 @@ define "nu.Utils", ( require, exports, module ) ->
 			version = @getOSVersion()
 			document.getElementsByTagName( "html" )[ 0 ].classList.add "#{browser}-#{version}"
 
-		###*
-		Loads JavaScript library contained in the js/lazy folder.
-		@param  {String} library The library to load
-		###
-		@loadLazyLib = ( library ) ->
-			$.ajax
-				url: "js/lazy/#{library}"
-				dataType: "script"
-				async: false
-
 		@blockEvent = ( event ) ->
 			event.preventDefault()
 			return false
@@ -151,8 +141,8 @@ define "nu.Utils", ( require, exports, module ) ->
 		###
 		@deserializeHash = ( hash ) ->
 			result =
-				name: ""
-				params: ""
+				name: null
+				params: null
 
 			hash = window.location.hash if not hash?.length
 
@@ -189,7 +179,7 @@ define "nu.Utils", ( require, exports, module ) ->
 		###
 		@deserializeParameters = ( hash ) ->
 
-			result = {}
+			result = null
 			if not hash?.length then return result
 
 			# Extracting hash parameters substring
@@ -199,6 +189,7 @@ define "nu.Utils", ( require, exports, module ) ->
 			# Parsing key=value pairs
 			paramsArray = hashParameters.split "&"
 			for param in paramsArray
+				result = result or {}
 				keyValueArray = param.split "="
 				if not keyValueArray?.length then return
 				result[ keyValueArray[ 0 ] ] = decodeURIComponent keyValueArray[ 1 ]
@@ -249,6 +240,29 @@ define "nu.Utils", ( require, exports, module ) ->
 				transition: 'none'
 				showLoadMsg: false
 				changeHash: false
+
+		###
+		If in a phonegap iOS app, show the native splashscreen.
+		Else, show the web splashscreen.
+		###
+		@showSplashScreen = () ->
+
+			# If the splashscreen is handled natively
+			if @isCordova() and navigator.splashscreen
+				navigator.splashscreen.show()
+			else
+				EventsDispatcher = require "nu.events.EventsDispatcher"
+				# Means the component is not available
+				# Might be simply because we removed it from the build as it is not used
+				return if !EventsDispatcher
+
+				SplashScreen = require "nu.widgets.SplashScreen"
+				# Means the component is not available
+				# Might be simply because we removed it from the build as it is not used
+				return if !SplashScreen
+
+				EventsDispatcher.instance.emit
+					name: SplashScreen.EVENT_SHOW
 
 		###*
 		If in a phonegap iOS app, hide native splashscreen.

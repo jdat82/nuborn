@@ -5,14 +5,14 @@ define "app.pages.HelpPageHandler", ( require, exports, module ) ->
 	$ = jQuery
 	Utils = require "nu.Utils"
 	log = require "#log"
-	NubornPageHandler = require "app.pages.NubornPageHandler"
+	AppPageHandler = require "app.pages.AppPageHandler"
 
 	###*
 	@class app.pages.HelpPageHandler
-	@extends app.pages.NubornPageHandler
+	@extends app.pages.AppPageHandler
 	The Page Handler of the help page.
 	###
-	class HelpPageHandler extends NubornPageHandler
+	class HelpPageHandler extends AppPageHandler
 
 		###*
 		@override

@@ -4,14 +4,14 @@ define "app.pages.HomePageHandler", ( require, exports, module ) ->
 
 	$ = jQuery
 	log = require "#log"
-	NubornPageHandler = require "app.pages.NubornPageHandler"
+	AppPageHandler = require "app.pages.AppPageHandler"
 
 	###*
 	@class app.pages.HomePageHandler
-	@extends app.pages.NubornPageHandler
+	@extends app.pages.AppPageHandler
 	The Page Handler of the home page.
 	###
-	class HomePageHandler extends NubornPageHandler
+	class HomePageHandler extends AppPageHandler
 
 		###*
 		@override
