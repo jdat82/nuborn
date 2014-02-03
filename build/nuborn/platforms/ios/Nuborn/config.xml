@@ -41,6 +41,7 @@
         <param name="ios-package" value="CDVLogger" />
     </feature>
     <name>Nuborn</name>
+    <name>Nuborn</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
