@@ -40,3 +40,6 @@ define "nu.cache.AppCache", ( require, exports, module ) ->
 	AppCache.instance = new AppCache()
 
 	module.exports = AppCache
+
+jQuery ->
+	require "nu.cache.AppCache"

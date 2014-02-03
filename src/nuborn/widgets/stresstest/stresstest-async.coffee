@@ -32,10 +32,16 @@ Self executing code.
     Modernizr.load [ {
         load: [ "js/fpsmeter-async.min.js" ],
         complete: () ->
+
             # If Library FPSMeter not present in window, aborting test
-            return testDone() if !window.FPSMeter
+            if !window.FPSMeter
+                log.i "FPSMeter not loaded"
+                return testDone()
+
             log.i "FPSMeter loaded"
+
             document.addEventListener 'fps', onFPSMeterEvent, false
+
             FPSMeter.run()
     } ]
 

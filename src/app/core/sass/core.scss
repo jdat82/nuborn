@@ -4,6 +4,9 @@
  * @require mixins
  * @require classes
  * @require icons
+ * @require Roboto
+ * @require Champagne
+ * @require Montserrat
  * @require imports
  * @require vars
  */
@@ -12,58 +15,60 @@
 
 html * {
 	font-family: "Roboto", "Helvetica", "Arial";
-	user-select: none;
-}
-
-input, textarea {
-	user-select: text;
 }
 
 [data-role=page] {
+	color: $softBlack;
+}
+
+.button {
+	&:active{
+		color: black;
+	}
 }
 
 html.ios-7 [data-role=header] {
-	height: $iOS7HeaderHeight !important;
 	padding-top: 1rem;
+	box-sizing: content-box;
 }
 
-html[class*=ios] [data-role=header] {
+[data-role=header] {
+
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	width: 100%;
-}
-
-[data-role=header] {
 
 	background-color: rgba(white,0.8);
 	background-image: none;
-	color: $softBlack;
 	border-bottom: 1px solid #CCC;
 
 	height: $headerHeight;
 	line-height: $headerHeight;
 	z-index: 1000;
-	position: relative;
 
 	.title{
 		text-align: center;
 		font-size: 1.3em; // don't use rem here as this font size should be dependent on the header bar font size which can vary.
 		font-weight: 400;
 		line-height: 2.3em;
+		position: absolute;
+		left: 0;
+		right: 0;
 	}
 
 	.header-button {
-		font-size: 1.6em; // don't use rem here as this font size should be dependent on the header bar font size which can vary.
-		padding: 0 $padding;
-		line-height: 1.8em;
-		position: absolute;
-		color: $blue;
 
-		&:active{
-			color: black;
-		}
+		@extend .button;
+
+		font-size: 1.6em; // don't use rem here as this font size should be dependent on the header bar font size which can vary.
+		padding: 0rem .5rem;
+		line-height: $headerHeight;
+		color: $blue;
+		height: 100%;
+		z-index: 1;
+		position: relative;
 
 		&.left {
 			float: left;
@@ -91,14 +96,14 @@ html.ios-7 [data-role=content] {
 	padding-top: $iOS7HeaderHeight !important;
 }
 
-html[class*=ios] [data-role=content] {
-	padding-top: $headerHeight;
+[data-role=content] {
+
+	padding: $headerHeight 0 0 0;
 	// overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
-}
 
-[data-role=content] {
-	padding: 0px;
 	z-index: 998;
 	position: relative;
+	width: 100%;
+	height: 100%;
 }

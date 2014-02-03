@@ -1,7 +1,6 @@
 define "#context", ( require, exports, module ) ->
 
     Context = require "nu.core.Context"
-    Constants = require "app.Constants"
     Utils = require "nu.Utils"
 
     ###*
@@ -10,11 +9,7 @@ define "#context", ( require, exports, module ) ->
     @type nu.core.Context
     ###
     context = new Context
-        localStorageKey: "nuborn.context"
+        localStorageKey: "app.context"
         synchronizeInLocalStorage: true
-
-    # Creating a user ID
-    userId = context.get Constants.USER_ID
-    if !userId then context.set Constants.USER_ID, Utils.guid()
 
     module.exports = context

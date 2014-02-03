@@ -30,7 +30,9 @@
 
     require = function ( id ) {
         if ( !modules[ id ] ) {
-            throw "module " + id + " not found";
+            // throw "module " + id + " not found";
+            console.warn( "module " + id + " not found" );
+            return;
         }
         else if ( id in inProgressModules ) {
             var cycle = requireStack.slice( inProgressModules[ id ] ).join( '->' ) + '->' + id;

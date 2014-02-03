@@ -15,7 +15,7 @@ define "#uris", ( require, exports, module ) ->
     uris = new UriManager
         networks:
             "backend":
-                "host": NETWORK
+                "host": BACKEND
             "mock":
                 "host": "mock/"
             current:

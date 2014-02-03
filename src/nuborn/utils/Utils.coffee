@@ -260,7 +260,14 @@ define "nu.Utils", ( require, exports, module ) ->
 				navigator.splashscreen.hide()
 			else
 				EventsDispatcher = require "nu.events.EventsDispatcher"
+				# Means the component is not available
+				# Might be simply because we removed it from the build as it is not used
+				return if !EventsDispatcher
+
 				SplashScreen = require "nu.widgets.SplashScreen"
+				# Means the component is not available
+				# Might be simply because we removed it from the build as it is not used
+				return if !SplashScreen
 
 				EventsDispatcher.instance.emit
 					name: SplashScreen.EVENT_HIDE
@@ -283,7 +290,7 @@ define "nu.Utils", ( require, exports, module ) ->
 			###
 			if DEBUG && LIVERELOAD
 				lr = document.createElement 'script'
-				hostname = REMOTE_HOST || window.location.hostname
+				hostname = DEBUG_HOST || window.location.hostname
 				if 'https:' == window.location.protocol then protocol = 'https' else protocol = 'http'
 				lr.src = "#{protocol}://#{hostname}:#{LIVERELOAD_PORT}/livereload.js"
 
@@ -302,7 +309,7 @@ define "nu.Utils", ( require, exports, module ) ->
 			###
 			if DEBUG && WEINRE
 				lr = document.createElement 'script'
-				hostname = REMOTE_HOST || window.location.hostname
+				hostname = DEBUG_HOST || window.location.hostname
 				if 'https:' == window.location.protocol then protocol = 'https' else protocol = 'http'
 				lr.src = "#{protocol}://#{hostname}:#{WEINRE_PORT}/target/target-script-min.js#weinre"
 

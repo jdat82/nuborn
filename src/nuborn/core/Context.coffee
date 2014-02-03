@@ -17,7 +17,7 @@ define "nu.core.Context", ( require, exports, module ) ->
     localStorage = require( "nu.cache.LocalStorage" ).instance
     log = require "#log"
     Base = require "nu.core.Base"
-
+    Utils = require "nu.Utils"
 
 
     ###*
@@ -49,9 +49,13 @@ define "nu.core.Context", ( require, exports, module ) ->
         If synchronizeInLocalStorage was setted to true, the whole context will be synchronized with the local storage.
         ###
         set: ( key, value ) ->
-            @data[ key ] = value if key
+            if key
+                @data[ key ] = value
+                DEBUG && log.i "Setted #{key} to #{typeof(value) is 'string' ? value : Utils.toJSON value} in context"
+
             if @settings.synchronizeInLocalStorage
                 localStorage.set( @settings.localStorageKey, @data )
+                DEBUG && log.i "Context backuped in local storage"
 
         ###*
         Get the current value of the given key.
@@ -67,8 +71,10 @@ define "nu.core.Context", ( require, exports, module ) ->
         ###
         clear: () ->
             @data = {}
+            DEBUG && log.i "Context cleared"
             if @settings.synchronizeInLocalStora
                 localStorage.remove( @settings.localStorageKey )
+                DEBUG && log.i "Context's backup in local storage cleared"
 
 
     module.exports = Context

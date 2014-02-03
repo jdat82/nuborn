@@ -64,6 +64,11 @@
         # Initiliazing a shared context object
         context = require "#context"
 
+        # Creating a user ID
+        Constants = require "app.Constants"
+        userId = context.get Constants.USER_ID
+        if !userId then context.set Constants.USER_ID, Utils.guid()
+
         # Starting JQM
         $.mobile.initializePage()
 

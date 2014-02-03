@@ -2,16 +2,17 @@
 	"uglify": {
 		"compress": {
 			"global_defs": {
+				"TRACE": true,
 				"DEBUG": true,
 				"INFO": true,
 				"WARN": true,
 				"ERROR": true,
-				"LIVERELOAD": true,
+				"LIVERELOAD": false,
 				"LIVERELOAD_PORT": 35735,
-				"WEINRE": false,
-				"REMOTE_HOST": "jdat-dev.mbp",
+				"WEINRE": true,
+				"DEBUG_HOST": "10.0.2.2",
 				"WEINRE_PORT": 8085,
-				"NETWORK": "http://localhost:9005"
+				"BACKEND": "http://localhost:9005"
 			},
 			"dead_code": true
 		},

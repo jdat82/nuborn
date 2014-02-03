@@ -30,33 +30,43 @@ define "nu.widgets.StressTest", ( require, exports, module ) ->
 
             # If no local storage on device, we face an old browser, so we make a safety choice : no animation for this device
             if not Modernizr.localstorage
+                log.w "No local storage, assuming it is an old device. Deactivated animations"
                 declareNotAnimationFriendly()
                 localStorage.set StressTest.KEY_ANIMATIONFRIENDLY, false
-                setTimeout dfd.resolve, 50
+                dfd.resolve()
                 return dfd.promise()
 
             # Checking local storage and dom
-            # alreadyInDom = $( "html" ).hasClass( StressTest.KEY_ANIMATIONFRIENDLY ) || $( "html" ).hasClass( StressTest.KEY_NO_ANIMATIONFRIENDLY ) || false
-            # if !alreadyInDom
 
             # Getting local storage value to define right css class on html tag
             animationFriendly = localStorage.get this.settings.localStorageKey
+            log.i "Animation friendly saved value is: #{animationFriendly}"
+
             # If we found a value and it is true,
-            if animationFriendly
+            if animationFriendly != null && animationFriendly is true
                 declareAnimationFriendly()
-                setTimeout dfd.resolve, 50
+                dfd.resolve()
                 return dfd.promise()
 
             # If we found a value and it is false
-            if (animationFriendly? and animationFriendly is false) or (!Modernizr.csstransforms3d || !Modernizr.cssanimations)
+            if animationFriendly != null && animationFriendly is false
                 declareNotAnimationFriendly()
-                setTimeout dfd.resolve, 50
+                dfd.resolve()
+                return dfd.promise()
+
+            # Checking transform support
+            if !Modernizr.csstransforms3d or !Modernizr.cssanimations
+                log.w "CSS animations not supported. Animations deactivated."
+                localStorage.set StressTest.KEY_ANIMATIONFRIENDLY, false
+                declareNotAnimationFriendly()
+                dfd.resolve()
                 return dfd.promise()
 
             # If no value in local storage, we never executed it, so we go ahead with the test
             Modernizr.load [ {
                 load: [ "js/stresstest-async.min.js" ],
                 complete: () ->
+                    DEBUG && log.i "File stresstest-async.min.js loaded"
                     # When notified of the test termination, we can notify the caller
                     events.on StressTest.EVENT_STRESS_TEST_DONE, () ->
                         log.i "Stress test executed"

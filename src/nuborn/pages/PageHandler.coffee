@@ -270,11 +270,17 @@ define "nu.pages.PageHandler", ( require, exports, module ) ->
             pageId = @settings.id
             templateId = @settings.templateId || pageId
 
-            # Settings defaults
+            # Defaults settings
             options = $.extend true, {},
+                # jQuery Mobile options
                 jqmOptions: {},
+                # Key/value pairs given to the new page
                 pageParams: undefined,
+                # If true, page parameters will be serialized and added to the new hash
+                serializePageParams: false
+                # Delay before changing page
                 delay: 0,
+                # Callback called after changing page
                 callback: undefined
             , options
 

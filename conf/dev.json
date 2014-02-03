@@ -2,6 +2,7 @@
 	"uglify": {
 		"compress": {
 			"global_defs": {
+				"TRACE": true,
 				"DEBUG": true,
 				"INFO": true,
 				"WARN": true,
@@ -9,9 +10,9 @@
 				"LIVERELOAD": true,
 				"LIVERELOAD_PORT": 35735,
 				"WEINRE": false,
-				"REMOTE_HOST": "",
+				"DEBUG_HOST": "localhost",
 				"WEINRE_PORT": 8085,
-				"NETWORK": "http://localhost:9005"
+				"BACKEND": "http://localhost:9005"
 			},
 			"dead_code": true
 		},
