@@ -7,7 +7,7 @@
 				"INFO": true,
 				"WARN": true,
 				"ERROR": true,
-				"LIVERELOAD": true,
+				"LIVERELOAD": false,
 				"LIVERELOAD_PORT": 35735,
 				"WEINRE": false,
 				"DEBUG_HOST": "localhost",

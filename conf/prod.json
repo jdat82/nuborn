@@ -4,7 +4,7 @@
 			"global_defs": {
 				"TRACE": false,
 				"DEBUG": false,
-				"INFO": true,
+				"INFO": false,
 				"WARN": true,
 				"ERROR": true,
 				"LIVERELOAD": false,
