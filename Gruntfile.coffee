@@ -114,13 +114,12 @@ module.exports = ( grunt ) ->
         Common javascript libraries files for all platforms
         ###
         jsVendorsFiles: [
-            "vendors/hogan.js/*.min.js"
             "vendors/jQuery/*.min.js"
-            "vendors/Modernizr/*.js"
-            "vendors/fastclick/*.js"
             "{gen/src,src}/**/init/*.js" # jQuery Mobile pre-initialization + Application pre-initialization
             "vendors/jQueryMobile/*.js"
-            "vendors/swipe/*.js"
+            "vendors/**/*.js"
+            "gen/*.js", # Generated sources
+            "!vendors/**/*.{async,off}.{js,min.js}"
         ]
 
         ###
@@ -128,14 +127,15 @@ module.exports = ( grunt ) ->
         ###
         jsAppFiles: [
             "gen/**/*.js" # Nuborn && App sources
-            "!gen/src/**/*-async.js" # excluding all async files which will be requested manually
+            "!gen/**/*.{async,off}.{js,min.js}" # excluding all async and off files
         ]
 
         ###
         These files will be requested manually asynchronously and not merged in the global file.
         ###
         jsAsyncFiles: [
-            "{vendors,gen}/**/*-async.{js,min.js}"
+            "{vendors,gen}/**/*.async.{js,min.js}"
+            "!{vendors,gen}/**/*.async.off.{js,min.js}"
         ]
 
         ###
@@ -236,14 +236,15 @@ module.exports = ( grunt ) ->
         ###
         coffeeAppFiles: [
             "src/**/*.coffee", # Nuborn && App sources
-            "!src/**/*-async.coffee" # excluding all async files which will be requested manually
+            "!src/**/*.{async,off}.coffee" # excluding all async files which will be requested manually
         ]
 
         ###
         These files will be requested manually asynchronously and not merged in the global file.
         ###
         coffeeAsyncFiles: [
-            "src/**/*-async.coffee"
+            "src/**/*.async.coffee"
+            "!src/**/*.async.off.coffee"
         ]
 
         ###
@@ -292,25 +293,19 @@ module.exports = ( grunt ) ->
 
 
         ###
-        Vendors css files for all platforms
-        ###
-        scssVendorsFiles: [
-            "vendors/jQueryMobile/*.css"
-        ]
-
-        ###
         Common css files for all platforms
         ###
-        scssAppFiles: [
-            "src/**/*.scss"
-            "!src/**/*-async.{css,min.css,scss}"
+        scssFiles: [
+            "{vendors,src}/**/*.{css,min.css,scss,min.scss}"
+            "!{vendors,src}/**/*.{async,off}.{css,min.css,scss,min.scss}"
         ]
 
         ###
         These files will be requested manually asynchronously and not merged in the global file.
         ###
         scssAsyncFiles: [
-            "src/**/*-async.{css,min.css,scss}"
+            "{vendors,src}/**/*.async.{css,min.css,scss,min.scss}"
+            "!{vendors,src}/**/*.off.{css,min.css,scss,min.scss}"
         ]
 
         ###
@@ -320,7 +315,7 @@ module.exports = ( grunt ) ->
             options: options.sass
             android:
                 files: [ {
-                    "<%= platforms.android.folder %>/css/app.min.css": [ "<%= scssVendorsFiles %>", "<%= scssAppFiles %>" ]
+                    "<%= platforms.android.folder %>/css/app.min.css": [ "<%= scssFiles %>" ]
                 }, {
                     dest: "<%= platforms.android.folder %>/css"
                     src: "<%= scssAsyncFiles %>"
@@ -330,7 +325,7 @@ module.exports = ( grunt ) ->
                 } ]
             ios:
                 files: [ {
-                    "<%= platforms.ios.folder %>/css/app.min.css": [ "<%= scssVendorsFiles %>", "<%= scssAppFiles %>" ]
+                    "<%= platforms.ios.folder %>/css/app.min.css": [ "<%= scssFiles %>" ]
                 }, {
                     dest: "<%= platforms.ios.folder %>/css"
                     src: "<%= scssAsyncFiles %>"
@@ -340,7 +335,7 @@ module.exports = ( grunt ) ->
                 } ]
             web:
                 files: [ {
-                    "<%= platforms.web.folder %>/css/app.min.css": [ "<%= scssVendorsFiles %>", "<%= scssAppFiles %>" ]
+                    "<%= platforms.web.folder %>/css/app.min.css": [ "<%= scssFiles %>" ]
                 }, {
                     dest: "<%= platforms.web.folder %>/css"
                     src: "<%= scssAsyncFiles %>"
@@ -355,7 +350,7 @@ module.exports = ( grunt ) ->
         ###
         autoprefixer:
             # options:
-                # browsers: [ 'android 4', 'ios 5' ]
+                browsers: [ 'android 4', 'ios 5' ]
             android:
                 files:
                     '<%= platforms.android.folder %>/css/app.min.css': '<%= platforms.android.folder %>/css/app.min.css'
@@ -419,7 +414,8 @@ module.exports = ( grunt ) ->
         Image files common to all platforms
         ###
         imgFiles: [
-            "img/*"
+            "vendors/**/*.{png,jpg,jpeg,gif,svg}"
+            "img/*.{png,jpg,jpeg,gif,svg}"
         ]
 
         ###
@@ -431,24 +427,21 @@ module.exports = ( grunt ) ->
                 progressive: true
             android:
                 files: [ {
-                    dest: "<%= platforms.android.folder %>/img/"
+                    dest: "<%= platforms.android.folder %>/"
                     src: "<%= imgFiles %>"
                     expand: true
-                    flatten: true
                 } ]
             ios:
                 files: [ {
-                    dest: "<%= platforms.ios.folder %>/img/"
+                    dest: "<%= platforms.ios.folder %>/"
                     src: "<%= imgFiles %>"
                     expand: true
-                    flatten: true
                 } ]
             web:
                 files: [ {
-                    dest: "<%= platforms.web.folder %>/img/"
+                    dest: "<%= platforms.web.folder %>/"
                     src: "<%= imgFiles %>"
                     expand: true
-                    flatten: true
                 } ]
 
         ###
@@ -518,8 +511,10 @@ module.exports = ( grunt ) ->
             options:
                 livereload:
                     port: 35735
+                interrupt: true
+                spawn: false
             css:
-                files: [ "<%= scssAppFiles %>", "<%= scssAsyncFiles %>" ]
+                files: [ "<%= scssFiles %>", "<%= scssAsyncFiles %>" ]
                 tasks: [ "css" ]
             js:
                 files: [ "<%= coffeeAppFiles %>", "<%= coffeeAsyncFiles %>", "<%= templateFiles %>" ]
@@ -545,19 +540,23 @@ module.exports = ( grunt ) ->
                 keepalive: true
                 middleware: ( connect, options ) ->
                     return [
-                        # custom headers rewriting
+                        # Custom headers rewriting
                         # example : https://gist.github.com/muratcorlu/5803655
-                        # function(req, res, next){
+                        # (req, res, next) ->
+                        #     # CORS
+                        #     res.setHeader "Access-Control-Allow-Origin", "*"
+                        #     res.setHeader "Access-Control-Allow-Methods", "*"
+                        #     res.setHeader "Cache-Control", "max-age=30"
+                        #     next()
+                        # ,
 
-                        # },
-
-                        # serve static files
+                        # Serve static files
                         connect.static( options.base ),
 
-                        # make empty directories browsable
+                        # Make empty directories browsable
                         connect.directory( options.base )
 
-                        # reverse Proxy Configuration
+                        # Reverse Proxy Configuration
                         # proxySnippet
                     ]
             web: {}
@@ -624,12 +623,6 @@ module.exports = ( grunt ) ->
                     debug: true
 
         ###
-        Allows to launch several commands at once in background.
-        ###
-        concurrent:
-            web: [ "connect-server", "watch", "weinre" ]
-
-        ###
         Allows to execute shell commands.
         Used for cordova compilation.
         ###
@@ -669,7 +662,6 @@ module.exports = ( grunt ) ->
     grunt.loadNpmTasks 'grunt-devtools'
     grunt.loadNpmTasks "grunt-image-embed"
     grunt.loadNpmTasks 'grunt-manifest'
-    grunt.loadNpmTasks 'grunt-concurrent'
     grunt.loadNpmTasks 'grunt-weinre'
     grunt.loadNpmTasks 'grunt-docco'
     grunt.loadNpmTasks 'grunt-exec'
@@ -716,17 +708,12 @@ module.exports = ( grunt ) ->
     ###
     Registering an alias task to launch the web server.
     ###
-    grunt.registerTask "server", [ "configureProxies:web", "connect:web" ]
-
-    ###
-    Registering an alias task to launch the watch server.
-    ###
-    grunt.registerTask "watcher", [ "watch" ]
+    grunt.registerTask "serve", [ "configureProxies:web", "connect:web" ]
 
     ###
     Registering an alias task to launch the weinre server.
     ###
-    grunt.registerTask "remote", [ "weinre" ]
+    grunt.registerTask "debug", [ "weinre" ]
 
     ###
     Documentation alias task.
