@@ -1,0 +1,1 @@
+Source code of cordova plugins installed in this app.

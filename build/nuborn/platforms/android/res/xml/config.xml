@@ -23,6 +23,9 @@
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
+    <feature name="LastPosition">
+        <param name="android-package" value="fr.itlabs.cordova.geolocation.LastPosition" />
+    </feature>
     <feature name="Notification">
         <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
     </feature>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="fr.itlabs.cordova.geolocation"
+    version="0.0.1">
+
+    <engines>
+        <engine name="cordova" version="3.3.0" />
+    </engines>
+
+    <!--<js-module src="www/LastPosition.js" name="LastPosition">
+        <clobbers target="LastPosition" />
+    </js-module>-->
+
+    <!-- android -->
+    <platform name="android">
+
+        <!-- config.xml -->
+        <config-file target="res/xml/config.xml" parent="/widget">
+            <feature name="LastPosition" >
+                <param name="android-package" value="fr.itlabs.cordova.geolocation.LastPosition"/>
+            </feature>
+        </config-file>
+
+        <!-- manifest -->
+
+        <!-- java source -->
+        <source-file src="src/android/LastPosition.java" target-dir="src/fr/itlabs/cordova/geolocation/" />
+
+        <!-- xml layout source -->
+
+        <!-- xml style source -->
+        <!-- <source-file src="src/android/res/values/styles.xml" target-dir="res/values/" /> -->
+
+        <!-- xml animations source -->
+        <!-- <source-file src="src/android/res/anim/anim_bottom_in.xml" target-dir="res/anim/" /> -->
+        <!-- <source-file src="src/android/res/anim/anim_bottom_out.xml" target-dir="res/anim/" /> -->
+
+        <!-- wscratchview jar library -->
+    </platform>
+
+</plugin>

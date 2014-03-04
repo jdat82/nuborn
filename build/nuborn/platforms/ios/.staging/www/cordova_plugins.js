@@ -239,7 +239,8 @@ module.exports.metadata =
     "org.apache.cordova.geolocation": "0.3.6",
     "org.apache.cordova.file": "1.0.1",
     "org.apache.cordova.file-transfer": "0.4.2",
-    "org.apache.cordova.dialogs": "0.2.6"
+    "org.apache.cordova.dialogs": "0.2.6",
+    "fr.itlabs.cordova.geolocation": "0.0.1"
 }
 // BOTTOM OF METADATA
 });
