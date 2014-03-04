@@ -2,10 +2,10 @@
 <widget id="fr.itlabs.toulouse.nuborn" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Nuborn</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        Nuborn Kitchen Sink
     </description>
-    <author email="dev@callback.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="jean.dat@orange.com" href="http://www.itlabs.fr.orange-business.com/">
+        Jean DAT - ITLABS Toulouse - Orange Business Services
     </author>
     <access origin="*" />
     <content src="app.html" />
