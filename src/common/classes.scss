@@ -160,10 +160,10 @@
  * Apply a blur and grayscale effect.
  */
 html.cssfilters .blur-grayscale {
-  -webkit-filter: blur(2px) grayscale(100%);
+  -webkit-filter: blur(7px) grayscale(100%);
 }
 html.cssfilters .blur {
-  -webkit-filter: blur(2px);
+  -webkit-filter: blur(7px);
 }
 
 /**
