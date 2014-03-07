@@ -29,8 +29,8 @@ define "widgets.Message", ( require, exports, module ) ->
         show: ( settings ) ->
 
             # If there is some timeouts running, we don't need them anymore
-            renderingTimeout && clearTimeout renderingTimeout
-            autoHideTimeout && clearTimeout autoHideTimeout
+            clearTimeout @renderingTimeout
+            clearTimeout @autoHideTimeout
 
             # In that case, nothing to do
             if @html.widget
@@ -63,10 +63,10 @@ define "widgets.Message", ( require, exports, module ) ->
                 $.mobile.activePage?.addClass "blur-grayscale"
 
             # We may wait N ms before showing really the widget to avoid a blink effect.
-            if settings.renderingDelay then renderingTimeout = setTimeout render, settings.renderingDelay else render()
+            if settings.renderingDelay then @renderingTimeout = setTimeout render, settings.renderingDelay else render()
 
             # We may hide automatically the widget after some time
-            if settings.autoHideDelay then autoHideTimeout = setTimeout @hide.bind( @ ), settings.autoHideDelay
+            if settings.autoHideDelay then @autoHideTimeout = setTimeout @hide.bind( @ ), settings.autoHideDelay
 
         ###*
         Show a message.
@@ -105,8 +105,8 @@ define "widgets.Message", ( require, exports, module ) ->
         hide: ->
 
             # If there is some timeouts running, we don't need them anymore
-            renderingTimeout && clearTimeout renderingTimeout
-            autoHideTimeout && clearTimeout autoHideTimeout
+            clearTimeout @renderingTimeout
+            clearTimeout @autoHideTimeout
 
             log.i "Hiding the message widget if any"
 
