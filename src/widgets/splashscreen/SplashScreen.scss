@@ -1,0 +1,71 @@
+/**
+* @provide widgets.splashscreen
+* @require mixins
+* @require common
+*/
+
+#splash
+{
+  z-index: 10000;
+  text-align: center;
+  background-color: $darkBlue;
+  color: white;
+
+  h1 {
+
+    display: inline-block;
+    letter-spacing: .2em;
+    position: relative;
+
+    font: {
+      family: "Champagne";
+      weight: 900;
+      variant: small-caps;
+    }
+    @include mq(smartphone){
+      font-size: 3rem;
+    }
+    @include mq(tablet){
+      font-size: 5rem;
+    }
+    @include mq(desktop){
+      font-size: 7rem;
+    }
+
+    &:first-letter {
+      display: block;
+      padding:0  .2em;
+      letter-spacing: 0;
+      @include mq(smartphone){
+        font-size: 3.3rem;
+      }
+      @include mq(tablet){
+        font-size: 5.3rem;
+      }
+      @include mq(desktop){
+        font-size: 7.3rem;
+      }
+      font-weight: 900;
+      color: $darkBlue;
+      background-color: white;
+      border: 5px solid white;
+      margin-right: .5rem;
+    }
+
+    &::after {
+      content: attr(data-content);
+    }
+
+  }
+}
+
+@import "compass/css3/transform";
+
+@include keyframes(scaleIn) {
+  0% { @include transform(scaleY(0)); }
+  100% { @include transform(scaleY(1)); }
+}
+
+.csstransforms3d.animationfriendly #splash h1 {
+  @include animation(scaleIn 2s);
+}

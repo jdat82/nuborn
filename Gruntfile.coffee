@@ -114,7 +114,7 @@ module.exports = ( grunt ) ->
         Common javascript libraries files for all platforms
         ###
         jsVendorsFiles: [
-            "vendors/jQuery/*.min.js"
+            "vendors/jQuery/*.js"
             "{gen/src,src}/**/init/*.js" # jQuery Mobile pre-initialization + Application pre-initialization
             "vendors/jQueryMobile/*.js"
             "vendors/**/*.js"
@@ -257,14 +257,16 @@ module.exports = ( grunt ) ->
                 sourceMap: false
             common:
                 files: [ {
-                    # dest: "gen/"
                     dest: "gen/src/app.js"
                     src: "<%= coffeeAppFiles %>"
+                    # dest: "gen/"
+                    # expand: true
+                    # ext: ".js"
                 }, {
                     dest: "gen/"
                     src: "<%= coffeeAsyncFiles %>"
                     expand: true
-                    ext: ".js"
+                    ext: ".async.js"
                 } ]
 
         ###
@@ -349,7 +351,7 @@ module.exports = ( grunt ) ->
         It allows us to code in pure css. No need to use sass mixins or duplicate code with prefixes.
         ###
         autoprefixer:
-            # options:
+            options:
                 browsers: [ 'android 4', 'ios 5' ]
             android:
                 files:

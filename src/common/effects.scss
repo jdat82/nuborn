@@ -1,0 +1,177 @@
+
+/**
+ * @provide effects
+ * @require imports
+ */
+
+//////////////////////////////////////// Fade animations //////////////////////////////////////////
+
+// hide
+@keyframes fade-out {
+    from{
+        opacity: 1;
+    }
+    to{
+        opacity: 0;
+    }
+}
+.no-animationfriendly .fade-out,
+.no-cssanimations .fade-out {
+    opacity: 0 !important;
+}
+.csstransforms3d.animationfriendly .fade-out,
+.cssanimations .fade-out {
+    animation: fade-out .5s forwards;
+}
+
+
+// show
+@keyframes fade-in {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+.no-animationfriendly .fade-in,
+.no-cssanimations .fade-in {
+    opacity: 1 !important;
+}
+.csstransforms3d.animationfriendly .fade-in,
+.cssanimations .fade-in {
+    animation: fade-in .5s forwards;
+}
+
+//////////////////////////////////////// Scale animations //////////////////////////////////////////
+
+// squeeze
+@keyframes squeeze {
+    from{
+        transform: scale(1, 1);
+    }
+    to{
+        transform: scale(1.1, 1);
+    }
+}
+
+// bigger size to normal size
+@keyframes scale-bigger-to-normal {
+    from{
+        transform: scale(1.2,1.2);
+    }
+    to{
+        transform: scale(1,1);
+    }
+}
+
+// smaller size to normal size
+@keyframes scale-smaller-to-normal {
+    from{
+        transform: scale(.8,.8);
+    }
+    to{
+        transform: scale(1,1);
+    }
+}
+
+// normal size to smaller size
+@keyframes scale-normal-to-smaller {
+    from{
+        transform: scale(1,1);
+    }
+    to{
+        transform: scale(.8,.8);
+    }
+}
+
+// appearance from nothing to normal size
+@keyframes scale-up{
+    from{
+        transform: scale(0);
+    }
+    to{
+        transform: scale(1);
+    }
+}
+
+// disappearance from normal size to nothing
+@keyframes scale-down{
+    from{
+        transform: scale(1);
+    }
+    to{
+        transform: scale(0);
+    }
+}
+
+//////////////////////////////////////// Text animations //////////////////////////////////////////
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 0px white;
+    }
+    to {
+        text-shadow: 0 0 20px white;
+    }
+}
+
+//////////////////////////////////////// Translate animations //////////////////////////////////////////
+
+// translate from bottom to top
+@keyframes rise {
+    from{
+        transform: translateY(100%);
+    }
+    to{
+        transform: translateY(0%);
+    }
+}
+
+// translate from top to bottom
+@keyframes fall {
+    from{
+        transform: translateY(-100%);
+    }
+    to{
+        transform: translateY(0%);
+    }
+}
+
+// same principle as above but very light
+@keyframes light-fall{
+    from{
+        transform: translateY(-10px);
+    }
+    to{
+        transform: translateY(0);
+    }
+}
+
+// translate from left to right
+@keyframes translate-left-to-right {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+
+// translate from right to left
+@keyframes translate-right-to-left {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+//////////////////////////////////////// Rotation animations //////////////////////////////////////////
+
+
+@keyframes rotation {
+    to { transform: rotate(360deg); }
+}

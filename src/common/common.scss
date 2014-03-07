@@ -1,0 +1,44 @@
+/**
+ * @provide common
+ *
+ * @require mixins
+ * @require classes
+ * @require icons
+ * @require imports
+ * @require vars
+ * @require Roboto
+ * @require Champagne
+ * @require Montserrat
+ */
+
+/**
+ * Theme.
+ */
+html * {
+	font-family: "Roboto", "Helvetica", "Arial";
+}
+
+body {
+    color: $softBlack;
+    background-color: white;
+}
+a {
+	color: $softBlack;
+}
+/**
+ * Used for every pressable element.
+ */
+.button {
+	&:active{
+		color: $blue !important;
+	}
+}
+/**
+ * Used for fixed pages with a background image.
+ */
+.bg-fixed{
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+

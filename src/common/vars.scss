@@ -1,0 +1,85 @@
+/**
+ * @provide vars
+ */
+
+/**
+ * @var
+ * Background color.
+ */
+$background : #424242;
+/**
+ * @var
+ * Dark background color.
+ */
+$darkBackground : #212121;
+/**
+ * @var
+ * Orange color.
+ */
+$orange: #ff8000;
+/**
+ * @var
+ * Red color.
+ */
+$red: #e23343;
+/**
+ * @var
+ * Flashy red color.
+ */
+$redActive: #d44a3b;
+/**
+ * @var
+ * Green color.
+ */
+$green: #29c14e;
+/**
+ * @var
+ * Pink color
+ */
+$pink: #C9275E;
+/**
+ * @var
+ * Blue colors.
+ */
+$blue: #6699ff;
+$darkBlue: #0074D9;
+/**
+ * @var
+ * Text color.
+ */
+$textColor: #EEE;
+/**
+ * @var
+ * Soft white color.
+ */
+$softWhite: #EEE;
+/**
+ * @var
+ * Soft black color.
+ */
+$softBlack: #333;
+/**
+ * @var
+ * Selected item background color.
+ */
+$selected: #666;
+/**
+ * @var
+ * Default padding.
+ */
+$padding: .5rem;
+/**
+ * @var
+ * Default margin.
+ */
+$margin: 2*$padding;
+/**
+ * @var
+ * Header bar height.
+ */
+$headerHeight: 3 * $margin;
+/**
+ * @var
+ * Header bar height for iOS7.
+ */
+$iOS7HeaderHeight: $headerHeight + 1rem;

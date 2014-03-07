@@ -1,0 +1,35 @@
+
+.message-widget {
+
+    &.absolute-center,
+    &.absolute-center.is-fixed {
+        z-index: 9999;
+    }
+
+    text-align: center;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: justify;
+
+    .message {
+        color: #EEE;
+        width: 100%;
+        margin: auto;
+    }
+}
+
+html:not([class*=android]) .message-widget {
+    @include background-image(radial-gradient(center, ellipse cover,  rgba(255,255,255,0.1) -60%,rgba(17,17,17,1) 100%));
+}
+html[class*=android] .message-widget {
+    background-color: rgba($background, .8);
+}
+
+.blur-grayscale {
+
+    &.absolute-center,
+    &.absolute-center.is-fixed {
+        z-index: 9999;
+    }
+}

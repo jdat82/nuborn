@@ -1,0 +1,12 @@
+.social-icon{
+    display: inline-block;
+    border-radius: 50%;
+    border: none;
+    padding: $padding;
+    margin: 0 2*$padding;
+    font-size: 1.3rem;
+    background-color: rgba($red,.3);
+    border: 2px solid white;
+    color: white;
+    font-weight: bold;
+}

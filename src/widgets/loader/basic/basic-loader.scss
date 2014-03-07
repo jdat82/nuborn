@@ -1,0 +1,14 @@
+@mixin basicLoader($width:1rem, $thichness:2px){
+    display: inline-block;
+    width: $width;
+    height: $width;
+    border: solid $thichness;
+    border-color: $softBlack transparent;
+    border-radius: 50%;
+    animation: rota 1s ease-in-out infinite;
+    vertical-align: middle;
+}
+
+html.cssanimations .basic-loader {
+    @include basicLoader();
+}
