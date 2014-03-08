@@ -1,0 +1,8 @@
+<snippet>
+    <content><![CDATA[
+debugger;
+]]></content>
+    <tabTrigger>debugger</tabTrigger>
+    <description>Debugger instruction</description>
+    <scope>source.coffee</scope>
+</snippet>
