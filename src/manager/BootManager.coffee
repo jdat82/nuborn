@@ -4,19 +4,19 @@ define "manager.BootManager", ( require, exports, module ) ->
 
     $ = jQuery
     log = require "#log"
-    Base = require "common.Base"
+    Manager = require "manager.Manager"
     Utils = require "utils.Utils"
     UIUtils = require "utils.UIUtils"
-    Message = require "widgets.Message"
+    message = require "#message"
     StressTest = require "widgets.StressTest"
-    SettingsManager = require "manager.SettingsManager"
+    settingsManager = require "#settingsManager"
 
     ###*
     @class manager.BootManager
     @extends common.Base
     Implements boot algorithm.
     ###
-    class BootManager extends Base
+    class BootManager extends Manager
 
         constructor: ->
 
@@ -25,7 +25,7 @@ define "manager.BootManager", ( require, exports, module ) ->
             dfd = $.Deferred()
 
             # Initializing global settings
-            settingsPromise = SettingsManager.instance.init()
+            settingsPromise = settingsManager.init()
 
             # Widget that stress the device to check if it is capable of playing animations smoothly
             # stressTestPromise = new StressTest().play()
@@ -51,13 +51,21 @@ define "manager.BootManager", ( require, exports, module ) ->
 
     # Boot failed
     fail = ( deferred, result ) ->
-        Message.instance.error()
+        message.error()
         log.e "Oops... Something went wrong: #{Utils.toJSON result}"
         UIUtils.hideSplashScreen()
         deferred.rejectWith( result )
 
 
-    BootManager.instance = new BootManager()
-
     module.exports = BootManager
 
+
+###
+Shared instance
+###
+define "#bootManager", ( require, exports, module ) ->
+
+    'use strict'
+
+    BootManager = require "manager.BootManager"
+    module.exports = new BootManager()

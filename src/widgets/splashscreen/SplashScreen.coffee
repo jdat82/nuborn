@@ -4,9 +4,11 @@ define "widgets.SplashScreen", ( require, exports, module ) ->
 
 	$ = jQuery
 	log = require "#log"
-	events = require( "events.EventsBroker" ).instance
+	eventsBroker = require "#eventsBroker"
 	UIUtils = require "utils.UIUtils"
 	Base = require "common.Base"
+	Constants = require "common.Constants"
+	settingsManager = require "#settingsManager"
 
 
 
@@ -15,7 +17,7 @@ define "widgets.SplashScreen", ( require, exports, module ) ->
 	###
 	defaults =
 		id: "splash",
-		title: "Nuborn",
+		title: "",
 		minDelay: 3000
 
 
@@ -32,8 +34,9 @@ define "widgets.SplashScreen", ( require, exports, module ) ->
 		###
 		constructor: ( settings ) ->
 			super defaults, settings
+			@html.body = $(document.body)
 			# Inflates the splashscreen
-			@element = $( templates[ "SplashScreen" ].render( @settings ) )
+			@html.splashscreen = $( templates[ "splashscreen" ].render( @settings ) )
 
 		###*
 		Shows the splashscreen.
@@ -46,7 +49,7 @@ define "widgets.SplashScreen", ( require, exports, module ) ->
 			UIUtils.disableScroll()
 
 			# Adding the splashscreen at the end of the document body
-			$( "body" ).append( @element )
+			@html.body.append( @html.splashscreen )
 
 			@showTime = window.performance.now()
 
@@ -63,12 +66,12 @@ define "widgets.SplashScreen", ( require, exports, module ) ->
 				# Reactivating scroll capacity
 				UIUtils.enableScroll()
 
-				if  Modernizr.animationfriendly and Modernizr.csstransforms3d
-					@element.addClass "fade-out"
-					@element.one 'animationend webkitAnimationEnd oanimationend MSAnimationEnd', () =>
-						@element.remove()
+				if  Modernizr.animationfriendly
+					@html.splashscreen.addClass "fade-out"
+					@html.splashscreen.one 'animationend webkitAnimationEnd oanimationend MSAnimationEnd', () =>
+						@html.splashscreen.remove()
 				else
-					@element.remove()
+					@html.splashscreen.remove()
 
 			if @settings.minDelay
 				delay = window.performance.now() - @showTime
@@ -81,50 +84,16 @@ define "widgets.SplashScreen", ( require, exports, module ) ->
 
 
 
-	###
-	Current splashscreen instance.
-	###
-	instance = undefined
-
-
-
-	###*
-	@event
-	Show splashscreen.
-	###
-	SplashScreen.EVENT_SHOW = "splashscreen/show"
-
-	###*
-	@event
-	Hide splashscreen.
-	###
-	SplashScreen.EVENT_HIDE = "splashscreen/hide"
-
-
-
-	###
-	Handle events lifecycle.
-	###
-	handleSplashScreenEvents = () ->
-		events.on SplashScreen.EVENT_SHOW, onShow
-		events.on SplashScreen.EVENT_HIDE, onHide
-
-	onShow = ( event ) ->
-		DEBUG && log.i "Event SplashScreen show"
-		instance.hide() if instance
-		instance = new SplashScreen event.settings
-		instance.show()
-
-	onHide = ( event ) ->
-		DEBUG && log.i "Event SplashScreen hide"
-		instance.hide() if instance
-		instance = undefined
-
-
-
-	# Listening...
-	handleSplashScreenEvents()
-
-
-
 	module.exports = SplashScreen
+
+
+###
+Shared instance
+###
+define "#splashscreen", ( require, exports, module ) ->
+
+	'use strict'
+
+	SplashScreen = require "widgets.SplashScreen"
+	module.exports = new SplashScreen
+		title: "NUBORN"

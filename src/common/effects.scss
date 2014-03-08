@@ -15,12 +15,10 @@
         opacity: 0;
     }
 }
-.no-animationfriendly .fade-out,
-.no-cssanimations .fade-out {
+.no-animationfriendly .fade-out {
     opacity: 0 !important;
 }
-.csstransforms3d.animationfriendly .fade-out,
-.cssanimations .fade-out {
+.animationfriendly .fade-out {
     animation: fade-out .5s forwards;
 }
 
@@ -34,12 +32,10 @@
         opacity: 1;
     }
 }
-.no-animationfriendly .fade-in,
-.no-cssanimations .fade-in {
+.no-animationfriendly .fade-in {
     opacity: 1 !important;
 }
-.csstransforms3d.animationfriendly .fade-in,
-.cssanimations .fade-in {
+.animationfriendly .fade-in {
     animation: fade-in .5s forwards;
 }
 

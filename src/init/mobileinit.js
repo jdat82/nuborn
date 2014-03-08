@@ -1,9 +1,10 @@
 // Configuration of jQuery Mobile before it loads
 ( function ( $, win, doc, undefined ) {
 
+	'use strict';
+
 	$( doc ).on( "mobileinit", function () {
 
-		'use strict';
 
 		// Do not auto initialize page because of splashscreen
 		$.mobile.autoInitializePage = false;
@@ -15,8 +16,15 @@
 		if ( win.cordova )
 			$.mobile.phonegapNavigationEnabled = true;
 
-		// Not needed
+		// Not needed as we load ourselve the templates
 		$.mobile.ajaxEnabled = false;
+
+		// Not used anymore
+		$.mobile.linkBindingEnabled = false;
+
+		// We don't want their loader
+		$.mobile.loader.prototype.options.disabled = true;
+		$.mobile.loader.prototype.options.textonly = true;
 
 		// Disabling all transitions
 		$.mobile.defaultPageTransition = "none";

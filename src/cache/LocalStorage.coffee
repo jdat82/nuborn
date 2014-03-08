@@ -24,7 +24,7 @@ define "cache.LocalStorage", ( require, exports, module ) ->
 			string = JSON.stringify object
 			# Saving the stringify result into local storage
 			localStorage.setItem key, string
-			log = require( "#log" )
+			log = require "#log"
 			log.i "Key '#{key}' saved in local storage" if DEBUG
 
 		###*
@@ -101,7 +101,15 @@ define "cache.LocalStorage", ( require, exports, module ) ->
 
 
 
-	LocalStorage.instance = new LocalStorage()
-
 	module.exports = LocalStorage
 
+
+###
+The shared instance
+###
+define "#localStorage", ( require, exports, module ) ->
+
+	'use strict'
+
+	LocalStorage = require "cache.LocalStorage"
+	module.exports = new LocalStorage()

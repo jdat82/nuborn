@@ -4,7 +4,7 @@ define "pages.SettingsPageHandler", ( require, exports, module ) ->
 
 	$ = jQuery
 	log = require "#log"
-	SettingsManager = require( "manager.SettingsManager" )
+	settingsManager = require "#settingsManager"
 	AppPageHandler = require "pages.AppPageHandler"
 
 	###*
@@ -29,7 +29,6 @@ define "pages.SettingsPageHandler", ( require, exports, module ) ->
 		createHtmlElements: () ->
 			super()
 			@html.animateCheckbox = @html.content.find "#animate"
-			@html.logsCheckbox = @html.content.find "#logs"
 
 		###*
 		@override
@@ -38,7 +37,6 @@ define "pages.SettingsPageHandler", ( require, exports, module ) ->
 		pageCreate: ( event ) ->
 			super event
 			@handleAnimateCheckbox()
-			@handleLogsCheckbox()
 
 		###*
 		(De)Activate animations in all application.
@@ -46,20 +44,13 @@ define "pages.SettingsPageHandler", ( require, exports, module ) ->
 		handleAnimateCheckbox: () ->
 			# Handling change event
 			@html.animateCheckbox.change () ->
-				SettingsManager.instance.toggleAnimations()
+				settingsManager.toggleAnimations()
 			# Initializing default state
-			@html.animateCheckbox.prop "checked", SettingsManager.instance.animations()
+			@html.animateCheckbox.prop "checked", settingsManager.animations()
 
-		###*
-		(De)Activate logs recording in local storage for debugging purposes.
-		###
-		handleLogsCheckbox: () ->
-			# Handling change event
-			@html.logsCheckbox.change () ->
-				SettingsManager.instance.toggleLogsRecording()
-			# Initializing default state
-			@html.logsCheckbox.prop "checked", SettingsManager.instance.logsRecording()
-
+		navigate: (options) ->
+			# TODO hide the animate line if settingsManager.animations() is false
+			super options
 
 	module.exports = SettingsPageHandler
 

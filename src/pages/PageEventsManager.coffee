@@ -347,19 +347,20 @@ define "pages.PageEventsManager", ( require, exports, module ) ->
 
 		###
 		Load first page from hash.
-		@return false if no hash. True else.
+		@return false if no hash found. True else. If no hash in url and a default page handler is known, it is used instead.
 		###
 		startFromHash: () ->
 
 			# hash.name contains current page id in url if any
 			hash = NetworkUtils.deserializeHash()
-			log.i "Starting from hash: #{Utils.toJSON hash}" if DEBUG
 
 			pageId = hash.name
 			pageHandler = @getPageHandler pageId
 
-			return false if !pageHandler
+			if not pageHandler then pageHandler = @defaultPageHandler()
+			return false if not pageHandler
 
+			log.i "Starting from hash: #{Utils.toJSON hash}" if DEBUG
 			pageHandler.navigate
                 urlParams: hash.params
 
@@ -424,19 +425,21 @@ define "pages.PageEventsManager", ( require, exports, module ) ->
 			state = event.originalEvent.originalEvent.state
 			# No state, no navigation
 			return if not state
-			log.i "Detected a backward history event" if DEBUG
+			log.i "Detected a history event" if DEBUG
 			# Navigating back to the previous page
 			return @navigateFromHash state.hash
 
 
 
-	###*
-	@singleton
-	@property {pages.PageEventsManager} instance The shared instance of PageEventsManager
-	###
-	PageEventsManager.instance = new PageEventsManager()
-
-
-
 	module.exports = PageEventsManager
 
+
+###
+Shared instance.
+###
+define "#pagesManager", ( require, exports, module ) ->
+
+	'use strict'
+
+	PageEventsManager = require "pages.PageEventsManager"
+	module.exports = new PageEventsManager

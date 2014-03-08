@@ -2,7 +2,7 @@
 	"uglify": {
 		"compress": {
 			"global_defs": {
-				"TRACE": true,
+				"TRACE": false,
 				"DEBUG": true,
 				"INFO": true,
 				"WARN": true,
@@ -14,7 +14,8 @@
 				"WEINRE_PORT": 8085,
 				"BACKEND": "http://localhost:9005"
 			},
-			"dead_code": true
+			"dead_code": true,
+			"drop_debugger": false
 		},
 		"beautify": true,
 		"report": "false",

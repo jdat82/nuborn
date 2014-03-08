@@ -48,18 +48,8 @@ define "utils.UIUtils", ( require, exports, module ) ->
             if BrowserUtils.isCordova() and navigator.splashscreen
                 navigator.splashscreen.show()
             else
-                EventsBroker = require "events.EventsBroker"
-                # Means the component is not available
-                # Might be simply because we removed it from the build as it is not used
-                return if !EventsBroker
-
-                SplashScreen = require "widgets.SplashScreen"
-                # Means the component is not available
-                # Might be simply because we removed it from the build as it is not used
-                return if !SplashScreen
-
-                EventsBroker.instance.dispatch
-                    type: SplashScreen.EVENT_SHOW
+                splashscreen = require "#splashscreen"
+                splashscreen?.show()
 
         ###*
         If in a phonegap iOS app, hide native splashscreen.
@@ -70,18 +60,8 @@ define "utils.UIUtils", ( require, exports, module ) ->
             if BrowserUtils.isCordova() && navigator.splashscreen
                 navigator.splashscreen.hide()
             else
-                EventsBroker = require "events.EventsBroker"
-                # Means the component is not available
-                # Might be simply because we removed it from the build as it is not used
-                return if !EventsBroker
-
-                SplashScreen = require "widgets.SplashScreen"
-                # Means the component is not available
-                # Might be simply because we removed it from the build as it is not used
-                return if !SplashScreen
-
-                EventsBroker.instance.dispatch
-                    type: SplashScreen.EVENT_HIDE
+                splashscreen = require "#splashscreen"
+                splashscreen?.hide()
 
         ###*
         Enable button's press mode.

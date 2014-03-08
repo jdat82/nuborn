@@ -77,6 +77,12 @@ define "pages.AppPageHandler", ( require, exports, module ) ->
             super event
             @backButton()
 
+        ###
+        @override
+        @inheritdoc
+        ###
+        pageShow: (event, data) ->
+            super event, data
 
     module.exports = AppPageHandler
 

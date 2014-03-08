@@ -14,11 +14,11 @@ define "common.Context", ( require, exports, module ) ->
 
 
     $ = jQuery
-    localStorage = require( "cache.LocalStorage" ).instance
+    localStorage = require "#localStorage"
     log = require "#log"
     Base = require "common.Base"
     Utils = require "utils.Utils"
-    EventsBroker = require "events.EventsBroker"
+    eventsBroker = require "#eventsBroker"
     Constants = require "common.Constants"
 
     ###*
@@ -27,6 +27,20 @@ define "common.Context", ( require, exports, module ) ->
     Simple context class to store temporary data.
     ###
     class Context extends Base
+
+        ###
+        @event
+        @static
+        Invoked before clearing the whole context.
+        ###
+        @EVENT_CLEARING: "context/clearing"
+
+        ###
+        @event
+        @static
+        Invoked after the whole context has been cleared.
+        ###
+        @EVENT_CLEARED: "context/cleared"
 
         ###*
         @constructor
@@ -52,15 +66,16 @@ define "common.Context", ( require, exports, module ) ->
 
         ###*
         Set a new value in context for the given key.
-        If synchronizeInLocalStorage was setted to true, the whole context will be synchronized with the local storage.
+        @param {String} key
+        @param {Object} value
+        @param {Boolean} save if true, the value will be backuped in local storage. If omitted, the setting synchronizeInLocalStorage will be used.
         ###
-        set: ( key, value ) ->
+        set: ( key, value, save ) ->
             if key
                 @data[ key ] = value
                 log.i "Setted #{key} in context" if not TRACE and DEBUG
                 log.i "Setted #{key} to #{typeof(value) is 'string' ? value : Utils.toJSON value} in context" if TRACE
 
-            save = null
             save ?= this.settings.synchronizeInLocalStorage;
 
             if save then localStorage.set @settings.localStorageKey + "." + key, value
@@ -77,16 +92,17 @@ define "common.Context", ( require, exports, module ) ->
         ###*
         Reset context. Reset also synchronized data in local storage if activated.
         ###
-        clear: () ->
+        clear: (key) ->
             if key
                 delete @data[key]
                 log.i "Key '#{key}' cleared in context" if DEBUG
                 localStorage.remove this.settings.localStorageKey + "." + key
             else
-                EventsBroker.dispatch Constants.Events.Context.CLEAR
+                eventsBroker.dispatch Context.EVENT_CLEARING
                 @data = {}
                 log.i "Context cleared" if DEBUG
                 localStorage.removeFromPattern this.settings.localStorageKey
+                eventsBroker.dispatch Context.EVENT_CLEARED
 
 
     module.exports = Context

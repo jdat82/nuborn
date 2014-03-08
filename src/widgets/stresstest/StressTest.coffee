@@ -4,8 +4,8 @@ define "widgets.StressTest", ( require, exports, module ) ->
 
     $ = jQuery
     log = require "#log"
-    localStorage = require( "cache.LocalStorage" ).instance
-    events = require( "events.EventsBroker" ).instance
+    localStorage = require "#localStorage"
+    events = require "#eventsBroker"
     Base = require "common.Base"
 
     ###*
@@ -14,6 +14,25 @@ define "widgets.StressTest", ( require, exports, module ) ->
     When done, add a CSS class to html tag: either animationfriendly or no-animationfriendly.
     ###
     class StressTest extends Base
+
+        ###*
+        @event
+        @static
+        Fired when stress test is done.
+        ###
+        @EVENT_DONE = "stresstest/done"
+
+        ###*
+        @static
+        CSS class name that mean "this browser is animation frienldy".
+        ###
+        @KEY_ANIMATIONFRIENDLY = "animationfriendly"
+
+        ###*
+        @static
+        CSS class name that mean "this browser is NOT animation frienldy".
+        ###
+        @KEY_NO_ANIMATIONFRIENDLY = "no-animationfriendly"
 
         ###*
         @constructor
@@ -54,7 +73,7 @@ define "widgets.StressTest", ( require, exports, module ) ->
                 return dfd.promise()
 
             # Checking transform support
-            if !Modernizr.csstransforms3d or !Modernizr.cssanimations
+            if !Modernizr.csstransitions or !Modernizr.cssanimations
                 log.w "CSS animations not supported. Animations deactivated."
                 localStorage.set StressTest.KEY_ANIMATIONFRIENDLY, false
                 declareNotAnimationFriendly()
@@ -67,32 +86,12 @@ define "widgets.StressTest", ( require, exports, module ) ->
                 complete: () ->
                     DEBUG && log.i "File stresstest.min.js loaded"
                     # When notified of the test termination, we can notify the caller
-                    events.on StressTest.EVENT_STRESS_TEST_DONE, ->
+                    eventsBroker.on StressTest.EVENT_DONE, ->
                         log.i "Stress test executed"
                         dfd.resolve()
             } ]
 
             return dfd.promise()
-
-
-
-    ###*
-    @event
-    Fired when stress test is done.
-    ###
-    StressTest.EVENT_STRESS_TEST_DONE = "stresstest/done"
-
-    ###*
-    @static
-    CSS class name that mean "this browser is animation frienldy".
-    ###
-    StressTest.KEY_ANIMATIONFRIENDLY = "animationfriendly"
-
-    ###*
-    @static
-    CSS class name that mean "this browser is NOT animation frienldy".
-    ###
-    StressTest.KEY_NO_ANIMATIONFRIENDLY = "no-animationfriendly"
 
     ###
     Defaults.

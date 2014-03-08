@@ -24,7 +24,7 @@ define "utils.StringUtils", ( require, exports, module ) ->
             regex = /\{[0-9]\}/g
             for param in params
                 m = regex.exec( string )
-                if m == null
+                if not m?
                     return string
                 else
                     for match in m

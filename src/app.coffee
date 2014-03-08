@@ -15,7 +15,7 @@
         NetworkUtils = require "utils.NetworkUtils"
 
         # Page events manager
-        PageEventsManager = require "pages.PageEventsManager"
+        pagesManager = require "#pagesManager"
 
         ###*
         @class app
@@ -51,8 +51,11 @@
                 # Little impurity to detect iOS and Android in CSS
                 BrowserUtils.decorateDOMWithBrowserClass()
 
-                # Initializing the global menu
-                menu = require "#menu"
+                # Starting the notification manager
+                require "#notificationManager"
+
+                # Loading the global menu
+                require "#menu"
 
                 # Open external links in a new web view
                 require( "#inAppWebView" ).listenForExternalLinks()
@@ -61,7 +64,7 @@
                 homePage = require "#home"
 
                 # Defining default page handler
-                PageEventsManager.instance.defaultPageHandler homePage
+                pagesManager.defaultPageHandler homePage
 
                 # Redirecting to the offline page if no network
                 # Implies application don't handle an offline mode
@@ -69,15 +72,13 @@
                     require( "#offline" ).navigate();
                 else
                     # Watch for online/offline events
-                    Offline = require "widgets.Offline"
-                    Offline.instance.watch()
+                    offlineWidget = require "#offlineWidget"
+                    offlineWidget.watch()
 
                     # Loading mandatory data before going to first page
-                    require( "manager.BootManager" ).instance.boot().done ->
+                    require( "#bootManager" ).boot().done ->
                         # First page loading
-                        if !PageEventsManager.instance.startFromHash()
-                            # Home page
-                            homePage.navigate()
+                        pagesManager.startFromHash()
 
 
     ###
@@ -94,10 +95,14 @@
 
         app = require "app"
 
+        # Pure web
         if !BrowserUtils.isCordova()
             log.i "Used as a Web App"
+            # Leveraging the manifest if possible
+            require "#appCache"
             UIUtils.showSplashScreen()
             app.init()
+        # Cordova
         else
             log.i "Used as a Hybrid App"
             document.addEventListener "deviceready", app.init.bind( app ), false

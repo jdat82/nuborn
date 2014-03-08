@@ -1,5 +1,5 @@
 
-define "manager.UriManager", ( require, exports, module ) ->
+define "common.UriManager", ( require, exports, module ) ->
 
     'use strict'
 
@@ -19,7 +19,7 @@ define "manager.UriManager", ( require, exports, module ) ->
 
 
     ###*
-    @class manager.UriManager
+    @class common.UriManager
     Manage all URI in the entire application.
     Functionnalities :
     - Allows to declare several hosts which can be used singularly per service
@@ -153,7 +153,7 @@ define "manager.UriManager", ( require, exports, module ) ->
         @param {Boolean} status true or false
         ###
         mock: ( status ) ->
-            if status == null
+            if not status?
                 return @settings.mock
             @settings.mock = !! status
             if @settings.mock

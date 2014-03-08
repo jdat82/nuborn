@@ -1,0 +1,32 @@
+<snippet>
+    <content><![CDATA[
+define "${1}.${2}", ( require, exports, module ) ->
+
+    'use strict'
+
+    \$ = jQuery
+    log = require "#log"
+    Base = require "common.Base"
+
+    ###
+    @class ${1}.${2}
+    @extends common.Base
+    ${3}
+    ###
+    class ${2} extends Base
+
+        ###
+        @constructor
+        ###
+        constructor: ->
+
+
+    module.exports = ${2}
+
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>define</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope>source.coffee</scope>
+    <description>New Class Component</description>
+</snippet>

@@ -6,7 +6,6 @@ define "widgets.Message", ( require, exports, module ) ->
     log = require "#log"
     Base = require "common.Base"
 
-    $body = $(document.body)
 
     defaults =
         id: "message-widget" # HTML id in DOM
@@ -25,6 +24,7 @@ define "widgets.Message", ( require, exports, module ) ->
 
         init: () ->
             super defaults
+            @html.body = $(document.body)
 
         show: ( settings ) ->
 
@@ -51,7 +51,7 @@ define "widgets.Message", ( require, exports, module ) ->
                 log.i "Showing the message widget with template: #{settings.templateId}" if DEBUG
 
                 # Adding to the DOM
-                $body.append @html.widget
+                @html.body.append @html.widget
 
                 # if the template root element contains a "data-closable=true" attribute...
                 if @html.widget.data "closable"
@@ -133,8 +133,15 @@ define "widgets.Message", ( require, exports, module ) ->
             return $.extend true, {}, minArgs, arg
 
 
-    # Singleton
-    Message.instance = new Message()
-
     module.exports = Message
 
+
+###
+Shared instance.
+###
+define "#message", ( require, exports, module ) ->
+
+    'use strict'
+
+    Message = require "widgets.Message"
+    module.exports = new Message

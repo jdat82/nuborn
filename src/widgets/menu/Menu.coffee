@@ -38,8 +38,8 @@ define "widgets.Menu", ( require, exports, module ) ->
 
 
     navigate = ( menu, pageHandler ) ->
-        SettingsManager = require "manager.SettingsManager"
-        if SettingsManager.instance.animations()
+        settingsManager = require "#settingsManager"
+        if settingsManager.animations()
             # TODO if needs be, handle others prefixes
             menu.one 'webkitTransitionEnd', () ->
                 pageHandler.navigate()

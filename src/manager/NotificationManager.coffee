@@ -4,7 +4,7 @@ define "manager.NotificationManager", ( require, exports, module ) ->
 
     $ = jQuery
     log = require "#log"
-    Base = require "common.Base"
+    Manager = require "manager.Manager"
     Utils = require "utils.Utils"
 
     ###*
@@ -85,7 +85,7 @@ define "manager.NotificationManager", ( require, exports, module ) ->
     onResume = ->
         log.i "Application has gone to foreground" if DEBUG
         PushNotification.resetBadge()
-        PushNotification.getIncoming( handleIncomingPush )
+        PushNotification.getIncoming handleIncomingPush
         # Reregister for urbanairship events if they were removed in pause event
         document.addEventListener "urbanairship.registration", onRegistration, false
         document.addEventListener "urbanairship.push", handleIncomingPush, false
@@ -98,7 +98,15 @@ define "manager.NotificationManager", ( require, exports, module ) ->
         document.removeEventListener "urbanairship.push", handleIncomingPush, false
 
 
-    NotificationManager.instance = new NotificationManager()
-
     module.exports = NotificationManager
 
+
+###
+The shared instance
+###
+define "#notificationManager", ( require, exports, module ) ->
+
+    'use strict'
+
+    NotificationManager = require "manager.NotificationManager"
+    module.exports = new NotificationManager()

@@ -1,4 +1,17 @@
 {
+	"cards": [ {
+		"title": "The Big Bang Theory",
+		"image": "img/3983699775_cfe70a1224_z.jpg"
+	}, {
+		"title": "Game of Thrones",
+		"image": "img/game-of-thrones-Poster.jpg"
+	}, {
+		"title": "How I Met Your Mother",
+		"image": "img/50a004d9a6710c0f7c000006_ref.jpg"
+	}, {
+		"title": "Person of Interest",
+		"image": "img/Person-of-Interest-saison-1-VOSTFR-640x640.jpg"
+	} ],
 	"news": [ {
 		"id": 1,
 		"title": "Le créateur des \"Griffin\" se pointe... dans \"Les Simpson\" !",

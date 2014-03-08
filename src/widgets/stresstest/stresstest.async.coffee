@@ -1,14 +1,14 @@
 ###
 Self executing code.
 ###
-( () ->
+( ->
 
     'use strict'
 
     $ = jQuery
     log = require "#log"
-    localStorage = require( "cache.LocalStorage" ).instance
-    events = require( "events.EventsBroker" ).instance
+    localStorage = require "#localStorage"
+    eventsBroker = require "#eventsBroker"
     StressTest = require "widgets.StressTest"
 
     results = []
@@ -87,7 +87,7 @@ Self executing code.
     ###
     testDone = () ->
         # Notifying listeners that the test is done
-        events.dispatch
-            type: StressTest.EVENT_STRESS_TEST_DONE
+        eventsBroker.dispatch
+            type: StressTest.EVENT_DONE
 
 )()

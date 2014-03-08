@@ -2,14 +2,14 @@ define "#uris", ( require, exports, module ) ->
 
     'use strict'
 
-    UriManager = require "manager.UriManager"
+    UriManager = require "common.UriManager"
 
     getCurrentHost = () ->
         return "#{location.protocol}//#{location.host}"
 
     ###*
     Declaration of all urls used in the application.
-    @property {manager.UriManager} uris
+    @property {common.UriManager} uris
     @member app
     ###
     uris = new UriManager
@@ -21,17 +21,15 @@ define "#uris", ( require, exports, module ) ->
                 "host": "mock"
             "current":
                 "host": getCurrentHost()
-        services: {}
-            # Sample
-            # "get-game":
-            #     path: "/?cogit_webservice=getcurrentgame&userToken={0}"
-            #     useMocks: true
-            #     mocks: [
-            #         "/game-winner.json"
-            #         "/game-looser.json"
-            #         "/no-game.json"
-            #         "/bad-parameters.json"
-            #     ]
+        services:
+            "get-news":
+                path: "some service path..."
+                useMocks: true
+                mocks: [
+                    "/news.json"
+                    # "/no-news.json"
+                    # "/error.json"
+                ]
 
 
     module.exports = uris

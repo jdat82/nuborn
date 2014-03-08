@@ -37,12 +37,15 @@ define "cache.AppCache", ( require, exports, module ) ->
 			appCache.addEventListener 'updateready', newHotness, false
 
 
-	###
-	The shared instance of the cache manager.
-	###
-	AppCache.instance = new AppCache()
-
 	module.exports = AppCache
 
-jQuery ->
-	require "cache.AppCache"
+
+###
+The shared instance
+###
+define "#appCache", ( require, exports, module ) ->
+
+	'use strict'
+
+	AppCache = require "cache.AppCache"
+	module.exports = new AppCache()

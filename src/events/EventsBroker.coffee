@@ -45,7 +45,15 @@ define "events.EventsBroker", ( require, exports, module ) ->
 			@emitter.off name, callback
 
 
-	EventsBroker.instance = new EventsBroker()
-
 	module.exports = EventsBroker
 
+
+###
+Shared instance
+###
+define "#eventsBroker", ( require, exports, module ) ->
+
+	'use strict'
+
+	EventsBroker = require "events.EventsBroker"
+	module.exports = new EventsBroker()

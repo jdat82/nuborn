@@ -3,7 +3,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
     'use strict'
 
     $ = jQuery
-    pageEventsManager = require( "pages.PageEventsManager" ).instance
+    pagesManager = require "#pagesManager"
     Utils = require "utils.Utils"
     NetworkUtils = require "utils.NetworkUtils"
     UIUtils = require "utils.UIUtils"
@@ -36,7 +36,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
             super defaults, settings
 
             if @settings[ "default" ]
-                pageEventsManager.defaultPageHandler this
+                pagesManager.defaultPageHandler this
 
             # Default state is hidden
             @data.visible = false

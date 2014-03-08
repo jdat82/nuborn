@@ -156,7 +156,14 @@ define "cache.FileSystemCache", ( require, exports, module ) ->
 
 
 
-    FileSystemCache.instance = new FileSystemCache()
-
     module.exports = FileSystemCache
 
+###
+The shared instance
+###
+define "#fileCache", ( require, exports, module ) ->
+
+    'use strict'
+
+    FileSystemCache = require "cache.FileSystemCache"
+    module.exports = new FileSystemCache()
