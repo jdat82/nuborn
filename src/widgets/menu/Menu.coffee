@@ -8,7 +8,6 @@ define "widgets.Menu", ( require, exports, module ) ->
     BaseMenu = require "widgets.BaseMenu"
 
 
-
     ###*
     @class widgets.Menu
     @extends widgets.BaseMenu
@@ -29,22 +28,12 @@ define "widgets.Menu", ( require, exports, module ) ->
                 return true
 
         show: ->
-            $.mobile.activePage?.addClass "blur"
             super()
+            $.mobile.activePage?.addClass "blur"
 
         hide: ->
-            $.mobile.activePage?.removeClass "blur"
             super()
-
-
-    navigate = ( menu, pageHandler ) ->
-        settingsManager = require "#settingsManager"
-        if settingsManager.animations()
-            # TODO if needs be, handle others prefixes
-            menu.one 'webkitTransitionEnd', () ->
-                pageHandler.navigate()
-        else
-            pageHandler.navigate()
+            $.mobile.activePage?.removeClass "blur"
 
 
 

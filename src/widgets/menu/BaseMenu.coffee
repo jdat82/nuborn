@@ -22,7 +22,7 @@ define "widgets.BaseMenu", ( require, exports, module ) ->
     @extends common.Base
     Base class to implement a global menu
     ###
-    class Menu extends Base
+    class BaseMenu extends Base
 
         ###*
         @constructor
@@ -56,16 +56,16 @@ define "widgets.BaseMenu", ( require, exports, module ) ->
         show: () ->
             # deactivating scroll capacity during splashscreen
             UIUtils.disableScroll()
-            @html.menu.addClass "menu-show"
+            @html.menu.addClass "show"
 
         ###
         Hides the me
         ###
         hide: () ->
             # reactivating scroll capacity
+            @html.menu.removeClass "show"
             UIUtils.enableScroll()
-            @html.menu.removeClass "menu-show"
 
 
 
-    module.exports = Menu
+    module.exports = BaseMenu
