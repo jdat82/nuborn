@@ -135,6 +135,16 @@
 }
 
 // same principle as above but very light
+@keyframes light-rise{
+    from{
+        transform: translateY(10px);
+    }
+    to{
+        transform: translateY(0);
+    }
+}
+
+// same principle as above but very light
 @keyframes light-fall{
     from{
         transform: translateY(-10px);

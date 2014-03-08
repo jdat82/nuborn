@@ -58,13 +58,12 @@
   }
 }
 
-@import "compass/css3/transform";
-
-@keyframes scaleIn {
-  0% { transform: scaleY(0); }
-  100% { transform: scaleY(1); }
+@keyframes hide-splash{
+  to{
+    transform: translateY(100%);
+  }
 }
 
-html.animationfriendly #splash h1 {
-  animation: scaleIn 2s forwards;
+html.animationfriendly #splash.hide{
+  animation: hide-splash 1s;
 }
