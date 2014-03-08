@@ -22,7 +22,10 @@ define "widgets.Message", ( require, exports, module ) ->
     ###
     class Message extends Base
 
-        init: () ->
+        ###
+        @constructor
+        ###
+        constructor: ->
             super defaults
             @html.body = $(document.body)
 
@@ -55,7 +58,7 @@ define "widgets.Message", ( require, exports, module ) ->
 
                 # if the template root element contains a "data-closable=true" attribute...
                 if @html.widget.data "closable"
-                    @html.widget.click ( event ) =>
+                    @html.widget.click =>
                         @hide()
                         return false
 

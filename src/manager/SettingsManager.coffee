@@ -13,7 +13,6 @@ define "manager.SettingsManager", ( require, exports, module ) ->
     context = require "#context"
     Context = require "common.Context"
 
-
     html = document.querySelector "html"
 
     KEY_ANIMATION_FRIENDLY = "animationfriendly"
@@ -38,8 +37,10 @@ define "manager.SettingsManager", ( require, exports, module ) ->
             # DO things eventually with async operations (not the case today)...
             @initAnimations()
             # If the context is cleared we need to restore the initial value
-            eventsBroker.on Context.EVENT_CLEARED, =>
+            onContextCleared = =>
                 @initAnimations()
+            eventsBroker.off Context.EVENT_CLEARED, onContextCleared
+            eventsBroker.on Context.EVENT_CLEARED, onContextCleared
 
             dfd.resolve()
             return dfd.promise()
@@ -72,7 +73,6 @@ define "manager.SettingsManager", ( require, exports, module ) ->
                 newValue = !! newValue
                 context.set KEY_ANIMATION_FRIENDLY, newValue, true
                 Modernizr.animationfriendly = newValue
-                debugger;
                 if newValue
                     html.classList.add KEY_ANIMATION_FRIENDLY
                     html.classList.remove "no-#{KEY_ANIMATION_FRIENDLY}"

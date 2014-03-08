@@ -13,7 +13,7 @@
     justify-content: justify;
 
     .message {
-        color: #EEE;
+        color: white;
         width: 100%;
         margin: auto;
     }
@@ -26,7 +26,9 @@ html[class*=android] .message-widget {
     background-color: rgba($background, .8);
 }
 
-.blur-grayscale {
+.cssfilters .blur-grayscale {
+
+    -webkit-filter: blur(2px) grayscale(50%);
 
     &.absolute-center,
     &.absolute-center.is-fixed {

@@ -152,17 +152,13 @@
  * END ABSOLUTE CENTERING.
  */
 
-.highlight {
-  font-weight: bold;
-}
-
 /**
  * Apply a blur and grayscale effect.
  */
-html.cssfilters .blur-grayscale {
+.cssfilters .blur-grayscale {
   -webkit-filter: blur(7px) grayscale(100%);
 }
-html.cssfilters .blur {
+.cssfilters .blur {
   -webkit-filter: blur(7px);
 }
 

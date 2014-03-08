@@ -13,6 +13,11 @@
         text-overflow: ellipsis;
         white-space: nowrap;
     }
+    .switch{
+        transform: scale(.8);
+        position: relative;
+        right: -1rem;
+    }
 }
 
 .flexbox #settings {

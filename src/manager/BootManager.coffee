@@ -40,7 +40,6 @@ define "manager.BootManager", ( require, exports, module ) ->
             .fail ->
                 fail(dfd, this)
 
-
             return dfd.promise()
 
 

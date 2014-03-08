@@ -6,6 +6,7 @@ define "pages.AppPageHandler", ( require, exports, module ) ->
     log = require "#log"
     PageHandler = require "pages.PageHandler"
     menu = require "#menu"
+    message = require "#message"
 
     ###*
     @class pages.AppPageHandler
@@ -83,6 +84,7 @@ define "pages.AppPageHandler", ( require, exports, module ) ->
         ###
         pageShow: (event, data) ->
             super event, data
+            message.hide()
 
     module.exports = AppPageHandler
 
