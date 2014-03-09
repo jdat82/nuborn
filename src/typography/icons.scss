@@ -1,14 +1,13 @@
 /**
  * @provide icons
  */
-
 @font-face {
 	font-family: 'icomoon';
-	src:url('../fonts/icomoon/icomoon.eot?ai76pg');
-	src:url('../fonts/icomoon/icomoon.eot?#iefixai76pg') format('embedded-opentype'),
-		url('../fonts/icomoon/icomoon.woff?ai76pg') format('woff'),
-		url('../fonts/icomoon/icomoon.ttf?ai76pg') format('truetype'),
-		url('../fonts/icomoon/icomoon.svg?ai76pg#icomoon') format('svg');
+	src:url('../fonts/icomoon/icomoon.eot?-ua3hkc');
+	src:url('../fonts/icomoon/icomoon.eot?#iefix-ua3hkc') format('embedded-opentype'),
+		url('../fonts/icomoon/icomoon.woff?-ua3hkc') format('woff'),
+		url('../fonts/icomoon/icomoon.ttf?-ua3hkc') format('truetype'),
+		url('../fonts/icomoon/icomoon.svg?-ua3hkc#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -39,15 +38,15 @@
 .icon-home:before {
 	content: "\e603";
 }
-.icon-cogs:before {
+.icon-support:before {
 	content: "\e604";
+}
+.icon-info:before {
+	content: "\e605";
+}
+.icon-equalizer:before {
+	content: "\e607";
 }
 .icon-switch:before {
 	content: "\e606";
-}
-.icon-question:before {
-	content: "\e605";
-}
-.icon-info:before {
-	content: "\e607";
 }
