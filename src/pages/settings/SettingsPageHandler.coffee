@@ -31,8 +31,8 @@ define "pages.SettingsPageHandler", ( require, exports, module ) ->
 		###
 		createHtmlElements: () ->
 			super()
-			@html.animateCheckbox = @html.content.find "#animate"
-			@html.resetButton = @html.content.find "#reset"
+			@html.animateCheckbox = @html.content.querySelector "#animate"
+			@html.resetButton = @html.content.querySelector "#reset"
 
 		###*
 		@override
@@ -48,17 +48,18 @@ define "pages.SettingsPageHandler", ( require, exports, module ) ->
 		###
 		handleAnimateCheckbox: () ->
 			# Handling change event
-			@html.animateCheckbox.change () ->
+			@html.animateCheckbox.addEventListener "change", ->
 				settingsManager.toggleAnimations()
+			, false
 			# Initializing default state
-			@html.animateCheckbox.prop "checked", settingsManager.animations()
+			@html.animateCheckbox.checked = settingsManager.animations()
 
 		###*
 		(De)Activate animations in all application.
 		###
 		handleResetButton: ->
 			# Handling change event
-			@html.resetButton.click ->
+			@html.resetButton.addEventListener "click", ->
 				# Tempo
 				message.message "Réinitialisation de vos préférences..."
 				# Clearing the context
@@ -66,6 +67,7 @@ define "pages.SettingsPageHandler", ( require, exports, module ) ->
 				# Relaunching boot process
 				bootManager.boot().done ->
 					require( "#home" ).navigate()
+			, false
 
 		navigate: (options) ->
 			# TODO hide the animate line if settingsManager.animations() is false

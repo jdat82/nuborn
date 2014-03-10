@@ -51,7 +51,7 @@ define "manager.BootManager", ( require, exports, module ) ->
     # Boot failed
     fail = ( deferred, result ) ->
         message.error()
-        log.e "Oops... Something went wrong: #{Utils.toJSON result}"
+        log.e "Oops... Something went wrong: ", result
         UIUtils.hideSplashScreen()
         deferred.rejectWith( result )
 

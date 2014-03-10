@@ -171,6 +171,12 @@
   -webkit-overflow-scrolling: touch;
 }
 
+.out-of-screen {
+   position: absolute !important;
+   top: -9999px !important;
+   left: -9999px !important;
+}
+
 // les scrollbars ne fonctionnent pas bien dans safari mobile
 // pour qu'elles n'apparaissent que s'il faut scroller, on ne les affiche
 // que si la classe .show-scrollbar est présente

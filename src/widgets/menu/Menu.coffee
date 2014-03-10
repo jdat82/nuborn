@@ -23,17 +23,19 @@ define "widgets.Menu", ( require, exports, module ) ->
             super settings
 
             # Close the menu on oustide click
-            @html.menu.click (event) =>
+            @html.menu.addEventListener "click", (event) =>
                 @toggleMenu()
                 return true
-
+            ,false
         show: ->
+            @html.menu.classList.remove "out-of-screen"
             super()
             $.mobile.activePage?.addClass "blur"
 
         hide: ->
             super()
             $.mobile.activePage?.removeClass "blur"
+            @html.menu.classList.add "out-of-screen"
 
 
 

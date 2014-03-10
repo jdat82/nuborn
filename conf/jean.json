@@ -10,7 +10,7 @@
 				"LIVERELOAD": false,
 				"LIVERELOAD_PORT": 35735,
 				"WEINRE": true,
-				"DEBUG_HOST": "10.0.2.2",
+				"DEBUG_HOST": "192.168.0.19",
 				"WEINRE_PORT": 8085,
 				"BACKEND": "http://localhost:9005"
 			},

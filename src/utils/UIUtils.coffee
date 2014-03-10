@@ -12,6 +12,46 @@ define "utils.UIUtils", ( require, exports, module ) ->
     ###
     class UIUtils
 
+        ###
+        Parse a string containing HTML code and return an array of HTML elements.
+        76% faster than using jQuery parseHTML: http://jsperf.com/j2an-parsehtml
+        Replace jQuery#parseHTML(<html>) or jQuery(<html>)
+        ###
+        @parse: (string) ->
+            # string = string.trim()
+            div = document.createElement 'div'
+            div.innerHTML = string
+            return div.childNodes
+
+        ###
+        Append one or several children to a parent element from an HTML string
+        Replace jQuery#append
+        ###
+        @append: (parent, string) ->
+            return if not string or not parent
+            children = @parse string
+            for child in children
+                parent.appendChild child if child? and child?.nodeType isnt 3
+            return children
+
+        ###
+        Remove element from the DOM
+        Replace jQuery#remove
+        ###
+        @remove: (element) ->
+            element?.parentNode?.removeChild element
+
+        ###
+        Add an event listener to <element> for the event type <type> with <capture> mode once.
+        Replace jQuery#one
+        ###
+        @one: (element, type, capture = false, callback) ->
+            return if not element or not type or not callback
+            fn = ->
+                callback()
+                element.removeEventListener type, fn, capture
+            element.addEventListener type, fn, capture
+
         @blockEvent = ( event ) ->
             return false
 

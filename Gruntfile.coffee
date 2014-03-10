@@ -102,10 +102,10 @@ module.exports = ( grunt ) ->
             root: "build/nuborn"
             android:
                 folder: "<%= platforms.root %>/platforms/android/assets/www"
-                active: true
+                active: false
             ios:
                 folder: "<%= platforms.root %>/platforms/ios/www"
-                active: true
+                active: false
             web:
                 folder: "<%= platforms.root %>/platforms/web"
                 active: true
@@ -729,6 +729,8 @@ module.exports = ( grunt ) ->
     ###
     hooker.hook grunt.task, "run",
         pre: ( task ) ->
+
+            grunt.verbose.debug utils.toJSON task
 
             # If an alias task, nothing to do
             return if task instanceof Array and task.length

@@ -92,7 +92,7 @@ define "cache.FileSystemCache", ( require, exports, module ) ->
                             dfd.resolveWith entry.fullPath
                         ,
                         ( error ) ->
-                            log.e "Download error : #{Utils.toJSON error }" if DEBUG
+                            log.e "Download error : ", error if DEBUG
                             dfd.rejectWith error
                         ,
                         false, {

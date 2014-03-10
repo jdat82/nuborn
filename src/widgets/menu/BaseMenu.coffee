@@ -40,8 +40,8 @@ define "widgets.BaseMenu", ( require, exports, module ) ->
             templateId = @settings.templateId
 
             # Inflates the menu
-            @html.menu = $( templates[ templateId ].render this.settings )
-            $(document.body).append @html.menu
+            UIUtils.append document.body, templates[ templateId ].render this.settings
+            @html.menu = document.body.querySelector "##{@settings.id}"
 
             # Storing menu state
             @data.isMenuShown = false
@@ -56,14 +56,14 @@ define "widgets.BaseMenu", ( require, exports, module ) ->
         show: () ->
             # deactivating scroll capacity during splashscreen
             UIUtils.disableScroll()
-            @html.menu.addClass "show"
+            @html.menu.classList.add "show"
 
         ###
         Hides the me
         ###
         hide: () ->
             # reactivating scroll capacity
-            @html.menu.removeClass "show"
+            @html.menu.classList.remove "show"
             UIUtils.enableScroll()
 
 

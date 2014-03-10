@@ -1,9 +1,13 @@
-{{#cards}}
-	<div>
-		<div class="card" style="background-image:url('{{image}}')">
-			<div class="title">
-				{{title}}
-			</div>
-		</div>
-	</div>
-{{/cards}}
+<div id="carousel" data-role="swipe">
+    <div id="carousel-wrapper" data-role="swipe-wrapper">
+        {{#cards}}
+        <div>
+            <div class="card" style="background-image:url('{{image}}')">
+                <div class="title">
+                    {{title}}
+                </div>
+            </div>
+        </div>
+        {{/cards}}
+    </div>
+</div>

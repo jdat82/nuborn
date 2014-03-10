@@ -9,6 +9,7 @@ define "debug.Log", ( require, exports, module ) ->
     MemoryChannel = require "debug.MemoryChannel"
     ConsoleChannel = require "debug.ConsoleChannel"
     Base = require "common.Base"
+    Utils = require "utils.Utils"
 
 
 
@@ -90,7 +91,12 @@ define "debug.Log", ( require, exports, module ) ->
         Logs at error level.
         @param  {String} value The error to log
         ###
-        e: ( value ) ->
+        e: ( value, error ) ->
+            if error
+                if typeof(error) is "string"
+                    value += error
+                else
+                    value += Utils.toJSON error
             log this, value, LogLevel.ERROR
 
         ###*

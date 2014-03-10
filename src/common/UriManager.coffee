@@ -61,21 +61,21 @@ define "common.UriManager", ( require, exports, module ) ->
             # or an object with a url and network properties.
             path = ""
             if value instanceof Object
-                if value.path && !mockEnabled && !value.useMocks
+                if value.path and not mockEnabled && not value.useMocks
                     if value.network && !networkName
                         host = @getHost value.network
                         log.i "Found a declared host: #{host}" if DEBUG
                     path = value.path
-            else if mockEnabled || value.useMocks
-                # Choosing a random mock
-                path = Utils.randomItemFromArray value.mocks
-                host = this.getHost "mock"
-                log.i "Found a mock host: #{host}" if DEBUG
+                else if mockEnabled or value.useMocks
+                    # Choosing a random mock
+                    path = Utils.randomItemFromArray value.mocks
+                    host = this.getHost "mock"
+                    log.i "Found a mock host: #{host}" if DEBUG
             else
                 path = value
 
             # If a network was provided to override the declared one
-            if !host.length && networkName?.length
+            if not host && networkName
                 nwk = @getNetwork networkName
                 if nwk?.host
                     host = nwk.host
@@ -84,7 +84,7 @@ define "common.UriManager", ( require, exports, module ) ->
                     log.i "No host for this network: #{networkName}" if DEBUG
 
             # if no explicit host, using the default one
-            if !host.length && !networkName && @defaultNetwork && @defaultNetwork.host
+            if not host and not networkName && @defaultNetwork && @defaultNetwork.host
                 host = @defaultNetwork.host
                 log.i "Found a default host: #{host}" if DEBUG
 
@@ -118,9 +118,9 @@ define "common.UriManager", ( require, exports, module ) ->
         ###
         addNetwork: ( name, url, isDefaultNetwork ) ->
             # "name" is mandatory
-            return if not name?.length
+            return if not name
             # You can't have a network without a url
-            return if not url?.length
+            return if not url
             # Adding a new network
             network =
                 "host": url

@@ -10,12 +10,13 @@ define "pages.PageHandler", ( require, exports, module ) ->
     log = require "#log"
     Base = require "common.Base"
 
+    $body = $( document.body )
+
     ###
     Defaults settings.
     ###
     defaults =
         singleton: false
-        default: false
 
     ###*
     @class pages.PageHandler
@@ -34,9 +35,6 @@ define "pages.PageHandler", ( require, exports, module ) ->
         constructor: ( settings ) ->
             # Declaring class members
             super defaults, settings
-
-            if @settings[ "default" ]
-                pagesManager.defaultPageHandler this
 
             # Default state is hidden
             @data.visible = false
@@ -92,7 +90,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
             if !@settings.singleton
                 # Cleaning references to HTML elements & data objects
                 # as they will be recreated every time we go back to the page
-                @html.page.remove()
+                @html.page.parentNode.removeChild(@html.page)
                 @deleteHtmlElements()
                 @deleteDataElements()
 
@@ -176,12 +174,46 @@ define "pages.PageHandler", ( require, exports, module ) ->
             log.i "swipe right on '#{@settings.id}'" if DEBUG
 
         ###*
+        Cordova only.
+        Android only.
+        Event triggered when pressing the device physical back button.
+        @param {Object} event
+        ###
+        backButton: ( event ) ->
+            log.i "back button on '#{@settings.id}'" if DEBUG
+
+        ###*
+        Cordova only.
+        Android only.
+        Event triggered when pressing the device physical menu button.
+        @param {Object} event
+        ###
+        menuButton: ( event ) ->
+            log.i "menu button on '#{@settings.id}'" if DEBUG
+
+        ###*
+        Cordova only.
+        Triggered when the application goes to background. Needs the Events plugin.
+        @param {Object} event
+        ###
+        pause: ( event ) ->
+            log.i "pause event on '#{@settings.id}'" if DEBUG
+
+        ###*
+        Cordova only.
+        Triggered when the application goes to foreground. Needs the Events plugin.
+        @param {Object} event
+        ###
+        resume: ( event ) ->
+            log.i "resume event on '#{@settings.id}'" if DEBUG
+
+        ###*
         Create all references to HTML elements.
         ###
         createHtmlElements: ->
-            @html.page = $( "#" + @settings.id );
-            @html.header = @html.page.find( "[data-role=header]" );
-            @html.content = @html.page.find( "[data-role=content]" );
+            @html.page = document.querySelector "#" + @settings.id
+            @html.header = @html.page.querySelector "[data-role=header]"
+            @html.content = @html.page.querySelector "[data-role=content]"
 
         ###*
         Create all references to data objects.
@@ -229,15 +261,10 @@ define "pages.PageHandler", ( require, exports, module ) ->
                 if !document.getElementById pageId
                     log.i "loading ##{pageId}" if DEBUG
                     log.i "templateData: #{Utils.toJSON templateData}" if DEBUG
-                    $( templates[ templateId ].render( templateData ) ).appendTo( "body" )
+                    # $( templates[ templateId ].render( templateData ) ).appendTo( "body" )
+                    UIUtils.append document.body, templates[ templateId ].render( templateData )
             else
                 throw "This page handler has no valid page"
-
-        backButton: ( event ) ->
-            log.i "back button" if DEBUG
-
-        menuButton: ( event ) ->
-            log.i "menu button" if DEBUG
 
         ###*
         Utility method to navigate from one page to another
@@ -321,12 +348,11 @@ define "pages.PageHandler", ( require, exports, module ) ->
                     PageHandler.JQMInitialized = true
                     changePage = ->
                         log.i "First page is: #{pageId}" if DEBUG
-                        console.log $.mobile
                         $.mobile.initializePage()
                 else
                     changePage = ->
                         log.i "Navigating to ##{pageId}" if DEBUG
-                        $( document.body ).pagecontainer( "change", "#" + pageId, options.jqmOptions );
+                        $body.pagecontainer( "change", "#" + pageId, options.jqmOptions );
 
                 # Changing page with a delay if any
                 window.setTimeout ->

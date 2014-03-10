@@ -21,8 +21,8 @@ define "pages.AppPageHandler", ( require, exports, module ) ->
         ###
         createHtmlElements: () ->
             super()
-            @html.menuButton = @html.header.find "#menu-button"
-            @html.backButton = @html.header.find "#back-button"
+            @html.menuButton = @html.header.querySelector "#menu-button"
+            @html.backButton = @html.header.querySelector "#back-button"
 
         ###*
         @override
@@ -46,10 +46,11 @@ define "pages.AppPageHandler", ( require, exports, module ) ->
         ###
         handleMenuButton: () ->
             # When tap on menu button, open menu panel
-            @html.menuButton?.click (event) =>
+            @html.menuButton?.addEventListener "click", (event) =>
                 @menuButton()
                 # Prevent bubbling
                 return false
+            , false
 
         ###
         @override
@@ -64,11 +65,11 @@ define "pages.AppPageHandler", ( require, exports, module ) ->
         ###
         handleBackButton: () ->
             # When tap on back button, go back in history
-            @html.backButton?.click (event) =>
+            @html.backButton?.addEventListener "click", (event) =>
                 @backButton()
                 # Prevent bubbling
                 return false
-
+            , false
         ###
         @override
         @inheritdoc

@@ -1,0 +1,13 @@
+<div id="news">
+    <ul>
+    {{#news}}
+        <li>
+            <a href="#detail?newsId={{id}}">
+                <div class="thumbnail" style="background-image:url('{{image}}')"></div>
+                <div class="title">{{title}}</div>
+                <div class="subtitle">{{date}}</div>
+            </a>
+        </li>
+    {{/news}}
+    </ul>
+</div>

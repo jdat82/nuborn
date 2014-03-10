@@ -38,36 +38,39 @@ define "pages.PageEventsManager", ( require, exports, module ) ->
 			$window = $( window );
 
 			# Binding all jQuery Mobile page events
-			# $document.on( "pagebeforeload", pageSelector, $.proxy( this, "pageBeforeLoad" ) )
-			# $document.on( "pagecontainerbeforeload", pageSelector, $.proxy( this, "pageBeforeLoad" ) )
-			# $document.on( "pageload", pageSelector, $.proxy( this, "pageLoad" ) )
-			# $document.on( "pagecontainerload", pageSelector, $.proxy( this, "pageLoad" ) )
+			# $document.on "pagebeforeload", pageSelector, @pageBeforeLoad.bind(@)
+			# $document.on "pagecontainerbeforeload", pageSelector, @pageBeforeLoad.bind(@)
+			# $document.on "pageload", pageSelector, @pageLoad.bind(@)
+			# $document.on "pagecontainerload", pageSelector, @pageLoad.bind(@)
 
-			# $document.on( "pagebeforechange", pageSelector, $.proxy( this, "pageBeforeChange" ) )
-			# $document.on( "pagechange", pageSelector, $.proxy( this, "pageChange" ) )
+			# $document.on "pagebeforechange", pageSelector, @pageBeforeChange.bind(@)
+			# $document.on "pagechange", pageSelector, @pageChange.bind(@)
 
-			$document.on( "pagebeforecreate", pageSelector, $.proxy( this, "pageBeforeCreate" ) )
-			$document.on( "pagecreate", pageSelector, $.proxy( this, "pageCreate" ) )
+			$document.on "pagebeforecreate", pageSelector, @pageBeforeCreate.bind(@)
+			$document.on "pagecreate", pageSelector, @pageCreate.bind(@)
 
-			$document.on( "pagebeforeshow", pageSelector, $.proxy( this, "pageBeforeShow" ) )
-			$document.on( "pageshow", pageSelector, $.proxy( this, "pageShow" ) )
-			# $document.on( "pagecontainershow", pageSelector, $.proxy( this, "pageShow" ) )
+			$document.on "pagebeforeshow", pageSelector, @pageBeforeShow.bind(@)
+			$document.on "pageshow", pageSelector, @pageShow.bind(@)
+			# $document.n( "pagecontainershow", pageSelector, @pageShow.bind(@)
 
-			$document.on( "pagebeforehide", pageSelector, $.proxy( this, "pageBeforeHide" ) )
-			$document.on( "pagehide", pageSelector, $.proxy( this, "pageHide" ) )
-			# $document.on( "pagecontainerhide", pageSelector, $.proxy( this, "pageHide" ) )
+			$document.on "pagebeforehide", pageSelector, @pageBeforeHide.bind(@)
+			$document.on "pagehide", pageSelector, @pageHide.bind(@)
+			# $document.n( "pagecontainerhide", pageSelector, @pageHide.bind(@)
 
-			# $document.on( "pageremove", pageSelector, $.proxy( this, "pageRemove" ) )
+			# $document.n( "pageremove", pageSelector, @pageRemove.bind(@)
 
-			$document.on( "swipeleft", pageSelector, $.proxy( this, "swipeLeft" ) )
-			$document.on( "swiperight", pageSelector, $.proxy( this, "swipeRight" ) )
+			$document.on "swipeleft", pageSelector, @swipeLeft.bind(@)
+			$document.on "swiperight", pageSelector, @swipeRight.bind(@)
 
-			$document.on( "backbutton", $.proxy( this, "backButton" ) )
-			$document.on( "menubutton", $.proxy( this, "menuButton" ) )
+			$document.on "backbutton", @backButton.bind(@)
+			$document.on "menubutton", @menuButton.bind(@)
 
-			window.onpopstate = $.proxy( this, "onPopState" )
-			$window.on( "hashchange", $.proxy( this, "onHashChange" ) )
-			$window.on( "navigate", $.proxy( this, "onNavigate" ) )
+			$document.on "pause", @pause.bind(@)
+			$document.on "resume", @resume.bind(@)
+
+			window.onpopstate = @onPopState.bind(@)
+			$window.on "hashchange", @onHashChange.bind(@)
+			$window.on "navigate", @onNavigate.bind(@)
 
 		###*
 		Unbind page events.
@@ -79,36 +82,36 @@ define "pages.PageEventsManager", ( require, exports, module ) ->
 			$window = $( window );
 
 			# Unbinding all jQuery Mobile page events
-			# $document.off( "pagebeforeload" )
-			# $document.off( "pagecontainerbeforeload" )
-			# $document.off( "pageload" )
-			# $document.off( "pagecontainerload" )
+			# $document.off "pagebeforeload"
+			# $document.off "pagecontainerbeforeload"
+			# $document.off "pageload"
+			# $document.off "pagecontainerload"
 
-			# $document.off( "pagebeforechange" )
-			# $document.off( "pagechange" )
+			# $document.off "pagebeforechange"
+			# $document.off "pagechange"
 
-			$document.off( "pagebeforecreate" )
-			$document.off( "pagecreate" )
+			$document.off "pagebeforecreate"
+			$document.off "pagecreate"
 
-			$document.off( "pagebeforeshow" )
-			$document.off( "pageshow" )
-			# $document.off( "pagecontainershow" )
+			$document.off "pagebeforeshow"
+			$document.off "pageshow"
+			# $document.off "pagecontainershow"
 
-			$document.off( "pagebeforehide" )
-			$document.off( "pagehide" )
-			# $document.off( "pagecontainerhide" )
+			$document.off "pagebeforehide"
+			$document.off "pagehide"
+			# $document.off "pagecontainerhide"
 
-			# $document.off( "pageremove" )
+			# $document.off "pageremove"
 
-			$document.off( "swipeleft" )
-			$document.off( "swiperight" )
+			$document.off "swipeleft"
+			$document.off "swiperight"
 
-			$document.off( "backbutton" )
-			$document.off( "menubutton" )
+			$document.off "backbutton"
+			$document.off "menubutton"
 
 			window.onpopstate = null
-			$window.off( "hashchange" )
-			$window.off( "navigate" )
+			$window.off "hashchange"
+			$window.off "navigate"
 
 		###*
 		Returns the page handler from the given id.
@@ -331,6 +334,12 @@ define "pages.PageEventsManager", ( require, exports, module ) ->
 			# Dispatching the event to current active page handler
 			pageHandler.swipeRight event
 
+		###*
+		Cordova only.
+		Android only.
+		Event triggered when pressing the device physical back button.
+		@param {Object} event
+		###
 		backButton: ( event ) ->
 			# "backbutton" is sent by phonegap and page independent
 			pageHandler = @currentPageHandler
@@ -338,12 +347,42 @@ define "pages.PageEventsManager", ( require, exports, module ) ->
 			# Dispatching the event to current active page handler
 			pageHandler.backButton event
 
+		###*
+		Cordova only.
+		Android only.
+		Event triggered when pressing the device physical menu button.
+		@param {Object} event
+		###
 		menuButton: ( event ) ->
 			# "menubutton" is sent by phonegap and page independent
 			pageHandler = @currentPageHandler
 
 			# Dispatching the event to current active page handler
 			pageHandler.menuButton event
+
+		###*
+		Cordova only.
+		Triggered when the application goes to background. Needs the Events plugin.
+		@param {Object} event
+		###
+		pause: ( event ) ->
+			# "pause" is sent by phonegap and page independent
+			pageHandler = @currentPageHandler
+
+			# Dispatching the event to current active page handler
+			pageHandler.pause event
+
+		###*
+		Cordova only.
+		Triggered when the application goes to foreground. Needs the Events plugin.
+		@param {Object} event
+		###
+		resume: ( event ) ->
+			# "pause" is sent by phonegap and page independent
+			pageHandler = @currentPageHandler
+
+			# Dispatching the event to current active page handler
+			pageHandler.resume event
 
 		###
 		Load first page from hash.

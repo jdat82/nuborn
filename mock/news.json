@@ -12,16 +12,16 @@
 		"title": "Person of Interest",
 		"image": "img/Person-of-Interest-saison-1-VOSTFR-640x640.jpg"
 	} ],
-	"news": [ {
+	"list": [ {
 		"id": 1,
 		"title": "Le créateur des \"Griffin\" se pointe... dans \"Les Simpson\" !",
-		"author": "",
+		"author": "Jean DAT",
 		"date": "dimanche 12 mai",
 		"image": "img/20558741.jpg"
 	}, {
 		"id": 2,
 		"title": "La chaîne américaine ABC commande 12 nouvelles séries",
-		"author": "",
+		"author": "Jimmy ROBERT",
 		"date": "samedi 11 mai",
 		"image": "img/20560689.jpg"
 	}, {

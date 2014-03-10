@@ -34,9 +34,6 @@ define "widgets.SplashScreen", ( require, exports, module ) ->
 		###
 		constructor: ( settings ) ->
 			super defaults, settings
-			@html.body = $(document.body)
-			# Inflates the splashscreen
-			@data.splashscreen = templates.splashscreen.render @settings
 
 		###*
 		Shows the splashscreen.
@@ -49,9 +46,10 @@ define "widgets.SplashScreen", ( require, exports, module ) ->
 			UIUtils.disableScroll()
 
 			# Adding the splashscreen at the end of the document body
-			@html.splashscreen = $( @data.splashscreen )
-			@html.body.append @html.splashscreen
+			UIUtils.append document.body, templates.splashscreen.render @settings
+			@html.splashscreen = document.body.querySelector "##{@settings.id}"
 
+			# Saving current time of add for minDelay feature
 			@data.showTime = window.performance.now()
 			return
 
@@ -63,24 +61,24 @@ define "widgets.SplashScreen", ( require, exports, module ) ->
 
 			log.i "SplashScreen hide" if DEBUG
 
-			destroySplashscreen = () =>
+			destroy = () =>
 				# Reactivating scroll capacity
 				UIUtils.enableScroll()
 				if  Modernizr.animationfriendly
-					@html.splashscreen.one 'webkitAnimationEnd', =>
-						@html.splashscreen.remove()
-					@html.splashscreen.addClass "hide"
+					UIUtils.one @html.splashscreen, 'webkitAnimationEnd', false, =>
+						UIUtils.remove @html.splashscreen
+					@html.splashscreen.classList.add "hide"
 				else
-					@html.splashscreen.remove()
+					UIUtils.remove @html.splashscreen
 
 			if @settings.minDelay
 				delay = window.performance.now() - @data.showTime
 				if @settings.minDelay > delay
-					setTimeout destroySplashscreen, @settings.minDelay - delay
+					setTimeout destroy, @settings.minDelay - delay
 				else
-					destroySplashscreen()
+					destroy()
 			else
-				destroySplashscreen()
+				destroy()
 
 
 
