@@ -40,7 +40,7 @@
 
                 # Removing 300 ms classic delay in mobile browsers
                 # http://updates.html5rocks.com/2013/12/300ms-tap-delay-gone-away
-                FastClick.attach document.body
+                # FastClick.attach document.body
 
                 # Configuring jQuery ajax default settings
                 $.ajaxSetup require "#ajaxSettings"
