@@ -87,7 +87,6 @@ Self executing code.
     ###
     testDone = () ->
         # Notifying listeners that the test is done
-        eventsBroker.dispatch
-            type: StressTest.EVENT_DONE
+        eventsBroker.dispatch StressTest.EVENT_DONE
 
 )()

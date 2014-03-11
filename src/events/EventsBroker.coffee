@@ -16,33 +16,37 @@ define "events.EventsBroker", ( require, exports, module ) ->
 		@constructor
 		###
 		constructor: () ->
-			@emitter = $( this )
 
 		###*
 		Emit an event <name> having the given <data> as properties.
 		@param {Object} data
 		###
-		dispatch: ( data ) ->
-			return if not data
-			@emitter.trigger $.Event data
+		dispatch: ( type, data ) ->
+			return if not type
+			if window.CustomEvent
+				event = new CustomEvent type, {detail: data}
+			else
+				event = document.createEvent 'CustomEvent'
+				event.initCustomEvent type, true, true, data
+			document.dispatchEvent event
 
 		###*
-		Register <callback> for events of type <name>
-		@param {String} name
+		Register <callback> for events of type <type>
+		@param {String} type
 		@param {Function} callback
 		###
-		on: ( name, callback ) ->
-			return if not name
-			@emitter.on name, callback
+		on: ( type, callback ) ->
+			return if not type
+			document.addEventListener type, callback, false
 
 		###*
-		Unregister <callback> for events of type <name>
-		@param {String} name
+		Unregister <callback> for events of type <type>
+		@param {String} type
 		@param {Function} callback
 		###
-		off: ( name, callback ) ->
-			return if not name
-			@emitter.off name, callback
+		off: ( type, callback ) ->
+			return if not type
+			document.removeEventListener type, callback, false
 
 
 	module.exports = EventsBroker
