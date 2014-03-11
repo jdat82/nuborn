@@ -11,7 +11,7 @@ define "widgets.Menu", ( require, exports, module ) ->
     ###*
     @class widgets.Menu
     @extends widgets.BaseMenu
-    Nuborn Kitchen Sink general menu.
+    General menu.
     ###
     class Menu extends BaseMenu
 

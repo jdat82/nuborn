@@ -126,7 +126,7 @@ module.exports = ( grunt ) ->
         Common javascript sources files for all platforms
         ###
         jsAppFiles: [
-            "gen/**/*.js" # Nuborn && App sources
+            "gen/**/*.js" # App sources
             "!gen/**/*.{async,off}.{js,min.js}" # excluding all async and off files
         ]
 
@@ -217,7 +217,7 @@ module.exports = ( grunt ) ->
                         else
                             return "" # no sourcemap in prod
                     # Define the sourcemap source attribute value (useful to map on a symbolic link)
-                    sourceMapRoot: "Nuborn"
+                    sourceMapRoot: "App"
                 files: [ {
                     "<%= platforms.web.folder %>/js/app.min.js": [
                         "<%= jsVendorsFiles %>"
@@ -235,7 +235,7 @@ module.exports = ( grunt ) ->
         Common coffee sources files for all platforms
         ###
         coffeeAppFiles: [
-            "src/**/*.coffee", # Nuborn && App sources
+            "src/**/*.coffee", # App sources
             "!src/**/*.{async,off}.coffee" # excluding all async files which will be requested manually
         ]
 
@@ -478,7 +478,7 @@ module.exports = ( grunt ) ->
             app:
                 options:
                     "builtin-classes": true
-                    "title": "Nuborn Documentation"
+                    "title": "App Documentation"
                     "footer": "Jean DAT"
                     # "tests": true
                 src: [
@@ -643,7 +643,7 @@ module.exports = ( grunt ) ->
         symlink:
             web:
                 src: "."
-                dest: "<%= platforms.web.folder %>/js/Nuborn"
+                dest: "<%= platforms.web.folder %>/js/App"
 
 
 
