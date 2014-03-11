@@ -32,6 +32,7 @@ define "pages.HomePageHandler", ( require, exports, module ) ->
 		###
 		createHtmlElements: () ->
 			super()
+			@html.refreshButton = @html.header.querySelector "#refresh-button"
 
 		###*
 		@override
@@ -40,6 +41,27 @@ define "pages.HomePageHandler", ( require, exports, module ) ->
 		pageCreate: ( event ) ->
 			super event
 			@prepareNews()
+			@handleManualRefresh()
+
+		###
+		Refresh button behavior.
+		###
+		handleManualRefresh: ->
+			onClick = =>
+				@html.refreshButton.classList.add "rotate"
+				newsManager.news(true)
+				.done (data) =>
+					@data.cards = data?.cards
+					@data.list = data?.list
+					# Replace list content
+					# todo
+					@html.refreshButton.classList.remove "rotate"
+					log.i "News refreshed manually" if DEBUG
+				.fail (error) ->
+					message.error()
+				return false
+
+			@html.refreshButton.addEventListener "click", onClick, false
 
 		###
 		Generate DOM elements based on downloaded news.

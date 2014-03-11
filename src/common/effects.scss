@@ -178,6 +178,9 @@
 //////////////////////////////////////// Rotation animations //////////////////////////////////////////
 
 
-@keyframes rotation {
+@keyframes rotate {
     to { transform: rotate(360deg); }
+}
+.animationfriendly .rotate{
+    animation: rotate 3s infinite;
 }

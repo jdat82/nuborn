@@ -59,7 +59,7 @@ define "manager.NewsManager", ( require, exports, module ) ->
                         # Saving in context and local storage
                         context.set "news", data, true
                         dfd.resolveWith this, [data]
-                    , 2000
+                    , 5000
 
                 # Ajax failure
                 .fail (error) ->

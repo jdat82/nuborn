@@ -24,8 +24,8 @@
 				"name": "users",
 				"ligatures": ""
 			},
-			"setIdx": 1,
-			"iconIdx": 113
+			"setIdx": 7,
+			"iconIdx": 0
 		},
 		{
 			"icon": {
@@ -49,8 +49,8 @@
 				"name": "menu",
 				"ligatures": ""
 			},
-			"setIdx": 1,
-			"iconIdx": 184
+			"setIdx": 7,
+			"iconIdx": 1
 		},
 		{
 			"icon": {
@@ -72,8 +72,8 @@
 				"name": "arrow-left",
 				"ligatures": ""
 			},
-			"setIdx": 1,
-			"iconIdx": 302
+			"setIdx": 7,
+			"iconIdx": 2
 		},
 		{
 			"icon": {
@@ -94,8 +94,8 @@
 				"name": "switch",
 				"ligatures": ""
 			},
-			"setIdx": 2,
-			"iconIdx": 348
+			"setIdx": 7,
+			"iconIdx": 3
 		},
 		{
 			"icon": {
@@ -117,8 +117,8 @@
 				"name": "home",
 				"ligatures": ""
 			},
-			"setIdx": 1,
-			"iconIdx": 1
+			"setIdx": 7,
+			"iconIdx": 4
 		},
 		{
 			"icon": {
@@ -141,8 +141,8 @@
 				"name": "support",
 				"ligatures": ""
 			},
-			"setIdx": 1,
-			"iconIdx": 59
+			"setIdx": 7,
+			"iconIdx": 5
 		},
 		{
 			"icon": {
@@ -163,8 +163,8 @@
 				"name": "info",
 				"ligatures": ""
 			},
-			"setIdx": 1,
-			"iconIdx": 248
+			"setIdx": 7,
+			"iconIdx": 6
 		},
 		{
 			"icon": {
@@ -188,8 +188,34 @@
 				"name": "equalizer",
 				"ligatures": ""
 			},
-			"setIdx": 1,
-			"iconIdx": 141
+			"setIdx": 7,
+			"iconIdx": 7
+		},
+		{
+			"icon": {
+				"paths": [
+					"M877.714 146.286v256q0 14.857-10.857 25.714t-25.714 10.857h-256q-24 0-33.714-22.857-9.714-22.286 8-39.429l78.857-78.857q-84.571-78.286-199.429-78.286-59.429 0-113.429 23.143t-93.429 62.571-62.571 93.429-23.143 113.429 23.143 113.429 62.571 93.429 93.429 62.571 113.429 23.143q68 0 128.571-29.714t102.286-84q4-5.714 13.143-6.857 8 0 14.286 5.143l78.286 78.857q5.143 4.571 5.429 11.714t-4.286 12.857q-62.286 75.429-150.857 116.857t-186.857 41.429q-89.143 0-170.286-34.857t-140-93.714-93.714-140-34.857-170.286 34.857-170.286 93.714-140 140-93.714 170.286-34.857q84 0 162.571 31.714t139.714 89.429l74.286-73.714q16.571-17.714 40-8 22.286 9.714 22.286 33.714z"
+				],
+				"width": 878,
+				"tags": [
+					"repeat",
+					"loop",
+					"reload",
+					"refresh",
+					"synchronize"
+				],
+				"grid": 14
+			},
+			"properties": {
+				"id": 29,
+				"order": 9,
+				"prevSize": 28,
+				"code": 58888,
+				"name": "repeat",
+				"ligatures": ""
+			},
+			"setIdx": 2,
+			"iconIdx": 29
 		}
 	],
 	"height": 1024,
