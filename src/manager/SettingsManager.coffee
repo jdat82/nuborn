@@ -4,7 +4,6 @@ define "manager.SettingsManager", ( require, exports, module ) ->
 
     $ = jQuery
     log = require "#log"
-    constants = require "#constants"
     localStorage = require "#localStorage"
     StressTest = require "widgets.StressTest"
     Utils = require "utils.Utils"
@@ -87,7 +86,7 @@ define "manager.SettingsManager", ( require, exports, module ) ->
 ###
 Shared instance.
 ###
-define "#settingsManager", ( require, exports, module ) ->
+define "manager#settings", ( require, exports, module ) ->
 
     'use strict'
 

@@ -21,6 +21,8 @@ define "pages.PageEventsManager", ( require, exports, module ) ->
 		constructor: () ->
 			@currentPageHandler = null
 			@previousPageHandler = null
+			@_defaultPageHandler = null
+			@pageHandlers = {}
 
 			# Binding page events to the manager
 			@bindPageEvents()
@@ -113,6 +115,19 @@ define "pages.PageEventsManager", ( require, exports, module ) ->
 			$window.off "hashchange"
 			$window.off "navigate"
 
+		###
+		Register a new page handler that listen to a specific hash.
+		###
+		registerPageHandler: (pageHandler) ->
+			return if not pageHandler
+			id = pageHandler.settings.id
+			if not id
+				log.w "Page handler subscription not accepted ; invalid id: '#{id}'" if WARN
+				return
+			@pageHandlers[id] = pageHandler
+			if pageHandler.settings.default
+				@_defaultPageHandler = pageHandler
+
 		###*
 		Returns the page handler from the given id.
 		@param  {String} id
@@ -122,7 +137,7 @@ define "pages.PageEventsManager", ( require, exports, module ) ->
 
 			return if not id
 
-			pageHandler = require "##{id}"
+			pageHandler = @pageHandlers[id]
 
 			if !pageHandler
 				return log.w "No page handler for page '#{id}' !"
@@ -437,7 +452,8 @@ define "pages.PageEventsManager", ( require, exports, module ) ->
 					return true
 
 			DEBUG && log.i "Intercepted hash link: ##{hash.name}"
-			pageHandler = require "##{hash.name}"
+			debugger;
+			pageHandler = @pageHandlers[hash.name]
 
 			if pageHandler
 				pageHandler.navigate

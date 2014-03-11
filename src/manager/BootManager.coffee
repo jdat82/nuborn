@@ -7,9 +7,9 @@ define "manager.BootManager", ( require, exports, module ) ->
     Manager = require "manager.Manager"
     Utils = require "utils.Utils"
     UIUtils = require "utils.UIUtils"
-    message = require "#message"
+    messageWidget = require "widgets#message"
     StressTest = require "widgets.StressTest"
-    settingsManager = require "#settingsManager"
+    settingsManager = require "manager#settings"
 
     ###*
     @class manager.BootManager
@@ -50,7 +50,7 @@ define "manager.BootManager", ( require, exports, module ) ->
 
     # Boot failed
     fail = ( deferred, result ) ->
-        message.error()
+        messageWidget.error()
         log.e "Oops... Something went wrong: ", result
         UIUtils.hideSplashScreen()
         deferred.rejectWith( result )
@@ -62,7 +62,7 @@ define "manager.BootManager", ( require, exports, module ) ->
 ###
 Shared instance
 ###
-define "#bootManager", ( require, exports, module ) ->
+define "manager#boot", ( require, exports, module ) ->
 
     'use strict'
 

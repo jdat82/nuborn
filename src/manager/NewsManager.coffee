@@ -115,7 +115,7 @@ define "manager.NewsManager", ( require, exports, module ) ->
 ###
 Shared instance
 ###
-define "#newsManager", ( require, exports, module ) ->
+define "manager#news", ( require, exports, module ) ->
 
     'use strict'
 

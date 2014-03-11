@@ -4,7 +4,7 @@ define "widgets.Offline", ( require, exports, module ) ->
 
     $ = jQuery
     log = require "#log"
-    message = require "#message"
+    messageWidget = require "widgets#message"
     NetworkUtils = require "utils.NetworkUtils"
 
 
@@ -32,7 +32,7 @@ define "widgets.Offline", ( require, exports, module ) ->
         log.i "Network Available : #{isNetworkAvailable}" if DEBUG
         log.i "Event: #{event.type}" if TRACE
 
-        if isNetworkAvailable then message.hide() else message.offline()
+        if isNetworkAvailable then messageWidget.hide() else messageWidget.offline()
 
 
     module.exports = Offline
@@ -40,7 +40,7 @@ define "widgets.Offline", ( require, exports, module ) ->
 ###
 Shared instance.
 ###
-define "#offlineWidget", ( require, exports, module ) ->
+define "widgets#offline", ( require, exports, module ) ->
 
     'use strict'
 

@@ -4,7 +4,7 @@ define "pages.OfflinePageHandler", ( require, exports, module ) ->
 
 	$ = jQuery
 	AppPageHandler = require "pages.AppPageHandler"
-	message = require "#message"
+	messageWidget = require "widgets#message"
 	log = require "#log"
 
 	###
@@ -29,17 +29,17 @@ define "pages.OfflinePageHandler", ( require, exports, module ) ->
 			DEBUG && log.i "No network"
 
 			# Showing the no network widget
-			message.offline()
+			messageWidget.offline()
 
 			# If network come back, redirecting to home page
 			document.addEventListener "online", () ->
 
 				# Showing the loading widget
-				message.loading()
+				messageWidget.loading()
 
 				# Relaunching boot process
-				require( "#bootManager" ).boot().done ->
-					require( "#home" ).navigate()
+				require( "manager#boot" ).boot().done ->
+					require( "pages#home" ).navigate()
 
 			, false
 
@@ -51,3 +51,12 @@ define "pages.OfflinePageHandler", ( require, exports, module ) ->
 
 	module.exports = OfflinePageHandler
 
+define "pages#offline", ( require, exports, module ) ->
+
+    OfflinePageHandler = require "pages.OfflinePageHandler"
+
+    ###
+    @property {pages.OfflinePageHandler}
+    Instance of a page handler for the offline page.
+    ###
+    module.exports = new OfflinePageHandler()

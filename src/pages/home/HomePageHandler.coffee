@@ -7,8 +7,8 @@ define "pages.HomePageHandler", ( require, exports, module ) ->
 	AppPageHandler = require "pages.AppPageHandler"
 	Utils = require "utils.Utils"
 	UIUtils = require "utils.UIUtils"
-	newsManager = require "#newsManager"
-	message = require "#message"
+	newsManager = require "manager#news"
+	messageWidget = require "widgets#message"
 
 	###*
 	@class pages.HomePageHandler
@@ -25,6 +25,7 @@ define "pages.HomePageHandler", ( require, exports, module ) ->
 			super
 				id: "home"
 				singleton: true
+				default: true
 
 		###*
 		@override
@@ -58,7 +59,7 @@ define "pages.HomePageHandler", ( require, exports, module ) ->
 					@html.refreshButton.classList.remove "rotate"
 					log.i "News refreshed manually" if DEBUG
 				.fail (error) ->
-					message.error()
+					messageWidget.error()
 				return false
 
 			@html.refreshButton.addEventListener "click", onClick, false
@@ -128,7 +129,17 @@ define "pages.HomePageHandler", ( require, exports, module ) ->
 				super options
 
 			.fail (error) ->
-				message.error()
+				messageWidget.error()
 
 	module.exports = HomePageHandler
 
+
+define "pages#home", ( require, exports, module ) ->
+
+    HomePageHandler = require "pages.HomePageHandler"
+
+    ###
+    @property {pages.HomePageHandler}
+    Instance of a page handler for the home page.
+    ###
+    module.exports = new HomePageHandler()

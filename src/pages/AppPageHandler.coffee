@@ -5,8 +5,8 @@ define "pages.AppPageHandler", ( require, exports, module ) ->
     $ = jQuery
     log = require "#log"
     PageHandler = require "pages.PageHandler"
-    menu = require "#menu"
-    message = require "#message"
+    menu = require "widgets#menu"
+    message = require "widgets#message"
 
     ###*
     @class pages.AppPageHandler
@@ -21,8 +21,8 @@ define "pages.AppPageHandler", ( require, exports, module ) ->
         ###
         createHtmlElements: () ->
             super()
-            @html.menuButton = @html.header.querySelector "#menu-button"
-            @html.backButton = @html.header.querySelector "#back-button"
+            @html.menuButton = @html.header?.querySelector "#menu-button"
+            @html.backButton = @html.header?.querySelector "#back-button"
 
         ###*
         @override

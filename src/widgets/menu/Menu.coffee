@@ -41,3 +41,17 @@ define "widgets.Menu", ( require, exports, module ) ->
 
     module.exports = Menu
 
+
+###
+Shared instance of the menu
+###
+define "widgets#menu", ( require, exports, module ) ->
+
+    Menu = require "widgets.Menu"
+
+    ###*
+    @property {widgets.Menu}
+    Global me
+    ###
+    module.exports = new Menu
+        id: "menu"

@@ -49,3 +49,13 @@ define "widgets.InAppWebView", ( require, exports, module ) ->
 
     module.exports = InAppWebView
 
+
+###
+Shared instance of the widget.
+###
+define "widgets#inAppWebView", ( require, exports, module ) ->
+
+    'use strict'
+
+    InAppWebView = require "widgets.InAppWebView"
+    module.exports = new InAppWebView()

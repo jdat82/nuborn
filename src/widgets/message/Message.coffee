@@ -142,7 +142,7 @@ define "widgets.Message", ( require, exports, module ) ->
 ###
 Shared instance.
 ###
-define "#message", ( require, exports, module ) ->
+define "widgets#message", ( require, exports, module ) ->
 
     'use strict'
 

@@ -5,8 +5,8 @@ define "pages.DetailPageHandler", ( require, exports, module ) ->
 	$ = jQuery
 	log = require "#log"
 	AppPageHandler = require "pages.AppPageHandler"
-	message = require "#message"
-	newsManager = require "#newsManager"
+	messageWidget = require "widgets#message"
+	newsManager = require "manager#news"
 	Utils = require "utils.Utils"
 
 	###*
@@ -30,7 +30,7 @@ define "pages.DetailPageHandler", ( require, exports, module ) ->
 		navigate: (options) ->
 			if not options?.urlParams
 				log.e "Mandatory argument 'newsId' not found"
-				message.error "News non trouvée"
+				messageWidget.error "News non trouvée"
 				return
 
 			newsId = options.urlParams.newsId
@@ -42,8 +42,19 @@ define "pages.DetailPageHandler", ( require, exports, module ) ->
 				super options
 
 			.fail (error) =>
-				message.error error
+				messageWidget.error error
 
 
 	module.exports = DetailPageHandler
 
+###
+Shared instance.
+###
+define "pages#detail", ( require, exports, module ) ->
+
+    DetailPageHandler = require "pages.DetailPageHandler"
+
+    ###
+    Instance of a page handler for the detail page.
+    ###
+    module.exports = new DetailPageHandler()

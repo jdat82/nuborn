@@ -8,7 +8,7 @@ define "widgets.SplashScreen", ( require, exports, module ) ->
 	UIUtils = require "utils.UIUtils"
 	Base = require "common.Base"
 	Constants = require "common.Constants"
-	settingsManager = require "#settingsManager"
+	settingsManager = require "manager#settings"
 
 
 
@@ -88,7 +88,7 @@ define "widgets.SplashScreen", ( require, exports, module ) ->
 ###
 Shared instance
 ###
-define "#splashscreen", ( require, exports, module ) ->
+define "widgets#splashscreen", ( require, exports, module ) ->
 
 	'use strict'
 

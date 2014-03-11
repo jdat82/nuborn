@@ -26,3 +26,12 @@ define "pages.LegalNoticesPageHandler", ( require, exports, module ) ->
 
 	module.exports = LegalNoticesPageHandler
 
+define "pages#legalNotices", ( require, exports, module ) ->
+
+    LegalNoticesPageHandler = require "pages.LegalNoticesPageHandler"
+
+    ###
+    @property {pages.LegalNoticesPageHandler}
+    Instance of a page handler for the legal notices page.
+    ###
+    module.exports = new LegalNoticesPageHandler()

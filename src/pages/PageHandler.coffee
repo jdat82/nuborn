@@ -39,6 +39,9 @@ define "pages.PageHandler", ( require, exports, module ) ->
             # Default state is hidden
             @data.visible = false
 
+            # Enregistrement du page handler
+            pagesManager.registerPageHandler @
+
         ###*
         Called for the pagebeforecreate event. <br/>
         Also register page into HTML elements.

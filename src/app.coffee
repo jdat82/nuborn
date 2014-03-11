@@ -52,16 +52,16 @@
                 BrowserUtils.decorateDOMWithBrowserClass()
 
                 # Starting the notification manager
-                require "#notificationManager"
+                require "manager#notification"
 
                 # Loading the global menu
-                require "#menu"
+                require "widgets#menu"
 
                 # Open external links in a new web view
-                require( "#inAppWebView" ).listenForExternalLinks()
+                require( "widgets#inAppWebView" ).listenForExternalLinks()
 
                 # Loading the home page handler
-                homePage = require "#home"
+                homePage = require "pages#home"
 
                 # Defining default page handler
                 pagesManager.defaultPageHandler homePage
@@ -69,14 +69,14 @@
                 # Redirecting to the offline page if no network
                 # Implies application don't handle an offline mode
                 if not NetworkUtils.isNetworkAvailable()
-                    require( "#offline" ).navigate();
+                    require( "pages#offline" ).navigate();
                 else
                     # Watch for online/offline events
-                    offlineWidget = require "#offlineWidget"
+                    offlineWidget = require "widgets#offline"
                     offlineWidget.watch()
 
                     # Loading mandatory data before going to first page
-                    require( "#bootManager" ).boot().done ->
+                    require( "manager#boot" ).boot().done ->
                         # First page loading
                         pagesManager.startFromHash()
 

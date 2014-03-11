@@ -88,7 +88,7 @@ define "utils.UIUtils", ( require, exports, module ) ->
             if BrowserUtils.isCordova() and navigator.splashscreen
                 navigator.splashscreen.show()
             else
-                splashscreen = require "#splashscreen"
+                splashscreen = require "widgets#splashscreen"
                 splashscreen?.show()
 
         ###*
@@ -100,7 +100,7 @@ define "utils.UIUtils", ( require, exports, module ) ->
             if BrowserUtils.isCordova() && navigator.splashscreen
                 navigator.splashscreen.hide()
             else
-                splashscreen = require "#splashscreen"
+                splashscreen = require "widgets#splashscreen"
                 splashscreen?.hide()
 
         ###*

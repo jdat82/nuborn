@@ -104,7 +104,7 @@ define "manager.NotificationManager", ( require, exports, module ) ->
 ###
 The shared instance
 ###
-define "#notificationManager", ( require, exports, module ) ->
+define "manager#notification", ( require, exports, module ) ->
 
     'use strict'
 

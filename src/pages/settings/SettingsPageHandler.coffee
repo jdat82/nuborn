@@ -7,8 +7,8 @@ define "pages.SettingsPageHandler", ( require, exports, module ) ->
 	settingsManager = require "#settingsManager"
 	AppPageHandler = require "pages.AppPageHandler"
 	context = require "#context"
-	message = require "#message"
-	bootManager = require "#bootManager"
+	messageWidget = require "widgets#message"
+	bootManager = require "manager#boot"
 
 	###*
 	@class pages.SettingsPageHandler
@@ -61,12 +61,12 @@ define "pages.SettingsPageHandler", ( require, exports, module ) ->
 			# Handling change event
 			@html.resetButton.addEventListener "click", ->
 				# Tempo
-				message.message "Réinitialisation de vos préférences..."
+				messageWidget.message "Réinitialisation de vos préférences..."
 				# Clearing the context
 				context.clear()
 				# Relaunching boot process
 				bootManager.boot().done ->
-					require( "#home" ).navigate()
+					require( "pages#home" ).navigate()
 			, false
 
 		navigate: (options) ->
@@ -75,3 +75,13 @@ define "pages.SettingsPageHandler", ( require, exports, module ) ->
 
 	module.exports = SettingsPageHandler
 
+
+define "pages#settings", ( require, exports, module ) ->
+
+    SettingsPageHandler = require "pages.SettingsPageHandler"
+
+    ###
+    @property {pages.SettingsPageHandler} settings
+    Instance of a page handler for the settings page.
+    ###
+    module.exports = new SettingsPageHandler()
