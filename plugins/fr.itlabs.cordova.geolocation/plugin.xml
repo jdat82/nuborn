@@ -5,7 +5,7 @@
     version="0.0.1">
 
     <engines>
-        <engine name="cordova" version="3.3.0" />
+        <engine name="cordova" version="3.x.x" />
     </engines>
 
     <!--<js-module src="www/LastPosition.js" name="LastPosition">

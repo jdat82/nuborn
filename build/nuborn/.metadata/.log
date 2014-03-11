@@ -290,3 +290,16 @@ Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product com.android.
 
 !ENTRY com.android.ide.eclipse.adt 4 0 2014-03-09 13:07:40.368
 !MESSAGE projectOpenedWithWorkspace: failed to find manifest package for project Nuborn
+!SESSION 2014-03-11 11:04:35.591 -----------------------------------------------
+eclipse.buildId=v22.3.0-887826
+java.version=1.7.0_45
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=fr_FR
+Framework arguments:  -product com.android.ide.eclipse.adt.package.product -keyring /Users/J2AN/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product com.android.ide.eclipse.adt.package.product -keyring /Users/J2AN/.eclipse_keyring -showlocation
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-11 11:04:44.580
+!MESSAGE projectOpenedWithWorkspace: failed to find manifest package for project Nuborn
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-11 11:04:44.587
+!MESSAGE projectOpenedWithWorkspace: failed to find manifest package for project null-CordovaLib
