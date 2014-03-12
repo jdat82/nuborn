@@ -452,7 +452,6 @@ define "pages.PageEventsManager", ( require, exports, module ) ->
 					return true
 
 			DEBUG && log.i "Intercepted hash link: ##{hash.name}"
-			debugger;
 			pageHandler = @pageHandlers[hash.name]
 
 			if pageHandler

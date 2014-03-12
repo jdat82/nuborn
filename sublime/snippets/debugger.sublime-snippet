@@ -1,6 +1,6 @@
 <snippet>
     <content><![CDATA[
-debugger;
+debugger
 ]]></content>
     <tabTrigger>debugger</tabTrigger>
     <description>Debugger instruction</description>

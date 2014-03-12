@@ -4,7 +4,7 @@ define "pages.SettingsPageHandler", ( require, exports, module ) ->
 
 	$ = jQuery
 	log = require "#log"
-	settingsManager = require "#settingsManager"
+	settingsManager = require "manager#settings"
 	AppPageHandler = require "pages.AppPageHandler"
 	context = require "#context"
 	messageWidget = require "widgets#message"

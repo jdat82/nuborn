@@ -52,6 +52,14 @@
         return modules[ id ].exports;
     };
 
+    requireWithPattern = function ( pattern ) {
+        var results = {};
+        for ( var id in modules )
+            if ( pattern.test( id ) )
+                results[ id ] = require( id );
+        return results;
+    };
+
     define = function ( id, factory ) {
         if ( modules[ id ] ) {
             throw "module " + id + " already defined";

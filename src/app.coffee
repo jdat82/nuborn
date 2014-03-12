@@ -95,6 +95,9 @@
 
         app = require "app"
 
+        # Preloading all page handlers to be ready for hash events
+        requireWithPattern /pages#/
+
         # Pure web
         if !BrowserUtils.isCordova()
             log.i "Used as a Web App"
