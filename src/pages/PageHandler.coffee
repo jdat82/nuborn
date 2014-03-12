@@ -3,7 +3,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
     'use strict'
 
     $ = jQuery
-    pagesManager = require "#pagesManager"
+    pagesManager = require "manager#pages"
     Utils = require "utils.Utils"
     NetworkUtils = require "utils.NetworkUtils"
     UIUtils = require "utils.UIUtils"

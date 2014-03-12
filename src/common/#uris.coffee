@@ -2,14 +2,14 @@ define "#uris", ( require, exports, module ) ->
 
     'use strict'
 
-    UriManager = require "common.UriManager"
+    UriManager = require "manager.UriManager"
 
     getCurrentHost = () ->
         return "#{location.protocol}//#{location.host}"
 
     ###*
     Declaration of all urls used in the application.
-    @property {common.UriManager} uris
+    @property {manager.UriManager} uris
     @member app
     ###
     uris = new UriManager

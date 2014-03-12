@@ -1,4 +1,4 @@
-define "pages.PageEventsManager", ( require, exports, module ) ->
+define "manager.PagesManager", ( require, exports, module ) ->
 
 	'use strict'
 
@@ -8,11 +8,11 @@ define "pages.PageEventsManager", ( require, exports, module ) ->
 	NetworkUtils = require "utils.NetworkUtils"
 
 	###*
-	@class pages.PageEventsManager
+	@class manager.PagesManager
 	Page events manager Class. <br/>
 	Used to dispatch jQuery Mobile page events.
 	###
-	class PageEventsManager
+	class PagesManager
 
 		###*
 		@constructor
@@ -485,15 +485,15 @@ define "pages.PageEventsManager", ( require, exports, module ) ->
 
 
 
-	module.exports = PageEventsManager
+	module.exports = PagesManager
 
 
 ###
 Shared instance.
 ###
-define "#pagesManager", ( require, exports, module ) ->
+define "manager#pages", ( require, exports, module ) ->
 
 	'use strict'
 
-	PageEventsManager = require "pages.PageEventsManager"
-	module.exports = new PageEventsManager
+	PagesManager = require "manager.PagesManager"
+	module.exports = new PagesManager

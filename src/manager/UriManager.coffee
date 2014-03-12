@@ -1,5 +1,5 @@
 
-define "common.UriManager", ( require, exports, module ) ->
+define "manager.UriManager", ( require, exports, module ) ->
 
     'use strict'
 
@@ -19,7 +19,7 @@ define "common.UriManager", ( require, exports, module ) ->
 
 
     ###*
-    @class common.UriManager
+    @class manager.UriManager
     Manage all URI in the entire application.
     Functionnalities :
     - Allows to declare several hosts which can be used singularly per service

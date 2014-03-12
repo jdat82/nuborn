@@ -15,7 +15,7 @@
         NetworkUtils = require "utils.NetworkUtils"
 
         # Page events manager
-        pagesManager = require "#pagesManager"
+        pagesManager = require "manager#pages"
 
         ###*
         @class app
