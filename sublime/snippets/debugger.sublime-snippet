@@ -4,5 +4,5 @@ debugger
 ]]></content>
     <tabTrigger>debugger</tabTrigger>
     <description>Debugger instruction</description>
-    <scope>source.coffee</scope>
+    <scope>source.coffee, source.js</scope>
 </snippet>

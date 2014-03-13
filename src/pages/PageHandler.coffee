@@ -350,7 +350,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
                     @data.isFirst = true
                     PageHandler.JQMInitialized = true
                     changePage = ->
-                        log.i "First page is: #{pageId}" if DEBUG
+                        log.i "First page is: ##{pageId}" if DEBUG
                         $.mobile.initializePage()
                 else
                     changePage = ->

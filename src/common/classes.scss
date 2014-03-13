@@ -10,7 +10,7 @@
   * Hardware acceleration.
   */
  .ha {
-    @include transform3d(translateZ(0));
+    transform: translateZ(0);
  }
 
 /**
@@ -25,27 +25,6 @@
  */
 .pr {
 	position:relative;
-}
-
-/**
- * Float right.
- */
-.fr {
-	float:right;
-}
-
-/**
- * Float left.
- */
-.fl {
-	float:left;
-}
-
-/**
- * Clear both.
- */
-.cb {
-	clear:both;
 }
 
 /**
@@ -69,13 +48,6 @@
 	display: none;
 }
 
-/**
- * Overflow hidden.
- */
-.ovhid {
-	overflow:hidden;
-}
-
 .fullwidth {
 	width:100%;
 }
@@ -87,14 +59,7 @@
 .fullscreen {
 	position: fixed;
   top: 0; left: 0; bottom: 0; right: 0;
-}
-
-.vam {
-	vertical-align: middle;
-}
-
-.tac {
-	text-align: center;
+  width: 100%; height: 100%;
 }
 
 .ellipsis {
@@ -126,7 +91,6 @@
  * Don't forget to set a height on the block.
  */
 .absolute-center {
-  overflow: auto;
   margin: auto;
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
