@@ -51,7 +51,7 @@ define "widgets.Message", ( require, exports, module ) ->
             render = () =>
 
                 # Adding to the DOM
-                log.i "Showing the message widget with template: #{settings.templateId}" if DEBUG
+                log.d "Showing the message widget with template: #{settings.templateId}" if DEBUG
 
                 # Adding to the DOM
                 @html.body.append @html.widget
@@ -111,7 +111,7 @@ define "widgets.Message", ( require, exports, module ) ->
             clearTimeout @renderingTimeout
             clearTimeout @autoHideTimeout
 
-            log.i "Hiding the message widget if any"
+            log.d "Hiding the message widget if any" if DEBUG
 
             # Little effect for modern devices
             $.mobile.activePage?.removeClass "blur-grayscale"

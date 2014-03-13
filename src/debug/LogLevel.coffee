@@ -7,9 +7,11 @@ define "debug.LogLevel", ( require, exports, module ) ->
 	Enumeration of log levels.
 	###
 	LogLevel =
-		INFO: "INFO",
-		WARN: "WARN",
-		ERROR: "ERROR",
+		TRACE: "TRACE"
+		DEBUG: "DEBUG"
+		INFO: "INFO"
+		WARN: "WARN"
+		ERROR: "ERROR"
 		NOLOG: "NOLOG"
 
 	module.exports = LogLevel

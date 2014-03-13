@@ -21,12 +21,13 @@ define "pages.OfflinePageHandler", ( require, exports, module ) ->
 		constructor: () ->
 			super
 				id: "offline"
+				exitOnBack: true
 
 		pageShow: ( event, data ) ->
 
 			super event, data
 
-			DEBUG && log.i "No network"
+			log.i "No network" if INFO
 
 			# Showing the no network widget
 			messageWidget.offline()
@@ -42,11 +43,6 @@ define "pages.OfflinePageHandler", ( require, exports, module ) ->
 					require( "pages#home" ).navigate()
 
 			, false
-
-		backButton: ( event ) ->
-			super event
-			log.i "Exiting app"
-			if navigator.app?.exitApp then navigator.exitApp()
 
 
 	module.exports = OfflinePageHandler

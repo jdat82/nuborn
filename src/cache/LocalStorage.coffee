@@ -25,7 +25,7 @@ define "cache.LocalStorage", ( require, exports, module ) ->
 			# Saving the stringify result into local storage
 			localStorage.setItem key, string
 			log = require "#log"
-			log.i "Key '#{key}' saved in local storage" if DEBUG
+			log.d "Key '#{key}' saved in local storage" if DEBUG
 
 		###*
 		Gets the previously saved object with the specified key.
@@ -60,7 +60,7 @@ define "cache.LocalStorage", ( require, exports, module ) ->
 			return if !key
 			localStorage.removeItem key
 			log = require "#log"
-			log.i "Key '#{key}' removed from local storage" if DEBUG
+			log.d "Key '#{key}' removed from local storage" if DEBUG
 
 		###*
 		Search all keys matching <pattern> for removal.
@@ -74,7 +74,7 @@ define "cache.LocalStorage", ( require, exports, module ) ->
 				matchingKeys.forEach ( key ) ->
 					localStorage.removeItem( key )
 					log = require "#log"
-					log.i "Removed key '#{key}' in local storage" if DEBUG
+					log.d "Removed key '#{key}' in local storage" if DEBUG
 
 
 
@@ -95,7 +95,7 @@ define "cache.LocalStorage", ( require, exports, module ) ->
 			object = string
 
 		log = require "#log"
-		log.i "Found key '#{key}' in local storage" if DEBUG
+		log.d "Found key '#{key}' in local storage" if DEBUG
 
 		return object
 

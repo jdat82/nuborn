@@ -30,7 +30,7 @@ define "widgets.InAppWebView", ( require, exports, module ) ->
         openExternalLink: ( link ) ->
             href = link.href
             target = link.target
-            log.i "Opening #{href} in a new web view" if DEBUG
+            log.d "Opening #{href} in a new web view" if DEBUG
             if ANDROID
                 window.open href, target, "location=yes,closebuttoncaption=Fermer"
             else
@@ -48,7 +48,6 @@ define "widgets.InAppWebView", ( require, exports, module ) ->
 
 
     module.exports = InAppWebView
-
 
 ###
 Shared instance of the widget.

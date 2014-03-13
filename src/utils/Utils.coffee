@@ -46,7 +46,7 @@ define "utils.Utils", ( require, exports, module ) ->
 				if 'https:' == window.location.protocol then protocol = 'https' else protocol = 'http'
 				lr.src = "#{protocol}://#{hostname}:#{LIVERELOAD_PORT}/livereload.js"
 
-				DEBUG && log.i "Installing Livereload script at: #{lr.src}"
+				log.d "Installing Livereload script at: #{lr.src}" if DEBUG
 
 				lr.type = 'text/javascript'
 				lr.async = 'true'
@@ -65,7 +65,7 @@ define "utils.Utils", ( require, exports, module ) ->
 				if 'https:' == window.location.protocol then protocol = 'https' else protocol = 'http'
 				lr.src = "#{protocol}://#{hostname}:#{WEINRE_PORT}/target/target-script-min.js#weinre"
 
-				DEBUG && log.i "Installing Weinre script at: #{lr.src}"
+				log.d "Installing Weinre script at: #{lr.src}" if DEBUG
 
 				lr.type = 'text/javascript'
 				lr.async = 'true'

@@ -23,10 +23,10 @@ define "manager.NotificationManager", ( require, exports, module ) ->
         reset: ->
 
             if !window.PushNotification
-                log.i "Detected zero push mechanism" if DEBUG
+                log.d "Detected zero push mechanism" if DEBUG
                 return
 
-            log.i "Detected Urban Airship push mechanism" if DEBUG
+            log.d "Detected Urban Airship push mechanism" if DEBUG
 
             # Handle resume
             document.removeEventListener "resume", onResume, false
@@ -45,9 +45,9 @@ define "manager.NotificationManager", ( require, exports, module ) ->
 
             PushNotification.setVibrateEnabled true, ( status ) ->
                 if status is "OK"
-                    log.i "Enabled vibration for incoming push" if DEBUG
+                    log.d "Enabled vibration for incoming push" if DEBUG
                 else
-                    log.i "Vibration not enabled for incoming push " if DEBUG
+                    log.d "Vibration not enabled for incoming push " if DEBUG
 
             # Register for notification types
             PushNotification.registerForNotificationTypes(
@@ -67,23 +67,23 @@ define "manager.NotificationManager", ( require, exports, module ) ->
     # Incoming message callback
     handleIncomingPush = ( event ) ->
         if event.message
-            log.i "Incoming push with message: #{event.message} and extras: #{Utils.toJSON event.extras}" if DEBUG
+            log.d "Incoming push with message: #{event.message} and extras: #{Utils.toJSON event.extras}" if DEBUG
         else
-            log.i "No incoming push" if DEBUG
+            log.d "No incoming push" if DEBUG
 
     # Registration callback
     onRegistration = ( event ) ->
         if !event.error
-            log.i "Urban Airship registration succeeded: #{event.pushID}" if DEBUG
+            log.d "Urban Airship registration succeeded: #{event.pushID}" if DEBUG
         else
-            log.i "Urban Airship registration failed with error: #{event.error}" if DEBUG
+            log.d "Urban Airship registration failed with error: #{event.error}" if DEBUG
 
     registerTags = ->
         # someTag = "someTag"
         # PushNotification.setTags [ someTag ], ->
 
     onResume = ->
-        log.i "Application has gone to foreground" if DEBUG
+        log.d "Application has gone to foreground" if DEBUG
         PushNotification.resetBadge()
         PushNotification.getIncoming handleIncomingPush
         # Reregister for urbanairship events if they were removed in pause event
@@ -92,7 +92,7 @@ define "manager.NotificationManager", ( require, exports, module ) ->
         registerTags()
 
     onPause = ->
-        log.i "Application has gone to background" if DEBUG
+        log.d "Application has gone to background" if DEBUG
         # Remove urbanairship events.  Important on android to not receive push in the background.
         document.removeEventListener "urbanairship.registration", onRegistration, false
         document.removeEventListener "urbanairship.push", handleIncomingPush, false

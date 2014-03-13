@@ -71,7 +71,7 @@ define "utils.UIUtils", ( require, exports, module ) ->
         ###
         @refreshPage = ( pageId ) ->
             pageId = pageId || $.mobile.activePage.attr "id"
-            DEBUG && log.i "Refreshing page: #{pageId}"
+            log.d "Refreshing page: #{pageId}" if DEBUG
             $.mobile.changePage "##{pageId}",
                 allowSamePageTransition: true
                 transition: 'none'

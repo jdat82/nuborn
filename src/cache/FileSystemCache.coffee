@@ -70,11 +70,11 @@ define "cache.FileSystemCache", ( require, exports, module ) ->
             if ANDROID
                 filePath = filePath.replace "file://", ""
 
-            log.i "filePath: #{filePath}" if TRACE
+            log.t "filePath: #{filePath}" if TRACE
 
             fileDoesntExists = ( error ) ->
 
-                log.i "Resource with key '#{key}' not in file system" if DEBUG
+                log.d "Resource with key '#{key}' not in file system" if DEBUG
 
                 if settings.skipDownload
                     dfd.resolve()
@@ -87,7 +87,7 @@ define "cache.FileSystemCache", ( require, exports, module ) ->
                         url,
                         filePath,
                         ( entry ) ->
-                            log.i "Download complete: #{entry.fullPath}" if DEBUG
+                            log.d "Download complete: #{entry.fullPath}" if DEBUG
                             # Returning a local URI
                             dfd.resolveWith entry.fullPath
                         ,
@@ -101,7 +101,7 @@ define "cache.FileSystemCache", ( require, exports, module ) ->
                     )
 
             fileExists = ( fileEntry ) ->
-                log.i "A copy of media #{key} already in cache (file system)" if DEBUG
+                log.d "A copy of media #{key} already in cache (file system)" if DEBUG
                 # Returning a local URI
                 dfd.resolveWith fileEntry.fullPath
 
@@ -126,7 +126,7 @@ define "cache.FileSystemCache", ( require, exports, module ) ->
             # Keeping a reference to our file system
             rootFS = fileSystem.root
 
-            log.i "FileSystem root: #{rootFS.fullPath}" if DEBUG
+            log.d "FileSystem root: #{rootFS.fullPath}" if DEBUG
 
         , ( error ) ->
             logFileError error, "Error getting LocalFileSystem: "

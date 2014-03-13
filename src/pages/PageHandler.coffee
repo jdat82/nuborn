@@ -48,7 +48,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
         @param  {Object} event
         ###
         pageBeforeCreate: ( event ) ->
-            log.i "page before create of '#{@settings.id}'" if DEBUG
+            log.d "page before create of '#{@settings.id}'" if DEBUG
 
             # Calling #createHtmlElements
             this.createHtmlElements();
@@ -69,7 +69,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
         @param  {Object} event
         ###
         pageCreate: ( event ) ->
-            log.i "page create of '#{@settings.id}'" if DEBUG
+            log.d "page create of '#{@settings.id}'" if DEBUG
 
         ###*
         Called for the pagebeforehide event.
@@ -77,7 +77,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
         @param  {Object} data
         ###
         pageBeforeHide: ( event, data ) ->
-            log.i "page before hide of '#{@settings.id}'" if DEBUG
+            log.d "page before hide of '#{@settings.id}'" if DEBUG
 
         ###*
         Called for the pagehide event.
@@ -87,7 +87,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
         @param  {Object} data
         ###
         pageHide: ( event, data ) ->
-            log.i "page hide of '#{@settings.id}'" if DEBUG
+            log.d "page hide of '#{@settings.id}'" if DEBUG
 
             @data.visible = false
             if !@settings.singleton
@@ -103,7 +103,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
         @param  {Object} data
         ###
         pageBeforeShow: ( event, data ) ->
-            log.i "page before show of '#{@settings.id}'" if DEBUG
+            log.d "page before show of '#{@settings.id}'" if DEBUG
 
         ###*
         Called for the pageshow event.
@@ -111,10 +111,10 @@ define "pages.PageHandler", ( require, exports, module ) ->
         @param  {Object} data
         ###
         pageShow: ( event, data ) ->
-            log.i "page show of '#{@settings.id}'" if DEBUG
+            log.d "page show of '#{@settings.id}'" if DEBUG
             @data.visible = true
             if @data.isFirst
-                log.i "First page handler ever: hiding splashscreen" if DEBUG
+                log.d "First page handler ever: hiding splashscreen" if DEBUG
                 delete @data.isFirst
                 UIUtils.hideSplashScreen()
 
@@ -124,7 +124,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
         @param  {Object} data
         ###
         pageBeforeChange: ( event, data ) ->
-            log.i "page before change of '#{@settings.id}'" if DEBUG
+            log.d "page before change of '#{@settings.id}'" if DEBUG
 
         ###*
         Called for the pagechange event.
@@ -132,7 +132,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
         @param  {Object} data
         ###
         # pageChange: ( event, data ) ->
-        #     log.i "page change of '#{@settings.id}'" if DEBUG
+        #     log.d "page change of '#{@settings.id}'" if DEBUG
 
         ###*
         Called for the pagebeforeload event.
@@ -140,7 +140,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
         @param  {Object} data
         ###
         pageBeforeLoad: ( event, data ) ->
-            log.i "page before load of '#{@settings.id}'" if DEBUG
+            log.d "page before load of '#{@settings.id}'" if DEBUG
 
         ###*
         Called for the pageLoad event.
@@ -148,7 +148,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
         @param  {Object} data
         ###
         # pageLoad: ( event, data ) ->
-        #     log.i "page load of '#{@settings.id}'" if DEBUG
+        #     log.d "page load of '#{@settings.id}'" if DEBUG
 
         ###*
         Called for the pageremove event. <br/>
@@ -158,7 +158,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
         @param  {Object} data
         ###
         # pageRemove: ( event, data ) ->
-        #     log.i "page remove of '#{@settings.id}'" if DEBUG
+        #     log.d "page remove of '#{@settings.id}'" if DEBUG
 
         ###*
         Called for the swipeleft event. <br/>
@@ -166,7 +166,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
         @param  {Object} data
         ###
         swipeLeft: ( event ) ->
-            log.i "swipe left on '#{@settings.id}'" if DEBUG
+            log.d "swipe left on '#{@settings.id}'" if DEBUG
 
         ###*
         Called for the swiperight event. <br/>
@@ -174,7 +174,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
         @param  {Object} data
         ###
         swipeRight: ( event ) ->
-            log.i "swipe right on '#{@settings.id}'" if DEBUG
+            log.d "swipe right on '#{@settings.id}'" if DEBUG
 
         ###*
         Cordova only.
@@ -183,7 +183,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
         @param {Object} event
         ###
         backButton: ( event ) ->
-            log.i "back button on '#{@settings.id}'" if DEBUG
+            log.d "back button on '#{@settings.id}'" if DEBUG
 
         ###*
         Cordova only.
@@ -192,7 +192,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
         @param {Object} event
         ###
         menuButton: ( event ) ->
-            log.i "menu button on '#{@settings.id}'" if DEBUG
+            log.d "menu button on '#{@settings.id}'" if DEBUG
 
         ###*
         Cordova only.
@@ -200,7 +200,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
         @param {Object} event
         ###
         pause: ( event ) ->
-            log.i "pause event on '#{@settings.id}'" if DEBUG
+            log.d "pause event on '#{@settings.id}'" if DEBUG
 
         ###*
         Cordova only.
@@ -208,7 +208,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
         @param {Object} event
         ###
         resume: ( event ) ->
-            log.i "resume event on '#{@settings.id}'" if DEBUG
+            log.d "resume event on '#{@settings.id}'" if DEBUG
 
         ###*
         Create all references to HTML elements.
@@ -252,7 +252,6 @@ define "pages.PageHandler", ( require, exports, module ) ->
         load: ( pageParams ) ->
 
             if !@settings then throw "invalid page handler"
-
             pageId = @settings.id
             templateId = @settings.templateId || pageId
 
@@ -262,8 +261,8 @@ define "pages.PageHandler", ( require, exports, module ) ->
 
             if templateId and templates[ templateId ]
                 if !document.getElementById pageId
-                    log.i "loading ##{pageId}" if DEBUG
-                    log.i "templateData: #{Utils.toJSON templateData}" if DEBUG
+                    log.d "loading ##{pageId}" if DEBUG
+                    log.d "templateData: #{Utils.toJSON templateData}" if DEBUG
                     # $( templates[ templateId ].render( templateData ) ).appendTo( "body" )
                     UIUtils.append document.body, templates[ templateId ].render( templateData )
             else
@@ -319,7 +318,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
             else
                 @pageParams = options.pageParams
 
-            log.i "options: #{Utils.toJSON options}" if DEBUG
+            log.d "options: #{Utils.toJSON options}" if DEBUG
 
             if templateId and templates[ templateId ]
 
@@ -329,7 +328,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
                 event.options = options
                 preventDefault = @pageBeforeLoad( event ) is false;
                 if event.isDefaultPrevented() || preventDefault
-                    log.i "Loading of #{@settings.id} prevented" if DEBUG
+                    log.d "Loading of #{@settings.id} prevented" if DEBUG
                     return
 
                 # Loading template in DOM
@@ -341,7 +340,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
                 event.options = options
                 preventDefault = @pageBeforeChange( event ) is false
                 if event.isDefaultPrevented() || preventDefault
-                    log.i "Navigation to #{@settings.id} prevented" if DEBUG
+                    log.d "Navigation to #{@settings.id} prevented" if DEBUG
                     return
 
                 # Starting JQM if necessary
@@ -350,11 +349,11 @@ define "pages.PageHandler", ( require, exports, module ) ->
                     @data.isFirst = true
                     PageHandler.JQMInitialized = true
                     changePage = ->
-                        log.i "First page is: ##{pageId}" if DEBUG
+                        log.d "First page is: ##{pageId}" if DEBUG
                         $.mobile.initializePage()
                 else
                     changePage = ->
-                        log.i "Navigating to ##{pageId}" if DEBUG
+                        log.d "Navigating to ##{pageId}" if DEBUG
                         $body.pagecontainer( "change", "#" + pageId, options.jqmOptions );
 
                 # Changing page with a delay if any

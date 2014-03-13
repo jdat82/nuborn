@@ -18,29 +18,30 @@ define "debug.Log", ( require, exports, module ) ->
     ###
     defaults =
         ###*
+        Defines the level of the logs : can be a combination of different levels separated by | (pipe).
+        @type {String}
+        ###
+        level: LogLevel.TRACE
+        ###*
         Defines if the logs should be sent to console.
         @type {Boolean}
         ###
-        console: true,
+        console: true
+        ###
+        For the console channel to add colors
+        ###
+        colors: true
         ###*
         Defines if the logs should be saved in the local storage.
         @type {Boolean}
         ###
-        storage: false,
-        ###*
-        Storage key.
-        ###
-        storageKey: "logs",
+        storage: false
         ###*
         Defines if the logs should be saved in memory.
         @type {Boolean}
         ###
-        memory: false,
-        ###*
-        Defines the level of the logs : can be a combination of different levels separated by | (pipe).
-        @type {String}
-        ###
-        level: LogLevel.INFO
+        memory: false
+
 
 
 
@@ -49,6 +50,11 @@ define "debug.Log", ( require, exports, module ) ->
     @singleton
     Entry point for logs.
     As a default, console is enabled but neither memory nor local storage logs.
+    TODO: change static declaration. It should be possible to add channels dynamically :
+    Log.addChannel(id, ChannelClass)
+    id will serve as a key to enable the channel in settings and to store it in the list of channels
+    TODO: change settings ; replace memory,storage,console by channels: ["memory", "storage", "console"]
+    All others settings should be given to the channel
     ###
     class Log extends Base
 
@@ -77,6 +83,20 @@ define "debug.Log", ( require, exports, module ) ->
         Logs at information level.
         @param  {String} value The information to log
         ###
+        t: ( value ) ->
+            log this, value, LogLevel.TRACE
+
+        ###*
+        Logs at information level.
+        @param  {String} value The information to log
+        ###
+        d: ( value ) ->
+            log this, value, LogLevel.DEBUG
+
+        ###*
+        Logs at information level.
+        @param  {String} value The information to log
+        ###
         i: ( value ) ->
             log this, value, LogLevel.INFO
 
@@ -99,6 +119,13 @@ define "debug.Log", ( require, exports, module ) ->
                     value += Utils.toJSON error
             log this, value, LogLevel.ERROR
 
+        test: ->
+            @t "ceci est une trace"
+            @d "ceci est un debug"
+            @i "ceci est une info"
+            @w "ceci est un warning"
+            @e "ceci est une erreur"
+
         ###*
         Returns a channel
         @param {String} channelName Name of an existing channel. One of CHANNEL_MEMORY, CHANNEL_STORAGE, CHANNEL_CONSOLE.
@@ -107,12 +134,15 @@ define "debug.Log", ( require, exports, module ) ->
         ###
         channel: ( channelName, enabled ) ->
 
+            # Getter
             return @channels[ channelName ] if not enabled?
+
+            # Setter
 
             # Console channel
             if channelName is @CHANNEL_CONSOLE
                 if enabled
-                    @channels[ @CHANNEL_CONSOLE ] = new ConsoleChannel()
+                    @channels[ @CHANNEL_CONSOLE ] = new ConsoleChannel @settings
                 else
                     delete @channels[ @CHANNEL_CONSOLE ]
 
@@ -121,8 +151,7 @@ define "debug.Log", ( require, exports, module ) ->
             # Local Storage channel
             else if channelName is @CHANNEL_STORAGE
                 if enabled
-                    @channels[ @CHANNEL_STORAGE ] = new LocalStorageChannel
-                        storageKey: @settings.storageKey
+                    @channels[ @CHANNEL_STORAGE ] = new LocalStorageChannel @settings
                 else
                     delete @channels[ @CHANNEL_STORAGE ]
 
@@ -131,7 +160,7 @@ define "debug.Log", ( require, exports, module ) ->
             # Memory channel
             else if channelName is @CHANNEL_MEMORY
                 if enabled
-                    @channels[ @CHANNEL_MEMORY ] = new MemoryChannel()
+                    @channels[ @CHANNEL_MEMORY ] = new MemoryChannel @settings
                 else
                     delete @channels[ @CHANNEL_MEMORY ]
 
@@ -175,7 +204,7 @@ define "debug.Log", ( require, exports, module ) ->
         channels = log.channels
 
         # Check if level is activated
-        return if !isLoggable settings, level
+        return if not isLoggable settings, level
 
         logItem = new LogItem( level, val, date )
 
@@ -200,13 +229,17 @@ define "debug.Log", ( require, exports, module ) ->
     isLoggable = ( settings, level ) ->
 
         current = settings.level
-        switch level
+        switch current
+            when LogLevel.TRACE
+                return level in [ LogLevel.TRACE, LogLevel.DEBUG, LogLevel.INFO, LogLevel.WARN, LogLevel.ERROR ]
+            when LogLevel.DEBUG
+                return level in [ LogLevel.DEBUG, LogLevel.INFO, LogLevel.WARN, LogLevel.ERROR ]
             when LogLevel.INFO
-                return current is LogLevel.INFO
+                return level in [ LogLevel.INFO, LogLevel.WARN, LogLevel.ERROR ]
             when LogLevel.WARN
-                return current in [ LogLevel.INFO, LogLevel.WARN ]
+                return level in [ LogLevel.WARN, LogLevel.ERROR ]
             when LogLevel.ERROR
-                return current in [ LogLevel.INFO, LogLevel.WARN, LogLevel.ERROR ]
+                return level is LogLevel.ERROR
             else
                 return false
 

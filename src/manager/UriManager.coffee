@@ -47,7 +47,7 @@ define "manager.UriManager", ( require, exports, module ) ->
         ###
         get: ( id, params, networkName ) ->
 
-            log.i "Searching a url for the service '#{id}' with these parameters: #{Utils.toJSON params}" if DEBUG
+            log.d "Searching a url for the service '#{id}' with these parameters: #{Utils.toJSON params}" if DEBUG
 
             return if !id
 
@@ -64,13 +64,13 @@ define "manager.UriManager", ( require, exports, module ) ->
                 if value.path and not mockEnabled && not value.useMocks
                     if value.network && !networkName
                         host = @getHost value.network
-                        log.i "Found a declared host: #{host}" if DEBUG
+                        log.d "Found a declared host: #{host}" if DEBUG
                     path = value.path
                 else if mockEnabled or value.useMocks
                     # Choosing a random mock
                     path = Utils.randomItemFromArray value.mocks
                     host = this.getHost "mock"
-                    log.i "Found a mock host: #{host}" if DEBUG
+                    log.d "Found a mock host: #{host}" if DEBUG
             else
                 path = value
 
@@ -79,19 +79,19 @@ define "manager.UriManager", ( require, exports, module ) ->
                 nwk = @getNetwork networkName
                 if nwk?.host
                     host = nwk.host
-                    log.i "Found the given host: #{host}" if DEBUG
+                    log.d "Found the given host: #{host}" if DEBUG
                 else
-                    log.i "No host for this network: #{networkName}" if DEBUG
+                    log.d "No host for this network: #{networkName}" if DEBUG
 
             # if no explicit host, using the default one
             if not host and not networkName && @defaultNetwork && @defaultNetwork.host
                 host = @defaultNetwork.host
-                log.i "Found a default host: #{host}" if DEBUG
+                log.d "Found a default host: #{host}" if DEBUG
 
             service = StringUtils.replaceWith path, params
 
             url = host + service
-            log.i "Service url for '#{id}' is: #{url}" if DEBUG
+            log.d "Service url for '#{id}' is: #{url}" if DEBUG
             return url;
 
         ###*
@@ -157,9 +157,9 @@ define "manager.UriManager", ( require, exports, module ) ->
                 return @settings.mock
             @settings.mock = !! status
             if @settings.mock
-                log.i "Mocks ON" if DEBUG
+                log.d "Mocks ON" if DEBUG
             else
-                log.i "Mocks OFF" if DEBUG
+                log.d "Mocks OFF" if DEBUG
             context.set "mock", @settings.mock, true
 
 

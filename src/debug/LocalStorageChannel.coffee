@@ -6,6 +6,17 @@ define "debug.LocalStorageChannel", ( require, exports, module ) ->
     localStorage = require "#localStorage"
     LogLevel = require "debug.LogLevel"
 
+    defaults =
+        ###*
+        Defines if the logs should be saved in the local storage.
+        @type {Boolean}
+        ###
+        storage: true
+        ###*
+        Storage key.
+        ###
+        storageKey: "logs"
+
 
     ###*
     @class debug.LocalStorageChannel
@@ -18,7 +29,7 @@ define "debug.LocalStorageChannel", ( require, exports, module ) ->
         @constructor
         ###
         constructor: ( settings ) ->
-            super settings
+            super defaults, settings
 
         ###*
         @inheritdoc

@@ -33,14 +33,14 @@ define "manager.NewsManager", ( require, exports, module ) ->
             if @lastNewsTimestamp
                 elapsedTime = new Date().getTime() - @lastNewsTimestamp
                 if elapsedTime > 1000*60*60*12
-                    log.i "Forcing news refresh as the elapsed time is #{elapsedTime/1000/60/60} hours"
+                    log.d "Forcing news refresh as the elapsed time is #{elapsedTime/1000/60/60} hours" if DEBUG
                     skipCache = true
 
             newsInCache = context.get "news"
             # If loading news for the first time or seeking fresh data
             if not newsInCache or skipCache
 
-                log.i "Loading fresh news" if DEBUG
+                log.d "Loading fresh news" if DEBUG
 
                 # Remote url
                 url = uris.get "get-news"
@@ -52,7 +52,7 @@ define "manager.NewsManager", ( require, exports, module ) ->
                     # Saving last successful load date
                     @lastNewsTimestamp = new Date().getTime()
 
-                    log.i "Donwloaded fresh news: #{Utils.toJSON data}" if DEBUG
+                    log.d "Donwloaded fresh news: #{Utils.toJSON data}" if DEBUG
 
                     # Simulating network latency
                     setTimeout ->
@@ -68,7 +68,7 @@ define "manager.NewsManager", ( require, exports, module ) ->
 
             # If using the cache
             else
-                log.i "Loading news from the cache" if DEBUG
+                log.d "Loading news from the cache" if DEBUG
                 dfd.resolveWith this, [newsInCache]
 
             return dfd.promise()
@@ -92,7 +92,7 @@ define "manager.NewsManager", ( require, exports, module ) ->
                     log.e "News with id '#{id}' not found" if ERROR
                     dfd.rejectWith this, [Constants.Ajax.RESOURCE_NOT_FOUND]
                 else
-                    log.i "Found news: #{Utils.toJSON result[0]}" if DEBUG
+                    log.d "Found news: #{Utils.toJSON result[0]}" if DEBUG
                     dfd.resolveWith this, [result]
 
             if not id

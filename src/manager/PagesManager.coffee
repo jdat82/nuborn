@@ -414,7 +414,7 @@ define "manager.PagesManager", ( require, exports, module ) ->
 			if not pageHandler then pageHandler = @defaultPageHandler()
 			return false if not pageHandler
 
-			log.i "Starting from hash: #{Utils.toJSON hash}" if DEBUG
+			log.d "Starting from hash: #{Utils.toJSON hash}" if DEBUG
 			pageHandler.navigate
                 urlParams: hash.params
 
@@ -427,10 +427,10 @@ define "manager.PagesManager", ( require, exports, module ) ->
 		interceptHashLinks: () ->
 			$(document).on "click", "a", ( event ) =>
 				el = event.currentTarget
-				log.i "Intercepted link '#{el.href}'" if DEBUG
+				log.d "Intercepted link '#{el.href}'" if DEBUG
 				doNotIntercept = el.dataset.intercept is "false"
 				if doNotIntercept
-					log.i "Link will not be intercepted " if DEBUG
+					log.d "Link will not be intercepted " if DEBUG
 					return true
 				return @navigateFromHash( el.href );
 
@@ -443,15 +443,15 @@ define "manager.PagesManager", ( require, exports, module ) ->
 
 			# If it is not a hash link, nothing to do
 			if !hash?.name
-				log.i "Not a valid hash: #{Utils.toJSON hash}" if DEBUG
+				log.d "Not a valid hash: #{Utils.toJSON hash}" if DEBUG
 				if @_defaultPageHandler
-					log.i "Found a default page handler: #{@_defaultPageHandler.settings.id}. Redirecting..." if DEBUG
+					log.d "Found a default page handler: #{@_defaultPageHandler.settings.id}. Redirecting..." if DEBUG
 					hash =
 						name: @_defaultPageHandler.settings.id
 				else
 					return true
 
-			DEBUG && log.i "Intercepted hash link: ##{hash.name}"
+			log.d "Intercepted hash link: ##{hash.name}" if DEBUG
 			pageHandler = @pageHandlers[hash.name]
 
 			if pageHandler
@@ -465,21 +465,21 @@ define "manager.PagesManager", ( require, exports, module ) ->
 		Listening the popstate event to detect backward navigation in history.
 		###
 		onPopState: ( event ) ->
-			log.i "============ POPSTATE ============" if TRACE
+			log.t "============ POPSTATE ============" if TRACE
 			console.log event if TRACE
 
 		onHashChange: ( event ) ->
-			log.i "============ HASHCHANGE ============" if TRACE
+			log.t "============ HASHCHANGE ============" if TRACE
 			console.log event if TRACE
 
 		onNavigate: ( event ) ->
-			log.i "============ NAVIGATE ============" if TRACE
+			log.t "============ NAVIGATE ============" if TRACE
 			console.log event if TRACE
 			# Getting the native javascript PopStateEvent state
 			state = event.originalEvent.originalEvent.state
 			# No state, no navigation
 			return if not state
-			log.i "Detected a history event" if DEBUG
+			log.d "Detected a history event" if DEBUG
 			# Navigating back to the previous page
 			return @navigateFromHash state.hash
 

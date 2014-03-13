@@ -100,14 +100,14 @@
 
         # Pure web
         if !BrowserUtils.isCordova()
-            log.i "Used as a Web App"
+            log.i "Used as a Web App" if INFO
             # Leveraging the manifest if possible
             require "#appCache"
             UIUtils.showSplashScreen()
             app.init()
         # Cordova
         else
-            log.i "Used as a Hybrid App"
+            log.i "Used as a Hybrid App" if INFO
             document.addEventListener "deviceready", app.init.bind( app ), false
 
 

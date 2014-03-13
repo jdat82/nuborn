@@ -6,6 +6,13 @@ define "debug.MemoryChannel", ( require, exports, module ) ->
     LogLevel = require "debug.LogLevel"
     LogItem = require "debug.LogItem"
 
+    defaults =
+        ###*
+        Defines if the logs should be saved in memory.
+        @type {Boolean}
+        ###
+        memory: true
+
     ###*
     @class debug.MemoryChannel
     @extends debug.AbstractChannel
@@ -17,7 +24,7 @@ define "debug.MemoryChannel", ( require, exports, module ) ->
         @constructor
         ###
         constructor: ( settings ) ->
-            super settings
+            super defaults, settings
             @stack = []
 
         ###*

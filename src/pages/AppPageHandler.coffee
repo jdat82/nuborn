@@ -58,7 +58,11 @@ define "pages.AppPageHandler", ( require, exports, module ) ->
         ###
         backButton: ( event ) ->
             super event
-            history.back();
+            if @settings.exitOnBack
+                log.i "Exiting app" if INFO
+                navigator.app?.exitApp()
+            else
+                history.back();
 
         ###*
         Handle click on page back button.
@@ -70,6 +74,7 @@ define "pages.AppPageHandler", ( require, exports, module ) ->
                 # Prevent bubbling
                 return false
             , false
+
         ###
         @override
         @inheritdoc

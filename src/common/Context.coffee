@@ -73,8 +73,8 @@ define "common.Context", ( require, exports, module ) ->
         set: ( key, value, save ) ->
             if key
                 @data[ key ] = value
-                log.i "Setted #{key} in context" if not TRACE and DEBUG
-                log.i "Setted #{key} to #{typeof(value) is 'string' ? value : Utils.toJSON value} in context" if TRACE
+                log.d "Setted #{key} in context" if not TRACE and DEBUG
+                log.t "Setted #{key} to #{typeof(value) is 'string' ? value : Utils.toJSON value} in context" if TRACE
 
             save ?= this.settings.synchronizeInLocalStorage;
 
@@ -95,12 +95,12 @@ define "common.Context", ( require, exports, module ) ->
         clear: (key) ->
             if key
                 delete @data[key]
-                log.i "Key '#{key}' cleared in context" if DEBUG
+                log.d "Key '#{key}' cleared in context" if DEBUG
                 localStorage.remove this.settings.localStorageKey + "." + key
             else
                 eventsBroker.dispatch Context.EVENT_CLEARING
                 @data = {}
-                log.i "Context cleared" if DEBUG
+                log.d "Context cleared" if DEBUG
                 localStorage.removeFromPattern this.settings.localStorageKey
                 eventsBroker.dispatch Context.EVENT_CLEARED
 

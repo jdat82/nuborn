@@ -29,8 +29,8 @@ define "widgets.Offline", ( require, exports, module ) ->
 
         isNetworkAvailable = NetworkUtils.isNetworkAvailable()
 
-        log.i "Network Available : #{isNetworkAvailable}" if DEBUG
-        log.i "Event: #{event.type}" if TRACE
+        log.d "Network Available : #{isNetworkAvailable}" if DEBUG
+        log.t "Event: #{event.type}" if TRACE
 
         if isNetworkAvailable then messageWidget.hide() else messageWidget.offline()
 
