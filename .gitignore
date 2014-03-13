@@ -3,13 +3,13 @@
 **.sublime-workspace
 .sass-cache/
 node_modules/
-vendors/
 gen/
 
 # web
 build/nuborn/platforms/web/
 
 # android
+build/nuborn/.metadata
 build/nuborn/platforms/android/assets/www/
 build/nuborn/platforms/android/gen/
 build/nuborn/platforms/android/bin/

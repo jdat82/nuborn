@@ -1,0 +1,14 @@
+{
+  "name": "fpsmeter",
+  "homepage": "https://github.com/kaizouman/fpsmeter",
+  "_release": "e25d14fd34",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "e25d14fd34c4e0fe64ccbfe951d7c50541fa2e25"
+  },
+  "_source": "https://github.com/kaizouman/fpsmeter.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/kaizouman/fpsmeter.git",
+  "_direct": true
+}
