@@ -516,10 +516,10 @@ module.exports = ( grunt ) ->
                 interrupt: true
                 spawn: false
             css:
-                files: [ "<%= scssFiles %>", "<%= scssAsyncFiles %>" ]
+                files: [ "<%= scssFiles %>", "<%= scssAsyncFiles %>", "conf/*.json" ]
                 tasks: [ "css" ]
             js:
-                files: [ "<%= coffeeAppFiles %>", "<%= coffeeAsyncFiles %>", "<%= templateFiles %>" ]
+                files: [ "<%= coffeeAppFiles %>", "<%= coffeeAsyncFiles %>", "<%= templateFiles %>", "conf/*.json" ]
                 tasks: [ "javascript" ]
             htmlmin:
                 files: "<%= htmlFiles %>"
