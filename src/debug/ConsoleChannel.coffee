@@ -46,13 +46,12 @@ define "debug.ConsoleChannel", ( require, exports, module ) ->
             string = logItem.toString()
             if @settings.colors
                 switch logItem.level
-                    when LogLevel.DEBUG then pattern = "color: #0074D9;"
-                    when LogLevel.INFO then pattern = "color: #29c14e;"
-                    when LogLevel.WARN then pattern = "color: #ff8000;"
+                    when LogLevel.TRACE then pattern = "color: #996666"
+                    when LogLevel.DEBUG then pattern = "color: #0074D9"
+                    when LogLevel.INFO then pattern = "color: #29c14e"
+                    when LogLevel.WARN then pattern = "color: #ff8000"
             switch logItem.level
-                when LogLevel.TRACE
-                    console.trace string
-                when LogLevel.DEBUG, LogLevel.INFO, LogLevel.WARN
+                when LogLevel.TRACE, LogLevel.DEBUG, LogLevel.INFO, LogLevel.WARN
                     if pattern then console.log "%c" + string, pattern else console.log string
                 when LogLevel.ERROR
                     console.error string

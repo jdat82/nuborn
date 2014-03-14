@@ -465,16 +465,16 @@ define "manager.PagesManager", ( require, exports, module ) ->
 		Listening the popstate event to detect backward navigation in history.
 		###
 		onPopState: ( event ) ->
-			log.t "============ POPSTATE ============" if TRACE
-			console.log event if TRACE
+			log.t "popstate event" if TRACE
+			# console.log event if TRACE
 
 		onHashChange: ( event ) ->
-			log.t "============ HASHCHANGE ============" if TRACE
-			console.log event if TRACE
+			log.t "hashchange event" if TRACE
+			# console.log event if TRACE
 
 		onNavigate: ( event ) ->
-			log.t "============ NAVIGATE ============" if TRACE
-			console.log event if TRACE
+			log.t "navigate event" if TRACE
+			# console.log event if TRACE
 			# Getting the native javascript PopStateEvent state
 			state = event.originalEvent.originalEvent.state
 			# No state, no navigation
