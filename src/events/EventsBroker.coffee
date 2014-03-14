@@ -37,7 +37,7 @@ define "events.EventsBroker", ( require, exports, module ) ->
 		###
 		on: ( type, callback ) ->
 			return if not type
-			document.addEventListener type, callback, false
+			document.addEventListener type, callback
 
 		###*
 		Unregister <callback> for events of type <type>
@@ -46,7 +46,7 @@ define "events.EventsBroker", ( require, exports, module ) ->
 		###
 		off: ( type, callback ) ->
 			return if not type
-			document.removeEventListener type, callback, false
+			document.removeEventListener type, callback
 
 
 	module.exports = EventsBroker

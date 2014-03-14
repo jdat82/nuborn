@@ -50,7 +50,6 @@ define "pages.SettingsPageHandler", ( require, exports, module ) ->
 			# Handling change event
 			@html.animateCheckbox.addEventListener "change", ->
 				settingsManager.toggleAnimations()
-			, false
 			# Initializing default state
 			@html.animateCheckbox.checked = settingsManager.animations()
 
@@ -67,14 +66,12 @@ define "pages.SettingsPageHandler", ( require, exports, module ) ->
 				# Relaunching boot process
 				bootManager.boot().done ->
 					require( "pages#home" ).navigate()
-			, false
 
 		navigate: (options) ->
 			# TODO hide the animate line if settingsManager.animations() is false
 			super options
 
 	module.exports = SettingsPageHandler
-
 
 define "pages#settings", ( require, exports, module ) ->
 

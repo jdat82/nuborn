@@ -328,7 +328,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
                 event.options = options
                 preventDefault = @pageBeforeLoad( event ) is false;
                 if event.isDefaultPrevented() || preventDefault
-                    log.d "Loading of #{@settings.id} prevented" if DEBUG
+                    log.i "Loading of #{@settings.id} prevented" if INFO
                     return
 
                 # Loading template in DOM
@@ -340,7 +340,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
                 event.options = options
                 preventDefault = @pageBeforeChange( event ) is false
                 if event.isDefaultPrevented() || preventDefault
-                    log.d "Navigation to #{@settings.id} prevented" if DEBUG
+                    log.i "Navigation to #{@settings.id} prevented" if INFO
                     return
 
                 # Starting JQM if necessary
@@ -349,11 +349,11 @@ define "pages.PageHandler", ( require, exports, module ) ->
                     @data.isFirst = true
                     PageHandler.JQMInitialized = true
                     changePage = ->
-                        log.d "First page is: ##{pageId}" if DEBUG
+                        log.i "First page is: ##{pageId}" if INFO
                         $.mobile.initializePage()
                 else
                     changePage = ->
-                        log.d "Navigating to ##{pageId}" if DEBUG
+                        log.i "Navigating to ##{pageId}" if INFO
                         $body.pagecontainer( "change", "#" + pageId, options.jqmOptions );
 
                 # Changing page with a delay if any

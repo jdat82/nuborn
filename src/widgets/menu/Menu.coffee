@@ -41,7 +41,6 @@ define "widgets.Menu", ( require, exports, module ) ->
 
     module.exports = Menu
 
-
 ###
 Shared instance of the menu
 ###

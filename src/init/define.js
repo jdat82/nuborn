@@ -31,7 +31,7 @@
     require = function ( id ) {
         if ( !modules[ id ] ) {
             // throw "module " + id + " not found";
-            console.warn( "module " + id + " not found" );
+            console.log( "%cmodule " + id + " not found", "color: #ff8000" );
             return;
         }
         else if ( id in inProgressModules ) {

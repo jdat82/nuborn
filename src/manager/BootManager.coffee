@@ -45,7 +45,7 @@ define "manager.BootManager", ( require, exports, module ) ->
 
     # When all promises are resolved, we can go ahead
     done = ( deferred ) ->
-        log.d "All asynchronous tasks at startup are done. Loading first page." if DEBUG
+        log.i "All asynchronous tasks at startup are done. Loading first page." if INFO
         deferred.resolve()
 
     # Boot failed

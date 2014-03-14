@@ -26,6 +26,8 @@ define "pages.HomePageHandler", ( require, exports, module ) ->
 				id: "home"
 				singleton: true
 				default: true
+				swipe: false
+				exitOnBack: true
 
 		###*
 		@override
@@ -101,26 +103,12 @@ define "pages.HomePageHandler", ( require, exports, module ) ->
 			navigator.app?.exitApp()
 
 		###
-		@override
-		@inheritdoc
-		Deactivating swipe effect in home page (useless)
-		###
-		swipeRight: ->
-
-		###
-		@override
-		@inheritdoc
-		Deactivating swipe effect in home page (useless)
-		###
-		swipeLeft: ->
-
-		###
 		Intercept the navigate call.
 		Allows us to preload data or even stop navigation.
 		###
 		navigate: (options) ->
 
-			log.i "Current options: #{Utils.toJSON options}" if DEBUG
+			log.d "Current options: #{Utils.toJSON options}" if DEBUG
 
 			newsManager.news()
 			.done (data) =>

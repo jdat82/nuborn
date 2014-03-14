@@ -34,7 +34,7 @@ define "cache.AppCache", ( require, exports, module ) ->
 					appCache.swapCache()
 					window.location.reload() if DEBUG or (!DEBUG and confirm 'A new version of this site is available. Load it ?')
 
-			appCache.addEventListener 'updateready', newHotness, false
+			appCache.addEventListener 'updateready', newHotness
 
 
 	module.exports = AppCache

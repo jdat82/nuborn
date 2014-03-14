@@ -50,7 +50,6 @@ define "pages.AppPageHandler", ( require, exports, module ) ->
                 @menuButton()
                 # Prevent bubbling
                 return false
-            , false
 
         ###
         @override
@@ -73,7 +72,6 @@ define "pages.AppPageHandler", ( require, exports, module ) ->
                 @backButton()
                 # Prevent bubbling
                 return false
-            , false
 
         ###
         @override
@@ -81,8 +79,17 @@ define "pages.AppPageHandler", ( require, exports, module ) ->
         Going back on a swipe right.
         ###
         swipeRight: ( event ) ->
+            return if not @settings.swipe
             super event
             @backButton()
+
+        ###
+        @override
+        @inheritdoc
+        ###
+        swipeLeft: ( event ) ->
+            return if not @settings.swipe
+            super event
 
         ###
         @override

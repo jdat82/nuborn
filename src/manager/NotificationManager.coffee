@@ -23,25 +23,25 @@ define "manager.NotificationManager", ( require, exports, module ) ->
         reset: ->
 
             if !window.PushNotification
-                log.d "Detected zero push mechanism" if DEBUG
+                log.i "Detected zero push mechanism" if INFO
                 return
 
-            log.d "Detected Urban Airship push mechanism" if DEBUG
+            log.i "Detected Urban Airship push mechanism" if INFO
 
             # Handle resume
-            document.removeEventListener "resume", onResume, false
-            document.addEventListener "resume", onResume, false
+            document.removeEventListener "resume", onResume
+            document.addEventListener "resume", onResume
 
             # Handle pause
-            document.removeEventListener "pause", onPause, false
-            document.addEventListener "pause", onPause, false
+            document.removeEventListener "pause", onPause
+            document.addEventListener "pause", onPause
 
             # Register for any urban airship events
-            document.removeEventListener "urbanairship.registration", onRegistration, false
-            document.addEventListener "urbanairship.registration", onRegistration, false
+            document.removeEventListener "urbanairship.registration", onRegistration
+            document.addEventListener "urbanairship.registration", onRegistration
 
-            document.removeEventListener "urbanairship.push", handleIncomingPush, false
-            document.addEventListener "urbanairship.push", handleIncomingPush, false
+            document.removeEventListener "urbanairship.push", handleIncomingPush
+            document.addEventListener "urbanairship.push", handleIncomingPush
 
             PushNotification.setVibrateEnabled true, ( status ) ->
                 if status is "OK"
@@ -87,15 +87,15 @@ define "manager.NotificationManager", ( require, exports, module ) ->
         PushNotification.resetBadge()
         PushNotification.getIncoming handleIncomingPush
         # Reregister for urbanairship events if they were removed in pause event
-        document.addEventListener "urbanairship.registration", onRegistration, false
-        document.addEventListener "urbanairship.push", handleIncomingPush, false
+        document.addEventListener "urbanairship.registration", onRegistration
+        document.addEventListener "urbanairship.push", handleIncomingPush
         registerTags()
 
     onPause = ->
         log.d "Application has gone to background" if DEBUG
         # Remove urbanairship events.  Important on android to not receive push in the background.
-        document.removeEventListener "urbanairship.registration", onRegistration, false
-        document.removeEventListener "urbanairship.push", handleIncomingPush, false
+        document.removeEventListener "urbanairship.registration", onRegistration
+        document.removeEventListener "urbanairship.push", handleIncomingPush
 
 
     module.exports = NotificationManager

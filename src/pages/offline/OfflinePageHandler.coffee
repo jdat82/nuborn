@@ -42,8 +42,6 @@ define "pages.OfflinePageHandler", ( require, exports, module ) ->
 				require( "manager#boot" ).boot().done ->
 					require( "pages#home" ).navigate()
 
-			, false
-
 
 	module.exports = OfflinePageHandler
 

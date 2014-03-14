@@ -40,7 +40,7 @@
 
                 # Removing 300 ms classic delay in mobile browsers
                 # http://updates.html5rocks.com/2013/12/300ms-tap-delay-gone-away
-                # FastClick.attach document.body
+                FastClick.attach document.body
 
                 # Configuring jQuery ajax default settings
                 $.ajaxSetup require "#ajaxSettings"
@@ -108,10 +108,10 @@
         # Cordova
         else
             log.i "Used as a Hybrid App" if INFO
-            document.addEventListener "deviceready", app.init.bind( app ), false
+            document.addEventListener "deviceready", app.init.bind( app )
 
 
     # Wwhen the Document is ready, GO GO GO
-    document.addEventListener "DOMContentLoaded", ready, false
+    document.addEventListener "DOMContentLoaded", ready
 
 ).call()
