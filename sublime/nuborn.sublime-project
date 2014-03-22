@@ -6,8 +6,11 @@
         "name": "Vendors",
         "path": "../vendors"
     }, {
+        "name": "Tests",
+        "path": "../tests"
+    }, {
         "name": "Resources",
         "path": "..",
-        "folder_exclude_patterns": [ "build", "docs", "fonts", "node_modules", "gen", "vendors", "src", ".sass-cache" ]
+        "folder_exclude_patterns": [ "build", "docs", "fonts", "node_modules", "gen", "vendors", "src", "tests", ".sass-cache" ]
     } ]
 }

@@ -139,6 +139,14 @@ module.exports = ( grunt ) ->
         ]
 
         ###
+        Javascript test files.
+        ###
+        jsTestsFiles: [
+            "gen/tests/*.js" # App sources
+            "!gen/tests/*.{async,off}.{js,min.js}" # excluding all async and off files
+        ]
+
+        ###
         Javascript compilation
         ###
         uglify:
@@ -153,7 +161,7 @@ module.exports = ( grunt ) ->
                             "WEB": false
                         }
                     } ),
-                    "ignore": [ "<%= jsVendorsFiles %>", "<%= jsAsyncFiles %>" ]
+                    # "ignore": [ "<%= jsVendorsFiles %>", "<%= jsAsyncFiles %>" ]
                 files: [ {
                     "<%= platforms.android.folder %>/js/app.min.js": [
                         "<%= platforms.android.folder %>/../../platform_www/*.js"
@@ -177,7 +185,7 @@ module.exports = ( grunt ) ->
                             "WEB": false
                         }
                     } ),
-                    "ignore": [ "<%= jsVendorsFiles %>", "<%= jsAsyncFiles %>" ]
+                    # "ignore": [ "<%= jsVendorsFiles %>", "<%= jsAsyncFiles %>" ]
                 files: [ {
                     "<%= platforms.ios.folder %>/js/app.min.js": [
                         "<%= platforms.ios.folder %>/../platform_www/*.js"
@@ -200,14 +208,19 @@ module.exports = ( grunt ) ->
                             "IOS": false
                             "WEB": true
                     } )
-                    ignore: [ "<%= jsVendorsFiles %>", "<%= jsAsyncFiles %>" ]
-                    # Define an entry source map to map coffee files to gen/app.js
-                    # "sourceMapIn": "gen/src/app.js.map"
-                    # Define the sourcemap file name
+                    # ignore: [ "<%= jsVendorsFiles %>", "<%= jsAsyncFiles %>" ]
+                    ###
+                    Define an entry source map to map coffee files to gen/app.js
+                    ###
+                    # sourceMapIn: "gen/src/app.js.map"
+                    ###
+                    Define the sourcemap file name
+                    ###
                     sourceMap: ( filepath ) ->
-                        return "#{filepath}.map" if profile isnt "prod"
-                        return "" # no sourcemap in prod
-                    # Define the sourcemap sourceMappingURL attribute value in the generated js files
+                        if profile isnt "prod" then return "#{filepath}.map" else return ""
+                    ###
+                    Define the sourcemap sourceMappingURL attribute value in the generated js files
+                    ###
                     sourceMappingURL: ( filepath ) ->
                         if profile isnt "prod"
                             path = require "path"
@@ -216,27 +229,30 @@ module.exports = ( grunt ) ->
                             return "#{filepath}.map"
                         else
                             return "" # no sourcemap in prod
-                    # Define the sourcemap source attribute value (useful to map on a symbolic link)
+                    ###
+                    Define the sourcemap source attribute value (useful to map on a symbolic link)
+                    ###
                     sourceMapRoot: "App"
-                files: [ {
-                    "<%= platforms.web.folder %>/js/app.min.js": [
-                        "<%= jsVendorsFiles %>"
-                        "<%= jsAppFiles %>"
-                    ]
-                }, {
+                files: [
+                    dest: "<%= platforms.web.folder %>/js/app.min.js"
+                    src: [ "<%= jsVendorsFiles %>", "<%= jsAppFiles %>" ]
+                ,
                     dest: "<%= platforms.web.folder %>/js"
                     src: [ "<%= jsAsyncFiles %>" ]
                     expand: true
                     flatten: true
                     ext: ".min.js"
-                } ]
+                ,
+                    dest: "<%= platforms.web.folder %>/js/tests.min.js"
+                    src: [ "<%= jsTestsFiles %>" ]
+                ]
 
         ###
         Common coffee sources files for all platforms
         ###
         coffeeAppFiles: [
             "src/**/*.coffee", # App sources
-            "!src/**/*.{async,off}.coffee" # excluding all async files which will be requested manually
+            "!src/**/*.{async,off}.coffee" # excluding all async and off files
         ]
 
         ###
@@ -248,26 +264,57 @@ module.exports = ( grunt ) ->
         ]
 
         ###
+        Tests files
+        ###
+        coffeeTestFiles: [
+            "tests/**/*.coffee", # Tests sources
+            "!tests/**/*.{async,off}.coffee" # excluding all async and off files
+        ]
+
+        ###
+        These tests files will be requested manually asynchronously and not merged in the global file.
+        ###
+        coffeeAsyncTestFiles: [
+            "tests/**/*.async.coffee"
+            "!tests/**/*.async.off.coffee"
+        ]
+
+        ###
         Compile and tansform coffee scripts files to javascript files.
         ###
         coffee:
-            options:
-                bare: true
-                join: false
-                sourceMap: false
-            common:
-                files: [ {
+            src:
+                options:
+                    bare: true
+                    join: false
+                    sourceMap: false
+                files: [
                     dest: "gen/src/app.js"
                     src: "<%= coffeeAppFiles %>"
                     # dest: "gen/"
                     # expand: true
                     # ext: ".js"
-                }, {
+                ,
                     dest: "gen/"
                     src: "<%= coffeeAsyncFiles %>"
                     expand: true
                     ext: ".async.js"
-                } ]
+                ]
+            tests:
+                options:
+                    bare: false
+                    join: false
+                    sourceMap: false
+                files: [
+                    dest: "gen/tests/tests.js"
+                    src: "<%= coffeeTestsFiles %>"
+                ,
+                    dest: "gen/"
+                    src: "<%= coffeeAsyncTestFiles %>"
+                    expand: true
+                    ext: ".async.js"
+                ]
+
 
         ###
         Common teplates for all platforms
@@ -386,6 +433,13 @@ module.exports = ( grunt ) ->
         ]
 
         ###
+        HTML tests files common to all platforms.
+        ###
+        htmlTestsFiles: [
+            "tests/**/*.html"
+        ]
+
+        ###
         HTML minification
         ###
         htmlmin:
@@ -405,12 +459,17 @@ module.exports = ( grunt ) ->
                     flatten: true
                 } ]
             web:
-                files: [ {
+                files: [
                     dest: "<%= platforms.web.folder %>/"
                     src: [ "<%= htmlFiles %>" ]
                     expand: true
                     flatten: true
-                } ]
+                ,
+                    dest: "<%= platforms.web.folder %>/"
+                    src: [ "<%= htmlTestsFiles %>" ]
+                    expand: true
+                    flatten: true
+                ]
 
         ###
         Image files common to all platforms
@@ -646,6 +705,62 @@ module.exports = ( grunt ) ->
                 dest: "<%= platforms.web.folder %>/js/App"
 
 
+        ###
+        Karma configuration. Tests auto pilot.
+        ###
+        karma:
+            options:
+                # base path that will be used to resolve all patterns (eg. files, exclude)
+                basePath: '<%= platforms.web.folder %>'
+                # frameworks to use
+                # available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+                frameworks: ['mocha']
+                # list of files / patterns to load in the browser
+                files: [
+                    tests.html
+                ]
+                # list of files to exclude
+                exclude: [
+
+                ]
+                # preprocess matching files before serving them to the browser
+                # available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+                # preprocessors:
+                #   'tests/**/*.coffee': ['coffee']
+                # coffeePreprocessor:
+                #     # options passed to the coffee compiler
+                #     options:
+                #         bare: true
+                #         join: true
+                #         sourceMap: false
+                #     # transforming the filenames
+                #     transformPath: (path) ->
+                #         return path.replace /\.coffee$/, '.js'
+                # test results reporter to use
+                # possible values: 'dots', 'progress'
+                # available reporters: https://npmjs.org/browse/keyword/karma-reporter
+                reporters: ['progress']
+                # web server port
+                port: 9876
+                # enable / disable colors in the output (reporters and logs)
+                colors: true
+                # level of logging
+                # possible values:
+                # - config.LOG_DISABLE
+                # - config.LOG_ERROR
+                # - config.LOG_WARN
+                # - config.LOG_INFO
+                # - config.LOG_DEBUG
+                logLevel: config.LOG_INFO
+                # enable / disable watching file and executing tests whenever any file changes
+                autoWatch: false
+                # start these browsers
+                # available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+                browsers: ["Chrome"]
+                # Continuous Integration mode
+                # if true, Karma captures browsers, runs the tests and exits
+                singleRun: false
+
 
     ###
     Loading grunt plugins
@@ -670,6 +785,7 @@ module.exports = ( grunt ) ->
     grunt.loadNpmTasks 'grunt-autoprefixer'
     grunt.loadNpmTasks 'grunt-contrib-coffee'
     grunt.loadNpmTasks 'grunt-contrib-symlink'
+    grunt.loadNpmTasks('grunt-karma');
 
 
 
