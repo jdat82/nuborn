@@ -15,6 +15,9 @@
 	<body>
 		<!-- Loading application scripts -->
 		<script src="js/app.min.js"></script>
-		<script src="js/boot.min.js"></script>
+		<script type="text/javascript">
+			// When the Document is ready, GO GO GO
+    		document.addEventListener("DOMContentLoaded", require("#boot"))
+		</script>
 	</body>
 </html>

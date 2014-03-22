@@ -1,4 +1,4 @@
-define "app", ( require, exports, module ) ->
+define "#app", ( require, exports, module ) ->
 
     'use strict'
 

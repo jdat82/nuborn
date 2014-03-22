@@ -1,11 +1,11 @@
-( () ->
+define "#boot", ( require, exports, module ) ->
 
     'use strict'
 
     ###
     Callback function called when the DOM is ready.
     ###
-    ready = () ->
+    module.exports = ->
 
         $ = jQuery
 
@@ -16,7 +16,7 @@
         BrowserUtils = require "utils.BrowserUtils"
         UIUtils = require "utils.UIUtils"
 
-        app = require "app"
+        app = require "#app"
 
         # Pure web
         if !BrowserUtils.isCordova()
@@ -29,9 +29,3 @@
         else
             log.i "Used as a Hybrid App" if INFO
             document.addEventListener "deviceready", app.init.bind app
-
-
-    # Wwhen the Document is ready, GO GO GO
-    document.addEventListener "DOMContentLoaded", ready
-
-).call()
