@@ -1,0 +1,1 @@
+Copyright http://tobiasahlin.com/spinkit/
