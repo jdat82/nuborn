@@ -140,22 +140,3 @@
    top: -9999px !important;
    left: -9999px !important;
 }
-
-// les scrollbars ne fonctionnent pas bien dans safari mobile
-// pour qu'elles n'apparaissent que s'il faut scroller, on ne les affiche
-// que si la classe .show-scrollbar est présente
-// c'est la responsabilité du développeur d'ajouter cette classe au DOM au besoin
-// ::-webkit-scrollbar {
-//     -webkit-appearance: none;
-//     width: 6px;
-//     right: 5px;
-// }
-// ::-webkit-scrollbar-track {
-//     background-color: rgba(156, 156, 156, .6);
-//     border-radius: 4px;
-// }
-// ::-webkit-scrollbar-thumb {
-//     border-radius: 4px;
-//     background-color: rgba(57,57,57, .6);
-// }
-

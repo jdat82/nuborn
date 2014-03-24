@@ -139,14 +139,6 @@ module.exports = ( grunt ) ->
         ]
 
         ###
-        Javascript test files.
-        ###
-        jsTestsFiles: [
-            "gen/tests/*.js" # App sources
-            "!gen/tests/*.{async,off}.{js,min.js}" # excluding all async and off files
-        ]
-
-        ###
         Javascript compilation
         ###
         uglify:
@@ -242,9 +234,6 @@ module.exports = ( grunt ) ->
                     expand: true
                     flatten: true
                     ext: ".min.js"
-                ,
-                    dest: "<%= platforms.web.folder %>/js/tests.min.js"
-                    src: [ "<%= jsTestsFiles %>" ]
                 ]
 
         ###
@@ -261,22 +250,6 @@ module.exports = ( grunt ) ->
         coffeeAsyncFiles: [
             "src/**/*.async.coffee"
             "!src/**/*.async.off.coffee"
-        ]
-
-        ###
-        Tests files
-        ###
-        coffeeTestFiles: [
-            "tests/**/*.coffee", # Tests sources
-            "!tests/**/*.{async,off}.coffee" # excluding all async and off files
-        ]
-
-        ###
-        These tests files will be requested manually asynchronously and not merged in the global file.
-        ###
-        coffeeAsyncTestFiles: [
-            "tests/**/*.async.coffee"
-            "!tests/**/*.async.off.coffee"
         ]
 
         ###
@@ -300,21 +273,6 @@ module.exports = ( grunt ) ->
                     expand: true
                     ext: ".async.js"
                 ]
-            tests:
-                options:
-                    bare: false
-                    join: false
-                    sourceMap: false
-                files: [
-                    dest: "gen/tests/tests.js"
-                    src: "<%= coffeeTestsFiles %>"
-                ,
-                    dest: "gen/"
-                    src: "<%= coffeeAsyncTestFiles %>"
-                    expand: true
-                    ext: ".async.js"
-                ]
-
 
         ###
         Common teplates for all platforms
@@ -433,13 +391,6 @@ module.exports = ( grunt ) ->
         ]
 
         ###
-        HTML tests files common to all platforms.
-        ###
-        htmlTestsFiles: [
-            "tests/**/*.html"
-        ]
-
-        ###
         HTML minification
         ###
         htmlmin:
@@ -462,11 +413,6 @@ module.exports = ( grunt ) ->
                 files: [
                     dest: "<%= platforms.web.folder %>/"
                     src: [ "<%= htmlFiles %>" ]
-                    expand: true
-                    flatten: true
-                ,
-                    dest: "<%= platforms.web.folder %>/"
-                    src: [ "<%= htmlTestsFiles %>" ]
                     expand: true
                     flatten: true
                 ]
@@ -704,62 +650,86 @@ module.exports = ( grunt ) ->
                 src: "."
                 dest: "<%= platforms.web.folder %>/js/App"
 
-
         ###
         Karma configuration. Tests auto pilot.
         ###
         karma:
             options:
-                # base path that will be used to resolve all patterns (eg. files, exclude)
-                basePath: '<%= platforms.web.folder %>'
-                # frameworks to use
-                # available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+                # Base path that will be used to resolve all patterns (eg. files, exclude)
+                basePath: ''
+                # Frameworks to use
+                # Available frameworks: https://npmjs.org/browse/keyword/karma-adapter
                 frameworks: ['mocha']
-                # list of files / patterns to load in the browser
-                files: [
-                    tests.html
-                ]
-                # list of files to exclude
-                exclude: [
-
-                ]
-                # preprocess matching files before serving them to the browser
-                # available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-                # preprocessors:
-                #   'tests/**/*.coffee': ['coffee']
-                # coffeePreprocessor:
-                #     # options passed to the coffee compiler
-                #     options:
-                #         bare: true
-                #         join: true
-                #         sourceMap: false
-                #     # transforming the filenames
-                #     transformPath: (path) ->
-                #         return path.replace /\.coffee$/, '.js'
-                # test results reporter to use
-                # possible values: 'dots', 'progress'
-                # available reporters: https://npmjs.org/browse/keyword/karma-reporter
-                reporters: ['progress']
-                # web server port
+                # Preprocess matching files before serving them to the browser
+                # Available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+                preprocessors:
+                  'tests/src/**/*.coffee': ['coffee']
+                coffeePreprocessor:
+                    # Options passed to the coffee compiler
+                    options:
+                        bare: true
+                        join: true
+                        sourceMap: false
+                    # Transforming the filenames
+                    transformPath: (path) ->
+                        return path.replace /\.coffee$/, '.js'
+                # Test results reporter to use
+                # Possible values: 'dots', 'progress'
+                # Available reporters: https://npmjs.org/browse/keyword/karma-reporter
+                reporters: ['mocha']
+                # Web server port
                 port: 9876
-                # enable / disable colors in the output (reporters and logs)
+                # Enable / disable colors in the output (reporters and logs)
                 colors: true
-                # level of logging
-                # possible values:
-                # - config.LOG_DISABLE
-                # - config.LOG_ERROR
-                # - config.LOG_WARN
-                # - config.LOG_INFO
-                # - config.LOG_DEBUG
-                logLevel: config.LOG_INFO
-                # enable / disable watching file and executing tests whenever any file changes
-                autoWatch: false
-                # start these browsers
-                # available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-                browsers: ["Chrome"]
+                # Level of logging
+                # Possible values:
+                # - OFF
+                # - ERROR
+                # - WARN
+                # - INFO
+                # - DEBUG
+                logLevel: "INFO"
+                # Enable / disable watching file and executing tests whenever any file changes
+                autoWatch: true
                 # Continuous Integration mode
-                # if true, Karma captures browsers, runs the tests and exits
-                singleRun: false
+                # If true, Karma captures browsers, runs the tests and exits
+                # singleRun: true
+            android:
+                options:
+                    # List of files / patterns to load in the browser
+                    files: [
+                        "<%= platforms.android.folder %>/js/app.min.js"
+                        "tests/vendors/**"
+                        "tests/src/**"
+                    ]
+                    # List of files to exclude
+                    exclude: [
+                    ]
+            ios:
+                options:
+                    # List of files / patterns to load in the browser
+                    files: [
+                        "<%= platforms.ios.folder %>/js/app.min.js"
+                        "tests/vendors/**"
+                        "tests/src/**"
+                    ]
+                    # List of files to exclude
+                    exclude: [
+                    ]
+            web:
+                options:
+                    # List of files / patterns to load in the browser
+                    files: [
+                        "<%= platforms.web.folder %>/js/app.min.js"
+                        "tests/vendors/**"
+                        "tests/src/**"
+                    ]
+                    # List of files to exclude
+                    exclude: [
+                    ]
+                    # Start these browsers
+                    # Available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+                    browsers: ["Chrome"]
 
 
     ###
