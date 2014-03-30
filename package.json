@@ -37,6 +37,7 @@
     "karma-chrome-launcher": "^0.1.2",
     "karma-phantomjs-launcher": "^0.1.2",
     "karma-ios-launcher": "0.0.3",
-    "karma-mocha-reporter": "^0.2.2"
+    "karma-mocha-reporter": "^0.2.2",
+    "karma-spec-reporter": "0.0.12"
   }
 }

@@ -1,4 +1,4 @@
-define "#uris", ( require, exports, module ) ->
+define "ajax#uris", ( require, exports, module ) ->
 
     'use strict'
 
@@ -17,8 +17,8 @@ define "#uris", ( require, exports, module ) ->
             "backend":
                 "host": BACKEND
                 "default": true
-            "mock":
-                "host": "mock"
+            "mocks":
+                "host": "mocks"
             "current":
                 "host": getCurrentHost()
         services:

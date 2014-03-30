@@ -14,8 +14,8 @@ define "debug.AbstractChannel", ( require, exports, module ) ->
 		###*
 		@constructor
 		###
-		constructor: ( settings ) ->
-			super null, settings
+		constructor: ( defaults, settings ) ->
+			super defaults, settings
 
 		###*
 		Log the value parameter with the level specified.

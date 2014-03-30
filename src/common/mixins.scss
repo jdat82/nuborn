@@ -2,40 +2,6 @@
  * @provide mixins
  */
 
-/*
- * FYI : animation property accepts these arguments :
- * name, duration, timingFunction, iteration, delay, direction, fillMode, playState
- * http://www.w3.org/TR/css3-animations/#animation-shorthand-property
- */
-
-/**
- * Vendorize animations declarations.
- */
-@mixin animation($animations...) {
-  -webkit-animation: $animations;
-  -moz-animation: $animations;
-  -ms-animation: $animations;
-  -o-animation: $animations;
-}
-
-/**
- * To create a custom animation for every prefix.
- */
-@mixin keyframes($name) {
-  @-webkit-keyframes #{$name} {
-    @content;
-  }
-  @-moz-keyframes #{$name} {
-    @content;
-  }
-  @-ms-keyframes #{$name} {
-    @content;
-  }
-  @keyframes #{$name} {
-    @content;
-  }
-}
-
 /**
  * To create a linear-gradient for every prefix.
  */

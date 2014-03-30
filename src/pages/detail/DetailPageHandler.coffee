@@ -28,7 +28,7 @@ define "pages.DetailPageHandler", ( require, exports, module ) ->
 		@inheritdoc
 		###
 		navigate: (options) ->
-			if not options?.urlParams
+			if not options?.urlParams?.newsId
 				log.e "Mandatory argument 'newsId' not found"
 				messageWidget.error "News non trouvée"
 				return

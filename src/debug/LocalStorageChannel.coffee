@@ -3,7 +3,7 @@ define "debug.LocalStorageChannel", ( require, exports, module ) ->
     'use strict'
 
     AbstractChannel = require "debug.AbstractChannel"
-    localStorage = require "#localStorage"
+    localStorage = require "cache#local"
     LogLevel = require "debug.LogLevel"
 
     defaults =

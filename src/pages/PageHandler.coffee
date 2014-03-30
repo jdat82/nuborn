@@ -91,11 +91,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
 
             @data.visible = false
             if !@settings.singleton
-                # Cleaning references to HTML elements & data objects
-                # as they will be recreated every time we go back to the page
-                @html.page.parentNode.removeChild(@html.page)
-                @deleteHtmlElements()
-                @deleteDataElements()
+                @pageRemove()
 
         ###*
         Called for the pagebeforeshow event.
@@ -151,14 +147,17 @@ define "pages.PageHandler", ( require, exports, module ) ->
         #     log.d "page load of '#{@settings.id}'" if DEBUG
 
         ###*
-        Called for the pageremove event. <br/>
+        Not a jQuery event, since we don't load external pages from ajax.
         Also clean references to HTML elements & Data Objects in prototype mode,
         i.e. when page is removed each time we go away.
-        @param  {Object} event
-        @param  {Object} data
         ###
-        # pageRemove: ( event, data ) ->
-        #     log.d "page remove of '#{@settings.id}'" if DEBUG
+        pageRemove: () ->
+            log.d "page remove of '#{@settings.id}'" if DEBUG
+            # Cleaning references to HTML elements & data objects
+            # as they will be recreated every time we go back to the page
+            UIUtils.remove @html.page
+            @deleteHtmlElements()
+            @deleteDataElements()
 
         ###*
         Called for the swipeleft event. <br/>
@@ -222,25 +221,6 @@ define "pages.PageHandler", ( require, exports, module ) ->
         Create all references to data objects.
         ###
         createDataElements: ->
-
-        ###*
-        Delete all references to HTML elements.
-        ###
-        deleteHtmlElements: ->
-            if @html
-                for key of @html
-                    delete @html[ key ]
-                    return # Important: tells coffee to not return a result array
-
-        ###*
-        Delete all references to data objects.
-        ###
-        deleteDataElements: () ->
-            if @data
-                for key of @data
-                    delete @data[ key ]
-                    return # Important: tells coffee to not return a result array
-
 
         ###*
         Utility method to load a page
@@ -310,7 +290,7 @@ define "pages.PageHandler", ( require, exports, module ) ->
                 if serializedParams
                     options.jqmOptions.dataUrl += "?" + serializedParams
                 if not options.pageParams
-                    @pageParams = options.urlParams
+                    options.pageParams = options.urlParams
 
             # Little commodity page handlers (always there)
             if not options.pageParams

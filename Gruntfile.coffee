@@ -102,10 +102,10 @@ module.exports = ( grunt ) ->
             root: "build/nuborn"
             android:
                 folder: "<%= platforms.root %>/platforms/android/assets/www"
-                active: false
+                active: true
             ios:
                 folder: "<%= platforms.root %>/platforms/ios/www"
-                active: false
+                active: true
             web:
                 folder: "<%= platforms.root %>/platforms/web"
                 active: true
@@ -303,8 +303,8 @@ module.exports = ( grunt ) ->
         Common css files for all platforms
         ###
         scssFiles: [
-            "{vendors,src}/**/*.{css,min.css,scss,min.scss}"
-            "!{vendors,src}/**/*.{async,off}.{css,min.css,scss,min.scss}"
+            "{vendors,src,fonts}/**/*.{css,min.css,scss,min.scss}"
+            "!{vendors,src,fonts}/**/*.{async,off}.{css,min.css,scss,min.scss}"
         ]
 
         ###
@@ -454,7 +454,7 @@ module.exports = ( grunt ) ->
         ###
         Static resources common to all platforms.
         ###
-        hierarchicalStaticsFiles: [ "fonts/**", "mock/**" ]
+        hierarchicalStaticsFiles: [ "fonts/**", "mocks/**", "img/*.svg" ]
 
         ###
         Let's copy some static files.
@@ -529,7 +529,7 @@ module.exports = ( grunt ) ->
             htmlmin:
                 files: "<%= htmlFiles %>"
                 tasks: [ "htmlmin", "manifest" ]
-            mock:
+            mocks:
                 files: "<%= hierarchicalStaticsFiles %>"
                 tasks: [ "copy" ]
 
@@ -676,7 +676,7 @@ module.exports = ( grunt ) ->
                 # Test results reporter to use
                 # Possible values: 'dots', 'progress'
                 # Available reporters: https://npmjs.org/browse/keyword/karma-reporter
-                reporters: ['mocha']
+                reporters: ['spec']
                 # Web server port
                 port: 9876
                 # Enable / disable colors in the output (reporters and logs)

@@ -4,11 +4,12 @@ define "manager.SettingsManager", ( require, exports, module ) ->
 
     $ = jQuery
     log = require "#log"
-    localStorage = require "#localStorage"
+    constants = require "common.Constants"
+    localStorage = require "cache#local"
     StressTest = require "widgets.StressTest"
     Utils = require "utils.Utils"
     Manager = require "manager.Manager"
-    eventsBroker = require "#eventsBroker"
+    eventsBroker = require "events#broker"
     context = require "#context"
     Context = require "common.Context"
 

@@ -6,7 +6,7 @@ define "manager.NewsManager", ( require, exports, module ) ->
     log = require "#log"
     Manager = require "manager.Manager"
     Utils = require "utils.Utils"
-    uris = require "#uris"
+    ajax = require "ajax#ajax"
     context = require "#context"
     Constants = require "common.Constants"
 
@@ -42,29 +42,26 @@ define "manager.NewsManager", ( require, exports, module ) ->
 
                 log.d "Loading fresh news" if DEBUG
 
-                # Remote url
-                url = uris.get "get-news"
+                ajax.get("get-news")
 
-                $.get(url)
-                # Ajax success
-                .done (data) ->
+                    # Ajax success
+                    .done (data) ->
+                        # Saving last successful load date
+                        @lastNewsTimestamp = new Date().getTime()
 
-                    # Saving last successful load date
-                    @lastNewsTimestamp = new Date().getTime()
+                        log.d "Donwloaded fresh news: #{Utils.toJSON data}" if DEBUG
 
-                    log.d "Donwloaded fresh news: #{Utils.toJSON data}" if DEBUG
+                        # Simulating network latency
+                        setTimeout ->
+                            # Saving in context and local storage
+                            context.set "news", data, true
+                            dfd.resolveWith this, [data]
+                        , 5000
 
-                    # Simulating network latency
-                    setTimeout ->
-                        # Saving in context and local storage
-                        context.set "news", data, true
-                        dfd.resolveWith this, [data]
-                    , 5000
-
-                # Ajax failure
-                .fail (error) ->
-                    log.e "Can't load news: ", error if ERROR
-                    dfd.rejectWith this, [error]
+                    # Ajax failure
+                    .fail (error) ->
+                        log.e "Can't load news: ", error if ERROR
+                        dfd.rejectWith this, [error]
 
             # If using the cache
             else

@@ -5,7 +5,7 @@ describe "common.Context", ->
     log = require "#log"
     Utils = require "utils.Utils"
     context = require "#context"
-    localStorage = require "#localStorage"
+    localStorage = require "cache#local"
     expect = chai.expect
 
     beforeEach ->

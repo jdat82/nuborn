@@ -3,14 +3,23 @@
         "name": "App",
         "path": "../src"
     }, {
-        "name": "Vendors",
-        "path": "../vendors"
-    }, {
         "name": "Tests",
         "path": "../tests"
     }, {
-        "name": "Resources",
+        "name": "Vendors",
+        "path": "../vendors"
+    }, {
+        "name": "Conf",
+        "path": "../conf"
+    }, {
+        "name": "Mocks",
+        "path": "../mocks"
+    }, {
+        "name": "Fonts",
+        "path": "../fonts"
+    }, {
+        "name": "Autre",
         "path": "..",
-        "folder_exclude_patterns": [ "build", "docs", "fonts", "node_modules", "gen", "vendors", "src", "tests", ".sass-cache" ]
+        "folder_exclude_patterns": [ "build", "docs", "fonts", "node_modules", "gen", "vendors", "src", "tests", ".sass-cache", "conf", "mocks" ]
     } ]
 }

@@ -14,11 +14,11 @@ define "common.Context", ( require, exports, module ) ->
 
 
     $ = jQuery
-    localStorage = require "#localStorage"
+    localStorage = require "cache#local"
     log = require "#log"
     Base = require "common.Base"
     Utils = require "utils.Utils"
-    eventsBroker = require "#eventsBroker"
+    eventsBroker = require "events#broker"
     Constants = require "common.Constants"
 
     ###*

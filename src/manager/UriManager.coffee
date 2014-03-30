@@ -7,7 +7,7 @@ define "manager.UriManager", ( require, exports, module ) ->
     defaults =
         networks: {}
         services: {}
-        mock: false
+        mocks: false
 
     $ = jQuery
     log = require "#log"
@@ -36,7 +36,7 @@ define "manager.UriManager", ( require, exports, module ) ->
         constructor: ( settings ) ->
             super defaults, settings
             @findDefaultNetwork()
-            @mock context.get "mock"
+            @mocks context.get "mocks"
 
         ###*
         Return a service url built by concatenating the right host and the service path.
@@ -55,21 +55,21 @@ define "manager.UriManager", ( require, exports, module ) ->
 
             host = ""
             value = @settings.services[ id ]
-            mockEnabled = @settings.mock
+            mocksEnabled = @settings.mocks
 
             # When specifying a service path, you can use the shortand notation with a simple string
             # or an object with a url and network properties.
             path = ""
             if value instanceof Object
-                if value.path and not mockEnabled && not value.useMocks
+                if value.path and not mocksEnabled && not value.useMocks
                     if value.network && !networkName
                         host = @getHost value.network
                         log.d "Found a declared host: #{host}" if DEBUG
                     path = value.path
-                else if mockEnabled or value.useMocks
+                else if mocksEnabled or value.useMocks
                     # Choosing a random mock
                     path = Utils.randomItemFromArray value.mocks
-                    host = this.getHost "mock"
+                    host = this.getHost "mocks"
                     log.d "Found a mock host: #{host}" if DEBUG
             else
                 path = value
@@ -95,20 +95,29 @@ define "manager.UriManager", ( require, exports, module ) ->
             return url;
 
         ###*
-        Returns <networkName>'s' host.
-        @param {String} networkName name of the network to use
+        Returns <name>'s' host.
+        @param {String} name name of the network
         ###
-        getHost: ( networkName ) ->
-            if networkName && @settings.networks?[ networkName ]
-                return @settings.networks[ networkName ].host
+        getHost: ( name ) ->
+            return if not name
+            network = @settings.networks?[ name ]
+            return network.host
 
         ###*
-        Returns <networkName>'s network object.
-        @param {String} networkName name of the network to use
+        Returns <name>'s network configuration.
+        @param {String} name name of the network
         ###
-        getNetwork: ( networkName ) ->
-            if networkName && @settings.networks?[ networkName ]
-                return @settings.networks[ networkName ]
+        getNetwork: ( name ) ->
+            return if not name
+            return @settings.networks?[ name ]
+
+        ###*
+        Returns <name>'s service configuration.
+        @param {String} name name of the service
+        ###
+        getService: (name) ->
+            return if not name
+            return @settings.services?[name]
 
         ###*
         Add a new network.
@@ -152,15 +161,15 @@ define "manager.UriManager", ( require, exports, module ) ->
         Getter/Setter for mocks.
         @param {Boolean} status true or false
         ###
-        mock: ( status ) ->
+        mocks: ( status ) ->
             if not status?
-                return @settings.mock
-            @settings.mock = !! status
-            if @settings.mock
+                return @settings.mocks
+            @settings.mocks = !! status
+            if @settings.mocks
                 log.d "Mocks ON" if DEBUG
             else
                 log.d "Mocks OFF" if DEBUG
-            context.set "mock", @settings.mock, true
+            context.set "mocks", @settings.mocks, true
 
 
 

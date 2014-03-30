@@ -142,6 +142,7 @@ define "debug.Log", ( require, exports, module ) ->
             # Console channel
             if channelName is @CHANNEL_CONSOLE
                 if enabled
+                    delete @channels[ @CHANNEL_CONSOLE ]
                     @channels[ @CHANNEL_CONSOLE ] = new ConsoleChannel @settings
                 else
                     delete @channels[ @CHANNEL_CONSOLE ]
@@ -151,6 +152,7 @@ define "debug.Log", ( require, exports, module ) ->
             # Local Storage channel
             else if channelName is @CHANNEL_STORAGE
                 if enabled
+                    delete @channels[ @CHANNEL_STORAGE ]
                     @channels[ @CHANNEL_STORAGE ] = new LocalStorageChannel @settings
                 else
                     delete @channels[ @CHANNEL_STORAGE ]
@@ -160,6 +162,7 @@ define "debug.Log", ( require, exports, module ) ->
             # Memory channel
             else if channelName is @CHANNEL_MEMORY
                 if enabled
+                    delete @channels[ @CHANNEL_MEMORY ]
                     @channels[ @CHANNEL_MEMORY ] = new MemoryChannel @settings
                 else
                     delete @channels[ @CHANNEL_MEMORY ]
@@ -178,7 +181,7 @@ define "debug.Log", ( require, exports, module ) ->
             if not Modernizr.localstorage
                 @settings[ @CHANNEL_STORAGE ] = false
 
-            # Creating channels based on settings
+            # Updating channels based on settings
             @channel @CHANNEL_CONSOLE, @settings[ @CHANNEL_CONSOLE ]
             @channel @CHANNEL_MEMORY, @settings[ @CHANNEL_MEMORY ]
             @channel @CHANNEL_STORAGE, @settings[ @CHANNEL_STORAGE ]

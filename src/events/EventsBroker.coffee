@@ -55,7 +55,7 @@ define "events.EventsBroker", ( require, exports, module ) ->
 ###
 Shared instance
 ###
-define "#eventsBroker", ( require, exports, module ) ->
+define "events#broker", ( require, exports, module ) ->
 
 	'use strict'
 

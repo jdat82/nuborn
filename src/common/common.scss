@@ -3,12 +3,8 @@
  *
  * @require mixins
  * @require classes
- * @require icons
  * @require imports
  * @require vars
- * @require Roboto
- * @require Champagne
- * @require Montserrat
  */
 
 /**
@@ -28,17 +24,52 @@ a {
 /**
  * Used for every pressable element.
  */
+.animationfriendly .pressable{
+    transition: transform .5s;
+    &:active{
+        transform: scaleX(1.2);
+    }
+}
 .button {
 	&:active{
 		color: $blue !important;
 	}
 }
-/**
- * Used for fixed pages with a background image.
- */
-.bg-fixed{
-	background-size: cover;
+[data-role=header] .title{
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 400;
+    line-height: 3rem;
+    color: $softBlack;
+    position: absolute;
+    left: 2rem;
+    right: 2rem;
+    span{
+        margin-right: $padding;
+    }
+}
+.header-button {
+
+    @extend .button;
+
+    font-size: 1.6em;
+    padding: 0rem 1rem;
+    margin: 0 .2rem;
+    display: inline-block;
+    line-height: $headerHeight;
+    height: 100%;
+    z-index: 1;
+    position: relative;
     background-repeat: no-repeat;
     background-position: center;
+    color: $blue;
+
+    &.left {
+        float: left;
+    }
+
+    &.right {
+        float: right;
+    }
 }
 

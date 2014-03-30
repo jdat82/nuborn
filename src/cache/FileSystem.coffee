@@ -1,4 +1,4 @@
-define "cache.FileSystemCache", ( require, exports, module ) ->
+define "cache.FileSystem", ( require, exports, module ) ->
 
     'use strict'
 
@@ -86,12 +86,12 @@ define "cache.FileSystemCache", ( require, exports, module ) ->
                     fileTransfer.download(
                         url,
                         filePath,
-                        ( entry ) ->
+                        ( entry ) =>
                             log.d "Download complete: #{entry.fullPath}" if DEBUG
                             # Returning a local URI
                             dfd.resolveWith entry.fullPath
                         ,
-                        ( error ) ->
+                        ( error ) =>
                             log.e "Download error : ", error if DEBUG
                             dfd.rejectWith error
                         ,
@@ -100,7 +100,7 @@ define "cache.FileSystemCache", ( require, exports, module ) ->
                         }
                     )
 
-            fileExists = ( fileEntry ) ->
+            fileExists = ( fileEntry ) =>
                 log.d "A copy of media #{key} already in cache (file system)" if DEBUG
                 # Returning a local URI
                 dfd.resolveWith fileEntry.fullPath
@@ -161,7 +161,7 @@ define "cache.FileSystemCache", ( require, exports, module ) ->
 ###
 The shared instance
 ###
-define "#fileCache", ( require, exports, module ) ->
+define "cache#file", ( require, exports, module ) ->
 
     'use strict'
 

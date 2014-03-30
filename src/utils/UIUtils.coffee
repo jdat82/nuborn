@@ -52,16 +52,13 @@ define "utils.UIUtils", ( require, exports, module ) ->
                 element.removeEventListener type, fn, capture
             element.addEventListener type, fn, capture
 
-        @blockEvent = ( event ) ->
-            return false
-
         @disableScroll = ( element ) ->
             el = element || document
-            $( el ).on "touchmove", @blockEvent
+            $( el ).on "touchmove", blockEvent
 
         @enableScroll = ( element ) ->
             el = element || document
-            $( el ).off "touchmove", @blockEvent
+            $( el ).off "touchmove", blockEvent
 
         ###*
         [Warning] Doesn't work if page handler is in prototype mode.
@@ -125,6 +122,10 @@ define "utils.UIUtils", ( require, exports, module ) ->
             # Disabling press mode
             element.off "vmousedown", onvmousedown
 
+
+
+    blockEvent = ( event ) ->
+        return false
 
     ###*
     Handle active state on button the portable way.

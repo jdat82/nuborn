@@ -18,12 +18,13 @@ define "cache.LocalStorage", ( require, exports, module ) ->
 		@param {String} key    The key for the saved object
 		@param {Object|String|Number} object The object to save
 		###
-		set: ( key, object ) ->
+		set: ( key, object, stringify = true ) ->
 			return if !Modernizr.localstorage
 			# Stringifying the object as JSON
-			string = JSON.stringify object
+			if stringify
+				string = JSON.stringify object
 			# Saving the stringify result into local storage
-			localStorage.setItem key, string
+			localStorage.setItem key, string || object
 			log = require "#log"
 			log.d "Key '#{key}' saved in local storage" if DEBUG
 
@@ -78,7 +79,7 @@ define "cache.LocalStorage", ( require, exports, module ) ->
 
 
 
-	loadKey = ( key ) ->
+	loadKey = ( key, parse = true ) ->
 
 		# Getting previously saved object with the specified key from local storage
 		string = localStorage.getItem key
@@ -86,18 +87,19 @@ define "cache.LocalStorage", ( require, exports, module ) ->
 		return string if string is null
 
 		# If string is not null, proceed
-		object = null
-		try
-			# Parsing the string as JSON to get the object
-			object = JSON.parse string
-		catch error
-			# If an error occured during parsing JSON, set result object as the string
-			object = string
+		if parse
+			object = null
+			try
+				# Parsing the string as JSON to get the object
+				object = JSON.parse string
+			catch error
+				# If an error occured during parsing JSON, set result object as the string
+				object = string
 
 		log = require "#log"
 		log.d "Found key '#{key}' in local storage" if DEBUG
 
-		return object
+		return object || string
 
 
 
@@ -107,7 +109,7 @@ define "cache.LocalStorage", ( require, exports, module ) ->
 ###
 The shared instance
 ###
-define "#localStorage", ( require, exports, module ) ->
+define "cache#local", ( require, exports, module ) ->
 
 	'use strict'
 

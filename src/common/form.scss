@@ -1,0 +1,107 @@
+/**
+ * The vocation of this file is to aggregate common styles for form elements in eStationnement.
+ * @provide form-common
+ * @require vars
+ */
+$inputHeight: 2.5rem;
+
+form{
+    width: 100%;
+    // height: 100%;
+    padding: $padding;
+    text-align: center;
+    color: white;
+    position: absolute;
+    top: 15%;
+    @media only screen and (max-height: 480px){
+        top: 12%;
+    }
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.wrapper{
+    margin-bottom: .2rem;
+    width: 90%;
+    padding: $padding $padding 2*$padding $padding;
+    display: inline-block;
+    input{
+        margin-bottom: $margin;
+        border: none;
+        outline: none;
+        background: none;
+        height: 100%;
+        font-size: 1rem;
+        width: 100%;
+        padding: $padding;
+        color: $softBlack;
+        background: white;
+    }
+}
+label{
+    text-align: left;
+    font-size: .8rem;
+}
+.input-wrapper{
+    height: $inputHeight;
+    line-height: $inputHeight;
+    margin-bottom: 1rem;
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+input{
+    border-radius: 0;
+}
+.input-message{
+    color: red !important;
+    @extend input[type=text];
+    height: 100%;
+    font-size: .9rem;
+}
+input[type=text]{
+    background: white;
+    color: $softBlack;
+    border: none;
+    outline: none;
+}
+#submit-wrapper{
+    width: 90%;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    height: 3.5rem;
+    line-height: 3.5rem;
+    &.loading{
+        background: #666;
+        #submit-input{
+            transform: translateY(-100%);
+        }
+        .loader-wrapper{
+            visibility: visible;
+            transform: translateY(0%);
+        }
+    }
+}
+#submit-input{
+    background: transparent;
+    transition: transform .5s;
+}
+.loader-wrapper{
+    &.absolute {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        width: 40px;
+        height: 40px;
+    }
+    visibility: hidden;
+    transform: translateY(100%);
+    transition: transform .5s;
+    [class*=dot]{
+        background-color: white;
+    }
+}

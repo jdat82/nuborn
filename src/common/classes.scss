@@ -17,47 +17,47 @@
  * Position absolute.
  */
 .pa {
-	position:absolute;
+  position:absolute;
 }
 
 /**
  * Position relative.
  */
 .pr {
-	position:relative;
+  position:relative;
 }
 
 /**
  * Display inline-block.
  */
 .dib {
-	display:inline-block;
+  display:inline-block;
 }
 
 /**
  * Display block.
  */
 .db {
-	display:block;
+  display:block;
 }
 
 /**
  * Display none.
  */
 .dn {
-	display: none;
+  display: none;
 }
 
 .fullwidth {
-	width:100%;
+  width:100%;
 }
 
 .fullheight {
-	height:100%;
+  height:100%;
 }
 
 .fullscreen {
-	position: fixed;
+  position: fixed;
   top: 0; left: 0; bottom: 0; right: 0;
   width: 100%; height: 100%;
 }

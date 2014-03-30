@@ -466,15 +466,15 @@ define "manager.PagesManager", ( require, exports, module ) ->
 		###
 		onPopState: ( event ) ->
 			log.t "popstate event" if TRACE
-			# console.log event if TRACE
+			console.dir event if TRACE
 
 		onHashChange: ( event ) ->
 			log.t "hashchange event" if TRACE
-			# console.log event if TRACE
+			console.dir event if TRACE
 
 		onNavigate: ( event ) ->
 			log.t "navigate event" if TRACE
-			# console.log event if TRACE
+			console.dir event if TRACE
 			# Getting the native javascript PopStateEvent state
 			state = event.originalEvent.originalEvent.state
 			# No state, no navigation

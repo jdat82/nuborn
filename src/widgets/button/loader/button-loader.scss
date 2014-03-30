@@ -1,0 +1,23 @@
+.button-wrapper{
+    position: relative;
+    overflow: hidden;
+}
+.loader-common{
+    transition: transform .5s;
+    width: 100%;
+    height: 100%;
+}
+#submit-wrapper .button{
+  @extend .loader-common;
+}
+.loader{
+    @extend .loader-common;
+    visibility: hidden;
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    transform: translateY(100%);
+    margin: auto;
+}
+.button-wrapper.loading .loader{
+  transform: translateY(0);
+}

@@ -41,7 +41,7 @@ define "#app", ( require, exports, module ) ->
             FastClick.attach document.body
 
             # Configuring jQuery ajax default settings
-            $.ajaxSetup require "#ajaxSettings"
+            $.ajaxSetup require "ajax#settings"
 
             # Installing scripts that will help remote debugging
             Utils.installDebugScripts() if DEBUG

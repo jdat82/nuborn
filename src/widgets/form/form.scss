@@ -1,0 +1,30 @@
+/**
+ * The vocation of this file is to aggregate common css behavior for form elements in eStationnement.
+ * Meaning all messages are rendered with a rise transition which replace the input content.
+ * Each form element should have this type of structure :
+ * .input-wrapper
+ *     input
+ *     .input-message
+ */
+.input-wrapper{
+  position: relative;
+  overflow: hidden;
+}
+.form-common{
+  transition: transform .5s;
+  width: 100%;
+  height: 100%;
+}
+input[type=text]{
+  @extend .form-common;
+}
+.input-message{
+  transform: translateY(100%);
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  margin: auto;
+  @extend .form-common;
+}
+input.invalid ~ .input-message{
+  transform: translateY(0);
+}
