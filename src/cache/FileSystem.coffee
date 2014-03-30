@@ -51,13 +51,13 @@ define "cache.FileSystem", ( require, exports, module ) ->
             if !BrowserUtils.isCordova() && !window?.FileTransfer
                 errorMsg = "Can't cache in file system without Cordova FileTransfer API"
                 log.w errorMsg
-                dfd.rejectWith errorMsg
+                dfd.rejectWith @, [errorMsg]
                 return dfd.promise()
 
             if !url?.length
                 errorMsg = "Missing URL"
                 Log.w errorMsg
-                dfd.rejectWith errorMsg
+                dfd.rejectWith @, [errorMsg]
                 return dfd.promise()
 
             settings = $.extend true, {}, defaults, settings
@@ -89,11 +89,11 @@ define "cache.FileSystem", ( require, exports, module ) ->
                         ( entry ) =>
                             log.d "Download complete: #{entry.fullPath}" if DEBUG
                             # Returning a local URI
-                            dfd.resolveWith entry.fullPath
+                            dfd.resolveWith @, [entry.fullPath]
                         ,
                         ( error ) =>
                             log.e "Download error : ", error if DEBUG
-                            dfd.rejectWith error
+                            dfd.rejectWith @, [error]
                         ,
                         false, {
                             headers: settings.headers
@@ -103,7 +103,7 @@ define "cache.FileSystem", ( require, exports, module ) ->
             fileExists = ( fileEntry ) =>
                 log.d "A copy of media #{key} already in cache (file system)" if DEBUG
                 # Returning a local URI
-                dfd.resolveWith fileEntry.fullPath
+                dfd.resolveWith @, [fileEntry.fullPath]
 
             # Checking if we already have this resource in file system
             rootFS.getFile( filePath, {

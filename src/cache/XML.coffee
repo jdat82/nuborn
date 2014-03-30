@@ -39,7 +39,7 @@ define "cache.XML", ( require, exports, module ) ->
             if not url
                 errorMsg = "Missing URL"
                 Log.w errorMsg if WARN
-                dfd.rejectWith errorMsg
+                dfd.rejectWith @, [errorMsg]
                 return dfd.promise()
 
             settings = $.extend true, {}, defaults, settings
@@ -51,10 +51,10 @@ define "cache.XML", ( require, exports, module ) ->
 
             if settings.skipDownload
                 if localStorage.get(key) isnt null
-                    dfd.resolveWith key
+                    dfd.resolveWith @, [key]
                     return dfd.promise()
                 else
-                    dfd.rejectWith "Not in cache"
+                    dfd.rejectWith @, ["Not in cache"]
                     return dfd.promise()
 
             # Not in cache
@@ -67,18 +67,18 @@ define "cache.XML", ( require, exports, module ) ->
 
                 .done (data) =>
                     localStorage.set key, @data.xml.serializeToString(data.documentElement), false
-                    dfd.resolveWith key
+                    dfd.resolveWith @, [key]
 
                 .fail (error) =>
                     log.e "Failed to load #{url} with error: #{error}" if ERROR
-                    dfd.rejectWith error
+                    dfd.rejectWith @, [error]
 
                 return dfd.promise()
 
             else
                 # Already in cache
                 log.d "A copy of #{key} already in local storage" if DEBUG
-                dfd.resolveWith key
+                dfd.resolveWith @, [key]
                 return dfd.promise()
 
 
