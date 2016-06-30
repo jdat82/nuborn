@@ -1,3 +1,6 @@
+[EDIT]: This is an old project of mine which was pertinent when jquery mobile was hype. It is not used anymore and I'm not sure there is still people in the world using jquery mobile :)
+
+
 Nuborn
 ======
 
